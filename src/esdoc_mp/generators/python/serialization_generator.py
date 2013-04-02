@@ -1,5 +1,5 @@
 """
-.. module:: esdoc_mp.generators.python.decoding_generator.py
+.. module:: esdoc_mp.generators.python.serialization_generator.py
    :platform: Unix, Windows
    :synopsis: Generates code to support serialization.
 
@@ -57,7 +57,7 @@ def get_class_decoder_function_name(name):
     return 'decode_{0}'.format(name)
 
 
-class DecodingGenerator(Generator):
+class SerializationGenerator(Generator):
     """Generates code to support serialization.
 
     """

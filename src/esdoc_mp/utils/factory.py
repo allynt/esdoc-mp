@@ -16,7 +16,7 @@ def _get_generators_for_python():
 
     """
     from esdoc_mp.generators.python import (
-        DecodingGenerator,
+        SerializationGenerator,
         RootGenerator,
         TypesGenerator,
         ValidationGenerator
@@ -25,7 +25,7 @@ def _get_generators_for_python():
     return {
         'root' : RootGenerator,
         'types' : TypesGenerator,
-        'decoding' : DecodingGenerator,
+        'serialization' : SerializationGenerator,
         'validation' : ValidationGenerator
     }
 

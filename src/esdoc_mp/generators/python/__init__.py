@@ -11,6 +11,6 @@
 """
 
 from esdoc_mp.generators.python.root_generator import RootGenerator
+from esdoc_mp.generators.python.serialization_generator import SerializationGenerator
 from esdoc_mp.generators.python.types_generator import TypesGenerator
-from esdoc_mp.generators.python.decoding_generator import DecodingGenerator
 from esdoc_mp.generators.python.validation_generator import ValidationGenerator
