@@ -1,7 +1,7 @@
-esdoc-py-mp
+esdoc-mp
 ===========
 
-Python meta-programming framework in support of ES-DOC eco-system.
+Meta-programming framework in support of ES-DOC eco-system.
 
 
 What is ES-DOC ?
@@ -10,29 +10,27 @@ What is ES-DOC ?
 ES-DOC stands for Earth Science - Documentation.  It's goal is to provide software tools and services in order to support the distribution of earth science documentation.
 
 
-What is esdoc-py-mp ?
+What is esdoc-mp ?
 --------------------------------------
 
-esdoc-py-mp is an extensible domain driven design meta-progamming utility written in python.  It is an essential part of the ES-DOC eco-system of tools & services that allows developers to work with metadata in the encoding of their choice and in the programming language of their choice.
+esdoc-mp is an extensible domain driven design meta-progamming utility written in python.  It is an essential part of the ES-DOC eco-system of tools & services that allows developers to work with metadata in the encoding of their choice and in the programming language of their choice.
 
-esdoc-py-mp achieves this by parsing a pythonic representation of metadata schema(s) and generating code in various programming languages.
+esdoc-mp achieves this by parsing a pythonic representation of a domain metadata schema and generating code in various programming languages.  
 
 
-Why esdoc-py-mp ?
+Why esdoc-mp ?
 --------------------------------------
 
-Metadata is typically encoded in an formats that are complex in structure and large  in size.  Working with this xml directly is highly inefficient in terms of developer productivity.
-
-It was clear that this issue could only be resolved by radically simplifying deserialisation of metadata so that developers could work with plain objects in the programming language of their choice.
+Metadata is typically complex in structure and highly inefficient in terms of developer productivity.  By radically simplifying the deserialisation of metadata so that developers can work with plain objects in the programming language of their choice has been objectively proven to be a strong boost to developer productivity.
 
 
-Who uses esdoc-py-mp ?
+Who uses esdoc-mp ?
 --------------------------------------
 
-esdoc-py-mp supports the whole of the ES-DOC eco-system of tools and services.
+esdoc-mp supports the whole of the ES-DOC eco-system of tools and services.  It also used by other projects.
 
 
-What are the contents of esdoc-py-mp ?
+What are the contents of esdoc-mp ?
 --------------------------------------
 
     \docs        		Documentation (rst).
