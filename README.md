@@ -21,7 +21,7 @@ esdoc-mp achieves this by parsing a pythonic representation of a domain metadata
 Why esdoc-mp ?
 --------------------------------------
 
-Metadata is typically complex in structure and highly inefficient in terms of developer productivity.  By radically simplifying the deserialisation of metadata so that developers can work with plain objects in the programming language of their choice has been objectively proven to be a strong boost to developer productivity.
+Metadata handling is typically complex and highly inefficient in terms of developer productivity.  esdoc-mp simmplifyies metadata handling by allowing developers to work with simple objects in the programming language of their choice.  This approach has been objectively proven to be a strong boost to developer productivity.
 
 
 Who uses esdoc-mp ?
