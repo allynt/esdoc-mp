@@ -271,7 +271,7 @@ def _numerical_requirement():
             ('description', 'str', '0.1', None),
             ('id', 'str', '0.1', None),
             ('name', 'str', '1.1', None),
-            ('options', 'activity.requirement_option', '0.N', None),
+            ('options', 'activity.numerical_requirement_option', '0.N', None),
             ('requirement_type', 'str', '1.1', 'Type of reqirement to which the experiment must conform.'),
         ],
         'decodings' : [
@@ -283,6 +283,28 @@ def _numerical_requirement():
     }
     
 
+def _numerical_requirement_option():
+    """Creates and returns instance of numerical_requirement_option class."""
+    return {
+        'type' : 'class',
+        'name' : 'numerical_requirement_option',
+        'base' : None,
+        'abstract' : False,
+        'doc' : 'A NumericalRequirement that is being used as a set of related requirements; For example if a requirement is to use 1 of 3 boundary conditions, then that "parent" requirement would have three "child" RequirmentOptions (each of one with the XOR optionRelationship).',
+        'properties' : [
+            ('requirement', 'activity.numerical_requirement', '0.1', 'The requirement being specified by this option'),
+            ('relationship', 'str', '0.1', 'Describes how this optional (child) requirement is related to its sibling requirements.  For example, a NumericalRequirement could consist of a set of optional requirements each with an "OR" relationship meaning use this boundary condition _or_ that one.'),
+        ],
+        'decodings' : [
+            ('requirement', 'child::cim:requirement/cim:requirement/cim:initialCondition', 'activity.initial_condition'),
+            ('requirement', 'child::cim:requirement/cim:requirement/cim:spatioTemporalConstraint', 'activity.output_requirement'),
+            ('requirement', 'child::cim:requirement/cim:requirement/cim:outputRequirement', 'activity.spatio_temporal_constraint'),
+            ('requirement', 'child::cim:requirement/cim:requirement/cim:boundaryCondition', 'activity.boundary_condition'),
+            ('relationship', 'self::cim:requirementOption/@optionRelationship'),
+        ]
+    }
+
+    
 def _boundary_condition():
     """Creates and returns instance of boundary_condition class."""
     return {
@@ -379,28 +401,6 @@ def _physical_modification():
         ],
         'decodings' : [
 
-        ]
-    }
-
-
-def _requirement_option():
-    """Creates and returns instance of requirement_option class."""
-    return {
-        'type' : 'class',
-        'name' : 'requirement_option',
-        'base' : None,
-        'abstract' : False,
-        'doc' : 'A NumericalRequirement that is being used as a set of related requirements; For example if a requirement is to use 1 of 3 boundary conditions, then that "parent" requirement would have three "child" RequirmentOptions (each of one with the XOR optionRelationship).',
-        'properties' : [
-            ('requirement', 'activity.numerical_requirement', '0.1', 'The requirement being specified by this option'),
-            ('relationship', 'str', '0.1', 'Describes how this optional (child) requirement is related to its sibling requirements.  For example, a NumericalRequirement could consist of a set of optional requirements each with an "OR" relationship meaning use this boundary condition _or_ that one.'),
-        ],
-        'decodings' : [
-            ('requirement', 'child::cim:requirement/cim:requirement/cim:initialCondition', 'activity.initial_condition'),
-            ('requirement', 'child::cim:requirement/cim:requirement/cim:spatioTemporalConstraint', 'activity.output_requirement'),
-            ('requirement', 'child::cim:requirement/cim:requirement/cim:outputRequirement', 'activity.spatio_temporal_constraint'),
-            ('requirement', 'child::cim:requirement/cim:requirement/cim:boundaryCondition', 'activity.boundary_condition'),
-            ('relationship', 'self::cim:requirementOption/@optionRelationship'),
         ]
     }
 
@@ -549,9 +549,9 @@ classes = [
     _numerical_activity(),
     _numerical_experiment(),
     _numerical_requirement(),
+    _numerical_requirement_option(),
     _output_requirement(),
     _physical_modification(),
-    _requirement_option(),
     _simulation(),
     _simulation_composite(),
     _simulation_relationship(),
