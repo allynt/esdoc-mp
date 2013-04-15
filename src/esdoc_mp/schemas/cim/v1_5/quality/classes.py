@@ -40,10 +40,10 @@ def _evaluation():
             ('description', 'gmd:evaluationMethodDescription/gco:CharacterString'),
             ('did_pass', 'child::gmd:result/gmd:DQ_ConformanceResult/gmd:pass/gco:Boolean'),
             ('explanation', 'child::gmd:result/gmd:DQ_ConformanceResult/gmd:explanation/gco:CharacterString'),
-            ('specification', 'child::gmd:result/@xlink:title'),
-            ('specification_hyperlink', 'child::gmd:result/@xlink:href'),
-            ('type', 'child::gmd:result/gmd:DQ_ConformanceResult/gmd:specification/@xlink:title'),
-            ('type_hyperlink', 'child::gmd:result/gmd:DQ_ConformanceResult/gmd:specification/@xlink:href'),
+            ('type', 'child::gmd:result/@xlink:title'),
+            ('type_hyperlink', 'child::gmd:result/@xlink:href'),
+            ('specification', 'child::gmd:result/gmd:DQ_ConformanceResult/gmd:specification/@xlink:title'),
+            ('specification_hyperlink', 'child::gmd:result/gmd:DQ_ConformanceResult/gmd:specification/@xlink:href'),
             ('title', 'child::gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title'),
         ]
     }
