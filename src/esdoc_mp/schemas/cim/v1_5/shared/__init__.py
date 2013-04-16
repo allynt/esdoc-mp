@@ -4,6 +4,8 @@ The cim v1.5 ontology - shared package.
 
 # Module imports.
 from esdoc_mp.schemas.cim.v1_5.shared.classes import classes
+from esdoc_mp.schemas.cim.v1_5.shared.classes_cim import classes as cim_classes
+from esdoc_mp.schemas.cim.v1_5.shared.classes_time import classes as time_classes
 from esdoc_mp.schemas.cim.v1_5.shared.enums import enums
 
 
@@ -25,7 +27,6 @@ __status__ = "Production"
 package = {
     'name' : 'shared',
     'doc' : 'TODO get package documentation',
-    'classes' : classes,
+    'classes' : classes + cim_classes + time_classes,
     'enums' : enums,
 }
-

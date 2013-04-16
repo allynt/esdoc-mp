@@ -445,6 +445,7 @@ def _simulation():
             ('deployments', 'child::cim:deployment'),
             ('inputs', 'child::cim:input'),
             ('simulation_id', 'child::cim:simulationID'),
+            ('spinup_date_range', 'child::cim:dateRange/cim:closedDateRange'),
         ]
     }
 
