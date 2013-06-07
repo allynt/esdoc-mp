@@ -172,7 +172,7 @@ class TypesGenerator(Generator):
 
         pkg = pkg if pkg is not None else ctx.pkg
         for cls in pkg.classes:
-            code += 'from py{0}.v{1}.types.{2}.{3} import {4}{5}'.format(
+            code += 'from pyesdoc.ontologies.{0}.v{1}.types.{2}.{3} import {4}{5}'.format(
                 get_ontology_name(ctx.ontology),
                 get_ontology_version(ctx.ontology),
                 get_package_name(pkg),
@@ -292,7 +292,7 @@ class TypesGenerator(Generator):
 
         """
         code = ''
-        tmpl = 'from py{0}.{1} import {2}'
+        tmpl = 'from pyesdoc.ontologies.{0}.{1} import {2}'
 
         for package, type in imports:
             pkg_path = get_package_path(ctx.ontology, 'types', package)

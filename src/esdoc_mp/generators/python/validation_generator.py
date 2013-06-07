@@ -95,7 +95,7 @@ class ValidationGenerator(Generator):
                     imports.append(imp)
 
             # Set package class type imports.
-            imp = 'from py{0}.v{1}.types.{2} import *'.format(
+            imp = 'from pyesdoc.ontologies.{0}.v{1}.types.{2} import *'.format(
                 get_ontology_name(ctx.ontology),
                 get_ontology_version(ctx.ontology),
                 get_package_name(ctx.pkg))
@@ -103,7 +103,7 @@ class ValidationGenerator(Generator):
 
             # Set type decoding imports.
             for type in [t for t in ctx.pkg.external_types if t.is_class]:
-                imp = 'from py{0}.v{1}.validation.{2} import *'.format(
+                imp = 'from pyesdoc.ontologies.{0}.v{1}.validation.{2} import *'.format(
                     get_ontology_name(ctx.ontology),
                     get_ontology_version(ctx.ontology),
                     get_package_module_name(type.name_of_package, 'validator'))
@@ -147,7 +147,7 @@ class ValidationGenerator(Generator):
         def get_imports():
             imports = ''
             is_first = True
-            tmpl = "from py{0}.v{1}.validation.{2} import {3}"
+            tmpl = "from pyesdoc.ontologies.{0}.v{1}.validation.{2} import {3}"
 
             for cls in ctx.ontology.classes:
                 if not is_first:

@@ -100,7 +100,7 @@ class SerializationGenerator(Generator):
                     imports.append(imp)
 
             # Set package class type imports.
-            imp = 'from {0}.v{1}.types.{2} import *'.format(
+            imp = 'from pyesdoc.ontologies.{0}.v{1}.types.{2} import *'.format(
                 get_ontology_name(ctx.ontology),
                 get_ontology_version(ctx.ontology),
                 get_package_name(ctx.pkg))
@@ -108,7 +108,7 @@ class SerializationGenerator(Generator):
 
             # Set type decoding imports.
             for type in [t for t in ctx.pkg.external_types if t.is_class]:
-                imp = 'from {0}.v{1}.serialization.{2} import *'.format(
+                imp = 'from pyesdoc.ontologies.{0}.v{1}.serialization.{2} import *'.format(
                     get_ontology_name(ctx.ontology),
                     get_ontology_version(ctx.ontology),
                     get_package_module_name(type.name_of_package, 'decoder'))
@@ -196,7 +196,7 @@ class SerializationGenerator(Generator):
         def get_imports():
             imports = ''
             is_first = True
-            tmpl = "from {0}.v{1}.serialization.{2} import {3}"
+            tmpl = "from pyesdoc.ontologies.{0}.v{1}.serialization.{2} import {3}"
 
             for e in ctx.ontology.entities:
                 if not is_first:

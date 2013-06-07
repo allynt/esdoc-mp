@@ -7,7 +7,7 @@
    :synopsis: A set of validators over the {ontology-name}.v{ontology-version-packagename}.{package-name} package.
 
 .. moduleauthor:: Earth System Documentation (ES-DOC) <dev@esdocumentation.org>
-.. note:: Code generated using ES-DOC pycim_mp @ {datetime-now}.
+.. note:: Code generated using esdoc_mp @ {datetime-now}.
 
 """
 

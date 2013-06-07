@@ -7,14 +7,14 @@
    :synopsis: A set of {ontology-name} {ontology-version} decoders.
 
 .. moduleauthor:: Earth System Documentation (ES-DOC) <dev@esdocumentation.org>
-.. note:: Code generated using ES-DOC pycim_mp @ {datetime-now}.
+.. note:: Code generated using esdoc_mp @ {datetime-now}.
 
 """
 
 # Module imports.
 from lxml import etree as et
 
-from pycim.core.decoding.cim_decoder_xml_utils import *
+from pyesdoc.serialization.decoder_xml_utils import *
 {module-imports}
 
 
