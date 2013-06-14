@@ -1,5 +1,5 @@
 """
-CIM v1.5 shared package time reated classes.
+CIM v1 shared package time reated classes.
 """
 
 def _calendar():

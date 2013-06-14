@@ -1,19 +1,7 @@
 """
-CIM v1.5 software package enums.
+CIM v1 software package enums.
 """
-# Module exports.
-__all__ = ["enums"]
 
-
-# Module provenance info.
-__author__="markmorgan"
-__copyright__ = "Copyright 2010, Insitut Pierre Simon Laplace - Prodiguer"
-__date__ ="$Jun 28, 2010 2:52:22 PM$"
-__license__ = "GPL"
-__version__ = "1.0.0"
-__maintainer__ = "Sebastien Denvil"
-__email__ = "sdipsl@ipsl.jussieu.fr"
-__status__ = "Production"
 
 
 def _component_property_intent_type():
@@ -96,6 +84,16 @@ def _spatial_regridding_standard_method_type():
     }
 
 
+def _statistical_model_component_type():
+    """Creates and returns instance of statistical_model_component_type enum."""
+    return {
+        'name' : 'statistical_model_component_type',
+        'is_open' : True,
+        'doc' : 'An enumeration of types of ProcessorComponent.  This includes things like transformers and post-processors.',
+        'members' : [ ],
+    }
+
+
 def _time_mapping_type():
     """Creates and returns instance of time_mapping_type enum."""
     return {
@@ -134,6 +132,7 @@ enums = [
     _model_component_type(),
     _spatial_regridding_dimension_type(),
     _spatial_regridding_standard_method_type(),
+    _statistical_model_component_type(),
     _time_mapping_type(),
     _timing_units(),
 ]

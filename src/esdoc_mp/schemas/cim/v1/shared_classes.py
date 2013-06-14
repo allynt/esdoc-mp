@@ -1,5 +1,5 @@
 """
-CIM v1.5 shared package classes.
+CIM v1 shared package classes.
 """
 
 

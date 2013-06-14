@@ -11,12 +11,12 @@
 """
 
 # Module imports.
-from esdoc_mp.schemas.cim.v1_5 import schema as v1_5
+from esdoc_mp.schemas.cim.v1 import schema as v1
 
 
 
 # Set of supported Metafor CIM schemas.
 schemas = [
-    v1_5
+    v1
 ]
 

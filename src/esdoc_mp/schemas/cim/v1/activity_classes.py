@@ -1,20 +1,6 @@
 """
-CIM v1.5 activity package classes.
+CIM v1 activity package classes.
 """
-# Module exports.
-__all__ = ["classes"]
-
-
-# Module provenance info.
-__author__="markmorgan"
-__copyright__ = "Copyright 2010, Insitut Pierre Simon Laplace - Prodiguer"
-__date__ ="$Jun 28, 2010 2:52:22 PM$"
-__license__ = "GPL"
-__version__ = "1.0.0"
-__maintainer__ = "Sebastien Denvil"
-__email__ = "sdipsl@ipsl.jussieu.fr"
-__status__ = "Production"
-
 
 def _activity():
     """Creates and returns instance of numerical_experiment class."""
@@ -63,6 +49,7 @@ def _conformance():
             ('is_conformant', '@conformant'),
             ('requirements', 'child::cim:requirement/cim:requirement/cim:initialCondition', 'activity.initial_condition'),
             ('requirements', 'child::cim:requirement/cim:requirement/cim:boundaryCondition', 'activity.boundary_condition'),
+            ('requirements', 'child::cim:requirement/cim:requirement/cim:lateralBoundaryCondition', 'activity.lateral_boundary_condition'),
             ('requirements', 'child::cim:requirement/cim:requirement/cim:spatioTemporalConstraint', 'activity.spatio_temporal_constraint'),
             ('requirements', 'child::cim:requirement/cim:requirement/cim:outputRequirement', 'activity.output_requirement'),
             ('requirements_references', 'child::cim:requirement/cim:reference'),
@@ -71,8 +58,49 @@ def _conformance():
             ('sources', 'child::cim:source/cim:source/cim:componentProperty', 'software.component_property'),
             ('sources', 'child::cim:source/cim:source/cim:softwareComponent', 'software.model_component'),
             ('sources', 'child::cim:source/cim:source/cim:softwareComponent', 'software.processor_component'),
+            ('sources', 'child::cim:source/cim:source/cim:softwareComponent', 'software.statistical_model_component'),
             ('sources_references', 'child::cim:source/cim:reference'),
             ('type', '@type'),
+        ]
+    }
+
+
+def _downscaling_simulation():
+    """Creates and returns instance of downscaling simulation class."""
+    return {
+        'type' : 'class',
+        'name' : 'downscaling_simulation',
+        'base' : 'activity.numerical_activity',
+        'abstract' : True,
+        'doc' : 'A simulation is the implementation of a numerical experiment.  A simulation can be made up of "child" simulations aggregated together to form a simulation composite.  The parent simulation can be made up of whole or partial child simulations, the simulation attributes need to be able to capture this.',
+        'properties' : [
+            ('cim_info', 'shared.cim_info', '1.1', None),
+            ('calendar', 'shared.calendar', '1.1', None),
+            ('inputs', 'software.coupling', '0.N', 'Implemented as a mapping from a source to target; can be a forcing file, a boundary condition, etc.'),
+            ('outputs', 'data.data_object', '0.N', None),
+            ('output_references', 'shared.cim_reference', '0.N', None),
+            ('downscaling_id', 'str', '0.1', None),
+            ('downscaled_from', 'shared.data_source', '1.1', None),
+            ('downscaled_from_reference', 'shared.cim_reference', '1.1', None),
+            ('downscaling_type', 'activity.downscaling_type', '0.1', None),
+        ],
+        'decodings' : [
+            ('cim_info', 'self::cim:downscalingSimulation'),            
+            ('calendar', 'child::cim:calendar/cim:daily-360', 'shared.daily_360'),
+            ('calendar', 'child::cim:calendar/cim:perpetualPeriod', 'shared.perpetual_period'),
+            ('calendar', 'child::cim:calendar/cim:realCalendar', 'shared.real_calendar'),
+            ('inputs', 'child::cim:input'),
+            ('outputs', 'child::cim:output/cim:dataObject', 'data.data_object'),
+            ('outputs_references', 'child::cim:output/cim:reference'),
+            ('downscaling_id', 'child::cim:downscalingID'),
+            ('downscaled_from', 'child::cim:downscaledFrom/cim:downscaledFrom/cim:dataObject', 'data.data_object'),
+            ('downscaled_from', 'child::cim:downscaledFrom/cim:downscaledFrom/cim:dataContent', 'data.data_content'),
+            ('downscaled_from', 'child::cim:downscaledFrom/cim:downscaledFrom/cim:componentProperty', 'software.component_property'),
+            ('downscaled_from', 'child::cim:downscaledFrom/cim:downscaledFrom/cim:softwareComponent', 'software.model_component'),
+            ('downscaled_from', 'child::cim:downscaledFrom/cim:downscaledFrom/cim:softwareComponent', 'software.processor_component'),
+            ('downscaled_from', 'child::cim:downscaledFrom/cim:downscaledFrom/cim:softwareComponent', 'software.statistical_model_component'),
+            ('downscaled_from_reference', 'child::cim:downscaledFrom/cim:reference'),
+            ('downscaling_type', 'self::cim:downscalingSimulation/@downscalingType'),
         ]
     }
     
@@ -89,11 +117,20 @@ def _ensemble():
             ('cim_info', 'shared.cim_info', '1.1', None),
             ('members', 'activity.ensemble_member', '1.N', None),
             ('types', 'activity.ensemble_type', '1.N', None),
+            ('outputs', 'shared.data_source', '0.N', 'Points to the DataSource used to conform to a particular Requirement.   This may be part of an activity::simulation or a software::component.  It can be either a DataObject or a SoftwareComponent or a ComponentProperty.  It could also be by using particular attributes of, say, a SoftwareComponent, but in that case the recommended practise is to reference the component and add appropriate text in the conformance description attribute.'),
+            ('outputs_references', 'shared.cim_reference', '0.N', None),
         ],
         'decodings' : [
             ('cim_info', 'self::cim:ensemble'),
             ('members', 'child::cim:ensembleMember'),
             ('types', 'child::cim:ensembleType/@value'),
+            ('outputs', 'child::cim:output/cim:output/cim:dataObject', 'data.data_object'),
+            ('outputs', 'child::cim:output/cim:output/cim:dataContent', 'data.data_content'),
+            ('outputs', 'child::cim:output/cim:output/cim:componentProperty', 'software.component_property'),
+            ('outputs', 'child::cim:output/cim:output/cim:softwareComponent', 'software.model_component'),
+            ('outputs', 'child::cim:output/cim:output/cim:softwareComponent', 'software.processor_component'),
+            ('outputs', 'child::cim:output/cim:output/cim:softwareComponent', 'software.statistical_model_component'),
+            ('outputs_references', 'child::cim:output/cim:reference'),
         ]
     }
 
@@ -184,6 +221,26 @@ def _experiment_relationship_target():
     }
 
 
+def _lateral_boundary_condition():
+    """Creates and returns instance of lateral_boundary_condition class."""
+    return {
+        'type' : 'class',
+        'name' : 'lateral_boundary_condition',
+        'base' : 'activity.numerical_requirement',
+        'abstract' : False,
+        'doc' : 'A boundary condition is a numerical requirement which looks like a variable imposed on the model evolution (i.e. it might - or might not - evolve with time, but is seen by the model at various times during its evolution) as opposed to an initial condition (at model time zero).',
+        'constants' : [
+            ('requirement_type', 'lateralBoundaryCondition'),
+        ],
+        'properties' : [
+
+        ],
+        'decodings' : [
+
+        ]
+    }
+
+
 def _measurement_campaign():
     """Creates and returns instance of measurement_campaign class."""
     return {
@@ -252,6 +309,7 @@ def _numerical_experiment():
             ('long_name', 'child::cim:longName'),
             ('requirements', 'child::cim:numericalRequirement/cim:initialCondition', 'activity.initial_condition'),
             ('requirements', 'child::cim:numericalRequirement/cim:boundaryCondition', 'activity.boundary_condition'),
+            ('requirements', 'child::cim:numericalRequirement/cim:lateralBoundaryCondition', 'activity.lateral_boundary_condition'),
             ('requirements', 'child::cim:numericalRequirement/cim:spatioTemporalConstraint', 'activity.spatio_temporal_constraint'),
             ('requirements', 'child::cim:numericalRequirement/cim:outputRequirement', 'activity.output_requirement'),
             ('short_name', 'child::cim:shortName'),
@@ -273,12 +331,21 @@ def _numerical_requirement():
             ('name', 'str', '1.1', None),
             ('options', 'activity.numerical_requirement_option', '0.N', None),
             ('requirement_type', 'str', '1.1', 'Type of reqirement to which the experiment must conform.'),
+            ('source', 'shared.data_source', '0.1', None),
+            ('source_reference', 'shared.cim_reference', '0.1', None),
         ],
         'decodings' : [
             ('description', 'child::cim:description'),
             ('id', 'child::cim:id'),
             ('name', 'child::cim:name'),
             ('options', 'child::cim:requirementOption'),
+            ('source', 'child::cim:source/cim:source/cim:dataObject', 'data.data_object'),
+            ('source', 'child::cim:source/cim:source/cim:dataContent', 'data.data_content'),
+            ('source', 'child::cim:source/cim:source/cim:componentProperty', 'software.component_property'),
+            ('source', 'child::cim:source/cim:source/cim:softwareComponent', 'software.model_component'),
+            ('source', 'child::cim:source/cim:source/cim:softwareComponent', 'software.processor_component'),
+            ('source', 'child::cim:source/cim:source/cim:softwareComponent', 'software.statistical_model_component'),
+            ('source_reference', 'child::cim:source/cim:reference'),
         ]
     }
     
@@ -300,6 +367,7 @@ def _numerical_requirement_option():
             ('requirement', 'child::cim:requirement/cim:requirement/cim:spatioTemporalConstraint', 'activity.output_requirement'),
             ('requirement', 'child::cim:requirement/cim:requirement/cim:outputRequirement', 'activity.spatio_temporal_constraint'),
             ('requirement', 'child::cim:requirement/cim:requirement/cim:boundaryCondition', 'activity.boundary_condition'),
+            ('requirement', 'child::cim:requirement/cim:requirement/cim:lateralBoundaryCondition', 'activity.lateral_boundary_condition'),
             ('relationship', 'self::cim:requirementOption/@optionRelationship'),
         ]
     }
@@ -317,7 +385,7 @@ def _boundary_condition():
             ('requirement_type', 'boundaryCondition'),
         ],
         'properties' : [
-
+        
         ],
         'decodings' : [
 
@@ -540,12 +608,14 @@ classes = [
     _activity(),
     _boundary_condition(),
     _conformance(),
+    _downscaling_simulation(),
     _ensemble(),
     _ensemble_member(),
     _experiment(),
     _experiment_relationship(),
     _experiment_relationship_target(),
     _initial_condition(),
+    _lateral_boundary_condition(),
     _measurement_campaign(),
     _numerical_activity(),
     _numerical_experiment(),

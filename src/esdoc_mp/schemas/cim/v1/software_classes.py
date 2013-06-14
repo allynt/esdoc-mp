@@ -1,21 +1,6 @@
 """
-CIM v1.5 software package classes.
+CIM v1 software package classes.
 """
-# Module exports.
-__all__ = ["classes"]
-
-
-# Module provenance info.
-__author__="markmorgan"
-__copyright__ = "Copyright 2010, Insitut Pierre Simon Laplace - Prodiguer"
-__date__ ="$Jun 28, 2010 2:52:22 PM$"
-__license__ = "GPL"
-__version__ = "1.0.0"
-__maintainer__ = "Sebastien Denvil"
-__email__ = "sdipsl@ipsl.jussieu.fr"
-__status__ = "Production"
-
-
 
 
 def _component_language():
@@ -143,6 +128,7 @@ def _connection():
             ('priming', 'child::cim:priming/cim:priming/cim:componentProperty', 'software.component_property'),
             ('priming', 'child::cim:priming/cim:priming/cim:softwareComponent', 'software.model_component'),
             ('priming', 'child::cim:priming/cim:priming/cim:softwareComponent', 'software.processor_component'),
+            ('priming', 'child::cim:priming/cim:priming/cim:softwareComponent', 'software.statistical_model_component'),
             ('priming_reference', 'child::cim:priming/cim:reference'),
             ('spatial_regridding', 'child::cim:spatialRegridding'),
             ('time_lag', 'child::cim:timeLag'),
@@ -176,6 +162,7 @@ def _connection_endpoint():
             ('data_source', 'child::cim:dataSource/cim:dataSource/cim:componentProperty', 'software.component_property'),
             ('data_source', 'child::cim:dataSource/cim:dataSource/cim:softwareComponent', 'software.model_component'),
             ('data_source', 'child::cim:dataSource/cim:dataSource/cim:softwareComponent', 'software.processor_component'),
+            ('data_source', 'child::cim:dataSource/cim:dataSource/cim:softwareComponent', 'software.statistical_model_component'),
             ('data_source_reference', 'child::cim:dataSource/cim:reference'),
             ('instance_id', 'child::cim:instanceID'),
         ]
@@ -237,6 +224,7 @@ def _coupling():
             ('priming', 'child::cim:priming/cim:priming/cim:componentProperty', 'software.component_property'),
             ('priming', 'child::cim:priming/cim:priming/cim:softwareComponent', 'software.model_component'),
             ('priming', 'child::cim:priming/cim:priming/cim:softwareComponent', 'software.processor_component'),
+            ('priming', 'child::cim:priming/cim:priming/cim:softwareComponent', 'software.statistical_model_component'),
             ('priming_reference', 'child::cim:priming/cim:reference'),
             ('purpose', '@purpose'),
             ('spatial_regriddings', 'child::cim:spatialRegridding'),
@@ -271,6 +259,7 @@ def _coupling_endpoint():
             ('data_source', 'child::cim:dataSource/cim:dataSource/cim:componentProperty', 'software.component_property'),
             ('data_source', 'child::cim:dataSource/cim:dataSource/cim:softwareComponent', 'software.model_component'),
             ('data_source', 'child::cim:dataSource/cim:dataSource/cim:softwareComponent', 'software.processor_component'),
+            ('data_source', 'child::cim:dataSource/cim:dataSource/cim:softwareComponent', 'software.statistical_model_component'),
             ('data_source_reference', 'child::cim:dataSource/cim:reference'),
             ('instance_id', 'child::cim:instanceID'),
         ]
@@ -358,6 +347,7 @@ def _model_component():
         ],
         'decodings' : [
             ('cim_info', 'self::cim:modelComponent'),
+            ('timing', 'child::cim:timing'),
             ('type', 'child::cim:type[1]/@value'),
             ('types', 'child::cim:type/@value'),
         ]
@@ -535,6 +525,28 @@ def _spatial_regridding_user_method():
     }
 
 
+def _statistical_model_component():
+    """Creates and returns instance of statistical_model_component class."""
+    return {
+        'type' : 'class',
+        'name' : 'statistical_model_component',
+        'base' : 'software.component',
+        'abstract' : False,
+        'doc' : None,
+        'properties' : [
+            ('cim_info', 'shared.cim_info', '1.1', None),
+            ('type', 'software.statistical_model_component_type', '0.1', 'Describes the type of component. There can be multiple types.'),
+            ('types', 'software.statistical_model_component_type', '1.N', 'Describes the type of component. There can be multiple types.'),
+            ('timing', 'software.timing', '0.1', 'Describes information about how this component simulates time.'),
+        ],
+        'decodings' : [
+            ('cim_info', 'self::cim:statisticalModelComponent'),
+            ('timing', 'child::cim:timing'),
+            ('type', 'child::cim:type[1]/@value'),
+            ('types', 'child::cim:type/@value'),
+        ]
+    }
+
 def _time_lag():
     """Creates and returns instance of time_lag class."""
     return {
@@ -619,6 +631,7 @@ classes = [
     _spatial_regridding(),
     _spatial_regridding_property(),
     _spatial_regridding_user_method(),
+    _statistical_model_component(),
     _time_lag(),
     _time_transformation(),
     _timing(),

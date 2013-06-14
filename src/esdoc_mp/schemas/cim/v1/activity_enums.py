@@ -1,19 +1,7 @@
 """
-CIM v1.5 activity package enums.
+CIM v1 activity package enums.
 """
-# Module exports.
-__all__ = ["enums"]
 
-
-# Module provenance info.
-__author__="markmorgan"
-__copyright__ = "Copyright 2010, Insitut Pierre Simon Laplace - Prodiguer"
-__date__ ="$Jun 28, 2010 2:52:22 PM$"
-__license__ = "GPL"
-__version__ = "1.0.0"
-__maintainer__ = "Sebastien Denvil"
-__email__ = "sdipsl@ipsl.jussieu.fr"
-__status__ = "Production"
 
 
 def _conformance_type():
@@ -29,6 +17,20 @@ def _conformance_type():
             ('via inputs', 'Describes a simulation that conforms to an experimental requirement by using particular inputs.'),
             ('via model mods', 'Describes a simulation that conforms to an experimental requirement by changing the configuration of the software model implementing that simulation.'),
             ('combination', 'Describes a simulation that conforms to an experimental requirement by using more than one method.'),
+        ],
+    }
+
+
+def _downscaling_type():
+    """Creates and returns instance of downscaling_type enum."""
+    return {
+        'type' : 'enum',
+        'name' : 'downscaling_type',
+        'is_open' : False,
+        'doc' : None,
+        'members' : [
+            ('statistical', None),
+            ('dynamic', None),
         ],
     }
 
@@ -139,6 +141,7 @@ def _simulation_type():
 # Set of package enums.
 enums = [
     _conformance_type(),
+    _downscaling_type(),
     _ensemble_type(),
     _experiment_relationship_type(),
     _frequency_type(),
