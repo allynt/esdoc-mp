@@ -84,9 +84,9 @@ def _cim_type_info():
         'abstract' : False,
         'doc' : 'Encapsulates cim type information.',
         'properties' : [
-            ('schema', 'str', '1.1', 'Schema version.'),
-            ('package', 'str', '1.1', 'Package name.'),
-            ('type', 'str', '1.1', 'Type name.'),
+            ('schema', 'str', '1.1', 'Ontology schema name.'),
+            ('package', 'str', '1.1', 'Ontology package name.'),
+            ('type', 'str', '1.1', 'Ontology package type name.'),
             ('type_display_name', 'str', '1.1', 'Type display name.'),
         ],
         'decodings' : [
