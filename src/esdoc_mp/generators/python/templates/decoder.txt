@@ -1,10 +1,10 @@
 """
-.. module:: {ontology-name}.v{ontology-version-packagename}.validation.{file-name}
+.. module:: pyesdoc.ontologies.{ontology-name}.v{ontology-version-packagename}.{file-name}
 
    :copyright: @{datetime-year} Earth System Documentation (http://esdocumentation.org)
    :license: GPL / CeCILL
    :platform: Unix, Windows
-   :synopsis: A set of validators over the {ontology-name} {ontology-version} ontology.
+   :synopsis: A set of {ontology-name} {ontology-version} decoders.
 
 .. moduleauthor:: Earth System Documentation (ES-DOC) <dev@esdocumentation.org>
 .. note:: Code generated using esdoc_mp @ {datetime-now}.

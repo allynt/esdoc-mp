@@ -12,4 +12,4 @@ def decode_{class-function-name}(xml, nsmap):
     decodings = [{class-decodings}
     ]
 
-    return set_attributes({class-name}(), xml, nsmap, decodings)
+    return set_attributes(typeset.{package-name}.{class-name}(), xml, nsmap, decodings)

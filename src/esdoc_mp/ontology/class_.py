@@ -58,9 +58,18 @@ class Class(object):
         self.name = name
         self.properties = sorted(properties, key=lambda p: p.name)
         self.package = None
-        
+
         # Set is entity flag.
         self.is_entity = is_abstract == False and self.has_property('cim_info')
+
+        # Initialise output attributes.
+        self.op_base_name = None
+        self.op_doc_string_name = None
+        self.op_file_name = None
+        self.op_full_name = None
+        self.op_functional_name = None
+        self.op_import_name = None
+        self.op_name = None
 
         
     def __repr__(self):

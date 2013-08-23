@@ -1,5 +1,5 @@
 """
-.. module:: esdoc_mp.utils.generation
+.. module:: esdoc_mp.generators.generator_utils
    :platform: Unix, Windows
    :synopsis: Set of common generator utility functions.
 
@@ -16,7 +16,7 @@ import pwd
 
 
 # Templates folder.
-TEMPLATE_FOLDER = os.path.dirname(__file__).replace('/utils', '/templates')
+_TEMPLATE_FOLDER = os.path.dirname(__file__)
 
 # Standard 4 character python indent.
 _INDENT = '    '
@@ -66,37 +66,41 @@ def convert_to_pascal_case(name, separator='_'):
     return r
 
 
-def _get_template_path(ctx, filename):
-    """Returns code template file path.
-
-    :param ctx: Generation context information.
-    :param filename: Name of template file.
-    :type ctx: esdoc_mp.generators.generator.GeneratorContext
-    :type filename: str
-
-    """
-    path = TEMPLATE_FOLDER
-    path += "/{0}/{1}/".format(ctx.language, ctx.generator_key)
-    path += filename
-    return path
-
-
-def get_template(ctx, filename):
+def _load_template(language, filename):
     """Returns code template.
 
-    :param ctx: Generation context information.
+    :param language: Generator language.
+    :type language: str
+
     :param filename: Name of template file.
-    :type ctx: esdoc_mp.generators.generator.GeneratorContext
     :type filename: str
 
-
     """
-    path = _get_template_path(ctx, filename)
+    path = _TEMPLATE_FOLDER + "/{0}/templates/{1}".format(language, filename)
+           
     if path not in _loaded_templates:
         tmpl = open(path)
         _loaded_templates[path] = tmpl.read()
         tmpl.close()
-    return inject_standard_template_params(ctx, _loaded_templates[path])
+        
+    return _loaded_templates[path]
+
+
+def load_templates(language, filenames):
+    """Returns a dictionary of loaded code templates.
+
+    :param language: Generator language.
+    :type language: str
+
+    :param filenames: Set of template file names.
+    :type filenames: iterable
+
+    """
+    templates = {}
+    for filename in filenames:
+        templates[filename] = _load_template(language, filename)
+
+    return templates
 
 
 def get_username():
@@ -165,19 +169,20 @@ def write_file(code, dir, file):
     file.close()
 
 
-def inject_standard_template_params(ctx, code):
-    """Injects set of standard templates parameters into passed code.
+def format_code(ctx, code):
+    """Formats code prior to being written to file system.
 
     :param ctx: Generation context information.
-    :param code: Code to be injected with standard params.
     :type ctx: esdoc_mp.generators.generator.GeneratorContext
+    
+    :param code: Code to be injected with standard params.
     :type code: str
     
     """
     # Ontology related params.
-    code = code.replace('{ontology-name}', ctx.ontology.name)
-    code = code.replace('{ontology-version}', ctx.ontology.version)
-    code = code.replace('{ontology-version-packagename}', ctx.ontology.version.replace('.', '_'))
+    code = code.replace('{ontology-name}', ctx.ontology.op_name)
+    code = code.replace('{ontology-version}', ctx.ontology.op_version)
+    code = code.replace('{ontology-version-packagename}', ctx.ontology.op_version.replace('.', '_'))
 
     # Misceallaneous params.
     code = code.replace('{datetime-now}', str(datetime.datetime.now()))

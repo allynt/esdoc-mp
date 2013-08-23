@@ -96,7 +96,14 @@ class Ontology(object):
                 if cls_import in prp_type.imports:
                     prp_type.imports.remove(cls_import)
                     prp_type.circular_imports.append(cls_import)
-    
+
+        # For each package assign packages used by it's classes.
+        _set_base_packages(self)
+
+        # Initialise output attributes.
+        self.op_name = None
+        self.op_version = None
+        
 
     def __repr__(self):
         """String representation for debugging."""
@@ -116,4 +123,12 @@ class Ontology(object):
             if t.package.name == pkg_name and t.name == type_name:
                 return t
         return None
-            
+
+
+def _set_base_packages(o):
+    for p in o.packages:
+        for c in p.classes:
+            if c.base is not None and \
+               c.base.package != p and \
+               c.base.package not in p.base_packages:
+                p.base_packages.append(c.base.package)

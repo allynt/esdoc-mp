@@ -4,7 +4,7 @@
 # Module imports.
 from operator import add
 
-from esdoc_mp.utils.generation import *
+from esdoc_mp.generators.generator_utils import *
 
 
 
@@ -216,6 +216,16 @@ def get_package_directory(package, root=None, sub=None, suffix_root=False):
     return dir
 
 
+def get_full_class_name(cls):
+    """Converts name to a python class name.
+
+    Keyword Arguments:
+    name - name being converted.
+
+    """
+    return get_package_name(cls.package) + "." + get_class_name(cls)
+
+
 def get_class_name(name):
     """Converts name to a python class name.
 
@@ -260,7 +270,7 @@ def get_class_doc_string_name(name):
     return name.replace('_', ' ')
 
 
-def get_class_file_name(name):
+def _get_class_file_name(name):
     """Converts name to a python class file name.
 
     Keyword Arguments:
@@ -271,17 +281,19 @@ def get_class_file_name(name):
     return name + FILE_EXTENSION
 
 
-def get_class_base_name(name):
+def _get_class_base_name(c):
     """Converts name to a python base class name.
 
     Keyword Arguments:
     name - name being converted.
 
     """
-    if name is not None:
-        return get_class_name(name)
-    else:
+    if c.base is None:
         return 'object'
+    elif c.base.package == c.package:
+        return get_class_name(c.base)
+    else:
+        return get_full_class_name(c.base)
 
 
 def get_property_ctor(prp):
@@ -374,7 +386,7 @@ def get_type_name(type):
         return get_class_name(name)
 
 
-def get_type_functional_name(type):
+def get_type_functional_name(type, get_full_name=False):
     """Returns python type functional name.
 
     Keyword Arguments:
@@ -383,11 +395,14 @@ def get_type_functional_name(type):
     """
     name = type.name
     if type.is_simple:
-        return name
+        return _get_simple_type_mapping(name)
     elif type.is_enum:
         return 'str'
     elif type.is_complex:
-        return get_class_name(name)
+        if get_full_name:
+            return get_package_name(name) + "." + get_class_name(name)
+        else:
+            return get_class_name(name)
 
 
 def get_type_doc_name(type):
@@ -570,3 +585,30 @@ def get_package_module_file_name(name, prefix):
     """
     return get_package_module_name(name, prefix) + FILE_EXTENSION
    
+
+def get_module_file_name(name):
+    """Returns a module file name.
+
+    :param name: A module name, e.g. "typeset_info".
+    :type name: str
+
+    """
+    return name + FILE_EXTENSION
+
+
+def format(ontology):
+    """Pythonizes ontology names."""
+    ontology.op_name = get_ontology_name(ontology)
+    ontology.op_version = get_ontology_version(ontology)
+
+    for p in ontology.packages:
+        p.op_name = get_package_name(p)
+
+    for c in ontology.classes:
+        c.op_base_name = _get_class_base_name(c)        
+        c.op_doc_string_name = get_class_doc_string_name(c)
+        c.op_file_name = _get_class_file_name(c)
+        c.op_functional_name = get_class_functional_name(c)
+        c.op_import_name = get_class_import_name(c)
+        c.op_name = get_class_name(c)
+        c.op_full_name = get_full_class_name(c)

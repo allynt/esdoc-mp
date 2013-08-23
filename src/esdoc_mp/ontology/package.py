@@ -38,6 +38,9 @@ class Package(object):
             enum.package = self
 
         # Set attributes.
+        self.abstract_classes = sorted([c for c in classes if c.is_abstract], key=lambda c: c.name)
+        self.base_packages = []
+        self.concrete_classes = sorted([c for c in classes if not c.is_abstract], key=lambda c: c.name)
         self.classes = sorted(classes, key=lambda c: c.name)
         self.doc_string = doc_string
         self.entities = []
@@ -65,12 +68,12 @@ class Package(object):
                prp.type not in self.external_types:
                 self.external_types.append(prp.type)
 
+        # Initialise output attributes.
+        self.op_name = None
+
 
     def __repr__(self):
         """String representation for debugging."""
         return self.name
-
-
-
 
 

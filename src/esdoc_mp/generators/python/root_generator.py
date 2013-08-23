@@ -10,19 +10,28 @@
 
 # Module imports.
 from esdoc_mp.generators.generator import Generator
-from esdoc_mp.utils.generation import get_template
-from esdoc_mp.generators.python.utils import (
-    get_ontology_directory,
-    get_package_init_file_name
-    )
+import esdoc_mp.generators.generator_utils as gu
+import esdoc_mp.generators.python.utils as pgu
 
 
-
-# Template for package.
-_TEMPLATE_PACKAGE_1 = 'package_1.txt'
+# Generator language.
+_LANG = 'python'
 
 # Template for package.
-_TEMPLATE_PACKAGE_2 = 'package_2.txt'
+_TEMPLATE_PACKAGE_1 = 'root_package_1.txt'
+
+# Template for package.
+_TEMPLATE_PACKAGE_2 = 'root_package_2.txt'
+
+# Set of template files.
+_template_files = (
+    _TEMPLATE_PACKAGE_1,
+    _TEMPLATE_PACKAGE_2,
+)
+
+# Loaded templates.
+_templates = gu.load_templates(_LANG, _template_files)
+
 
 
 class RootGenerator(Generator):
@@ -38,12 +47,13 @@ class RootGenerator(Generator):
 
         """
         def get_code(template, include_version):
-            return (get_template(ctx, template), \
-                    get_ontology_directory(ctx, include_version=include_version), \
-                    get_package_init_file_name())
+            return (_templates[template], \
+                    pgu.get_ontology_directory(ctx, include_version=include_version), \
+                    pgu.get_package_init_file_name())
 
         return [
             get_code(_TEMPLATE_PACKAGE_1, False),
             get_code(_TEMPLATE_PACKAGE_2, True)
         ]
+
 

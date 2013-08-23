@@ -1,16 +1,20 @@
 """
-.. module:: {ontology-name}.v{ontology-version-packagename}.types.{file-name}
+.. module:: {ontology-name}.v{ontology-version-packagename}.{file-name}
 
    :copyright: @{datetime-year} Earth System Documentation (http://esdocumentation.org)
    :license: GPL / CeCILL
    :platform: Unix, Windows
-   :synopsis: A set of {ontology-name} {ontology-version} types.
+   :synopsis: The set of types of the {ontology-name}.v{ontology-version-packagename}.{package-name} package.
 
 .. moduleauthor:: Earth System Documentation (ES-DOC) <dev@esdocumentation.org>
 .. note:: Code generated using esdoc_mp @ {datetime-now}.
 
 """
-
 # Module imports.
-{module-imports}
+import abc
 
+{imports}
+
+
+
+{types}

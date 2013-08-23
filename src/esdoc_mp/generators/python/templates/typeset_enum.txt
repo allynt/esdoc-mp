@@ -1,0 +1,7 @@
+class {enum-name}(object):
+    """An enumeration within the {ontology-name} v{ontology-version} type system.
+
+    {enum-doc-string}
+    """
+
+    pass

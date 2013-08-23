@@ -1,0 +1,12 @@
+class {class-name}({base-class-name}):
+    """A concrete class within the {ontology-name} v{ontology-version} type system.
+
+    {class-doc-string}
+    """
+    def __init__(self):
+        """Constructor.
+
+        """
+        super({class-name}, self).__init__()
+
+{class-properties}{class_constants}

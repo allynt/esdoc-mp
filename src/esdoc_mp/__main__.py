@@ -16,6 +16,7 @@ from esdoc_mp import generate
 from esdoc_mp.utils.factory import create_ontology_schema
 
 
+
 def _get_options():
     """Returns command line options.
 

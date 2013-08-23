@@ -1,0 +1,29 @@
+"""
+.. module:: {ontology-name}.v{ontology-version-packagename}.{file-name}
+
+   :copyright: @{datetime-year} Earth System Documentation (http://esdocumentation.org)
+   :license: GPL / CeCILL
+   :platform: Unix, Windows
+   :synopsis: Typeset information for the {ontology-name} v{ontology-version} ontology.
+
+.. moduleauthor:: Earth System Documentation (ES-DOC) <dev@esdocumentation.org>
+.. note:: Code generated using esdoc_mp @ {datetime-now}.
+
+"""
+
+# Module imports.
+{module-imports}
+import typeset_meta         # Assigns type info.
+
+
+
+# Module exports.
+__all__ = [
+    'supported',
+{module-exports}]
+
+
+
+# Supported types.
+supported = (
+{supported-type-list})

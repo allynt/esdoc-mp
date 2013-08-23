@@ -12,7 +12,7 @@
 from abc import ABCMeta
 
 from esdoc_mp.generators.generator_context import GeneratorContext
-from esdoc_mp.utils.generation import write_file
+import esdoc_mp.generators.generator_utils as gu
 
 
 
@@ -32,17 +32,16 @@ class Generator(object):
         :type options: esdoc_mp.GeneratorOptions
 
         """
-        # Emits generated code to file system.
-        def emit_code(code):
-            if code is None:
-                return
-            if not isinstance(code, list):
-                code = [code]                
-            for code in code:
-                write_file(code[0], code[1], code[2])
-
         # Instantiate context.
         ctx = GeneratorContext(ontology, options)
+        
+        # Emits generated code to file system.
+        def emit_code(code):
+            if code is not None:
+                if not isinstance(code, list):
+                    code = [code]
+                for code, dir, file in code:
+                    gu.write_file(gu.format_code(ctx, code), dir, file)
 
         # Notify start.
         self.on_start(ctx)

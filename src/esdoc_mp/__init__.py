@@ -14,21 +14,25 @@ import optparse
 import os
 
 from esdoc_mp.generators.generator_options import GeneratorOptions
-from esdoc_mp.utils.exception import ESDOCException
-from esdoc_mp.utils.factory import (
-    create_generators,
-    create_ontology,
-    create_ontology_schema
-    )
+from esdoc_mp.generators.python.utils import format as format_python
 from esdoc_mp.utils.validation import (
     validate_language,
     validate_ontology_schema,
     validate_output_dir
     )
+import esdoc_mp.utils.factory as factory
+import esdoc_mp.utils.runtime as rt
+
+
+
+# Set of formatters keyed by programming language.
+_formatters = {
+    'python' : format_python
+}
 
 
 # Package version identifier.
-__version__ = '0.2'
+__version__ = '0.3'
 
 
 
@@ -56,14 +60,19 @@ def generate(ontology_schema, language, output_dir):
         print("ES-DOC :: GENERATION OPTION : output directory = {0}".format(output_dir))
         
         # Initialise ontology.
-        ontology = create_ontology(ontology_schema)        
+        ontology = factory.create_ontology(ontology_schema)
         print("-------------------------------------------------------------------")
-        print("ES-DOC :: ONTOLOGY = {0} (packages={1}, classes={2}, enums={3})".format(
+        print("ES-DOC :: ONTOLOGY :: {0} (packages={1}, classes={2}, enums={3})".format(
             ontology, len(ontology.packages), len(ontology.classes), len(ontology.enums)))
+            
+        # Format ontology.
+        if language in _formatters:
+            _formatters[language](ontology)
+            print("ES-DOC :: ONTOLOGY :: formatted for {0}".format(language))
 
         # Invoke generators.
-        generators = create_generators(language)
-        for generator_key in create_generators(language):
+        generators = factory.create_generators(language)
+        for generator_key in factory.create_generators(language):
             print("-------------------------------------------------------------------")
             print("ES-DOC :: GENERATOR = {0} :: generation begins".format(generator_key))
 
