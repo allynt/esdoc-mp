@@ -12,6 +12,8 @@
 """
 # Module imports.
 import abc
+import datetime
+import uuid
 
 {imports}
 

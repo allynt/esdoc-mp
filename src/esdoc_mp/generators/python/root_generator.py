@@ -37,8 +37,7 @@ _templates = gu.load_templates(_LANG, _template_files)
 class RootGenerator(Generator):
     """Generates root level packages.
 
-    """
-    
+    """    
     def on_ontology_parse(self, ctx):
         """Event handler for the ontology parse event.
 
@@ -46,14 +45,43 @@ class RootGenerator(Generator):
         :type ctx: esdoc_mp.generators.generator.GeneratorContext
 
         """
-        def get_code(template, include_version):
-            return (_templates[template], \
-                    pgu.get_ontology_directory(ctx, include_version=include_version), \
-                    pgu.get_package_init_file_name())
-
         return [
-            get_code(_TEMPLATE_PACKAGE_1, False),
-            get_code(_TEMPLATE_PACKAGE_2, True)
+            (
+                _emit_module_init(ctx.ontology),
+                pgu.get_ontology_directory(ctx, include_version=False),
+                pgu.get_package_init_file_name()
+            ),
+            (
+                _templates[_TEMPLATE_PACKAGE_2],
+                pgu.get_ontology_directory(ctx),
+                pgu.get_package_init_file_name()
+            )
         ]
 
 
+def _emit_module_init(o):
+    """Emits package initializer."""
+    def emit_imports():
+        def emit_code_1(code):
+            code += "from v{0} import *".format(
+                pgu.get_package_module_name(p, 'typeset'))
+            code += gu.emit_line_return()
+
+            return code
+
+        def emit_code_2(code, p):
+            code += "import {0} as {1}".format(
+                pgu.get_package_module_name(p, 'typeset'),
+                p.op_name)
+            code += gu.emit_line_return()
+
+            return code
+
+        return reduce(emit_code_1, o.packages, str()) + \
+               reduce(emit_code_2, o.packages, gu.emit_line_return())
+
+
+    code = _templates[_TEMPLATE_PACKAGE_1]
+    #code = code.replace('{module-imports}', emit_imports())
+
+    return code

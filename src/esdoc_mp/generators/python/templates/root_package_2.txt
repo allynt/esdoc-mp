@@ -10,6 +10,17 @@
 .. note:: Code generated using esdoc_mp @ {datetime-now}.
 
 """
+# Module imports.
+from typeset import *
+
 import decoder
 import typeset
 import validator
+
+
+
+# Version identifier.
+ID = '{ontology-version}'
+
+# Set of supported types.
+TYPES = typeset.TYPES

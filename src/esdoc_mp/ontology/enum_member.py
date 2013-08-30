@@ -19,8 +19,9 @@ class EnumMember(object):
         """Constructor.
 
         :param name: Enumeration member name.
-        :param doc_string: Enumeration member documentation string.
         :type name: str
+        
+        :param doc_string: Enumeration member documentation string.
         :type doc_string: str
 
         """

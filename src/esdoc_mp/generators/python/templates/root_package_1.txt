@@ -10,3 +10,18 @@
 .. note:: Code generated using esdoc_mp @ {datetime-now}.
 
 """
+# Module imports.
+from v{ontology-version} import *
+
+import v{ontology-version}
+
+
+
+# Ontology name.
+NAME = '{ontology-name}'
+
+# Ontology version.
+VERSIONS = (v{ontology-version},)
+
+# Ontology types.
+TYPES = v{ontology-version}.TYPES

@@ -19,11 +19,11 @@ import typeset_meta         # Assigns type info.
 
 # Module exports.
 __all__ = [
-    'supported',
+    'TYPES',
 {module-exports}]
 
 
 
 # Supported types.
-supported = (
+TYPES = (
 {supported-type-list})

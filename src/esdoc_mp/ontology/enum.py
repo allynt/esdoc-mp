@@ -21,12 +21,15 @@ class Enum(object):
         """Constructor.
 
         :param name: Enumeration name.
-        :param is_open: Flag indicating whether members can be added to the enumeration or not.
-        :param doc_string: Enumeration documentation string.
-        :param members: Set of associated enumeration members.
         :type name: str
+        
+        :param is_open: Flag indicating whether members can be added to the enumeration or not.
         :type is_open: bool
+
+        :param doc_string: Enumeration documentation string.
         :type doc_string: str
+
+        :param members: Set of associated enumeration members.
         :type members: list
 
         """

@@ -7,6 +7,15 @@
 
 
 """
+from esdoc_mp.ontology import (
+    Class,
+    Decoding,
+    Enum,
+    EnumMember,
+    Ontology,
+    Package,
+    Property
+    )
 from esdoc_mp.schemas import schemas as ontology_schemas
 
 
@@ -73,16 +82,6 @@ def create_ontology(schema):
     :rtype: esdoc_mp.ontology.Ontology
 
     """
-    from esdoc_mp.ontology import (
-        Class,
-        Decoding,
-        Enum,
-        EnumMember,
-        Ontology,
-        Package,
-        Property
-        )
-
     o_packages = []
     for p_cfg in schema['packages']:
         # ... package classes

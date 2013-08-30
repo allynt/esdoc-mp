@@ -22,12 +22,15 @@ class Package(object):
         """Constructor.
 
         :param name: Package name.
-        :param doc_string: Package documentation string.
-        :param classes: Set of associated classes.
-        :param enums: Set of associated enums.
         :type name: str
+        
+        :param doc_string: Package documentation string.
         :type doc_string: str
+
+        :param classes: Set of associated classes.
         :type classes: list
+
+        :param enums: Set of associated enums.
         :type enums: list
 
         """
@@ -75,5 +78,3 @@ class Package(object):
     def __repr__(self):
         """String representation for debugging."""
         return self.name
-
-

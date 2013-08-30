@@ -21,10 +21,12 @@ class Decoding(object):
         """Constructor.
 
         :param property_name: Name of property with which decoding is associated.
-        :param decoding: Decoding information (e.g. an xpath expression).
-        :param type: Target type to be decoded (either a class or enum).
         :type property_name: str
+        
+        :param decoding: Decoding information (e.g. an xpath expression).
         :type decoding: str
+
+        :param type: Target type to be decoded (either a class or enum).
         :type type: str | None
         
         """

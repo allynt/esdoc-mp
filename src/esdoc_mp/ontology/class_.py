@@ -25,18 +25,24 @@ class Class(object):
         """Constructor.
 
         :param name: Class name.
-        :param base: Base class used in object hierarchies.
-        :param is_abstract: Flag indicating whether this is an abstract class or not.
-        :param doc_string: Class documentation string.
-        :param properties: Set of associated properties.
-        :param constants: Set of associated property constants.
-        :param decodings: Set of associated property decodings.
         :type name: str
+        
+        :param base: Base class used in object hierarchies.
         :type base: str
+
+        :param is_abstract: Flag indicating whether this is an abstract class or not.
         :type is_abstract: bool
+
+        :param doc_string: Class documentation string.
         :type doc_string: str
+
+        :param properties: Set of associated properties.
         :type properties: list
+
+        :param constants: Set of associated property constants.
         :type constants: list
+
+        :param decodings: Set of associated property decodings.
         :type decodings: list
         
         """

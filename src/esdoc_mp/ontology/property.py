@@ -27,13 +27,16 @@ class Property(object):
         """Constructor.
 
         :param name: Property name.
-        :param doc_string: Property docuemtnation string.
-        :param type_name: Property type name.
-        :param cardinality: Type of relationship to associated class (i.e. 0.1 | 1.1 | 0.N | 1.N).
         :type name: str
+        
         :type doc_string: str
+        :param doc_string: Property docuemtnation string.
+
         :type type_name: str
+        :param type_name: Property type name.
+
         :type cardinality: str
+        :param cardinality: Type of relationship to associated class (i.e. 0.1 | 1.1 | 0.N | 1.N).
 
         """
         # Set attributes.
