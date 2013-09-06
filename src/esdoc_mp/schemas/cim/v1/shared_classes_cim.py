@@ -62,7 +62,6 @@ def _cim_info():
             ('source', 'str', '1.1', 'The source application that created the instance.'),
             ('status', 'shared.document_status_type', '0.1', None),
             ('version', 'str', '1.1', 'Universally identifies the instance version.'),
-            ('type_info', 'shared.cim_type_info', '0.1', 'Type information used to a priori identify type.'),
         ],
         'decodings' : [
             ('author', 'child::cim:documentAuthor'),
@@ -71,26 +70,6 @@ def _cim_info():
             ('genealogy', 'child::cim:documentGenealogy'),
             ('id', 'child::cim:documentID'),
             ('version', 'child::cim:documentVersion'),
-        ]
-    }
-
-
-def _cim_type_info():
-    """Creates and returns instance of cim_type_info class."""
-    return {
-        'type' : 'class',
-        'name' : 'cim_type_info',
-        'base' : None,
-        'abstract' : False,
-        'doc' : 'Encapsulates cim type information.',
-        'properties' : [
-            ('ontology_name', 'str', '1.1', 'Ontology name.'),
-            ('ontology_version', 'str', '1.1', 'Ontology version.'),
-            ('package', 'str', '1.1', 'Ontology package name.'),
-            ('type', 'str', '1.1', 'Ontology package type name.'),
-            ('type_display_name', 'str', '1.1', 'Type display name.'),
-        ],
-        'decodings' : [
         ]
     }
 
@@ -164,6 +143,5 @@ classes = [
         _cim_genealogy(),
         _cim_info(),
         _cim_reference(),
-        _cim_relationship(),
-        _cim_type_info()
+        _cim_relationship()
 ]
