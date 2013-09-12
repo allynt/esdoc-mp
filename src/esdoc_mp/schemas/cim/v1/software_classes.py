@@ -109,13 +109,13 @@ def _connection():
             ('target', 'software.connection_endpoint', '0.1', 'The target property being connected.  This is optional to support the way that input is handled in the CMIP5 questionnaire.'),
             ('description', 'str', '0.1', None),
             ('priming', 'shared.data_source', '0.1', 'A priming source is one that is active on the first available timestep only (before "proper" coupling can ocurr). It can either be described here explicitly, or else a separate coupling/connection with a timing profile that is active on only the first timestep can be created.'),
-            ('priming_reference', 'shared.cim_reference', '0.1', None),
+            ('priming_reference', 'shared.doc_reference', '0.1', None),
             ('spatial_regridding', 'software.spatial_regridding', '0.N', 'Characteristics of the scheme used to interpolate a field from one grid (source grid) to another (target grid)'),
             ('time_lag', 'str', '0.1', 'The coupling field used in the target at a given time corresponds to a field produced by the source at a previous time.'),
             ('time_profile', 'software.timing', '0.1', 'All information having to do with the rate of this connection; the times that it is active.  This overrides any rate of a Coupling.'),
             ('time_transformation', 'software.time_transformation', '0.1', 'Temporal transformation performed on the coupling field before or after regridding onto the target grid.'),
             ('transformers', 'software.processor_component', '0.N', 'An "in-line" transformer. This references a fully-described transformer (typically that forms part of the top-level composition) used in the context of this coupling. It is used instead of separately specifying a spatialRegridding, timeTransformation, etc. here.'),
-            ('transformers_references', 'shared.cim_reference', '0.N', None),
+            ('transformers_references', 'shared.doc_reference', '0.N', None),
             ('type', 'software.connection_type', '0.1', 'The type of Connection'),
         ],
         'decodings' : [
@@ -152,7 +152,7 @@ def _connection_endpoint():
         'properties' : [
             ('properties', 'software.connection_property', '0.N', 'The place to describe features specific to the source/target of a connection.'),
             ('data_source', 'shared.data_source', '0.1', None),
-            ('data_source_reference', 'shared.cim_reference', '0.1', None),
+            ('data_source_reference', 'shared.doc_reference', '0.1', None),
             ('instance_id', 'str', '0.1', 'If the same datasource is used more than once in a coupled model then a method for identifying which particular instance is being referenced is needed (for BFG).'),
         ],
         'decodings' : [
@@ -203,13 +203,13 @@ def _coupling():
             ('is_fully_specified', 'bool', '1.1', 'If true then the coupling is fully-specified.  If false then not every Connection has been described within the coupling.'),
             ('purpose', 'shared.data_purpose', '1.1', None),
             ('priming', 'shared.data_source', '0.1', 'A priming source is one that is active on the first available timestep only (before "proper" coupling can ocurr). It can either be described here explicitly, or else a separate coupling/connection with a timing profile that is active on only the first timestep can be created.'),
-            ('priming_reference', 'shared.cim_reference', '0.1', None),
+            ('priming_reference', 'shared.doc_reference', '0.1', None),
             ('spatial_regriddings', 'software.spatial_regridding', '0.N', 'Characteristics of the scheme used to interpolate a field from one grid (source grid) to another (target grid).'),
             ('time_profile', 'software.timing', '0.1', 'Describes how often the coupling takes place.'),
             ('time_lag', 'software.time_lag', '0.1', 'The coupling field used in the target at a given time corresponds to a field produced by the source at a previous time.'),
             ('time_transformation', 'software.time_transformation', '0.1', 'Temporal transformation performed on the coupling field before or after regridding onto the target grid.'),
             ('transformers', 'software.processor_component', '0.N', 'An "in-line" transformer. This references a fully-described transformer (typically that forms part of the top-level composition) used in the context of this coupling. It is used instead of separately specifying a spatialRegridding, timeTransformation, etc. here.'),
-            ('transformers_references', 'shared.cim_reference', '0.N', None),
+            ('transformers_references', 'shared.doc_reference', '0.N', None),
             ('type', 'software.connection_type', '0.1', 'Describes the method of coupling.'),
         ],
         'decodings' : [
@@ -249,7 +249,7 @@ def _coupling_endpoint():
         'properties' : [
             ('properties', 'software.coupling_property', '0.N', 'A place to describe features specific to the source/target of a coupling'),
             ('data_source', 'shared.data_source', '0.1', None),
-            ('data_source_reference', 'shared.cim_reference', '0.1', None),
+            ('data_source_reference', 'shared.doc_reference', '0.1', None),
             ('instance_id', 'str', '0.1', 'If the same datasource is used more than once in a coupled model then a method for identifying which particular instance is being referenced is needed (for BFG).'),
         ],
         'decodings' : [
@@ -296,7 +296,7 @@ def _deployment():
             ('description', 'str', '0.1', None),
             ('parallelisation', 'software.parallelisation', '0.1', None),
             ('platform', 'shared.platform', '0.1', 'The platform that this deployment has been run on. It is optional to allow for "unconfigured" models, that nonetheless specify their parallelisation constraints (a feature needed by OASIS).'),
-            ('platform_reference', 'shared.cim_reference', '0.1', None),
+            ('platform_reference', 'shared.doc_reference', '0.1', None),
             ('executable_name', 'str', '0.1', None),
             ('executable_arguments', 'str', '0.N', None),
         ],
@@ -339,14 +339,14 @@ def _model_component():
         'abstract' : False,
         'doc' : 'A ModelComponent is a scientific model; it represents code which models some physical phenomena for a particular length of time.',
         'properties' : [
-            ('cim_info', 'shared.cim_info', '1.1', None),
+            ('doc_info', 'shared.doc_info', '1.1', None),
             ('type', 'software.model_component_type', '0.1', 'Describes the type of component. There can be multiple types.'),
             ('types', 'software.model_component_type', '1.N', 'Describes the type of component. There can be multiple types.'),
             ('timing', 'software.timing', '0.1', 'Describes information about how this component simulates time.'),
             ('activity', 'activity.activity', '0.1', None),
         ],
         'decodings' : [
-            ('cim_info', 'self::cim:modelComponent'),
+            ('doc_info', 'self::cim:modelComponent'),
             ('timing', 'child::cim:timing'),
             ('type', 'child::cim:type[1]/@value'),
             ('types', 'child::cim:type/@value'),
@@ -382,10 +382,10 @@ def _processor_component():
         'abstract' : False,
         'doc' : 'A ModelComponent is a scientific model; it represents code which models some physical phenomena for a particular length of time.',
         'properties' : [
-            ('cim_info', 'shared.cim_info', '1.1', None),
+            ('doc_info', 'shared.doc_info', '1.1', None),
         ],
         'decodings' : [
-            ('cim_info', 'self::cim:modelComponent'),
+            ('doc_info', 'self::cim:modelComponent'),
         ]
     }
 
@@ -514,7 +514,7 @@ def _spatial_regridding_user_method():
         'doc' : 'Characteristics of the scheme used to interpolate a field from one grid (source grid) to another (target grid).  Documents should use either the spatialRegriddingStandardMethod _or_ the spatialRegriddingUserMethod, but not both.',
         'properties' : [
             ('file', 'data.data_object', '0.1', None),
-            ('file_reference', 'shared.cim_reference', '0.1', None),
+            ('file_reference', 'shared.doc_reference', '0.1', None),
             ('name', 'str', '1.1', None),
         ],
         'decodings' : [
@@ -534,13 +534,13 @@ def _statistical_model_component():
         'abstract' : False,
         'doc' : None,
         'properties' : [
-            ('cim_info', 'shared.cim_info', '1.1', None),
+            ('doc_info', 'shared.doc_info', '1.1', None),
             ('type', 'software.statistical_model_component_type', '0.1', 'Describes the type of component. There can be multiple types.'),
             ('types', 'software.statistical_model_component_type', '1.N', 'Describes the type of component. There can be multiple types.'),
             ('timing', 'software.timing', '0.1', 'Describes information about how this component simulates time.'),
         ],
         'decodings' : [
-            ('cim_info', 'self::cim:statisticalModelComponent'),
+            ('doc_info', 'self::cim:statisticalModelComponent'),
             ('timing', 'child::cim:timing'),
             ('type', 'child::cim:type[1]/@value'),
             ('types', 'child::cim:type/@value'),
@@ -589,6 +589,7 @@ def _timing():
             ('units', '@units'),
         ]
     }
+
 
 def _time_transformation():
     """Creates and returns instance of time_transformation class."""

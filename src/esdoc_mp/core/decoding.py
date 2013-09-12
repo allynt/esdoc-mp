@@ -1,5 +1,5 @@
 """
-.. module:: esdoc_mp.ontology.decoding
+.. module:: esdoc_mp.core.decoding
    :platform: Unix, Windows
    :synopsis: Represents an ontological decoding definition.
 

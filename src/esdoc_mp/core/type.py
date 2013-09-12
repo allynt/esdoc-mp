@@ -1,5 +1,5 @@
 """
-.. module:: esdoc_mp.ontology.property
+.. module:: esdoc_mp.core.property
    :platform: Unix, Windows
    :synopsis: Represents an ontological type reference definition.
 
@@ -9,8 +9,8 @@
 """
 
 # Module imports.
-from esdoc_mp.ontology.class_ import Class
-from esdoc_mp.ontology.enum import Enum
+from esdoc_mp.core.class_ import Class
+from esdoc_mp.core.enum import Enum
 
 
 
@@ -54,7 +54,7 @@ class Type(object):
         """Sets complex type.
 
         :param value: Name of type.
-        :type value: esdoc_mp.ontology.class_.Class | esdoc_mp.ontology.enum.Enum
+        :type value: esdoc_mp.core.class_.Class | esdoc_mp.core.enum.Enum
 
         """
         if self.is_complex == False:

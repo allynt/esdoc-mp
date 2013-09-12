@@ -1,5 +1,5 @@
 """
-.. module:: esdoc_mp.ontology.enum
+.. module:: esdoc_mp.core.enum
    :platform: Unix, Windows
    :synopsis: Represents an ontological enumerated type definition.
 

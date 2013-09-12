@@ -20,9 +20,10 @@ from esdoc_mp.schemas.cim.v1.grids_enums import enums as grids_enums
 from esdoc_mp.schemas.cim.v1.quality_classes import classes as quality_classes
 from esdoc_mp.schemas.cim.v1.quality_enums import enums as quality_enums
 from esdoc_mp.schemas.cim.v1.shared_classes import classes as shared_classes
-from esdoc_mp.schemas.cim.v1.shared_classes_cim import classes as shared_classes_cim
+from esdoc_mp.schemas.cim.v1.shared_classes_doc import classes as shared_classes_doc
 from esdoc_mp.schemas.cim.v1.shared_classes_time import classes as shared_classes_time
 from esdoc_mp.schemas.cim.v1.shared_enums import enums as shared_enums
+from esdoc_mp.schemas.cim.v1.shared_enums_doc import enums as shared_enums_doc
 from esdoc_mp.schemas.cim.v1.software_classes import classes as software_classes
 from esdoc_mp.schemas.cim.v1.software_enums import enums as software_enums
 
@@ -62,8 +63,8 @@ schema = {
         {
             'name' : 'shared',
             'doc' : 'TODO get package documentation',
-            'classes' : shared_classes + shared_classes_cim + shared_classes_time,
-            'enums' : shared_enums,
+            'classes' : shared_classes + shared_classes_doc + shared_classes_time,
+            'enums' : shared_enums + shared_enums_doc,
         },
         {
             'name' : 'software',

@@ -10,7 +10,7 @@
 
 # Module imports.
 from esdoc_mp.generators.generator import Generator
-import esdoc_mp.ontology as ontology
+import esdoc_mp.core as ontology
 import esdoc_mp.utils.runtime as rt
 import esdoc_mp.generators.generator_utils as gu
 import esdoc_mp.generators.python.utils as pgu
@@ -164,7 +164,7 @@ def _emit_module_typeset_for_pkg(o, p):
 
             return code
 
-        return reduce(emit_code, p.base_packages, str())
+        return reduce(emit_code, p.associated, str())
     
 
     def get_classes(p):
@@ -293,10 +293,10 @@ def _emit_snippet_class(c):
 def _emit_snippet_class_properties(c):
     """Emits set of class properties."""
     def emit_code(code, p):
-        code += "{0}{1}{2}# type = {3}{4}".format(
+        code += "{0}{1}{2}# {3}{4}".format(
             gu.emit_indent(2),
             pgu.get_property_ctor(p),
-            ''.ljust(45 - len(pgu.get_property_ctor(p))),
+            ''.ljust(50 - len(pgu.get_property_ctor(p))),
             pgu.get_type_doc_name(p.type),
             gu.emit_line_return()
         )

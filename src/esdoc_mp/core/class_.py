@@ -1,5 +1,5 @@
 """
-.. module:: esdoc_mp.ontology.class
+.. module:: esdoc_mp.core.class
    :platform: Unix, Windows
    :synopsis: Represents an ontological class definition.
 
@@ -48,7 +48,7 @@ class Class(object):
         """
         # Set relations.
         for prp in properties:
-            prp.cls = self        
+            prp.cls = self
 
         # Set attributes.
         self.__all_decodings = None
@@ -66,7 +66,7 @@ class Class(object):
         self.package = None
 
         # Set is entity flag.
-        self.is_entity = is_abstract == False and self.has_property('cim_info')
+        self.is_entity = is_abstract == False and self.has_property('doc_info')
 
         # Initialise output attributes.
         self.op_base_name = None

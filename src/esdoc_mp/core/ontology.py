@@ -1,5 +1,5 @@
 """
-.. module:: esdoc_mp.ontology.ontology
+.. module:: esdoc_mp.core.ontology
    :platform: Unix, Windows
    :synopsis: Represents an ontology definition.
 
@@ -12,7 +12,8 @@
 from operator import add
 from functools import reduce
 
-from esdoc_mp.ontology.class_ import Class
+from esdoc_mp.core.class_ import Class
+import esdoc_mp.utils.runtime as rt
 
 
 
@@ -68,8 +69,8 @@ class Ontology(object):
         # Set base classes.
         _set_base_classes(self)
         
-        # Set property type is_class flag.
-        _set_is_class_flag(self)
+        # Set property type information.
+        _set_property_type_info(self)
 
         # Set intra-class imports.
         _set_class_imports(self)
@@ -78,7 +79,7 @@ class Ontology(object):
         _set_circular_imports(self)
 
         # For each package assign packages used by it's classes.
-        _set_base_packages(self)
+        _set_associated_packages(self)
         
 
     def __repr__(self):
@@ -109,14 +110,23 @@ def _set_base_classes(o):
         t = o.get_type(c.base)
         if t is not None:
             c.base = t
+        else:
+            msg = "Base class not found :: class = {0}.{1} :: base = {2}"
+            msg = msg.format(c.package, c, c.base)
+            rt.log(msg)
 
 
-def _set_is_class_flag(o):
+def _set_property_type_info(o):
     """Sets a property type flag indicating whether the property is related to an ontology class."""
-    for pt in [pt for pt in o.property_types if pt.is_complex]:
-        t = o.get_type(pt.name)
-        if t is not None:
-            pt.is_class = isinstance(t, Class)
+    for pt in o.property_types:
+        pt.cls = pt.package = None
+        if pt.is_complex:
+            t = o.get_type(pt.name)
+            if t is not None:
+                pt.is_class = isinstance(t, Class)
+                pt.ontology = o
+                pt.package = t.package
+                pt.cls = t
 
 
 def _set_class_imports(o):
@@ -147,11 +157,18 @@ def _set_circular_imports(o):
                 p_type.circular_imports.append(c_import)
 
 
-def _set_base_packages(o):
-    """Assigns set of intra-package base classes."""
+def _set_associated_packages(o):
+    """Assigns set of intra-package classes."""
+    def append(p, targets):
+        for target in targets:
+            if target != p and target not in p.associated:
+                p.associated.append(target)
+
     for p in o.packages:
+        # Packages associated with base classes.
+        append(p, [c.base.package for c in p.classes if c.base is not None])
         for c in p.classes:
-            if c.base is not None and \
-               c.base.package != p and \
-               c.base.package not in p.base_packages:
-                p.base_packages.append(c.base.package)
+            # Packages associated with property types.
+            for prp in c.properties:
+                if prp.is_required and prp.type.package is not None:
+                    append(p, [prp.type.package])

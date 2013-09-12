@@ -28,63 +28,6 @@ def _change_property_type():
     }
 
 
-def _cim_document_relationship_type():
-    """Creates and returns instance of document_relationship_type enum."""
-    return {
-        'type' : 'enum',
-        'name' : 'cim_document_relationship_type',
-        'is_open' : False,
-        'doc' : None,
-        'members' : [
-            ('similarTo', None),
-            ('other', None),
-            ('laterVersionOf', None),
-            ('previousVersionOf', None),
-            ('fixedVersionOf', None),
-        ],
-    }
-
-
-def _cim_document_type():
-    """Creates and returns instance of cim_document_type enum."""
-    return {
-        'type' : 'enum',
-        'name' : 'cim_document_type',
-        'is_open' : False,
-        'doc' : None,
-        'members' : [
-            ('downscalingSimulation', None),
-            ('statisticalModelComponent', None),
-            ('simulationRun', None),
-            ('assimilation', None),
-            ('simulationComposite', None),
-            ('numericalExperiment', None),
-            ('dataProcessing', None),
-            ('ensemble', None),
-            ('dataObject', None),
-            ('gridSpec', None),
-            ('cimQuality', None),
-            ('platform', None),
-            ('processorComponent', None),
-            ('modelComponent', None),
-        ],
-    }
-
-
-def _cim_relationship_direction_type():
-    """Creates and returns instance of relationship_direction_type enum."""
-    return {
-        'type' : 'enum',
-        'name' : 'cim_relationship_direction_type',
-        'is_open' : False,
-        'doc' : None,
-        'members' : [
-            ('toTarget', None),
-            ('fromTarget', None),
-        ],
-    }
-
-
 def _compiler_type():
     """Creates and returns instance of compiler_type enum."""
     return {
@@ -107,21 +50,6 @@ def _data_purpose():
             ('ancillaryFile', None),
             ('boundaryCondition', None),
             ('initialCondition', None),
-        ],
-    }
-
-
-def _document_status_type():
-    """Creates and returns instance of document_status_type enum."""
-    return {
-        'type' : 'enum',
-        'name' : 'document_status_type',
-        'is_open' : False,
-        'doc' : 'Status of cim document.',
-        'members' : [
-            ('complete', None),
-            ('incomplete', None),
-            ('in-progress', None),
         ],
     }
 
@@ -199,12 +127,8 @@ def _unit_type():
 # Set of package enums.
 enums = [
     _change_property_type(),
-    _cim_document_type(),
-    _cim_document_relationship_type(),
-    _cim_relationship_direction_type(),
     _compiler_type(),
     _data_purpose(),
-    _document_status_type(),
     _interconnect_type(),
     _machine_type(),
     _machine_vendor_type(),

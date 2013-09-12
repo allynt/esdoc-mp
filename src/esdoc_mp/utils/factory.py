@@ -7,7 +7,7 @@
 
 
 """
-from esdoc_mp.ontology import (
+from esdoc_mp.core import (
     Class,
     Decoding,
     Enum,
@@ -79,7 +79,7 @@ def create_ontology(schema):
     :param schema: An ontology schema declaration.
     :type schema: dict
     :returns: An ontology declaration.
-    :rtype: esdoc_mp.ontology.Ontology
+    :rtype: esdoc_mp.core.Ontology
 
     """
     o_packages = []

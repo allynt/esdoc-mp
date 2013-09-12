@@ -22,7 +22,7 @@ class GeneratorContext(object):
 
         :param ontology: Ontology being processed.
         :param options: Generation options.
-        :type ontology: esdoc_mp.ontology.Ontology
+        :type ontology: esdoc_mp.core.Ontology
         :type options: esdoc_mp.GeneratorOptions
 
         """
@@ -55,7 +55,7 @@ class GeneratorContext(object):
         """Sets current package being processed.
 
         :param pkg: An ontology package being processed.
-        :type pkg: esdoc_mp.ontology.package.Package
+        :type pkg: esdoc_mp.core.package.Package
 
         """
         self.pkg = pkg
@@ -67,7 +67,7 @@ class GeneratorContext(object):
         """Sets current class type being processed.
 
         :param cls: A class type being processed.
-        :type cls: esdoc_mp.ontology.class_.Class
+        :type cls: esdoc_mp.core.class_.Class
 
         """
         self.pkg = cls.package
@@ -79,7 +79,7 @@ class GeneratorContext(object):
         """Sets current enumerated type being processed.
 
         :param enum: An enumerated type being processed.
-        :type enum: esdoc_mp.ontology.enum.Enum
+        :type enum: esdoc_mp.core.enum.Enum
 
         """
         self.pkg = enum.package

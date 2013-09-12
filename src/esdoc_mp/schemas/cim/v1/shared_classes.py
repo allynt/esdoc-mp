@@ -3,10 +3,6 @@ CIM v1 shared package classes.
 """
 
 
-# --------------------------------------- #
-# --------  Other classes        -------- #
-# --------------------------------------- #
-
 def _change():
     """Creates and returns instance of change class."""
     return {
@@ -68,7 +64,7 @@ def _citation():
             ('date', 'datetime', '0.1', None),
             ('date_type', 'str', '0.1', None),
             ('organisation', 'str', '0.1', None),
-            ('reference', 'shared.cim_reference', '0.1', None),
+            ('reference', 'shared.doc_reference', '0.1', None),
             ('role', 'str', '0.1', None),
             ('title', 'str', '0.1', None),
             ('type', 'str', '0.1', None),
@@ -216,7 +212,7 @@ def _platform():
         'abstract' : False,
         'doc' : 'A platform is a description of resources used to deploy a component/simulation.  A platform pairs a machine with a (set of) compilers.  There is also a point of contact for the platform.',
         'properties' : [
-            ('cim_info', 'shared.cim_info', '1.1', None),
+            ('doc_info', 'shared.doc_info', '1.1', None),
             ('contacts', 'shared.responsible_party', '0.N', None),
             ('description', 'str', '0.1', None),
             ('long_name', 'str', '0.1', None),
@@ -224,7 +220,7 @@ def _platform():
             ('units', 'shared.machine_compiler_unit', '1.N', None),
         ],
         'decodings' : [
-            ('cim_info', 'self::cim:platform'),
+            ('doc_info', 'self::cim:platform'),
             ('contacts', 'child::cim:contact'),
             ('description', 'child::cim:description'),
             ('long_name', 'child::cim:longName'),

@@ -126,7 +126,7 @@ def get_ontology_version(name):
     return name.replace(".", "_")
 
 
-def _get_ontology_directory(ontology, root=None, sub=None, suffix_root=False):
+def _get_ontology_directory(o, root=None, sub=None, suffix_root=False):
     """Returns ontology directory into which code is generated code.
 
     Keyword Arguments:
@@ -141,10 +141,10 @@ def _get_ontology_directory(ontology, root=None, sub=None, suffix_root=False):
         dir += root + '/'
     if suffix_root == True:
         dir += 'cim_codegen/python/'
-        dir += get_ontology_name(ontology)
-    dir += get_ontology_name(ontology)
+        dir += get_ontology_name(o)
+    dir += get_ontology_name(o)
     dir += '/'
-    dir += 'v' + get_ontology_version(ontology)
+    dir += 'v' + get_ontology_version(o)
     if sub is not None:
         dir += '/' + sub
     return dir
@@ -179,51 +179,17 @@ def get_package_name(name):
     name - name being converted.
 
     """
-    name = _strip_package_name(name)
-    return name
+    return _strip_package_name(name)
 
 
-def get_package_path(ontology, parent, package):
-    """Returns full python package name.
-
-    Keyword Arguments:
-    name - name being converted.
-
-    """
-    result = get_ontology_name(ontology)
-    result += '.v'
-    result += get_ontology_version(ontology)
-    result += '.'
-    result += get_package_name(parent)
-    result += '.'
-    result += get_package_name(package)
-    return result
-
-
-def get_package_directory(package, root=None, sub=None, suffix_root=False):
-    """Returns package directory into which code is generated code.
-
-    Keyword Arguments:
-    package - package being processed.
-    root_dir - root directory with which package is associated.
-    sub_dir - sub directory.
-    suffix_root_dir - flag indicating whether to append a standard suffix to root directory.
-
-    """
-    dir = _get_ontology_directory(package.ontology, root, sub, suffix_root)
-    dir += '/'
-    dir += get_package_name(package)
-    return dir
-
-
-def get_full_class_name(cls):
+def get_full_class_name(c):
     """Converts name to a python class name.
 
     Keyword Arguments:
     name - name being converted.
 
     """
-    return get_package_name(cls.package) + "." + get_class_name(cls)
+    return get_package_name(c.package) + "." + get_class_name(c)
 
 
 def get_class_name(name):
@@ -233,8 +199,7 @@ def get_class_name(name):
     name - name being converted.
 
     """
-    name = _strip_class_name(name)
-    return convert_to_camel_case(name)
+    return convert_to_camel_case(_strip_class_name(name))
 
 
 def get_class_import_name(name):
@@ -244,8 +209,7 @@ def get_class_import_name(name):
     name - name being converted.
 
     """
-    name = _strip_class_name(name)
-    return name
+    return _strip_class_name(name)
 
 
 def get_class_functional_name(name):
@@ -255,8 +219,7 @@ def get_class_functional_name(name):
     name - name being converted.
 
     """
-    name = _strip_class_name(name)
-    return name
+    return _strip_class_name(name)
 
 
 def get_class_doc_string_name(name):
@@ -296,15 +259,11 @@ def _get_class_base_name(c):
         return get_full_class_name(c.base)
 
 
-def get_property_ctor(prp):
+def get_property_ctor(p):
     """Converts class property to a python property constructor declaration.
-
-    Keyword Arguments:
-    name - name being converted.
-
     """
-    return 'self.{0} = {1}'.format(get_property_name(prp),
-                                   get_property_default_value(prp))
+    return 'self.{0} = {1}'.format(get_property_name(p),
+                                   get_property_default_value(p))
 
 
 def get_property_name(name):
@@ -314,8 +273,7 @@ def get_property_name(name):
     name - name being converted.
 
     """
-    name = _strip(name)
-    return name
+    return _strip(name)
 
 
 def get_property_field_name(name):
@@ -325,49 +283,42 @@ def get_property_field_name(name):
     name - name being converted.
 
     """
-    name = _strip(name)
-    return _PROPERTY_FIELD_PREFIX + name
+    return _PROPERTY_FIELD_PREFIX + _strip(name)
 
 
-def _get_default_value(type_name, is_simple, is_iterative, is_required, is_enum):
-    """Returns default type value.
-
-    """
-    # Iterables: convert via pre-defined mappings.
-    if is_iterative:
-        if is_required:
-            return _get_iterative_default_value()
-        else:
-            return _get_iterative_null_value()
-    # Simple types: convert via pre-defined mappings.
-    elif is_simple:
-        if is_required:
-            return _get_simple_default_value(type_name)
-        else:
-            return _get_simple_null_value(type_name)
-    # Enum types: .
-    elif is_enum:
-        if is_required:
-            return _get_enum_default_value(type_name)
-        else:
-            return _get_enum_null_value(type_name)
-    # Class types: convert via pre-defined mappings.
-    else:
-        if is_required:
-            return _get_class_default_value(type_name)
-        else:
-            return _get_class_null_value(type_name)
-
-
-def get_property_default_value(property):
+def get_property_default_value(p):
     """Returns property default value.
 
     """
-    return _get_default_value(get_type_name(property.type),
-                              property.type.is_simple,
-                              property.is_iterative,
-                              property.is_required,
-                              property.type.is_enum)
+    # Iterables: convert via pre-defined mappings.
+    if p.is_iterative:
+        if p.is_required:
+            return _ITERATIVE_DEFAULT_VALUE
+        else:
+            return _ITERATIVE_NULL_VALUE
+    # Simple types: convert via pre-defined mappings.
+    elif p.type.is_simple:
+        if p.is_required:
+            return _SIMPLE_DEFAULT_VALUES[get_type_name(p.type)]
+        else:
+            return _SIMPLE_NULL_VALUES[get_type_name(p.type)]
+    # Enum types: .
+    elif p.type.is_enum:
+        if p.is_required:
+            return _get_enum_default_value(get_type_name(p.type))
+        else:
+            return _ENUM_NULL_VALUE
+    # Complex (class) types: convert via pre-defined mappings.
+    else:
+        if p.is_required:
+            if p.package == p.type.package:
+                return "{0}()".format(get_type_name(p.type))
+            else:
+                return "{0}.{1}()".format(get_package_name(p.type.package),
+                                          get_type_name(p.type))
+        else:
+            return _CLASS_NULL_VALUE
+    
 
 
 def get_type_name(type):
@@ -386,38 +337,38 @@ def get_type_name(type):
         return get_class_name(name)
 
 
-def get_type_functional_name(type, get_full_name=False):
+def get_type_functional_name(t, get_full_name=False):
     """Returns python type functional name.
 
     Keyword Arguments:
     type - a type declaration.
 
     """
-    name = type.name
-    if type.is_simple:
+    name = t.name
+    if t.is_simple:
         return _get_simple_type_mapping(name)
-    elif type.is_enum:
+    elif t.is_enum:
         return 'str'
-    elif type.is_complex:
+    elif t.is_complex:
         if get_full_name:
             return get_package_name(name) + "." + get_class_name(name)
         else:
             return get_class_name(name)
 
 
-def get_type_doc_name(type):
+def get_type_doc_name(t):
     """Returns python type documentation name.
 
     Keyword Arguments:
     type - a type declaration.
 
     """
-    name = type.name
-    if type.is_simple:
+    name = t.name
+    if t.is_simple:
         return _get_simple_type_mapping(name)
-    elif type.is_enum:
+    elif t.is_enum:
         return '{0}.{1}'.format(get_package_name(name), get_enum_name(name))
-    elif type.is_complex:
+    elif t.is_complex:
         return '{0}.{1}'.format(get_package_name(name), get_class_name(name))
 
 
@@ -441,8 +392,7 @@ def get_enum_name(name):
     name - name being converted.
 
     """
-    name = _strip_enum_name(name)
-    return convert_to_camel_case(name)
+    return convert_to_camel_case(_strip_enum_name(name))
 
 
 def get_enum_file_name(name):
@@ -452,8 +402,7 @@ def get_enum_file_name(name):
     name - name being converted.
 
     """
-    name = _strip_enum_name(name)
-    return name + FILE_EXTENSION
+    return _strip_enum_name(name) + FILE_EXTENSION
 
 
 def _get_simple_type_mapping(simple):
@@ -466,41 +415,7 @@ def _get_simple_type_mapping(simple):
     return _SIMPLE_TYPE_MAPPINGS[simple]
 
 
-def _get_simple_default_value(simple):
-    """Returns default value of a simple type.
-
-    Keyword Arguments:
-    simple - simple type name.
-
-    """
-    return _SIMPLE_DEFAULT_VALUES[simple]
-
-
-def _get_simple_null_value(simple):
-    """Returns null value of a simple type.
-
-    Keyword Arguments:
-    simple - simple type name.
-
-    """
-    return _SIMPLE_NULL_VALUES[simple]
-
-
-def _get_iterative_default_value():
-    """Returns default value of an iterative type.
-
-    """
-    return _ITERATIVE_DEFAULT_VALUE
-
-
-def _get_iterative_null_value():
-    """Returns null value of an iterative type.
-
-    """
-    return _ITERATIVE_NULL_VALUE
-
-
-def _get_enum_default_value(enum):
+def _get_enum_default_value(e):
     """Returns default value of a complex enum type.
 
     Keyword Arguments:
@@ -508,34 +423,6 @@ def _get_enum_default_value(enum):
 
     """
     return _ENUM_DEFAULT_VALUE
-
-
-def _get_enum_null_value(enum):
-    """Returns null value of a complex enum type.
-
-    Keyword Arguments:
-    enum - complex enum type name.
-
-    """
-    return _ENUM_NULL_VALUE
-
-
-def _get_class_default_value(complex):
-    """Returns default value of a complex type.
-
-    Keyword Arguments:
-    complex - complex type name.
-
-    """
-    return 'None'
-    return complex + '()'
-
-
-def _get_class_null_value(complex):
-    """Returns null value of a complex type.
-
-    """
-    return _CLASS_NULL_VALUE
 
 
 def _strip_package_name(name):
@@ -596,15 +483,15 @@ def get_module_file_name(name):
     return name + FILE_EXTENSION
 
 
-def format(ontology):
+def format(o):
     """Pythonizes ontology names."""
-    ontology.op_name = get_ontology_name(ontology)
-    ontology.op_version = get_ontology_version(ontology)
+    o.op_name = get_ontology_name(o)
+    o.op_version = get_ontology_version(o)
 
-    for p in ontology.packages:
+    for p in o.packages:
         p.op_name = get_package_name(p)
 
-    for c in ontology.classes:
+    for c in o.classes:
         c.op_base_name = _get_class_base_name(c)        
         c.op_doc_string_name = get_class_doc_string_name(c)
         c.op_file_name = _get_class_file_name(c)

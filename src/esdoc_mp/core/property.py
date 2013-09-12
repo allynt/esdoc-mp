@@ -1,5 +1,5 @@
 """
-.. module:: esdoc_mp.ontology.property
+.. module:: esdoc_mp.core.property
    :platform: Unix, Windows
    :synopsis: Represents an ontological type property definition.
 
@@ -9,7 +9,7 @@
 """
 
 # Module imports.
-from esdoc_mp.ontology.type import Type
+from esdoc_mp.core.type import Type
 
 
 

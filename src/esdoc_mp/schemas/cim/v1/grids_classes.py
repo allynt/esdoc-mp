@@ -114,12 +114,12 @@ def _grid_spec():
         'abstract' : False,
         'doc' : 'This is a container class for GridSpec objects. A GridSpec object can contain one or more esmModelGrid objects, and one or more esmExchangeGrid objects. These objects may be serialised to one or possibly several files according to taste. Since GridSpec is sub-typed from GML\'s AbstractGeometryType it can, and should, be identified using a gml:id attribute.',
         'properties' : [
-            ('cim_info', 'shared.cim_info', '1.1', None),
+            ('doc_info', 'shared.doc_info', '1.1', None),
             ('esm_model_grids', 'grids.grid_mosaic', '0.N', None),
             ('esm_exchange_grids', 'grids.grid_mosaic', '0.N', None),
         ],
         'decodings' : [
-            ('cim_info', 'self::cim:gridSpec'),
+            ('doc_info', 'self::cim:gridSpec'),
             ('esm_model_grids', 'child::cim:esmModelGrid'),
             ('esm_exchange_grids', 'child::cim:esmExchangeGrid'),
         ]

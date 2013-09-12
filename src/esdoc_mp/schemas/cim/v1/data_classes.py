@@ -164,7 +164,7 @@ def _data_object():
         'abstract' : False,
         'doc' : 'A DataObject describes a unit of data.  DataObjects can be grouped hierarchically.  The attributes hierarchyLevelName and hierarchyLevelValue describe how objects are grouped.',
         'properties' : [
-            ('cim_info', 'shared.cim_info', '1.1', None),
+            ('doc_info', 'shared.doc_info', '1.1', None),
             ('acronym', 'str', '0.1', None),
             ('child_object', 'data.data_object', '0.N', None),
             ('citations', 'shared.citation', '0.N', None),
@@ -179,7 +179,7 @@ def _data_object():
             # TODO - define type
             ('geometry_model', 'str', '0.1', None),
             ('parent_object', 'data.data_object', '0.1', None),
-            ('parent_object_reference', 'shared.cim_reference', '0.1', None),
+            ('parent_object_reference', 'shared.doc_reference', '0.1', None),
             ('restriction', 'data.data_restriction', '0.N', None),
             # TODO - define type
             ('source_simulation', 'str', '0.1', None),
@@ -187,7 +187,7 @@ def _data_object():
         ],
         'decodings' : [
             ('acronym', 'child::cim:acronym'),
-            ('cim_info', 'self::cim:dataObject'),
+            ('doc_info', 'self::cim:dataObject'),
             ('citations', '//cim:citation[not(cim:citation)]'),
             ('content', 'child::cim:content'),
             ('data_property', 'child::cim:dataProperty/cim:dataProperty'),

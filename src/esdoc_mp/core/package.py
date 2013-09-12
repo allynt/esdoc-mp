@@ -1,5 +1,5 @@
 """
-.. module:: esdoc_mp.ontology.package
+.. module:: esdoc_mp.core.package
    :platform: Unix, Windows
    :synopsis: Represents an ontological package definition.
 
@@ -37,12 +37,14 @@ class Package(object):
         # Set relations.
         for cls in classes:
             cls.package = self
+            for prp in cls.properties:
+                prp.package = self
         for enum in enums:
             enum.package = self
 
         # Set attributes.
         self.abstract_classes = sorted([c for c in classes if c.is_abstract], key=lambda c: c.name)
-        self.base_packages = []
+        self.associated = []
         self.concrete_classes = sorted([c for c in classes if not c.is_abstract], key=lambda c: c.name)
         self.classes = sorted(classes, key=lambda c: c.name)
         self.doc_string = doc_string

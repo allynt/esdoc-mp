@@ -38,9 +38,9 @@ def _conformance():
             ('frequency', 'activity.frequency_type', '0.1', None),
             ('is_conformant', 'bool', '1.1', 'Records whether or not this conformance satisfies the requirement.  A simulation should have at least one conformance mapping to every experimental requirement.  If a simulation satisfies the requirement - the usual case - then conformant should have a value of true.  If conformant is true but there is no reference to a source for the conformance, then we can assume that the simulation conforms to the requirement _naturally_, that is without having to modify code or inputs. If a simulation does not conform to a requirement then conformant should be set to false.'),
             ('requirements', 'activity.numerical_requirement', '0.N', 'Points to the NumericalRequirement that the simulation in question is conforming to.'),
-            ('requirements_references', 'shared.cim_reference', '0.N', None),
+            ('requirements_references', 'shared.doc_reference', '0.N', None),
             ('sources', 'shared.data_source', '0.N', 'Points to the DataSource used to conform to a particular Requirement.   This may be part of an activity::simulation or a software::component.  It can be either a DataObject or a SoftwareComponent or a ComponentProperty.  It could also be by using particular attributes of, say, a SoftwareComponent, but in that case the recommended practise is to reference the component and add appropriate text in the conformance description attribute.'),
-            ('sources_references', 'shared.cim_reference', '0.N', None),
+            ('sources_references', 'shared.doc_reference', '0.N', None),
             ('type', 'activity.conformance_type', '0.1', 'Describes the method that this simulation conforms to an experimental requirement (in case it is not specified by the change property of the reference to the source of this conformance)'),
         ],
         'decodings' : [
@@ -74,18 +74,18 @@ def _downscaling_simulation():
         'abstract' : True,
         'doc' : 'A simulation is the implementation of a numerical experiment.  A simulation can be made up of "child" simulations aggregated together to form a simulation composite.  The parent simulation can be made up of whole or partial child simulations, the simulation attributes need to be able to capture this.',
         'properties' : [
-            ('cim_info', 'shared.cim_info', '1.1', None),
+            ('doc_info', 'shared.doc_info', '1.1', None),
             ('calendar', 'shared.calendar', '1.1', None),
             ('inputs', 'software.coupling', '0.N', 'Implemented as a mapping from a source to target; can be a forcing file, a boundary condition, etc.'),
             ('outputs', 'data.data_object', '0.N', None),
-            ('output_references', 'shared.cim_reference', '0.N', None),
+            ('output_references', 'shared.doc_reference', '0.N', None),
             ('downscaling_id', 'str', '0.1', None),
             ('downscaled_from', 'shared.data_source', '1.1', None),
-            ('downscaled_from_reference', 'shared.cim_reference', '1.1', None),
+            ('downscaled_from_reference', 'shared.doc_reference', '1.1', None),
             ('downscaling_type', 'activity.downscaling_type', '0.1', None),
         ],
         'decodings' : [
-            ('cim_info', 'self::cim:downscalingSimulation'),            
+            ('doc_info', 'self::cim:downscalingSimulation'),            
             ('calendar', 'child::cim:calendar/cim:daily-360', 'shared.daily_360'),
             ('calendar', 'child::cim:calendar/cim:perpetualPeriod', 'shared.perpetual_period'),
             ('calendar', 'child::cim:calendar/cim:realCalendar', 'shared.real_calendar'),
@@ -114,14 +114,14 @@ def _ensemble():
         'abstract' : False,
         'doc' : 'An ensemble is made up of two or more simulations which are to be compared against each other to create ensemble statistics. Ensemble members can differ in terms of initial conditions, physical parameterisation and the model used. An ensemble bundles together sets of ensembleMembers, all of which reference the same Simulation(Run) and include one or more changes.',
         'properties' : [
-            ('cim_info', 'shared.cim_info', '1.1', None),
+            ('doc_info', 'shared.doc_info', '1.1', None),
             ('members', 'activity.ensemble_member', '1.N', None),
             ('types', 'activity.ensemble_type', '1.N', None),
             ('outputs', 'shared.data_source', '0.N', 'Points to the DataSource used to conform to a particular Requirement.   This may be part of an activity::simulation or a software::component.  It can be either a DataObject or a SoftwareComponent or a ComponentProperty.  It could also be by using particular attributes of, say, a SoftwareComponent, but in that case the recommended practise is to reference the component and add appropriate text in the conformance description attribute.'),
-            ('outputs_references', 'shared.cim_reference', '0.N', None),
+            ('outputs_references', 'shared.doc_reference', '0.N', None),
         ],
         'decodings' : [
-            ('cim_info', 'self::cim:ensemble'),
+            ('doc_info', 'self::cim:ensemble'),
             ('members', 'child::cim:ensembleMember'),
             ('types', 'child::cim:ensembleType/@value'),
             ('outputs', 'child::cim:output/cim:output/cim:dataObject', 'data.data_object'),
@@ -145,10 +145,10 @@ def _ensemble_member():
         'doc' : 'A simulation is the implementation of a numerical experiment.  A simulation can be made up of "child" simulations aggregated together to form a "simulation composite".  The "parent" simulation can be made up of whole or partial child simulations, the simulation attributes need to be able to capture this.',
         'properties' : [
             ('ensemble', 'activity.ensemble', '0.1', None),
-            ('ensemble_reference', 'shared.cim_reference', '0.1', None),
+            ('ensemble_reference', 'shared.doc_reference', '0.1', None),
             ('ensemble_ids', 'shared.standard_name', '0.N', None),
             ('simulation', 'activity.simulation', '0.1', None),
-            ('simulation_reference', 'shared.cim_reference', '0.1', None),
+            ('simulation_reference', 'shared.doc_reference', '0.1', None),
 
         ],
         'decodings' : [
@@ -172,12 +172,12 @@ def _experiment():
         'properties' : [
             ('measurement_campaigns', 'activity.measurement_campaign', '0.N', None),
             ('requires', 'activity.numerical_activity', '0.N', None),
-            ('requires_references', 'shared.cim_reference', '0.N', None),
+            ('requires_references', 'shared.doc_reference', '0.N', None),
             ('generates', 'str', '0.N', None),
             ('supports', 'str', '1.N', None),
 #            ('generates', 'activity.numerical_experiment', '0.N', None),
 #            ('supports', 'activity.experiment', '1.N', None),
-            ('supports_references', 'shared.cim_reference', '0.N', None),
+            ('supports_references', 'shared.doc_reference', '0.N', None),
         ],
         'decodings' : [
 
@@ -190,7 +190,7 @@ def _experiment_relationship():
     return {
         'type' : 'class',
         'name' : 'experiment_relationship',
-        'base' : 'shared.cim_relationship',
+        'base' : 'shared.relationship',
         'abstract' : False,
         'doc' : 'Contains a set of relationship types specific to a experiment document that can be used to describe its genealogy.',
         'properties' : [
@@ -212,7 +212,7 @@ def _experiment_relationship_target():
         'abstract' : False,
         'doc' : None,
         'properties' : [
-            ('reference', 'shared.cim_reference', '0.1', None),
+            ('reference', 'shared.doc_reference', '0.1', None),
             ('numerical_experiment', 'activity.numerical_experiment', '0.1', None),
         ],
         'decodings' : [
@@ -274,7 +274,7 @@ def _numerical_activity():
             ('long_name', 'str', '0.1', 'The name of the experiment (that is recognized externally).'),
             ('short_name', 'str', '1.1', 'The name of the experiment (that is used internally).'),
             ('supports', 'activity.experiment', '1.N', None),
-            ('supports_references', 'shared.cim_reference', '1.N', None),
+            ('supports_references', 'shared.doc_reference', '1.N', None),
         ],
         'decodings' : [
             ('description', 'child::cim:description'),
@@ -295,7 +295,7 @@ def _numerical_experiment():
         'abstract' : False,
         'doc' : 'A numerical experiment may be generated by an experiment, in which case it is inSupportOf the experiment. But a numerical experiment may also exist as an activity in its own right (as it might be if it were needed for a MIP). Examples: AR4 individual experiments, AR5 individual experiments, RAPID THC experiments etc.',
         'properties' : [
-            ('cim_info', 'shared.cim_info', '1.1', None),
+            ('doc_info', 'shared.doc_info', '1.1', None),
             ('description', 'str', '0.1', 'A free-text description of the experiment.'),
             ('experiment_id', 'str', '0.1', 'An experiment ID takes the form <number>.<number>[-<letter>].'),
             ('long_name', 'str', '0.1', 'The name of the experiment (that is recognized externally).'),
@@ -303,7 +303,7 @@ def _numerical_experiment():
             ('short_name', 'str', '1.1', 'The name of the experiment (that is used internally).'),
         ],
         'decodings' : [
-            ('cim_info', 'self::cim:numericalExperiment'),
+            ('doc_info', 'self::cim:numericalExperiment'),
             ('description', 'child::cim:description'),
             ('experiment_id', 'child::cim:experimentID'),
             ('long_name', 'child::cim:longName'),
@@ -332,7 +332,7 @@ def _numerical_requirement():
             ('options', 'activity.numerical_requirement_option', '0.N', None),
             ('requirement_type', 'str', '1.1', 'Type of reqirement to which the experiment must conform.'),
             ('source', 'shared.data_source', '0.1', None),
-            ('source_reference', 'shared.cim_reference', '0.1', None),
+            ('source_reference', 'shared.doc_reference', '0.1', None),
         ],
         'decodings' : [
             ('description', 'child::cim:description'),
@@ -486,20 +486,20 @@ def _simulation():
             # TODO implement : Daily-360 | RealCalendar | PerpetualPeriod
             ('calendar', 'shared.calendar', '1.1', None),
             ('control_simulation', 'activity.simulation', '0.1', 'Points to a simulation being used as the basis (control) run.  Note that only "derived" simulations can describe something as being control; a simulation should not know if it is being used itself as the control of some other run.'),
-            ('control_simulation_reference', 'shared.cim_reference', '0.1', None),
+            ('control_simulation_reference', 'shared.doc_reference', '0.1', None),
             # TODO implement: Conformance | PhysicalModification
             ('conformances', 'activity.conformance', '0.N', None),
             ('deployments', 'software.deployment', '0.N', None),
             # TODO implement: Coupling
             ('inputs', 'software.coupling', '0.N', 'Implemented as a mapping from a source to target; can be a forcing file, a boundary condition, etc.'),
             ('outputs', 'data.data_object', '0.N', None),
-            ('output_references', 'shared.cim_reference', '0.N', None),
+            ('output_references', 'shared.doc_reference', '0.N', None),
             ('restarts', 'data.data_object', '0.N', None),
-            ('restart_references', 'shared.cim_reference', '0.N', None),
+            ('restart_references', 'shared.doc_reference', '0.N', None),
             ('simulation_id', 'str', '0.1', None),
             ('spinup_date_range', 'shared.closed_date_range', '0.1', 'The date range that a simulation is engaged in spinup.'),
             ('spinup_simulation', 'activity.simulation', '0.1', 'The (external) simulation used during "spinup."  Note that this element can be used in conjuntion with spinupDateRange.  If a simulation has the latter but not the former, then one can assume that the simulation is performing its own spinup.'),
-            ('spinup_simulation_reference', 'shared.cim_reference', '0.1', None),
+            ('spinup_simulation_reference', 'shared.doc_reference', '0.1', None),
         ],
         'decodings' : [
             ('calendar', 'child::cim:calendar/cim:daily-360', 'shared.daily_360'),
@@ -527,13 +527,13 @@ def _simulation_composite():
         'abstract' : False,
         'doc' : 'A SimulationComposite is an aggregation of Simulations. With the aggreation connector between Simulation and SimulationComposite(SC) the SC can be made up of both SimulationRuns and SCs. The SimulationComposite is the new name for the concept of SimulationCollection: A simulation can be made up of "child" simulations aggregated together to form a "simulation composite".  The "parent" simulation can be made up of whole or partial child simulations and the SimulationComposite attributes need to be able to capture this.',
         'properties' : [
-            ('cim_info', 'shared.cim_info', '1.1', None),
+            ('doc_info', 'shared.doc_info', '1.1', None),
             ('child', 'activity.simulation', '0.N', None),
             ('date_range', 'shared.date_range', '1.1', None),
             ('rank', 'int', '1.1', 'Position of a simulation in the SimulationComposite timeline. eg:  Is this the first (rank = 1) or second (rank = 2) simulation'),
         ],
         'decodings' : [
-            ('cim_info', 'self::cim:simulationRun'),
+            ('doc_info', 'self::cim:simulationRun'),
             ('child', 'child::cim:child', 'activity.simulation_run'),
             ('child', 'child::cim:child', 'activity.simulation_composite'),
             ('date_range', 'child::cim:dateRange/cim:closedDateRange', 'shared.closed_date_range'),
@@ -548,7 +548,7 @@ def _simulation_relationship():
     return {
         'type' : 'class',
         'name' : 'simulation_relationship',
-        'base' : 'shared.cim_relationship',
+        'base' : 'shared.relationship',
         'abstract' : False,
         'doc' : 'Contains a set of relationship types specific to a simulation document that can be used to describe its genealogy.',
         'properties' : [
@@ -570,7 +570,7 @@ def _simulation_relationship_target():
         'abstract' : False,
         'doc' : None,
         'properties' : [
-            ('reference', 'shared.cim_reference', '0.1', None),
+            ('reference', 'shared.doc_reference', '0.1', None),
             ('target', 'activity.simulation_type', '0.1', None),
         ],
         'decodings' : [
@@ -588,13 +588,13 @@ def _simulation_run():
         'abstract' : False,
         'doc' : 'A SimulationRun is, as the name implies, one single model run. A SimulationRun is a Simulation. There is a one to one association between SimulationRun and (a top-level) SoftwarePackage::ModelComponent.',
         'properties' : [
-            ('cim_info', 'shared.cim_info', '1.1', None),
+            ('doc_info', 'shared.doc_info', '1.1', None),
             ('date_range', 'shared.date_range', '1.1', None),            
             ('model', 'software.model_component', '0.1', None),
-            ('model_reference', 'shared.cim_reference', '0.1', None),
+            ('model_reference', 'shared.doc_reference', '0.1', None),
         ],
         'decodings' : [
-            ('cim_info', 'self::cim:simulationRun'),
+            ('doc_info', 'self::cim:simulationRun'),
             ('date_range', 'child::cim:dateRange/cim:closedDateRange', 'shared.closed_date_range'),
             ('date_range', 'child::cim:dateRange/cim:openDateRange', 'shared.open_date_range'),
             ('model', 'child::cim:model/cim:modelComponent'),

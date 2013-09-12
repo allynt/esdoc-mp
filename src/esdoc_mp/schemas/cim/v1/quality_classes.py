@@ -71,11 +71,11 @@ def _cim_quality():
         'abstract' : False,
         'doc' : 'The starting point for a quality record.  It can contain any number of issues and reports.  An issue is an open-ended description of some issue about a CIM instance.  A record is a prescribed description of some specific quantitative measure that has been applied to a CIM instance.',
         'properties' : [
-            ('cim_info', 'shared.cim_info', '1.1', None),
+            ('doc_info', 'shared.doc_info', '1.1', None),
             ('reports', 'quality.report', '0.N', None),
         ],
         'decodings' : [
-            ('cim_info', 'self::cim:cIM_Quality'),
+            ('doc_info', 'self::cim:cIM_Quality'),
             ('reports', 'child::cim:report'),
         ]
     }

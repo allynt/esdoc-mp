@@ -28,7 +28,7 @@ class Generator(object):
 
         :param ontology: Ontology being processed.
         :param options: Generation options.
-        :type ontology: esdoc_mp.ontology.Ontology
+        :type ontology: esdoc_mp.core.Ontology
         :type options: esdoc_mp.GeneratorOptions
 
         """
