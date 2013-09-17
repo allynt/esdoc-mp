@@ -3,7 +3,7 @@
    :copyright: Copyright "Feb 7, 2013", Earth System Documentation
    :license: GPL/CeCIL
    :platform: Unix, Windows
-   :synopsis: esdoc_mp.core package initialisor.
+   :synopsis: esdoc_mp.core package initializer.
 
 .. moduleauthor:: Mark Conway-Greenslade (formerly Morgan) <momipsl@ipsl.jussieu.fr>
 
