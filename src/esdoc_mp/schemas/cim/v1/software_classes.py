@@ -441,7 +441,6 @@ def _component():
             ('properties', 'software.component_property', '0.N', 'The properties that this model simulates and/or couples.'),
             ('release_date', 'datetime', '0.1', 'The date of publication of the software component code (as opposed to the date of publication of the metadata document, or the date of deployment of the model)'),
             ('responsible_parties', 'shared.responsible_party', '0.N', None),
-            ('responsible_party_list', 'shared.responsible_party', '0.N', None),
             ('short_name', 'str', '1.1', 'The name of the model (that is used internally).'),
         ],
         'decodings' : [
@@ -456,7 +455,6 @@ def _component():
             ('properties', 'child::cim:numericalProperties/cim:componentProperty'),
             ('release_date', 'child::cim:releaseDate'),
             ('responsible_parties', 'child::cim:responsibleParty'),
-            ('responsible_party_list', 'child::cim:responsibleParty'),
             ('short_name', 'child::cim:shortName'),
         ]
     }
