@@ -62,6 +62,7 @@ def _doc_info():
             ('project', 'str', '1.1', 'Name of project with which instance is associated with.'),
             ('source', 'str', '1.1', 'The source application that created the instance.'),
             ('status', 'shared.doc_status_type', '0.1', None),
+            ('type', 'str', '1.1', 'The document type.'),
             ('version', 'int', '1.1', 'Universally identifies the instance version.'),
         ],
         'decodings' : [
