@@ -41,4 +41,4 @@ What are the contents of esdoc-mp ?
 Further Information ?
 --------------------------------------
 
-Please refer to the wiki pages for further information.
+Please refer to the [splash page](http:es-doc.org) for further information.
