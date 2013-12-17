@@ -1,1 +1,0 @@
-Add rat docs for publishing to readthedocs.org
