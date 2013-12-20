@@ -47,44 +47,38 @@ def generate(ontology_schema, language, output_dir):
     :type output_dir: str
 
     """
-    print("-------------------------------------------------------------------")
-    print("ES-DOC :: Welcome to the ES-DOC code generator")
+    print("ES-DOC :: MP :: Welcome to the ES-DOC meta-programming code generator !")
 
     # Defensive programming.
     if can_generate(ontology_schema, language, output_dir):
         # Notify pre-generation.
-        print("-------------------------------------------------------------------")
-        print("ES-DOC :: GENERATION OPTION : schema = {0}".format(ontology_schema['name']))
-        print("ES-DOC :: GENERATION OPTION : schema version = {0}".format(ontology_schema['version']))
-        print("ES-DOC :: GENERATION OPTION : language = {0}".format(language))
-        print("ES-DOC :: GENERATION OPTION : output directory = {0}".format(output_dir))
+        print("ES-DOC :: MP :: GENERATION OPTION : schema = {0}".format(ontology_schema['name']))
+        print("ES-DOC :: MP :: GENERATION OPTION : schema version = {0}".format(ontology_schema['version']))
+        print("ES-DOC :: MP :: GENERATION OPTION : language = {0}".format(language))
+        print("ES-DOC :: MP :: GENERATION OPTION : output directory = {0}".format(output_dir))
         
         # Initialise ontology.
         ontology = factory.create_ontology(ontology_schema)
-        print("-------------------------------------------------------------------")
-        print("ES-DOC :: ONTOLOGY :: {0} (packages={1}, classes={2}, enums={3})".format(
+        print("ES-DOC :: MP :: ONTOLOGY :: {0} (packages={1}, classes={2}, enums={3})".format(
             ontology, len(ontology.packages), len(ontology.classes), len(ontology.enums)))
             
         # Format ontology.
         if language in _formatters:
             _formatters[language](ontology)
-            print("ES-DOC :: ONTOLOGY :: formatted for {0}".format(language))
+            print("ES-DOC :: MP :: ONTOLOGY :: formatted for {0}".format(language))
 
         # Invoke generators.
         generators = factory.create_generators(language)
         for generator_key in factory.create_generators(language):
-            print("-------------------------------------------------------------------")
-            print("ES-DOC :: GENERATOR = {0} :: generation begins".format(generator_key))
+            print("ES-DOC :: MP :: GENERATOR = {0} :: generation begins".format(generator_key))
 
             options = GeneratorOptions(generator_key, language, output_dir)
             generator = generators[generator_key]()
             generator.execute(ontology, options)
             
-            print("ES-DOC :: GENERATOR = {0} :: generation complete".format(generator_key))
+            print("ES-DOC :: MP :: GENERATOR = {0} :: generation complete".format(generator_key))
 
-    print("-------------------------------------------------------------------")
-    print("ES-DOC :: Thank you for using the ES-DOC code generator")
-    print("-------------------------------------------------------------------")
+    print("ES-DOC :: MP :: Thank you for using the ES-DOC code generator")
 
 
 def can_generate(ontology_schema, language, output_dir):
