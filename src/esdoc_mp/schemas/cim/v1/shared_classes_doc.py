@@ -8,7 +8,7 @@ def _doc_relationship():
         'type' : 'class',
         'name' : 'doc_relationship',
         'base' : 'shared.relationship',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Contains the set of relationships supported by a Document.',
         'properties' : [
             ('target', 'shared.doc_relationship_target', '1.1', None),
@@ -29,7 +29,7 @@ def _doc_relationship_target():
         'type' : 'class',
         'name' : 'doc_relationship_target',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : None,
         'properties' : [
             ('reference', 'shared.doc_reference', '0.1', None),
@@ -47,7 +47,7 @@ def _doc_info():
         'type' : 'class',
         'name' : 'doc_info',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Encapsulates common cim information.',
         'properties' : [
             ('author', 'shared.responsible_party', '0.1', 'Universally identifies the CIM instance'),
@@ -82,7 +82,7 @@ def _doc_genealogy():
         'type' : 'class',
             'name' : 'doc_genealogy',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A record of a document\'s history. A genealogy element contains a textual description and a set of relationships. Each relationship has a type and a reference to some target. There are different relationships for different document types.',
         'properties' : [
             ('relationships', 'shared.doc_relationship', '0.N', None),
@@ -99,7 +99,7 @@ def _doc_reference():
         'type' : 'class',
         'name' : 'doc_reference',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A reference to another cim entity',
         'properties' : [
             ('changes', 'shared.change', '0.N', 'An optional description of how the item being referenced has been modified.  This is particularly useful for dealing with Ensembles (a set of simulations where something about each simulation has changed) or Conformances.'),
@@ -137,7 +137,7 @@ def _relationship():
         'type' : 'class',
         'name' : 'relationship',
         'base' : None,
-        'abstract' : True,
+        'is_abstract' : True,
         'doc' : 'A record of a relationship between one document and another. This class is abstract; specific document types must specialise this class for their relationshipTypes to be included in a document\'s genealogy.',
         'properties' : [
             ('description', 'str', '0.1', None),
@@ -149,10 +149,10 @@ def _relationship():
 
 # Set of package classes.
 classes = [
-        _relationship(),
-        _doc_relationship(),
-        _doc_relationship_target(),
-        _doc_genealogy(),
-        _doc_info(),
-        _doc_reference(),
+    _relationship(),
+    _doc_relationship(),
+    _doc_relationship_target(),
+    _doc_genealogy(),
+    _doc_info(),
+    _doc_reference(),
 ]

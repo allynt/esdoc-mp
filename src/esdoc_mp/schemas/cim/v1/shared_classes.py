@@ -9,7 +9,7 @@ def _change():
         'type' : 'class',
         'name' : 'change',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A description of [a set of] changes applied at a particular time, by a particular party, to a particular unit of metadata.',
         'properties' : [
             ('author', 'shared.responsible_party', '0.1', 'The person that made the change.'),
@@ -36,7 +36,7 @@ def _change_property():
         'type' : 'class',
         'name' : 'change_property',
         'base' : 'shared.property',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A description of a single change applied to a single target.  Every ChangeProperty has a description, and may also have a name from a controlled vocabulary and a value.',
         'properties' : [
             ('description', 'str', '0.1', 'A text description of the change.  May be used in addition to, or instead of, the more formal description provided by the "value" attribute.'),
@@ -55,7 +55,7 @@ def _citation():
         'type' : 'class',
         'name' : 'citation',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'An academic reference to published work.',
         'properties' : [
             ('alternative_title', 'str', '0.1', None),
@@ -87,7 +87,7 @@ def _compiler():
         'type' : 'class',
         'name' : 'compiler',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A description of a compiler used on a particular platform.',
         'properties' : [
             ('environment_variables', 'str', '0.1', 'The set of environment_variables used during compilation (recorded here as a single string rather than separate elements)'),
@@ -114,7 +114,7 @@ def _data_source():
         'type' : 'class',
         'name' : 'data_source',
         'base' : None,
-        'abstract' : True,
+        'is_abstract' : True,
         'doc' : 'A DataSource can be realised by either a DataObject (file), a DataContent (variable), a Component (model), or a ComponentProperty (variable); all of those can supply data.',
         'properties' : [
             ('purpose', 'shared.data_purpose', '0.1', None),
@@ -131,7 +131,7 @@ def _license():
         'type' : 'class',
         'name' : 'license',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A description of a license restricting access to a unit of data or software',
         'properties' : [
             ('name', 'str', '0.1', 'The name that the license goes by (ie: "GPL")'),
@@ -151,7 +151,7 @@ def _machine():
         'type' : 'class',
         'name' : 'machine',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A description of a machine used by a particular platform',
         'properties' : [
             ('cores_per_processor', 'int', '0.1', None),
@@ -190,7 +190,7 @@ def _machine_compiler_unit():
         'type' : 'class',
         'name' : 'machine_compiler_unit',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Associates a machine with a [set of] compilers.  This is a separate class in case a platform needs to specify more than one machine/compiler pair.',
         'properties' : [
             ('compilers', 'shared.compiler', '0.N', None),
@@ -209,7 +209,8 @@ def _platform():
         'type' : 'class',
         'name' : 'platform',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
+        'is_entity' : True,
         'doc' : 'A platform is a description of resources used to deploy a component/simulation.  A platform pairs a machine with a (set of) compilers.  There is also a point of contact for the platform.',
         'properties' : [
             ('doc_info', 'shared.doc_info', '1.1', None),
@@ -236,7 +237,7 @@ def _property():
         'type' : 'class',
         'name' : 'property',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A simple name/value pair representing a property of some entity or other',
         'properties' : [
             ('name', 'str', '0.1', None),
@@ -255,7 +256,7 @@ def _responsible_party():
         'type' : 'class',
         'name' : 'responsible_party',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A person/organsiation responsible for some aspect of a climate science artefact',
         'properties' : [
             ('abbreviation', 'str', '0.1', None),
@@ -280,7 +281,7 @@ def _responsible_party_contact_info():
         'type' : 'class',
         'name' : 'responsible_party_contact_info',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Maps gmd:contactInfo element.',
         'properties' : [
             ('address', 'str', '0.1', None),
@@ -301,7 +302,7 @@ def _standard():
         'type' : 'class',
         'name' : 'standard',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Describes a name given to an entity from a recognised standard.  The CIM records the standard and the name.  For example, the standard might be CF and the name might be atmospheric_pressure.',
         'properties' : [
             ('name', 'str', '1.1', 'The name of the standard'),
@@ -323,7 +324,7 @@ def _standard_name():
         'type' : 'class',
         'name' : 'standard_name',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Describes a name given to an entity from a recognised standard.  The CIM records the standard and the name.  For example, the standard might be CF and the name might be atmospheric_pressure.',
         'properties' : [
             ('is_open', 'bool', '1.1', None),
@@ -340,19 +341,19 @@ def _standard_name():
 
 # Set of package classes.
 classes = [
-        _change(),
-        _change_property(),
-        _citation(),
-        _compiler(),
-        _data_source(),
-        _license(),
-        _machine(),
-        _machine_compiler_unit(),
-        _platform(),
-        _property(),
-        _responsible_party(),
-        _responsible_party_contact_info(),
-        _standard(),
-        _standard_name(),
+    _change(),
+    _change_property(),
+    _citation(),
+    _compiler(),
+    _data_source(),
+    _license(),
+    _machine(),
+    _machine_compiler_unit(),
+    _platform(),
+    _property(),
+    _responsible_party(),
+    _responsible_party_contact_info(),
+    _standard(),
+    _standard_name(),
 ]
 

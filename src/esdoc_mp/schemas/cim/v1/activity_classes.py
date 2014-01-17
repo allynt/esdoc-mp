@@ -8,7 +8,7 @@ def _activity():
         'type' : 'class',
         'name' : 'activity',
         'base' : None,
-        'abstract' : True,
+        'is_abstract' : True,
         'doc' : 'An abstract class used as the parent of MeasurementCampaigns, Projects, Experiments, and NumericalActivities.',
         'properties' : [
             ('funding_sources', 'str', '0.N', 'The entities that funded this activity.'),
@@ -31,7 +31,7 @@ def _conformance():
         'type' : 'class',
         'name' : 'conformance',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A conformance class maps how a configured model component met a specific numerical requirement.  For example, for a double CO2 boundary condition, a model component might read a CO2 dataset in which CO2 has been doubled, or it might modify a parameterisation (presumably with a factor of two somewhere).  So, the conformance links a requirement to a DataSource (which can be either an actual DataObject or a property of a model component).  In some cases a model/simulation may _naturally_ conform to a requirement.  In this case there would be no reference to a DataSource but the conformant attribute would be true.  If something is purpopsefully non-conformant then the conformant attribute would be false.',
         'properties' : [
             ('description', 'str', '0.1', None),
@@ -71,7 +71,8 @@ def _downscaling_simulation():
         'type' : 'class',
         'name' : 'downscaling_simulation',
         'base' : 'activity.numerical_activity',
-        'abstract' : True,
+        'is_abstract' : True,
+        'is_entity' : True,
         'doc' : 'A simulation is the implementation of a numerical experiment.  A simulation can be made up of "child" simulations aggregated together to form a simulation composite.  The parent simulation can be made up of whole or partial child simulations, the simulation attributes need to be able to capture this.',
         'properties' : [
             ('doc_info', 'shared.doc_info', '1.1', None),
@@ -111,7 +112,8 @@ def _ensemble():
         'type' : 'class',
         'name' : 'ensemble',
         'base' : 'activity.numerical_activity',
-        'abstract' : False,
+        'is_abstract' : False,
+        'is_entity' : True,
         'doc' : 'An ensemble is made up of two or more simulations which are to be compared against each other to create ensemble statistics. Ensemble members can differ in terms of initial conditions, physical parameterisation and the model used. An ensemble bundles together sets of ensembleMembers, all of which reference the same Simulation(Run) and include one or more changes.',
         'properties' : [
             ('doc_info', 'shared.doc_info', '1.1', None),
@@ -141,7 +143,7 @@ def _ensemble_member():
         'type' : 'class',
         'name' : 'ensemble_member',
         'base' : 'activity.numerical_activity',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A simulation is the implementation of a numerical experiment.  A simulation can be made up of "child" simulations aggregated together to form a "simulation composite".  The "parent" simulation can be made up of whole or partial child simulations, the simulation attributes need to be able to capture this.',
         'properties' : [
             ('ensemble', 'activity.ensemble', '0.1', None),
@@ -167,7 +169,7 @@ def _experiment():
         'type' : 'class',
         'name' : 'experiment',
         'base' : 'activity.activity',
-        'abstract' : True,
+        'is_abstract' : True,
         'doc' : 'An experiment might be an activity which is both observational and numerical in focus, for example, a measurement campaign and numerical experiments for an alpine experiment.  It is a place for the scientific description of the reason why an experiment was made.',
         'properties' : [
             ('measurement_campaigns', 'activity.measurement_campaign', '0.N', None),
@@ -191,7 +193,7 @@ def _experiment_relationship():
         'type' : 'class',
         'name' : 'experiment_relationship',
         'base' : 'shared.relationship',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Contains a set of relationship types specific to a experiment document that can be used to describe its genealogy.',
         'properties' : [
             ('target', 'activity.experiment_relationship_target', '1.1', None),
@@ -209,7 +211,7 @@ def _experiment_relationship_target():
         'type' : 'class',
         'name' : 'experiment_relationship_target',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : None,
         'properties' : [
             ('reference', 'shared.doc_reference', '0.1', None),
@@ -227,7 +229,7 @@ def _lateral_boundary_condition():
         'type' : 'class',
         'name' : 'lateral_boundary_condition',
         'base' : 'activity.numerical_requirement',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A boundary condition is a numerical requirement which looks like a variable imposed on the model evolution (i.e. it might - or might not - evolve with time, but is seen by the model at various times during its evolution) as opposed to an initial condition (at model time zero).',
         'constants' : [
             ('requirement_type', 'lateralBoundaryCondition'),
@@ -247,7 +249,7 @@ def _measurement_campaign():
         'type' : 'class',
         'name' : 'measurement_campaign',
         'base' : 'activity.activity',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : None,
         'properties' : [
             # todo - clarify type
@@ -267,7 +269,7 @@ def _numerical_activity():
         'type' : 'class',
         'name' : 'numerical_activity',
         'base' : 'activity.activity',
-        'abstract' : True,
+        'is_abstract' : True,
         'doc' : '',
         'properties' : [
             ('description', 'str', '0.1', 'A free-text description of the experiment.'),
@@ -292,7 +294,8 @@ def _numerical_experiment():
         'type' : 'class',
         'name' : 'numerical_experiment',
         'base' : 'activity.experiment',
-        'abstract' : False,
+        'is_abstract' : False,
+        'is_entity' : True,
         'doc' : 'A numerical experiment may be generated by an experiment, in which case it is inSupportOf the experiment. But a numerical experiment may also exist as an activity in its own right (as it might be if it were needed for a MIP). Examples: AR4 individual experiments, AR5 individual experiments, RAPID THC experiments etc.',
         'properties' : [
             ('doc_info', 'shared.doc_info', '1.1', None),
@@ -323,7 +326,7 @@ def _numerical_requirement():
         'type' : 'class',
         'name' : 'numerical_requirement',
         'base' : None,
-        'abstract' : True,
+        'is_abstract' : True,
         'doc' : 'A description of the requirements of particular experiments.  Numerical Requirements can be initial conditions, boundary conditions, or physical modificiations.',
         'properties' : [
             ('description', 'str', '0.1', None),
@@ -356,7 +359,7 @@ def _numerical_requirement_option():
         'type' : 'class',
         'name' : 'numerical_requirement_option',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A NumericalRequirement that is being used as a set of related requirements; For example if a requirement is to use 1 of 3 boundary conditions, then that "parent" requirement would have three "child" RequirmentOptions (each of one with the XOR optionRelationship).',
         'properties' : [
             ('requirement', 'activity.numerical_requirement', '0.1', 'The requirement being specified by this option'),
@@ -379,7 +382,7 @@ def _boundary_condition():
         'type' : 'class',
         'name' : 'boundary_condition',
         'base' : 'activity.numerical_requirement',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A boundary condition is a numerical requirement which looks like a variable imposed on the model evolution (i.e. it might - or might not - evolve with time, but is seen by the model at various times during its evolution) as opposed to an initial condition (at model time zero).',
         'constants' : [
             ('requirement_type', 'boundaryCondition'),
@@ -399,7 +402,7 @@ def _initial_condition():
         'type' : 'class',
         'name' : 'initial_condition',
         'base' : 'activity.numerical_requirement',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'An initial condition is a numerical requirement on a model prognostic variable value at time zero.',
         'constants' : [
             ('requirement_type', 'initialCondition'),
@@ -419,7 +422,7 @@ def _spatio_temporal_constraint():
         'type' : 'class',
         'name' : 'spatio_temporal_constraint',
         'base' : 'activity.numerical_requirement',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Contains a set of relationship types specific to a simulation document that can be used to describe its genealogy.',
         'constants' : [
             ('requirement_type', 'spatioTemporalConstraint'),
@@ -442,7 +445,7 @@ def _output_requirement():
         'type' : 'class',
         'name' : 'output_requirement',
         'base' : 'activity.numerical_requirement',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Contains a set of relationship types specific to a simulation document that can be used to describe its genealogy.',
         'constants' : [
             ('requirement_type', 'outputRequirement'),
@@ -462,7 +465,7 @@ def _physical_modification():
         'type' : 'class',
         'name' : 'physical_modification',
         'base' : 'activity.conformance',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Physical modification is the implementation of a boundary condition numerical requirement that is achieved within the model code rather than from some external source file. It  might include, for example,  a specific rate constant within a chemical reaction, or coefficient value(s) in a parameterisation.  For example, one might require a numerical experiment where specific chemical reactions were turned off - e.g. no heterogeneous chemistry.',
         'properties' : [
 
@@ -479,7 +482,7 @@ def _simulation():
         'type' : 'class',
         'name' : 'simulation',
         'base' : 'activity.numerical_activity',
-        'abstract' : True,
+        'is_abstract' : True,
         'doc' : 'A simulation is the implementation of a numerical experiment.  A simulation can be made up of "child" simulations aggregated together to form a simulation composite.  The parent simulation can be made up of whole or partial child simulations, the simulation attributes need to be able to capture this.',
         'properties' : [
             ('authors', 'str', '0.1', 'List of associated authors.'),
@@ -524,7 +527,8 @@ def _simulation_composite():
         'type' : 'class',
         'name' : 'simulation_composite',
         'base' : 'activity.simulation',
-        'abstract' : False,
+        'is_abstract' : False,
+        'is_entity' : True,
         'doc' : 'A SimulationComposite is an aggregation of Simulations. With the aggreation connector between Simulation and SimulationComposite(SC) the SC can be made up of both SimulationRuns and SCs. The SimulationComposite is the new name for the concept of SimulationCollection: A simulation can be made up of "child" simulations aggregated together to form a "simulation composite".  The "parent" simulation can be made up of whole or partial child simulations and the SimulationComposite attributes need to be able to capture this.',
         'properties' : [
             ('doc_info', 'shared.doc_info', '1.1', None),
@@ -549,7 +553,7 @@ def _simulation_relationship():
         'type' : 'class',
         'name' : 'simulation_relationship',
         'base' : 'shared.relationship',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Contains a set of relationship types specific to a simulation document that can be used to describe its genealogy.',
         'properties' : [
             ('target', 'activity.simulation_relationship_target', '1.1', None),
@@ -567,7 +571,7 @@ def _simulation_relationship_target():
         'type' : 'class',
         'name' : 'simulation_relationship_target',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : None,
         'properties' : [
             ('reference', 'shared.doc_reference', '0.1', None),
@@ -585,7 +589,8 @@ def _simulation_run():
         'type' : 'class',
         'name' : 'simulation_run',
         'base' : 'activity.simulation',
-        'abstract' : False,
+        'is_abstract' : False,
+        'is_entity' : True,
         'doc' : 'A SimulationRun is, as the name implies, one single model run. A SimulationRun is a Simulation. There is a one to one association between SimulationRun and (a top-level) SoftwarePackage::ModelComponent.',
         'properties' : [
             ('doc_info', 'shared.doc_info', '1.1', None),

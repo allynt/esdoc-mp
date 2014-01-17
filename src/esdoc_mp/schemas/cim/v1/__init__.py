@@ -26,6 +26,7 @@ from esdoc_mp.schemas.cim.v1.shared_enums import enums as shared_enums
 from esdoc_mp.schemas.cim.v1.shared_enums_doc import enums as shared_enums_doc
 from esdoc_mp.schemas.cim.v1.software_classes import classes as software_classes
 from esdoc_mp.schemas.cim.v1.software_enums import enums as software_enums
+from esdoc_mp.schemas.cim.v1.misc_classes import classes as misc_classes
 
 
 
@@ -71,6 +72,12 @@ schema = {
             'doc' : 'TODO get package documentation',
             'classes' : software_classes,
             'enums' : software_enums,
+        },
+        {
+            'name' : 'misc',
+            'doc' : 'TODO get package documentation',
+            'classes' : misc_classes,
+            'enums' : [],
         },
     ]
 }

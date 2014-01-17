@@ -8,7 +8,7 @@ def _calendar():
         'type' : 'class',
         'name' : 'calendar',
         'base' : None,
-        'abstract' : True,
+        'is_abstract' : True,
         'doc' : 'Describes a method of calculating a span of dates.',
         'properties' : [
             ('description', 'str', '0.1', 'Describes the finer details of the calendar, in case they are not-obvious.  For example, if an experiment has changing conditions within it (ie: 1% CO2 increase until 2100, then hold fixed for the remaining period of the  experment)'),
@@ -30,7 +30,7 @@ def _closed_date_range():
         'type' : 'class',
         'name' : 'closed_date_range',
         'base' : 'shared.date_range',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A date range with specified start and end points.',
         'properties' : [
             ('end', 'datetime', '0.1', 'End date is optional becuase the length of a ClosedDateRange can be calculated from the StartDate plus the Duration element.'),
@@ -49,7 +49,7 @@ def _daily_360():
         'type' : 'class',
         'name' : 'daily_360',
         'base' : 'shared.calendar',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : None,
         'properties' : [ ],
         'decodings' : [ ]
@@ -62,7 +62,7 @@ def _date_range():
         'type' : 'class',
         'name' : 'date_range',
         'base' : None,
-        'abstract' : True,
+        'is_abstract' : True,
         'doc' : None,
         'properties' : [
             ('duration', 'str', '0.1', None),
@@ -79,7 +79,7 @@ def _open_date_range():
         'type' : 'class',
         'name' : 'open_date_range',
         'base' : 'shared.date_range',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A date range without a specified start and/or end point.',
         'properties' : [
             ('end', 'datetime', '0.1', None),
@@ -98,7 +98,7 @@ def _perpetual_period():
         'type' : 'class',
         'name' : 'perpetual_period',
         'base' : 'shared.calendar',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : None,
         'properties' : [ ],
         'decodings' : [ ]
@@ -111,7 +111,7 @@ def _real_calendar():
         'type' : 'class',
         'name' : 'real_calendar',
         'base' : 'shared.calendar',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : None,
         'properties' : [ ],
         'decodings' : [ ]
@@ -119,12 +119,12 @@ def _real_calendar():
 
 # Set of package classes.
 classes = [
-        _calendar(),
-        _closed_date_range(),
-        _daily_360(),
-        _date_range(),
-        _open_date_range(),
-        _perpetual_period(),
-        _real_calendar()
+    _calendar(),
+    _closed_date_range(),
+    _daily_360(),
+    _date_range(),
+    _open_date_range(),
+    _perpetual_period(),
+    _real_calendar()
 ]
 

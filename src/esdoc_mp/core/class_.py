@@ -14,6 +14,7 @@ class Class(object):
     :ivar name: Class name.
     :ivar base: Base class used in object hierarchies.
     :ivar is_abstract: Flag indicating whether this is an abstract class or not.
+    :ivar is_entity: Flag indicating whether this is considered to be an entity or not.
     :ivar doc_string: Class documentation string.
     :ivar properties: Set of associated properties.
     :ivar constants: Set of associated property constants.
@@ -21,7 +22,7 @@ class Class(object):
 
     """
 
-    def __init__(self, name, base, is_abstract, doc_string, properties, constants, decodings):
+    def __init__(self, name, base, is_abstract, is_entity, doc_string, properties, constants, decodings):
         """Constructor.
 
         :param name: Class name.
@@ -32,6 +33,9 @@ class Class(object):
 
         :param is_abstract: Flag indicating whether this is an abstract class or not.
         :type is_abstract: bool
+
+        :param is_entity: Flag indicating whether this is considered to be an entity or not.
+        :type is_entity: bool
 
         :param doc_string: Class documentation string.
         :type doc_string: str
@@ -60,13 +64,10 @@ class Class(object):
         self.doc_string = doc_string if doc_string is not None else ''
         self.imports = []
         self.is_abstract = is_abstract
-        self.is_entity = False
+        self.is_entity = is_entity
         self.name = name
         self.properties = sorted(properties, key=lambda p: p.name)
         self.package = None
-
-        # Set is entity flag.
-        self.is_entity = is_abstract == False and self.has_property('doc_info')
 
         # Initialise output attributes.
         self.op_base_name = None

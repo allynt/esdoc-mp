@@ -10,7 +10,7 @@ def _evaluation():
         'type' : 'class',
         'name' : 'evaluation',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : None,
         'properties' : [
             ('date', 'datetime', '0.1', None),
@@ -43,7 +43,7 @@ def _measure():
         'type' : 'class',
         'name' : 'measure',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : None,
         'properties' : [
             ('description', 'str', '0.1', None),
@@ -68,7 +68,8 @@ def _cim_quality():
         'type' : 'class',
         'name' : 'cim_quality',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
+        'is_entity' : True,
         'doc' : 'The starting point for a quality record.  It can contain any number of issues and reports.  An issue is an open-ended description of some issue about a CIM instance.  A record is a prescribed description of some specific quantitative measure that has been applied to a CIM instance.',
         'properties' : [
             ('doc_info', 'shared.doc_info', '1.1', None),
@@ -87,7 +88,7 @@ def _report():
         'type' : 'class',
         'name' : 'report',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : None,
         'properties' : [
             ('date', 'datetime', '0.1', None),

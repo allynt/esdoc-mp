@@ -9,7 +9,7 @@ def _component_language():
         'type' : 'class',
         'name' : 'component_language',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Details of the programming language a component is written in. There is an assumption that all EntryPoints use the same ComponentLanguage.',
         'properties' : [
             ('name', 'str', '1.1', 'The name of the language.'),
@@ -27,7 +27,7 @@ def _component_language_property():
         'type' : 'class',
         'name' : 'component_language_property',
         'base' : 'shared.property',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'This provides a place to include language-specific information. Every property is basically a name/value pair, where the names are things like: moduleName, reservedUnits, reservedNames (these are all examples of Fortran-specific properties).',
         'properties' : [
 
@@ -44,7 +44,7 @@ def _component_property():
         'type' : 'class',
         'name' : 'component_property',
         'base' : 'shared.data_source',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'ComponentProperties include things that a component simulates (ie: pressure, humidity) and things that prescribe that simulation (ie: gravity, choice of advection scheme). Note that this is a specialisation of shared::DataSource. data::DataObject is also a specialisation of shared::DataSource. This allows software::Connections and/or activity::Conformance to refer to either ComponentProperties or DataObjects.',
         'properties' : [
             ('sub_properties', 'software.component_property', '0.N', None),
@@ -83,7 +83,7 @@ def _composition():
         'type' : 'class',
         'name' : 'composition',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'The set of Couplings used by a Component. Couplings can only occur between child components. That is, a composition must belong to an ancestor component of the components whose fields are being connected.',
         'properties' : [
             ('couplings', 'str', '0.N', None),
@@ -101,7 +101,7 @@ def _connection():
         'type' : 'class',
         'name' : 'connection',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A Connection represents a link from a source DataSource to a target DataSource.  These can either be ComponentProperties (ie: the values come from an internal component) or DataObjects (ie: the values come from an external file).   It can be associated with another software component (a transformer).  If present, the rate, lag, timeTransformation, and spatialRegridding override that of the parent coupling.  Note that there is the potential for multiple connectionSource & connectionTarget and multiple couplingSources & couplingTargets.  This may lead users to wonder how to match up a connection source (a ComponentProperty) with its coupling source (a SoftwareComponent). Clever logic is not required though; because the sources and targets are listed by reference, they can be found in a CIM document and the parent can be navigated to from there - there is no need to consult the source or target of the coupling.',
         'properties' : [
             ('properties', 'software.connection_property', '0.N', None),
@@ -147,7 +147,7 @@ def _connection_endpoint():
         'type' : 'class',
         'name' : 'connection_endpoint',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'The source/target of a coupling.  This is a DataSource (a SoftwareComponent or DataObject).  This is a separate class in order to associate an instanceID with the DataSource; this is used to identify which particular instance is being coupled in case the same DataSource is used more than once in a coupled model (this may be required for BFG).',
         'properties' : [
             ('properties', 'software.connection_property', '0.N', 'The place to describe features specific to the source/target of a connection.'),
@@ -175,7 +175,7 @@ def _connection_property():
         'type' : 'class',
         'name' : 'connection_property',
         'base' : 'shared.property',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A ConnectionProperty is a name/value pair used to specify OASIS-specific properties.',
         'properties' : [
 
@@ -192,7 +192,7 @@ def _coupling():
         'type' : 'class',
         'name' : 'coupling',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A coupling represents a set of Connections between a source and target component. Couplings can be complete or incomplete. If they are complete then they must include all Connections between model properties. If they are incomplete then the connections can be underspecified or not listed at all.',
         'properties' : [
             ('connections', 'software.connection', '0.N', None),
@@ -244,7 +244,7 @@ def _coupling_endpoint():
         'type' : 'class',
         'name' : 'coupling_endpoint',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'The source/target of a coupling.  This is a DataSource (a SoftwareComponent or DataObject).  This is a separate class in order to associate an instanceID with the DataSource; this is used to identify which particular instance is being coupled in case the same DataSource is used more than once in a coupled model (this may be required for BFG).',
         'properties' : [
             ('properties', 'software.coupling_property', '0.N', 'A place to describe features specific to the source/target of a coupling'),
@@ -272,7 +272,7 @@ def _coupling_property():
         'type' : 'class',
         'name' : 'coupling_property',
         'base' : 'shared.property',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A CouplingProperty is a name/value pair used to specify OASIS-specific properties.',
         'properties' : [
 
@@ -289,7 +289,7 @@ def _deployment():
         'type' : 'class',
         'name' : 'deployment',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Gives information about the technical properties of a component: what machine it was run on, which compilers were used, how it was parallised, etc. A deployment basically associates a deploymentDate with a Platform. A deployment only exists if something has been deployed. A platform, in contrast, can exist independently, waiting to be used in deployments.',
         'properties' : [
             ('deployment_date', 'datetime', '0.1', None),
@@ -319,7 +319,7 @@ def _entry_point():
         'type' : 'class',
         'name' : 'entry_point',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Describes a function or subroutine of a SoftwareComponent. BFG will use these EntryPoints to define a schedule of subroutine calls for a coupled model. Currently, a very basic schedule can be approximated by using the "proceeds" and "follows" attributes, however a more complete system is required for full BFG compatibility. Every EntryPoint can have a set of arguments associated with it. These reference (previously defined) ComponentProperties.',
         'properties' : [
             ('name', 'str', '0.1', None),
@@ -336,7 +336,8 @@ def _model_component():
         'type' : 'class',
         'name' : 'model_component',
         'base' : 'software.component',
-        'abstract' : False,
+        'is_abstract' : False,
+        'is_entity' : True,        
         'doc' : 'A ModelComponent is a scientific model; it represents code which models some physical phenomena for a particular length of time.',
         'properties' : [
             ('doc_info', 'shared.doc_info', '1.1', None),
@@ -360,7 +361,7 @@ def _parallelisation():
         'type' : 'class',
         'name' : 'parallelisation',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Describes how a deployment has been parallelised across a computing platform.',
         'properties' : [
             ('processes', 'int', '1.1', None),
@@ -379,7 +380,8 @@ def _processor_component():
         'type' : 'class',
         'name' : 'processor_component',
         'base' : 'software.component',
-        'abstract' : False,
+        'is_abstract' : False,
+        'is_entity' : True,        
         'doc' : 'A ModelComponent is a scientific model; it represents code which models some physical phenomena for a particular length of time.',
         'properties' : [
             ('doc_info', 'shared.doc_info', '1.1', None),
@@ -396,7 +398,7 @@ def _rank():
         'type' : 'class',
         'name' : 'rank',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : None,
         'properties' : [
             ('value', 'int', '0.1', None),
@@ -419,7 +421,7 @@ def _component():
         'type' : 'class',
         'name' : 'component',
         'base' : 'shared.data_source',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A SofwareComponent is an abstract component from which all other components derive. It represents an element that takes input data and generates output data. A SoftwareCompnent can include nested "child" components. Every component can have "componentProperties" which describe the scientific properties that a component simulates (for example, temperature, pressure, etc.) and the numerical properties that influence how a component performs its simulation (for example, the force of gravity). A SoftwareComponent can also have a Deployment, which describes how software is deployed onto computing resources. And a SoftwareComponent can have a composition, which describes how ComponentProperties are coupled together either to/from other SoftwareComponents or external data files. The properties specified by a component\'s composition must be owned by that component or a child of that component; child components cannot couple together their parents\' properties.',
         'properties' : [
             ('sub_components', 'software.component', '0.N', None),
@@ -466,7 +468,7 @@ def _spatial_regridding():
         'type' : 'class',
         'name' : 'spatial_regridding',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Characteristics of the scheme used to interpolate a field from one grid (source grid) to another (target grid).  Documents should use either the spatialRegriddingStandardMethod _or_ the spatialRegriddingUserMethod, but not both.',
         'properties' : [
             ('dimension', 'software.spatial_regridding_dimension_type', '0.1', None),
@@ -489,7 +491,7 @@ def _spatial_regridding_property():
         'type' : 'class',
         'name' : 'spatial_regridding_property',
         'base' : 'shared.property',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Used for OASIS-specific regridding information (ie: masked, order, normalisation, etc.)',
         'properties' : [ ],
         'decodings' : [ ]
@@ -502,7 +504,7 @@ def _spatial_regridding_user_method():
         'type' : 'class',
         'name' : 'spatial_regridding_user_method',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Characteristics of the scheme used to interpolate a field from one grid (source grid) to another (target grid).  Documents should use either the spatialRegriddingStandardMethod _or_ the spatialRegriddingUserMethod, but not both.',
         'properties' : [
             ('file', 'data.data_object', '0.1', None),
@@ -523,7 +525,8 @@ def _statistical_model_component():
         'type' : 'class',
         'name' : 'statistical_model_component',
         'base' : 'software.component',
-        'abstract' : False,
+        'is_abstract' : False,
+        'is_entity' : True,        
         'doc' : None,
         'properties' : [
             ('doc_info', 'shared.doc_info', '1.1', None),
@@ -545,7 +548,7 @@ def _time_lag():
         'type' : 'class',
         'name' : 'time_lag',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'The coupling field used in the target at a given time corresponds to a field produced by the source at a previous time. This lag specifies the difference in time.',
         'properties' : [
             ('value', 'int', '0.1', None),
@@ -564,7 +567,7 @@ def _timing():
         'type' : 'class',
         'name' : 'timing',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Provides information about the rate of couplings and connections and/or the timing characteristics of individual components - for example, the start and stop times that the component was run for or the units of time that a component is able to model (in a single timestep).',
         'properties' : [
             ('end', 'datetime', '0.1', None),
@@ -589,7 +592,7 @@ def _time_transformation():
         'type' : 'class',
         'name' : 'time_transformation',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'The coupling field used in the target at a given time corresponds to a field produced by the source at a previous time. This lag specifies the difference in time.',
         'properties' : [
             ('description', 'str', '0.1', None),

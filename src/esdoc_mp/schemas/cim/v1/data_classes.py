@@ -10,7 +10,7 @@ def _data_content():
         'type' : 'class',
         'name' : 'data_content',
         'base' : 'shared.data_source',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'The contents of the data object; like ISO: MD_ContentInformation.',
         'properties' : [
             ('aggregation', 'str', '0.1', 'Describes how the content has been aggregated together: sum, min, mean, max, ...'),
@@ -31,7 +31,7 @@ def _data_distribution():
         'type' : 'class',
         'name' : 'data_distribution',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Describes how a DataObject is distributed.',
         'properties' : [
             ('access', 'str', '0.1', None),
@@ -54,7 +54,7 @@ def _data_extent():
         'type' : 'class',
         'name' : 'data_extent',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A data object extent represents the geographical and temporal coverage associated with a data object.',
         'properties' : [
             ('temporal', 'data.data_extent_temporal', '1.1', None),
@@ -73,7 +73,7 @@ def _data_extent_geographical():
         'type' : 'class',
         'name' : 'data_extent_geographical',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A data object geographical extent represents the geographical coverage associated with a data object.',
         'properties' : [
             ('east', 'float', '0.1', None),
@@ -96,7 +96,7 @@ def _data_extent_temporal():
         'type' : 'class',
         'name' : 'data_extent_temporal',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A data object temporal extent represents the temporal coverage associated with a data object.',
         'properties' : [
             ('begin', 'date', '0.1', None),
@@ -117,7 +117,7 @@ def _data_extent_time_interval():
         'type' : 'class',
         'name' : 'data_extent_time_interval',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A data object temporal extent represents the temporal coverage associated with a data object.',
         'properties' : [
             ('unit', 'str', '0.1', None),
@@ -138,7 +138,7 @@ def _data_hierarchy_level():
         'type' : 'class',
         'name' : 'data_hierarchy_level',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'The type of data object that is grouped together into a particular hierarchy.  Currently, this is made up of terms describing how the Met Office splits up archived data and how THREDDS categorises variables.',
         'properties' : [
             ('name', 'data.data_hierarchy_type', '0.1', 'What level in the data hierarchy (constructed by the self-referential parent/child aggregations) is this DataObject.'),
@@ -161,7 +161,8 @@ def _data_object():
         'type' : 'class',
         'name' : 'data_object',
         'base' : 'shared.data_source',
-        'abstract' : False,
+        'is_abstract' : False,
+        'is_entity' : True,
         'doc' : 'A DataObject describes a unit of data.  DataObjects can be grouped hierarchically.  The attributes hierarchyLevelName and hierarchyLevelValue describe how objects are grouped.',
         'properties' : [
             ('doc_info', 'shared.doc_info', '1.1', None),
@@ -208,7 +209,7 @@ def _data_property():
         'type' : 'class',
         'name' : 'data_property',
         'base' : 'shared.property',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'A property of a DataObject. Currently this is intended to be used to record CF specific information (like packing, scaling, etc.) for OASIS4.',
         'properties' : [
             ('description', 'str', '0.1', None),
@@ -225,7 +226,7 @@ def _data_restriction():
         'type' : 'class',
         'name' : 'data_restriction',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'An access or use restriction on some element of the DataObject\'s actual data.',
         'properties' : [
             ('scope', 'str', '0.1', 'The thing (data or metadata, access or use) that this restriction is applied to.'),
@@ -244,7 +245,7 @@ def _data_storage():
         'type' : 'class',
         'name' : 'data_storage',
         'base' : None,
-        'abstract' : True,
+        'is_abstract' : True,
         'doc' : 'Describes the method that the DataObject is stored. An abstract class with specific child classes for each supported method.',
         'properties' : [
             ('size', 'int', '0.1', None),
@@ -264,7 +265,7 @@ def _data_storage_db():
         'type' : 'class',
         'name' : 'data_storage_db',
         'base' : 'data.data_storage',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Contains attributes to describe a DataObject stored as a database file.',
         'properties' : [
             ('access_string', 'str', '0.1', None),
@@ -284,7 +285,7 @@ def _data_storage_file():
         'type' : 'class',
         'name' : 'data_storage_file',
         'base' : 'data.data_storage',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Contains attributes to describe a DataObject stored as a single file.',
         'properties' : [
             ('file_system', 'str', '0.1', None),
@@ -303,7 +304,7 @@ def _data_storage_ip():
         'type' : 'class',
         'name' : 'data_storage_ip',
         'base' : 'data.data_storage',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Contains attributes to describe a DataObject stored as a database file.',
         'properties' : [
             ('protocol', 'str', '0.1', None),
@@ -323,7 +324,7 @@ def _data_topic():
         'type' : 'class',
         'name' : 'data_topic',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Describes the content  of a data object; the variable\'s name, units, etc.',
         'properties' : [
             ('name', 'str', '0.1', None),

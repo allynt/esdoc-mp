@@ -10,7 +10,7 @@ def _coordinate_list():
         'type' : 'class',
         'name' : 'coordinate_list',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'The CoordList type may be used to specify a list of coordinates, typically for the purpose of defining coordinates along the X, Y or Z axes. The length of the coordinate list is given by the attribute of that name. This may be used by software to allocate memory in advance of storing the coordinate values. The hasConstantOffset attribute may be used to indicate that the coordinate list consists of values with constant offset (spacing). In this case only the first coordinate value and the offset (spacing) value need to be specified; however, the length attribute must still define the final as-built size of the coordinate list.',
         'properties' : [
             ('has_constant_offset', 'bool', '0.1', 'Set to true if coordinates in the built array have constant offset.'),
@@ -31,7 +31,7 @@ def _grid_extent():
         'type' : 'class',
         'name' : 'grid_extent',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'DataType for recording the geographic extent of a gridMosaic or gridTile.',
         'properties' : [
             ('minimum_latitude', 'str', '1.1', None),
@@ -56,7 +56,7 @@ def _grid_mosaic():
         'type' : 'class',
         'name' : 'grid_mosaic',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'The GridMosaic class is used to define the geometry properties of an earth system model grid or an exchange grid. Such a grid definition may then be referenced by any number of earth system models. A GridMosaic object consists either of 1 or more child GridMosaics, or one or more child GridTiles, but not both. In the latter case the isLeaf property should be set to true, indicating that the mosaic is a leaf mosaic.',
         'properties' : [
             ('citations', 'shared.citation', '0.N', 'Optional container element for specifying a list of references that describe the grid.'),
@@ -98,7 +98,7 @@ def _grid_property():
         'type' : 'class',
         'name' : 'grid_property',
         'base' : 'shared.property',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : None,
         'properties' : [ ],
         'decodings' : [ ]
@@ -111,7 +111,8 @@ def _grid_spec():
         'type' : 'class',
         'name' : 'grid_spec',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
+        'is_entity' : True,
         'doc' : 'This is a container class for GridSpec objects. A GridSpec object can contain one or more esmModelGrid objects, and one or more esmExchangeGrid objects. These objects may be serialised to one or possibly several files according to taste. Since GridSpec is sub-typed from GML\'s AbstractGeometryType it can, and should, be identified using a gml:id attribute.',
         'properties' : [
             ('doc_info', 'shared.doc_info', '1.1', None),
@@ -132,7 +133,7 @@ def _grid_tile():
         'type' : 'class',
         'name' : 'grid_tile',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'The GridTile class is used to model an individual grid tile contained within a grid mosaic. A GridTile consists of an array of grid cells which may be defined in one of four ways: 1) for simple grids, by use of the SimpleGridGeometry data type; 2) by defining an array of GridCell objects; 3) by specifying an array of references to externally defined GridCell objects; or 4) by specifying a URI to a remote data file containing the grid cell definitions.  For all but the simplest grid tiles, it is envisaged that method 4 above will be the most frequently used option. However, it should be remembered that the CIM is primarily concerned with encoding climate model metadata. Specifying the coordinates of individual grid tiles and cells will most likely not be required as part of such metadata descriptions.  A GridTile object is associated with a geodetic or projected CRS via the horizontalCRS property, and with a vertical CRS via the verticalCRS property.',
         'properties' : [
             # TODO define types
@@ -196,7 +197,7 @@ def _grid_tile_resolution_type():
         'type' : 'class',
         'name' : 'grid_tile_resolution_type',
         'base' : None,
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'Provides a description and set of named properties for the horizontal or vertical resolution.',
         'properties' : [
             ('description', 'str', '0.1', 'A description of the resolution.'),
@@ -215,7 +216,7 @@ def _vertical_coordinate_list():
         'type' : 'class',
         'name' : 'vertical_coordinate_list',
         'base' : 'grids.coordinate_list',
-        'abstract' : False,
+        'is_abstract' : False,
         'doc' : 'There are some specific attributes that are associated with vertical coordinates.',
         'properties' : [
             ('properties', 'grids.grid_property', '0.N', None),
