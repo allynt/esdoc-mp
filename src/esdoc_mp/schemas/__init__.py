@@ -10,9 +10,10 @@
 
 """
 from esdoc_mp.schemas.cim import schemas as cim_schemas
+from esdoc_mp.schemas.test import schemas as test_schemas
 
 
 # Set of schemas supported 'out of the box'.
 schemas = []
 schemas.extend(cim_schemas)
-
+schemas.extend(test_schemas)

@@ -30,7 +30,7 @@ def _get_options():
                  action="store",
                  dest="schema_name",
                  type="choice",
-                 choices=["cim"],
+                 choices=["cim", "test"],
                  default="cim",
                  help="Target schema. [default = %default] [choices = cim]")
     p.add_option("-v",

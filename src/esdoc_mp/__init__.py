@@ -32,19 +32,16 @@ _formatters = {
 
 
 # Package version identifier.
-__version__ = '0.3'
+__version__ = '0.4'
 
 
 
 def generate(ontology_schema, language, output_dir):
     """Generates code.
 
-    :param ontology_schema: Ontology schema definition.
-    :param language: Target programming language.
-    :param output_dir: Target output directory.
-    :type ontology_schema: dict
-    :type language: str
-    :type output_dir: str
+    :param dict ontology_schema: Ontology schema definition.
+    :param str language: Target programming language.
+    :param str output_dir: Target output directory.
 
     """
     print("ES-DOC :: MP :: Welcome to the ES-DOC meta-programming code generator !")
