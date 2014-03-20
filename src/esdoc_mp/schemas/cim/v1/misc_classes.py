@@ -16,7 +16,7 @@ def _document_set():
             ('data', 'data.dataObject', '0.N', 'Associated input/output data.'),
             ('ensembles', 'activity.ensemble', '0.N', 'Associated ensemble runs.'),
             ('experiment', 'activity.numerical_experiment', '0.1', 'Associated numerical experiment.'),
-            ('grid', 'grids.grid_spec', '0.1', 'Associated grid-spec.'),
+            ('grids', 'grids.grid_spec', '0.N', 'Associated grid-spec.'),
             ('model', 'software.model_component', '0.1', 'Associated model component.'),
             ('platform', 'shared.platform', '0.1', 'Associated simulation execution platform.'),
             ('simulation', 'activity.simulation_run', '0.1', 'Associated simulation run.'),
@@ -26,7 +26,7 @@ def _document_set():
             ('ensembles', 'child::cim:ensemble'),
             ('experiment', 'child::cim:numericalExperiment'),
             ('model', 'child::cim:modelComponent'),
-            ('grid', 'child::cim:platform'),
+            ('grids', 'child::cim:gridSpec'),
             ('platform', 'child::cim:platform'),
             ('simulation', 'child::cim:simulationRun'),
         ]
