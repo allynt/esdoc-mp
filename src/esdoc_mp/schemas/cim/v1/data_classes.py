@@ -200,6 +200,7 @@ def _data_object():
             ('keyword', 'child::cim:keyword'),
             ('properties', 'child::cim:dataProperty/cim:dataProperty'),
             ('purpose', 'self::cim:dataObject/@purpose'),
+            ('storage', 'child::cim:storage/cim:ipStorage', 'data.data_storage_ip'),
         ]
     }
 
@@ -255,7 +256,6 @@ def _data_storage():
             ('location', 'str', '0.1', None),
         ],
         'decodings' : [
-
         ]
     }
 
@@ -311,10 +311,11 @@ def _data_storage_ip():
             ('protocol', 'str', '0.1', None),
             ('host', 'str', '0.1', None),
             ('path', 'str', '0.1', None),
-            ('file_name', 'str', '0.1', None),
+            ('fileName', 'str', '0.1', None),
         ],
         'decodings' : [
-
+            ('fileName', 'child::cim:fileName'),
+            ('format', 'child::cim:dataFormat/@value'),
         ]
     }
 
