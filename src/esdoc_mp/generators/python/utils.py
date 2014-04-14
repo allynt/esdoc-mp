@@ -35,44 +35,11 @@ _SIMPLE_TYPE_MAPPINGS = {
     'uuid' : 'uuid.UUID',
 }
 
-# Simple type null value.
-_SIMPLE_NULL_VALUES = {
-    'bool' : 'bool()',
-    'datetime.date' : 'datetime.date(1900, 1, 1)',
-    'datetime.datetime' : 'datetime.datetime.now()',
-    'float' : 'float()',
-    'int' : 'int()',
-    'str' : 'str()',
-    'uri' : 'str()',
-    'uuid.UUID' : 'uuid.uuid4()',
-}
+# Standard null value.
+_NULL_VALUE = 'None'
 
-# Set of simple type default values.
-_SIMPLE_DEFAULT_VALUES = {
-    'bool' : 'bool()',
-    'datetime.date' : 'datetime.date(1900, 1, 1)',
-    'datetime.datetime' : 'datetime.datetime.now()',
-    'float' : 'float()',
-    'int' : 'int()',
-    'str' : 'str()',
-    'uri' : 'str()',
-    'uuid.UUID' : 'uuid.uuid4()',
-}
-
-# Iterative type default value.
-_ITERATIVE_DEFAULT_VALUE = '[]'
-
-# Iterative type null value.
-_ITERATIVE_NULL_VALUE = '[]'
-
-# Complex enum default value.
-_ENUM_DEFAULT_VALUE = "''"
-
-# Complex enum null value.
-_ENUM_NULL_VALUE = "''"
-
-# Complex type null value.
-_CLASS_NULL_VALUE = 'None'
+# Iterable null value.
+_NULL_VALUE_ITERABLE = '[]'
 
 
 def _strip(name):
@@ -290,35 +257,22 @@ def get_property_default_value(p):
     """Returns property default value.
 
     """
-    # Iterables: convert via pre-defined mappings.
-    if p.is_iterative:
-        if p.is_required:
-            return _ITERATIVE_DEFAULT_VALUE
+    # Return value based upon property type:
+    # ... meta information;
+    if p.name == "meta":
+        if p.package == p.type.package:
+            return "{0}()".format(get_type_name(p.type))
         else:
-            return _ITERATIVE_NULL_VALUE
-    # Simple types: convert via pre-defined mappings.
-    elif p.type.is_simple:
-        if p.is_required:
-            return _SIMPLE_DEFAULT_VALUES[get_type_name(p.type)]
-        else:
-            return _SIMPLE_NULL_VALUES[get_type_name(p.type)]
-    # Enum types: .
-    elif p.type.is_enum:
-        if p.is_required:
-            return _get_enum_default_value(get_type_name(p.type))
-        else:
-            return _ENUM_NULL_VALUE
-    # Complex (class) types: convert via pre-defined mappings.
+            return "{0}.{1}()".format(get_package_name(p.type.package),
+                                      get_type_name(p.type))
+
+    # ... iterative types;
+    elif p.is_iterative:
+        return _NULL_VALUE_ITERABLE
+
+    # ... enum / complex / simple types.
     else:
-        if p.is_required:
-            if p.package == p.type.package:
-                return "{0}()".format(get_type_name(p.type))
-            else:
-                return "{0}.{1}()".format(get_package_name(p.type.package),
-                                          get_type_name(p.type))
-        else:
-            return _CLASS_NULL_VALUE
-    
+        return _NULL_VALUE
 
 
 def get_type_name(type):
@@ -415,16 +369,6 @@ def _get_simple_type_mapping(simple):
     return _SIMPLE_TYPE_MAPPINGS[simple]
 
 
-def _get_enum_default_value(e):
-    """Returns default value of a complex enum type.
-
-    Keyword Arguments:
-    enum - complex enum type name.
-
-    """
-    return _ENUM_DEFAULT_VALUE
-
-
 def _strip_package_name(name):
     """Returns stripped package name.
 
@@ -471,7 +415,7 @@ def get_package_module_file_name(name, prefix):
 
     """
     return get_package_module_name(name, prefix) + FILE_EXTENSION
-   
+
 
 def get_module_file_name(name):
     """Returns a module file name.
@@ -492,7 +436,7 @@ def format(o):
         p.op_name = get_package_name(p)
 
     for c in o.classes:
-        c.op_base_name = _get_class_base_name(c)        
+        c.op_base_name = _get_class_base_name(c)
         c.op_doc_string_name = get_class_doc_string_name(c)
         c.op_file_name = _get_class_file_name(c)
         c.op_functional_name = get_class_functional_name(c)

@@ -3,7 +3,7 @@
    :platform: Unix, Windows
    :synopsis: Represents an ontological type property definition.
 
-.. moduleauthor:: Mark Conway-Greenslade (formerly Morgan) <momipsl@ipsl.jussieu.fr>
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """
@@ -39,6 +39,10 @@ class Property(object):
         :param cardinality: Type of relationship to associated class (i.e. 0.1 | 1.1 | 0.N | 1.N).
 
         """
+        # Defensive programming.
+        if name.lower() in ("ext", ):
+            raise AttributeError("{0} is a reserved property name.".format(name))
+
         # Set attributes.
         self.cls = None
         self.decodings = []

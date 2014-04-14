@@ -337,17 +337,17 @@ def _model_component():
         'name' : 'model_component',
         'base' : 'software.component',
         'is_abstract' : False,
-        'is_entity' : True,        
+        'is_entity' : True,
         'doc' : 'A ModelComponent is a scientific model; it represents code which models some physical phenomena for a particular length of time.',
         'properties' : [
-            ('doc_info', 'shared.doc_info', '1.1', None),
+            ('meta', 'shared.doc_meta_info', '1.1', None),
             ('type', 'software.model_component_type', '0.1', 'Describes the type of component. There can be multiple types.'),
             ('types', 'software.model_component_type', '1.N', 'Describes the type of component. There can be multiple types.'),
             ('timing', 'software.timing', '0.1', 'Describes information about how this component simulates time.'),
             ('activity', 'activity.activity', '0.1', None),
         ],
         'decodings' : [
-            ('doc_info', 'self::cim:modelComponent'),
+            ('meta', 'self::cim:modelComponent'),
             ('timing', 'child::cim:timing'),
             ('type', 'child::cim:type[1]/@value'),
             ('types', 'child::cim:type/@value'),
@@ -381,13 +381,13 @@ def _processor_component():
         'name' : 'processor_component',
         'base' : 'software.component',
         'is_abstract' : False,
-        'is_entity' : True,        
+        'is_entity' : True,
         'doc' : 'A ModelComponent is a scientific model; it represents code which models some physical phenomena for a particular length of time.',
         'properties' : [
-            ('doc_info', 'shared.doc_info', '1.1', None),
+            ('meta', 'shared.doc_meta_info', '1.1', None),
         ],
         'decodings' : [
-            ('doc_info', 'self::cim:modelComponent'),
+            ('meta', 'self::cim:modelComponent'),
         ]
     }
 
@@ -526,16 +526,16 @@ def _statistical_model_component():
         'name' : 'statistical_model_component',
         'base' : 'software.component',
         'is_abstract' : False,
-        'is_entity' : True,        
+        'is_entity' : True,
         'doc' : None,
         'properties' : [
-            ('doc_info', 'shared.doc_info', '1.1', None),
+            ('meta', 'shared.doc_meta_info', '1.1', None),
             ('type', 'software.statistical_model_component_type', '0.1', 'Describes the type of component. There can be multiple types.'),
             ('types', 'software.statistical_model_component_type', '1.N', 'Describes the type of component. There can be multiple types.'),
             ('timing', 'software.timing', '0.1', 'Describes information about how this component simulates time.'),
         ],
         'decodings' : [
-            ('doc_info', 'self::cim:statisticalModelComponent'),
+            ('meta', 'self::cim:statisticalModelComponent'),
             ('timing', 'child::cim:timing'),
             ('type', 'child::cim:type[1]/@value'),
             ('types', 'child::cim:type/@value'),
@@ -603,7 +603,7 @@ def _time_transformation():
             ('mapping_type', 'child::cim:mappingType/@value'),
         ]
     }
-    
+
 
 # Set of package classes.
 classes = [

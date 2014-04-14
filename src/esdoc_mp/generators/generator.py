@@ -3,7 +3,7 @@
    :platform: Unix, Windows
    :synopsis: Base class encapsulating functionality common to all cim code generators.
 
-.. moduleauthor:: Mark Conway-Greenslade (formerly Morgan) <momipsl@ipsl.jussieu.fr>
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """

@@ -133,7 +133,7 @@ def _set_error(ctx, error):
             ctx['errors'] += error
         else:
             ctx['errors'].append(error)
-        
+
 
 def _validate_field(field, field_data, field_elem, ctx):
     """Validates configuration data against passed dictionary configuration element.
@@ -279,7 +279,7 @@ def validate_ontology_schema(ontology_schema):
 
     """
     errors = []
-    
+
     if not isinstance(ontology_schema, dict):
         errors.append('Ontology schema is not a python dictionary.')
     else:
@@ -298,7 +298,7 @@ def validate_language(language):
 
     """
     errors = []
-    
+
     if not language in _LANGUAGES:
         errors.append('Programming language is unsupported [{0}].  Supported languages are {1}.'.format(language, _LANGUAGES))
 

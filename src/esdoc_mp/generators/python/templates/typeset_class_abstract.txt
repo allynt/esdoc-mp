@@ -1,8 +1,5 @@
 class {class-name}({base-class-name}):
-    """An abstract class within the {ontology-name} v{ontology-version} type system.
-
-    {class-doc-string}
-    """
+    """An abstract class within the {ontology-name} v{ontology-version} type system.{class-doc-string}"""
     __metaclass__ = abc.ABCMeta
 
     def __init__(self):

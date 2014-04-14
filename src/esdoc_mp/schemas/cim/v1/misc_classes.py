@@ -12,7 +12,7 @@ def _document_set():
         'is_entity' : True,
         'doc' : 'Encapsulates a set of documents.',
         'properties' : [
-            ('doc_info', 'shared.doc_info', '1.1', None),
+            ('meta', 'shared.doc_meta_info', '1.1', None),
             ('data', 'data.dataObject', '0.N', 'Associated input/output data.'),
             ('ensembles', 'activity.ensemble', '0.N', 'Associated ensemble runs.'),
             ('experiment', 'activity.numerical_experiment', '0.1', 'Associated numerical experiment.'),

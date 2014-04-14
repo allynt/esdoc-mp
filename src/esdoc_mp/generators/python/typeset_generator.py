@@ -3,7 +3,7 @@
    :platform: Unix, Windows
    :synopsis: Generates code encapsulating an ontology's typeset.
 
-.. moduleauthor:: Mark Conway-Greenslade (formerly Morgan) <momipsl@ipsl.jussieu.fr>
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """
@@ -97,14 +97,14 @@ def _emit_module_meta(o):
         def emit_code(code, p):
             code += "import {0} as {1}".format(
                 pgu.get_package_module_name(p, 'typeset'),
-                p.op_name) 
+                p.op_name)
             code += gu.emit_line_return()
 
             return code
-            
+
         return reduce(emit_code, o.packages, str())
 
-    
+
     def emit_type_keys():
         def emit_code(code, c):
             code += "{0}.type_key = '{1}.{2}.{0}'".format(
@@ -114,7 +114,7 @@ def _emit_module_meta(o):
             code += gu.emit_line_return()
 
             return code
-        
+
         return reduce(emit_code, o.classes, str())
 
 
@@ -125,7 +125,7 @@ def _emit_module_meta(o):
                 pgu.get_property_name(p),
                 pgu.get_type_functional_name(p.type, True),
                 p.is_required,
-                p.is_iterative) 
+                p.is_iterative)
             code += gu.emit_line_return()
 
             return code
@@ -137,7 +137,7 @@ def _emit_module_meta(o):
         def emit_code(code, c):
             code += "{0}.type_info = ({1})".format(
                 c.op_full_name,
-                gu.emit_line_return() + emit_class_attributes_info(c)) 
+                gu.emit_line_return() + emit_class_attributes_info(c))
             code += gu.emit_line_return(2)
 
             return code
@@ -165,7 +165,7 @@ def _emit_module_typeset_for_pkg(o, p):
             return code
 
         return reduce(emit_code, p.associated, str())
-    
+
 
     def get_classes(p):
         # Return list of classes sorted in dependency order.
@@ -176,15 +176,15 @@ def _emit_module_typeset_for_pkg(o, p):
             for c in [c for c in p.classes if c not in result]:
                 if c.base in result:
                     result.append(c)
-                    
+
             # Error if parse revels unresolvable dependencies.
             if n == len(result):
                 msg = "Package {0} has circular class dependencies."
                 msg = msg.format(p)
                 rt.throw(msg.format(p))
-                
+
         return result
-    
+
 
     def emit_types():
         def emit_code(code, t):
@@ -198,7 +198,7 @@ def _emit_module_typeset_for_pkg(o, p):
 
         return reduce(emit_code, get_classes(p), str()) + \
                reduce(emit_code, p.enums, str())
-        
+
 
     code = _templates[_TEMPLATE_TYPESET_MODULE]
     code = code.replace('{imports}', emit_imports())
@@ -253,7 +253,7 @@ def _emit_module_init(o):
             return code
 
         return reduce(emit_code, o.classes, str())
-        
+
 
     code = _templates[_TEMPLATE_MAIN]
     code = code.replace('{module-imports}', emit_imports())
@@ -283,11 +283,26 @@ def _emit_snippet_class(c):
     # Generate code.
     code = code.replace('{class-name}', c.op_name)
     code = code.replace('{base-class-name}', c.op_base_name)
-    code = code.replace('{class-doc-string}', c.doc_string)
+    code = code.replace('{class-doc-string}', _emit_snippet_class_doc_string(c))
     code = code.replace('{class_constants}', _emit_snippet_class_property_constants(c))
     code = code.replace('{class-properties}', _emit_snippet_class_properties(c))
 
     return code
+
+
+def _emit_snippet_class_doc_string(c):
+    """Emits class doc string."""
+    doc_string = "" if not c.doc_string else c.doc_string
+
+    if doc_string:
+        doc_string = "{0}{1}{2}".format(doc_string,
+                                        gu.emit_line_return(2),
+                                        gu.emit_indent())
+
+    return "{0}{1}{2}".format(gu.emit_line_return(2),
+                              gu.emit_indent(),
+                              doc_string)
+
 
 
 def _emit_snippet_class_properties(c):
@@ -304,7 +319,7 @@ def _emit_snippet_class_properties(c):
         return code
 
     return reduce(emit_code, c.properties, str())
-        
+
 
 def _emit_snippet_class_property_constants(c):
     """Emits set of class property constants."""
@@ -318,7 +333,7 @@ def _emit_snippet_class_property_constants(c):
                 cnt[1],
                 gu.emit_line_return()
             )
-        
+
         return code
 
     return reduce(emit_code, c.constants, str())

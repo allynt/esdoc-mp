@@ -32,7 +32,7 @@ def _evaluation():
             ('type_hyperlink', 'child::gmd:result/@xlink:href'),
             ('specification', 'child::gmd:result/gmd:DQ_ConformanceResult/gmd:specification/@xlink:title'),
             ('specification_hyperlink', 'child::gmd:result/gmd:DQ_ConformanceResult/gmd:specification/@xlink:href'),
-            ('title', 'child::gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title'),
+            ('title', 'child::gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:title/gco:CharacterString'),
         ]
     }
 
@@ -72,11 +72,11 @@ def _cim_quality():
         'is_entity' : True,
         'doc' : 'The starting point for a quality record.  It can contain any number of issues and reports.  An issue is an open-ended description of some issue about a CIM instance.  A record is a prescribed description of some specific quantitative measure that has been applied to a CIM instance.',
         'properties' : [
-            ('doc_info', 'shared.doc_info', '1.1', None),
+            ('meta', 'shared.doc_meta_info', '1.1', None),
             ('reports', 'quality.report', '0.N', None),
         ],
         'decodings' : [
-            ('doc_info', 'self::cim:cIM_Quality'),
+            ('meta', 'self::cim:cIM_Quality'),
             ('reports', 'child::cim:report'),
         ]
     }

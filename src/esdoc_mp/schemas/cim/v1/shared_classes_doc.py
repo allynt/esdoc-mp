@@ -41,17 +41,18 @@ def _doc_relationship_target():
     }
 
 
-def _doc_info():
-    """Creates and returns instance of doc_info class."""
+def _doc_meta_info():
+    """Creates and returns instance of doc_meta_info class."""
     return {
         'type' : 'class',
-        'name' : 'doc_info',
+        'name' : 'doc_meta_info',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'Encapsulates common cim information.',
+        'doc' : 'Encapsulates document meta information.',
         'properties' : [
             ('author', 'shared.responsible_party', '0.1', 'Associated document author.'),
             ('create_date', 'datetime', '1.1', 'Date upon which the instance was created'),
+            ('encodings', 'str', '0.N', 'Set of supported document encodings'),
             ('external_ids', 'shared.standard_name', '0.N', 'Set of identifiers used to reference the document by external parties.'),
             ('genealogy', 'shared.doc_genealogy', '0.1', 'Specifies the relationship of this document with another document. Various relationship types (depending on the type of document; ie: simulation, component, etc.) are supported.'),
             ('id', 'uuid', '1.1', 'Universal document identifier.'),
@@ -150,10 +151,10 @@ def _relationship():
 
 # Set of package classes.
 classes = [
-    _relationship(),
+    _doc_genealogy(),
+    _doc_meta_info(),
+    _doc_reference(),
     _doc_relationship(),
     _doc_relationship_target(),
-    _doc_genealogy(),
-    _doc_info(),
-    _doc_reference(),
+    _relationship(),
 ]

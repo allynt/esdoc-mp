@@ -3,7 +3,7 @@
    :platform: Unix, Windows
    :synopsis: Set of common generator utility functions.
 
-.. moduleauthor:: Mark Conway-Greenslade (formerly Morgan) <momipsl@ipsl.jussieu.fr>
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """
@@ -77,12 +77,12 @@ def _load_template(language, filename):
 
     """
     path = _TEMPLATE_FOLDER + "/{0}/templates/{1}".format(language, filename)
-           
+
     if path not in _loaded_templates:
         tmpl = open(path)
         _loaded_templates[path] = tmpl.read()
         tmpl.close()
-        
+
     return _loaded_templates[path]
 
 
@@ -174,10 +174,10 @@ def format_code(ctx, code):
 
     :param ctx: Generation context information.
     :type ctx: esdoc_mp.generators.generator.GeneratorContext
-    
+
     :param code: Code to be injected with standard params.
     :type code: str
-    
+
     """
     # Ontology related params.
     code = code.replace('{ontology-name}', ctx.ontology.op_name)

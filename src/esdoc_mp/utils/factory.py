@@ -3,7 +3,7 @@
    :platform: Unix, Windows
    :synopsis: Encapsulates process of instantiating objects, i.e. generators, schemas and ontologies.
 
-.. moduleauthor:: Mark Conway-Greenslade (formerly Morgan) <momipsl@ipsl.jussieu.fr>
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """
@@ -28,7 +28,7 @@ def _get_generators_for_python():
     from esdoc_mp.generators.python.decoder_generator import DecoderGenerator
     from esdoc_mp.generators.python.typeset_generator import TypesetGenerator
     from esdoc_mp.generators.python.validator_generator import ValidatorGenerator
-    
+
     return {
         'root' : RootGenerator,
         'typeset' : TypesetGenerator,
