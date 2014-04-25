@@ -118,7 +118,7 @@ def _emit_module_meta(o):
         return reduce(emit_code, o.classes, str())
 
 
-    def emit_class_attributes_info(c):
+    def emit_type_attribute_info(c):
         def emit_code(code, p):
             code += gu.emit_indent()
             code += "('{0}', {1}, {2}, {3}),".format(
@@ -133,11 +133,11 @@ def _emit_module_meta(o):
         return reduce(emit_code, c.properties, str())
 
 
-    def emit_type_attribute_info():
+    def emit_type_info():
         def emit_code(code, c):
             code += "{0}.type_info = ({1})".format(
                 c.op_full_name,
-                gu.emit_line_return() + emit_class_attributes_info(c))
+                gu.emit_line_return() + emit_type_attribute_info(c))
             code += gu.emit_line_return(2)
 
             return code
@@ -148,7 +148,7 @@ def _emit_module_meta(o):
     code = _templates[_TEMPLATE_META_MODULE]
     code = code.replace('{module-imports}', emit_imports())
     code = code.replace('{type-keys}', emit_type_keys())
-    code = code.replace('{type-attribute-info}', emit_type_attribute_info())
+    code = code.replace('{type-info}', emit_type_info())
 
     return code
 

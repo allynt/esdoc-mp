@@ -86,7 +86,7 @@ def _downscaling_simulation():
             ('downscaling_type', 'activity.downscaling_type', '0.1', None),
         ],
         'decodings' : [
-            ('meta', 'self::cim:downscalingSimulation'),            
+            ('meta', 'self::cim:downscalingSimulation'),
             ('calendar', 'child::cim:calendar/cim:daily-360', 'shared.daily_360'),
             ('calendar', 'child::cim:calendar/cim:perpetualPeriod', 'shared.perpetual_period'),
             ('calendar', 'child::cim:calendar/cim:realCalendar', 'shared.real_calendar'),
@@ -104,7 +104,7 @@ def _downscaling_simulation():
             ('downscaling_type', 'self::cim:downscalingSimulation/@downscalingType'),
         ]
     }
-    
+
 
 def _ensemble():
     """Creates and returns instance of ensemble class."""
@@ -151,7 +151,6 @@ def _ensemble_member():
             ('ensemble_ids', 'shared.standard_name', '0.N', None),
             ('simulation', 'activity.simulation', '0.1', None),
             ('simulation_reference', 'shared.doc_reference', '0.1', None),
-
         ],
         'decodings' : [
             ('ensemble', 'child::cim:ensemble/cim:ensemble'),
@@ -162,7 +161,7 @@ def _ensemble_member():
         ]
     }
 
-    
+
 def _experiment():
     """Creates and returns instance of experiment class."""
     return {
@@ -176,14 +175,11 @@ def _experiment():
             ('requires', 'activity.numerical_activity', '0.N', None),
             ('requires_references', 'shared.doc_reference', '0.N', None),
             ('generates', 'str', '0.N', None),
-            ('supports', 'str', '1.N', None),
+            ('supports', 'str', '0.N', None),
 #            ('generates', 'activity.numerical_experiment', '0.N', None),
-#            ('supports', 'activity.experiment', '1.N', None),
+#            ('supports', 'activity.experiment', '0.N', None),
             ('supports_references', 'shared.doc_reference', '0.N', None),
         ],
-        'decodings' : [
-
-        ]
     }
 
 
@@ -199,9 +195,6 @@ def _experiment_relationship():
             ('target', 'activity.experiment_relationship_target', '1.1', None),
             ('type', 'activity.experiment_relationship_type', '1.1', None),
         ],
-        'decodings' : [
-
-        ]
     }
 
 
@@ -217,9 +210,6 @@ def _experiment_relationship_target():
             ('reference', 'shared.doc_reference', '0.1', None),
             ('numerical_experiment', 'activity.numerical_experiment', '0.1', None),
         ],
-        'decodings' : [
-
-        ]
     }
 
 
@@ -234,12 +224,6 @@ def _lateral_boundary_condition():
         'constants' : [
             ('requirement_type', 'lateralBoundaryCondition'),
         ],
-        'properties' : [
-
-        ],
-        'decodings' : [
-
-        ]
     }
 
 
@@ -257,9 +241,6 @@ def _measurement_campaign():
             # todo - resolve circular dependencies.
             #('experiments', 'activity.experiment', '1.N', None),
         ],
-        'decodings' : [
-
-        ]
     }
 
 
@@ -275,8 +256,8 @@ def _numerical_activity():
             ('description', 'str', '0.1', 'A free-text description of the experiment.'),
             ('long_name', 'str', '0.1', 'The name of the experiment (that is recognized externally).'),
             ('short_name', 'str', '1.1', 'The name of the experiment (that is used internally).'),
-            ('supports', 'activity.experiment', '1.N', None),
-            ('supports_references', 'shared.doc_reference', '1.N', None),
+            ('supports', 'activity.experiment', '0.N', None),
+            ('supports_references', 'shared.doc_reference', '0.N', None),
         ],
         'decodings' : [
             ('description', 'child::cim:description'),
@@ -351,7 +332,7 @@ def _numerical_requirement():
             ('source_reference', 'child::cim:source/cim:reference'),
         ]
     }
-    
+
 
 def _numerical_requirement_option():
     """Creates and returns instance of numerical_requirement_option class."""
@@ -375,7 +356,7 @@ def _numerical_requirement_option():
         ]
     }
 
-    
+
 def _boundary_condition():
     """Creates and returns instance of boundary_condition class."""
     return {
@@ -387,12 +368,6 @@ def _boundary_condition():
         'constants' : [
             ('requirement_type', 'boundaryCondition'),
         ],
-        'properties' : [
-        
-        ],
-        'decodings' : [
-
-        ]
     }
 
 
@@ -407,12 +382,6 @@ def _initial_condition():
         'constants' : [
             ('requirement_type', 'initialCondition'),
         ],
-        'properties' : [
-
-        ],
-        'decodings' : [
-
-        ]
     }
 
 
@@ -450,12 +419,6 @@ def _output_requirement():
         'constants' : [
             ('requirement_type', 'outputRequirement'),
         ],
-        'properties' : [
-
-        ],
-        'decodings' : [
-
-        ]
     }
 
 
@@ -467,12 +430,6 @@ def _physical_modification():
         'base' : 'activity.conformance',
         'is_abstract' : False,
         'doc' : 'Physical modification is the implementation of a boundary condition numerical requirement that is achieved within the model code rather than from some external source file. It  might include, for example,  a specific rate constant within a chemical reaction, or coefficient value(s) in a parameterisation.  For example, one might require a numerical experiment where specific chemical reactions were turned off - e.g. no heterogeneous chemistry.',
-        'properties' : [
-
-        ],
-        'decodings' : [
-
-        ]
     }
 
 
@@ -559,9 +516,6 @@ def _simulation_relationship():
             ('target', 'activity.simulation_relationship_target', '1.1', None),
             ('type', 'activity.simulation_relationship_type', '1.1', None),
         ],
-        'decodings' : [
-
-        ]
     }
 
 
@@ -577,9 +531,6 @@ def _simulation_relationship_target():
             ('reference', 'shared.doc_reference', '0.1', None),
             ('target', 'activity.simulation_type', '0.1', None),
         ],
-        'decodings' : [
-
-        ]
     }
 
 
@@ -594,7 +545,7 @@ def _simulation_run():
         'doc' : 'A SimulationRun is, as the name implies, one single model run. A SimulationRun is a Simulation. There is a one to one association between SimulationRun and (a top-level) SoftwarePackage::ModelComponent.',
         'properties' : [
             ('meta', 'shared.doc_meta_info', '1.1', None),
-            ('date_range', 'shared.date_range', '1.1', None),            
+            ('date_range', 'shared.date_range', '1.1', None),
             ('model', 'software.model_component', '0.1', None),
             ('model_reference', 'shared.doc_reference', '0.1', None),
         ],

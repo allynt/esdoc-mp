@@ -23,5 +23,5 @@ import uuid
 # Set type keys.
 {type-keys}
 
-# Set type attribute info (name, type, is_required, is_iterative).
-{type-attribute-info}
+# Set type info (name, type, is_required, is_iterative).
+{type-info}

@@ -29,7 +29,7 @@ _TEMPLATE_DECODER_MODULE = 'decoder_module.txt'
 # Template for a decoder function.
 _TEMPLATE_DECODER_FUNCTION = "decoder_function.txt"
 
-# Template for a decoder function.
+# Template for a decoding xml utilities.
 _TEMPLATE_DECODER_XML_UTILS = "decoder_xml_utils.txt"
 
 # Set of template files.

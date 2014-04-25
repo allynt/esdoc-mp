@@ -26,17 +26,10 @@ class Property(object):
     def __init__(self, name, doc_string, type_name, cardinality):
         """Constructor.
 
-        :param name: Property name.
-        :type name: str
-        
-        :type doc_string: str
-        :param doc_string: Property docuemtnation string.
-
-        :type type_name: str
-        :param type_name: Property type name.
-
-        :type cardinality: str
-        :param cardinality: Type of relationship to associated class (i.e. 0.1 | 1.1 | 0.N | 1.N).
+        :param str name: Property name.
+        :param str doc_string: Property docuemtnation string.
+        :param str type_name: Property type name.
+        :param str cardinality: Type of relationship to associated class (i.e. 0.1 | 1.1 | 0.N | 1.N).
 
         """
         # Defensive programming.
@@ -47,6 +40,7 @@ class Property(object):
         self.cls = None
         self.decodings = []
         self.doc_string = doc_string if doc_string is not None else ''
+        self.cardinality = cardinality
         self.max_occurs = cardinality.split('.')[1]
         self.min_occurs = cardinality.split('.')[0]
         self.name = name

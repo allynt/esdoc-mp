@@ -27,13 +27,11 @@ def _get_generators_for_python():
     from esdoc_mp.generators.python.root_generator import RootGenerator
     from esdoc_mp.generators.python.decoder_generator import DecoderGenerator
     from esdoc_mp.generators.python.typeset_generator import TypesetGenerator
-    from esdoc_mp.generators.python.validator_generator import ValidatorGenerator
 
     return {
         'root' : RootGenerator,
         'typeset' : TypesetGenerator,
-        'decoder' : DecoderGenerator,
-        'validator' : ValidatorGenerator
+        'decoder' : DecoderGenerator
     }
 
 

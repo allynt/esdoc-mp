@@ -260,7 +260,7 @@ def _responsible_party():
         'doc' : 'A person/organsiation responsible for some aspect of a climate science artefact',
         'properties' : [
             ('abbreviation', 'str', '0.1', None),
-            ('contact_info', 'shared.responsible_party_contact_info', '1.1', None),
+            ('contact_info', 'shared.responsible_party_contact_info', '0.1', None),
             ('individual_name', 'str', '0.1', None),
             ('organisation_name', 'str', '0.1', None),
             ('role', 'str', '0.1', None),

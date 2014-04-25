@@ -17,7 +17,6 @@ from typeset import *
 
 import decoder
 import typeset
-import validator
 
 
 
