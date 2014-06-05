@@ -65,6 +65,7 @@ def _doc_meta_info():
             ('status', 'shared.doc_status_type', '0.1', "Document status."),
             ('type', 'str', '1.1', 'Document ontology type.'),
             ('type_display_name', 'str', '0.1', 'Document type display name.'),
+            ('type_sort_key', 'str', '0.1', 'Document type sort key.'),
             ('version', 'int', '1.1', 'Document version identifier.'),
         ],
         'decodings' : [
