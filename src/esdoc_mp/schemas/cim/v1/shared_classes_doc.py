@@ -52,6 +52,8 @@ def _doc_meta_info():
         'properties' : [
             ('author', 'shared.responsible_party', '0.1', 'Associated document author.'),
             ('create_date', 'datetime', '1.1', 'Date upon which the instance was created'),
+            ('drs_path', 'str', '0.1', 'DRS related path to support documents with datasets.'),
+            ('drs_keys', 'str', '0.N', 'DRS related keys to support correlation of documents with datasets.'),
             ('encodings', 'str', '0.N', 'Set of supported document encodings'),
             ('external_ids', 'shared.standard_name', '0.N', 'Set of identifiers used to reference the document by external parties.'),
             ('genealogy', 'shared.doc_genealogy', '0.1', 'Specifies the relationship of this document with another document. Various relationship types (depending on the type of document; ie: simulation, component, etc.) are supported.'),
@@ -62,6 +64,7 @@ def _doc_meta_info():
             ('metadata_version', 'str', '0.1', None),
             ('project', 'str', '1.1', 'Name of project with which instance is associated with.'),
             ('source', 'str', '1.1', 'Application that created the instance.'),
+            ('source_key', 'str', '1.1', 'Key of application that created the instance.'),
             ('status', 'shared.doc_status_type', '0.1', "Document status."),
             ('type', 'str', '1.1', 'Document ontology type.'),
             ('type_display_name', 'str', '0.1', 'Document type display name.'),
@@ -75,6 +78,7 @@ def _doc_meta_info():
             ('genealogy', 'child::cim:documentGenealogy'),
             ('id', 'child::cim:documentID'),
             ('version', 'child::cim:documentVersion'),
+            ('version', 'self::cim:numericalExperiment/@documentVersion'),
         ]
     }
 
