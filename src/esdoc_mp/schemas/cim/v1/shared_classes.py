@@ -260,38 +260,21 @@ def _responsible_party():
         'doc' : 'A person/organsiation responsible for some aspect of a climate science artefact',
         'properties' : [
             ('abbreviation', 'str', '0.1', None),
-            ('contact_info', 'shared.responsible_party_contact_info', '0.1', None),
+            ('address', 'str', '0.1', None),
+            ('email', 'str', '0.1', None),
             ('individual_name', 'str', '0.1', None),
             ('organisation_name', 'str', '0.1', None),
             ('role', 'str', '0.1', None),
-        ],
-        'decodings' : [
-            ('abbreviation', 'child::cim:abbreviation'),
-            ('contact_info', 'child::gmd:contactInfo/gmd:CI_Contact'),
-            ('individual_name', 'child::gmd:individualName/gco:CharacterString'),
-            ('organisation_name', 'child::gmd:organisationName/gco:CharacterString'),
-            ('role', 'gmd:role/gmd:CI_RoleCode/@codeListValue'),
-        ]
-    }
-
-
-def _responsible_party_contact_info():
-    """Creates and returns instance of responsible_party_contact_info class."""
-    return {
-        'type' : 'class',
-        'name' : 'responsible_party_contact_info',
-        'base' : None,
-        'is_abstract' : False,
-        'doc' : 'Maps gmd:contactInfo element.',
-        'properties' : [
-            ('address', 'str', '0.1', None),
-            ('email', 'str', '0.1', None),
             ('url', 'str', '0.1', None),
         ],
         'decodings' : [
-            ('address', 'child::gmd:address/gmd:CI_Address/gmd:deliveryPoint/gco:CharacterString'),
-            ('email', 'child::gmd:address/gmd:CI_Address/gmd:electronicMailAddress/gco:CharacterString'),
-            ('url', 'child::gmd:onlineResource/gmd:CI_OnlineResource/gmd:linkage/gmd:URL'),
+            ('abbreviation', 'child::cim:abbreviation'),
+            ('address', 'child::gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:deliveryPoint/gco:CharacterString'),
+            ('email', 'child::gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:electronicMailAddress/gco:CharacterString'),
+            ('individual_name', 'child::gmd:individualName/gco:CharacterString'),
+            ('organisation_name', 'child::gmd:organisationName/gco:CharacterString'),
+            ('role', 'gmd:role/gmd:CI_RoleCode/@codeListValue'),
+            ('url', 'child::gmd:contactInfo/gmd:CI_Contact/gmd:onlineResource/gmd:CI_OnlineResource/gmd:linkage/gmd:URL'),
         ]
     }
 
@@ -352,7 +335,6 @@ classes = [
     _platform(),
     _property(),
     _responsible_party(),
-    _responsible_party_contact_info(),
     _standard(),
     _standard_name(),
 ]
