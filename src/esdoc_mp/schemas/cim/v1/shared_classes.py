@@ -71,11 +71,15 @@ def _citation():
         ],
         'decodings' : [
             ('alternative_title', 'child::gmd:alternateTitle/gco:CharacterString'),
+            ('alternative_title', 'child::gmd:alternateTitle'),
             ('collective_title', 'gmd:collectiveTitle/gco:CharacterString'),
+            ('collective_title', 'gmd:collectiveTitle'),
             ('date', 'child::gmd:date/gmd:CI_Date/gmd:date/gco:Date'),
             ('date_type', 'child::gmd:date/gmd:CI_Date/gmd:dateType/gmd:CI_DateTypeCode/@codeListValue'),
             ('location', 'child::gmd:otherCitationDetails/gco:CharacterString'),
+            ('location', 'child::gmd:otherCitationDetails'),
             ('title', 'child::gmd:title/gco:CharacterString'),
+            ('title', 'child::gmd:title'),
             ('type', 'child::gmd:presentationForm/gmd:CI_PresentationFormCode/@codeListValue'),
         ]
     }
@@ -270,9 +274,13 @@ def _responsible_party():
         'decodings' : [
             ('abbreviation', 'child::cim:abbreviation'),
             ('address', 'child::gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:deliveryPoint/gco:CharacterString'),
+            ('address', 'child::gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:deliveryPoint'),
             ('email', 'child::gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:electronicMailAddress/gco:CharacterString'),
+            ('email', 'child::gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:electronicMailAddress'),
             ('individual_name', 'child::gmd:individualName/gco:CharacterString'),
+            ('individual_name', 'child::gmd:individualName'),
             ('organisation_name', 'child::gmd:organisationName/gco:CharacterString'),
+            ('organisation_name', 'child::gmd:organisationName'),
             ('role', 'gmd:role/gmd:CI_RoleCode/@codeListValue'),
             ('url', 'child::gmd:contactInfo/gmd:CI_Contact/gmd:onlineResource/gmd:CI_OnlineResource/gmd:linkage/gmd:URL'),
         ]

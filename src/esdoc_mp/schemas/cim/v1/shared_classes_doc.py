@@ -63,6 +63,7 @@ def _doc_meta_info():
             ('metadata_id', 'uri', '0.1', None),
             ('metadata_version', 'str', '0.1', None),
             ('project', 'str', '1.1', 'Name of project with which instance is associated with.'),
+            ('sort_key', 'str', '0.1', 'Document sort key.'),
             ('source', 'str', '1.1', 'Application that created the instance.'),
             ('source_key', 'str', '0.1', 'Key of application that created the instance.'),
             ('status', 'shared.doc_status_type', '0.1', "Document status."),
