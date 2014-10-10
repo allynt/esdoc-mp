@@ -291,17 +291,19 @@ def _numerical_experiment():
             ('description', 'child::cim:description'),
             ('experiment_id', 'child::cim:experimentID'),
             ('long_name', 'child::cim:longName'),
+            ('short_name', 'child::cim:shortName'),
+            # Metafor CMIP5 questionnaire - standalone
             ('requirements', 'child::cim:numericalRequirement[@xsi:type="InitialCondition"]', 'activity.initial_condition'),
             ('requirements', 'child::cim:numericalRequirement[@xsi:type="BoundaryCondition"]', 'activity.boundary_condition'),
             ('requirements', 'child::cim:numericalRequirement[@xsi:type="LateralBoundaryCondition"]', 'activity.lateral_boundary_condition'),
             ('requirements', 'child::cim:numericalRequirement[@xsi:type="SpatioTemporalConstraint"]', 'activity.spatio_temporal_constraint'),
             ('requirements', 'child::cim:numericalRequirement[@xsi:type="OutputRequirement"]', 'activity.output_requirement'),
+            # Metafor CMIP5 questionnaire - simulation bundle
             ('requirements', 'child::cim:numericalRequirement/cim:initialCondition', 'activity.initial_condition'),
             ('requirements', 'child::cim:numericalRequirement/cim:boundaryCondition', 'activity.boundary_condition'),
             ('requirements', 'child::cim:numericalRequirement/cim:lateralBoundaryCondition', 'activity.lateral_boundary_condition'),
             ('requirements', 'child::cim:numericalRequirement/cim:spatioTemporalConstraint', 'activity.spatio_temporal_constraint'),
             ('requirements', 'child::cim:numericalRequirement/cim:outputRequirement', 'activity.output_requirement'),
-            ('short_name', 'child::cim:shortName'),
         ]
     }
 
@@ -348,16 +350,35 @@ def _numerical_requirement_option():
         'is_abstract' : False,
         'doc' : 'A NumericalRequirement that is being used as a set of related requirements; For example if a requirement is to use 1 of 3 boundary conditions, then that "parent" requirement would have three "child" RequirmentOptions (each of one with the XOR optionRelationship).',
         'properties' : [
-            ('requirement', 'activity.numerical_requirement', '0.1', 'The requirement being specified by this option'),
+            ('description', 'str', '0.1', None),
+            ('id', 'str', '0.1', None),
+            ('name', 'str', '1.1', None),
+            ('sub_options', 'activity.numerical_requirement_option', '0.N', None),
             ('relationship', 'str', '0.1', 'Describes how this optional (child) requirement is related to its sibling requirements.  For example, a NumericalRequirement could consist of a set of optional requirements each with an "OR" relationship meaning use this boundary condition _or_ that one.'),
         ],
         'decodings' : [
-            ('requirement', 'child::cim:requirement/cim:requirement/cim:initialCondition', 'activity.initial_condition'),
-            ('requirement', 'child::cim:requirement/cim:requirement/cim:spatioTemporalConstraint', 'activity.output_requirement'),
-            ('requirement', 'child::cim:requirement/cim:requirement/cim:outputRequirement', 'activity.spatio_temporal_constraint'),
-            ('requirement', 'child::cim:requirement/cim:requirement/cim:boundaryCondition', 'activity.boundary_condition'),
-            ('requirement', 'child::cim:requirement/cim:requirement/cim:lateralBoundaryCondition', 'activity.lateral_boundary_condition'),
+            ('description', 'child::cim:description'),
+            ('id', 'child::cim:id'),
+            ('name', 'child::cim:name'),
             ('relationship', 'self::cim:requirementOption/@optionRelationship'),
+            # Metafor CMIP5 questionnaire - simulation bundle
+            ('description', 'child::cim:requirement/cim:requirement/cim:boundaryCondition/cim:description'),
+            ('description', 'child::cim:requirement/cim:requirement/cim:initialCondition/cim:description'),
+            ('description', 'child::cim:requirement/cim:requirement/cim:lateralBoundaryCondition/cim:description'),
+            ('description', 'child::cim:requirement/cim:requirement/cim:outputRequirement/cim:description'),
+            ('description', 'child::cim:requirement/cim:requirement/cim:spatioTemporalConstraint/cim:description'),
+            # Metafor CMIP5 questionnaire - simulation bundle
+            ('id', 'child::cim:requirement/cim:requirement/cim:boundaryCondition/cim:id'),
+            ('id', 'child::cim:requirement/cim:requirement/cim:initialCondition/cim:id'),
+            ('id', 'child::cim:requirement/cim:requirement/cim:lateralBoundaryCondition/cim:id'),
+            ('id', 'child::cim:requirement/cim:requirement/cim:outputRequirement/cim:id'),
+            ('id', 'child::cim:requirement/cim:requirement/cim:spatioTemporalConstraint/cim:id'),
+            # Metafor CMIP5 questionnaire - simulation bundle
+            ('name', 'child::cim:requirement/cim:requirement/cim:boundaryCondition/cim:name'),
+            ('name', 'child::cim:requirement/cim:requirement/cim:initialCondition/cim:name'),
+            ('name', 'child::cim:requirement/cim:requirement/cim:lateralBoundaryCondition/cim:name'),
+            ('name', 'child::cim:requirement/cim:requirement/cim:outputRequirement/cim:name'),
+            ('name', 'child::cim:requirement/cim:requirement/cim:spatioTemporalConstraint/cim:name'),
         ]
     }
 
