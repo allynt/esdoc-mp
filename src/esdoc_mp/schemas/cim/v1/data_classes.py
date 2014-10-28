@@ -311,10 +311,10 @@ def _data_storage_ip():
             ('protocol', 'str', '0.1', None),
             ('host', 'str', '0.1', None),
             ('path', 'str', '0.1', None),
-            ('fileName', 'str', '0.1', None),
+            ('file_name', 'str', '0.1', None),
         ],
         'decodings' : [
-            ('fileName', 'child::cim:fileName'),
+            ('file_name', 'child::cim:fileName'),
             ('format', 'child::cim:dataFormat/@value'),
         ]
     }
