@@ -134,7 +134,7 @@ def _doc_reference():
             ('id', 'The ID of the element being referenced.'),
             ('name', 'The name of the element being referenced.'),
             ('type', 'The type of the element being referenced.'),
-            ('version', 'The version of the element being referenced.'),            
+            ('version', 'The version of the element being referenced.'),
         ]
     }
 
