@@ -116,7 +116,7 @@ def _doc_reference():
             ('id', 'uuid', '0.1', 'The ID of the element being referenced.'),
             ('name', 'str', '0.1', 'The name of the element being referenced.'),
             ('type', 'str', '0.1', 'The type of the element being referenced.'),
-            ('version', 'str', '0.1', 'The version of the element being referenced.'),
+            ('version', 'int', '0.1', 'The version of the element being referenced.'),
         ],
         'decodings' : [
             ('changes', 'child::cim:change'),
