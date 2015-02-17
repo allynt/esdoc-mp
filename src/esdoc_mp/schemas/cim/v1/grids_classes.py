@@ -144,7 +144,7 @@ def _grid_tile():
             ('coordinate_pole', 'str', '0.1', 'gml:PointType:The coordinatePole property may be used to specify the lat-long position of any coordinate poles (in the mathematical sense) that form part of the definition of a grid tile. Not to be confused with the gridNorthPole property.  If required, two or more coordinate pole definitions may be distinguished by setting the gml:id attribute to appropriate values, such as spole, npole, etc.'),
             ('horizontal_crs', 'str', '0.1', 'gml:CRSPropertyType:Specifies the horizontal coordinate reference system used in the definition of the grid tile coordinates. This property should normally be an xlink reference to an external horizontal CRS definition (e.g. in a separate CRS dictionary). If required, however, the property may be defined in situ within a CIM document.'),
             ('grid_north_pole', 'str', '0.1', 'gml:PointType:If required, defines the lat-long position of the north pole used by the grid tile in the case of rotated/displaced pole grids. Not to be confused with the coordinatePole property.'),
-            ('simple_grid_geom', 'str', '0.1', 'SimpleGridGeometry:This property may be used to define the coordinates of the nodes or cells making up a simple (i.e. uniform or regular) grid tile. More details are provided in the description of the SimpleGridGeometry data type.'),
+            ('simple_grid_geom', 'grids.simple_grid_geometry', '0.1', 'SimpleGridGeometry:This property may be used to define the coordinates of the nodes or cells making up a simple (i.e. uniform or regular) grid tile. More details are provided in the description of the SimpleGridGeometry data type.'),
             ('vertical_crs', 'str', '0.1', 'gml:CRSPropertyType:Specifies the vertical coordinate reference system used in the definition of the grid tile coordinates. This property should normally be an xlink reference to an external vertical CRS definition (e.g. in a separate CRS dictionary). If required, however, the property may be defined in situ within a CIM document.'),
 
             ('description', 'str', '0.1', 'A free-text description of a grid tile.'),
@@ -209,6 +209,25 @@ def _grid_tile_resolution_type():
         ]
     }
 
+def _simple_grid_geometry():
+    """Creates and returns instance of simple_grid_geometry class."""
+    return {
+        'type' : 'class',
+        'name' : 'simple_grid_geometry',
+        'base' : None,
+        'is_abstract' : False,
+        'doc' : 'SimpleGridGeometry:This property may be used to define the coordinates of the nodes or cells making up a simple (i.e. uniform or regular) grid tile. More details are provided in the description of the SimpleGridGeometry data type.',
+        'properties' : [
+            ('xcoords', 'grids.coordinate_list', '1.1', 'X-Co-ordinates'),
+            ('ycoords', 'grids.coordinate_list', '1.1', 'Y-Co-ordinates'),
+            ('zcoords', 'grids.coordinate_list', '0.1', 'Z-Co-ordinates'),
+            ('dim_order', 'str', '0.1', None),
+            ('is_mesh', 'bool', '0.1', None),
+            ('num_dims', 'int', '1.1', None)
+        ],
+        'decodings' : []
+    }
+
 
 def _vertical_coordinate_list():
     """Creates and returns instance of coordinate_list class."""
@@ -229,7 +248,7 @@ def _vertical_coordinate_list():
             ('form', '@coordinateForm'),
         ]
     }
-    
+
 
 # Set of package classes.
 classes = [
@@ -240,5 +259,6 @@ classes = [
     _grid_spec(),
     _grid_tile(),
     _grid_tile_resolution_type(),
+    _simple_grid_geometry(),
     _vertical_coordinate_list(),
 ]
