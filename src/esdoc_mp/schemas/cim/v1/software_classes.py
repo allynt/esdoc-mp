@@ -426,6 +426,7 @@ def _component():
         'properties' : [
             ('sub_components', 'software.component', '0.N', None),
             ('citations', 'shared.citation', '0.N', None),
+            ('code_access', 'str', '0.1', 'Instructions on how to access the source code for this component.'),
             ('composition', 'software.composition', '0.1', None),
             ('coupling_framework', 'software.coupling_framework_type', '0.1', 'The coupling framework that this entire component conforms to.'),
             ('dependencies', 'software.entry_point', '0.N', None),
@@ -444,6 +445,7 @@ def _component():
             ('release_date', 'datetime', '0.1', 'The date of publication of the software component code (as opposed to the date of publication of the metadata document, or the date of deployment of the model)'),
             ('responsible_parties', 'shared.responsible_party', '0.N', None),
             ('short_name', 'str', '1.1', 'The name of the model (that is used internally).'),
+            ('version', 'str', '0.1', 'A free text description of the component version #.'),
         ],
         'decodings' : [
             ('sub_components', 'child::cim:childComponent/cim:modelComponent', 'software.model_component'),
