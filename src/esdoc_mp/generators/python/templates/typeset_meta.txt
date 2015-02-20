@@ -12,7 +12,6 @@
 .. note:: Code generated using esdoc_mp @ {datetime-now}.
 
 """
-# Module imports.
 import datetime
 import uuid
 

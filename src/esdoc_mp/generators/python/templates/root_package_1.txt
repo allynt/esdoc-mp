@@ -12,7 +12,6 @@
 .. note:: Code generated using esdoc_mp @ {datetime-now}.
 
 """
-# Module imports.
 from v{ontology-version} import *
 
 import v{ontology-version}

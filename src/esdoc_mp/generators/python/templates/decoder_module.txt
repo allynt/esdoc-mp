@@ -12,8 +12,6 @@
 .. note:: Code generated using esdoc_mp @ {datetime-now}.
 
 """
-
-# Module imports.
 from decoder_xml_utils import set_attributes
 {module-imports}import typeset
 

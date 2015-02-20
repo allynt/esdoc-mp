@@ -12,8 +12,6 @@
 .. note:: Code generated using esdoc_mp @ {datetime-now}.
 
 """
-
-# Module imports.
 {module-imports}
 
 

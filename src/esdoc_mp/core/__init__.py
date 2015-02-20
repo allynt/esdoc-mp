@@ -9,8 +9,6 @@
 
 
 """
-
-# Module imports.
 from esdoc_mp.core.class_ import Class
 from esdoc_mp.core.decoding import Decoding
 from esdoc_mp.core.enum import Enum
