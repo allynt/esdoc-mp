@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """Encapsualtes a set of python specific name conversion operations.
 
 """

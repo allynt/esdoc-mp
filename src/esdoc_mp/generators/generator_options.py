@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 .. module:: esdoc_mp.generators.generator_options
    :platform: Unix, Windows

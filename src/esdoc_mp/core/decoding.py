@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 .. module:: esdoc_mp.core.decoding
    :platform: Unix, Windows

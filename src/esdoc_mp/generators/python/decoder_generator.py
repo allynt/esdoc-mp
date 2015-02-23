@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 .. module:: esdoc_mp.generators.python.serialization_generator.py
    :platform: Unix, Windows

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 .. module:: esdoc_mp.generators.python.typeset_generator.py
    :platform: Unix, Windows

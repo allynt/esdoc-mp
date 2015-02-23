@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """A set of CIM meta-programming ontology configurqtion validation functions.
 
 """

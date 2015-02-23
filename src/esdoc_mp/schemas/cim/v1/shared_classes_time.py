@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 CIM v1 shared package time reated classes.
 """
