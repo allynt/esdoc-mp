@@ -4,7 +4,7 @@
 CIM v1 shared package enums.
 """
 
-def _doc_relationship_direction_type():
+def doc_relationship_direction_type():
     """Creates and returns instance of relationship_direction_type enum."""
     return {
         'type' : 'enum',
@@ -18,7 +18,7 @@ def _doc_relationship_direction_type():
     }
 
 
-def _doc_relationship_type():
+def doc_relationship_type():
     """Creates and returns instance of document_relationship_type enum."""
     return {
         'type' : 'enum',
@@ -35,7 +35,7 @@ def _doc_relationship_type():
     }
 
 
-def _doc_status_type():
+def doc_status_type():
     """Creates and returns instance of doc_status_type enum."""
     return {
         'type' : 'enum',
@@ -50,7 +50,7 @@ def _doc_status_type():
     }
 
 
-def _doc_type():
+def doc_type():
     """Creates and returns instance of doc_type enum."""
     return {
         'type' : 'enum',
@@ -77,10 +77,3 @@ def _doc_type():
 
 
 
-# Set of package enums.
-enums = [
-    _doc_type(),
-    _doc_relationship_type(),
-    _doc_relationship_direction_type(),
-    _doc_status_type(),
-]

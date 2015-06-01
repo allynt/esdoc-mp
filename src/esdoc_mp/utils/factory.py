@@ -9,16 +9,15 @@
 
 
 """
-from esdoc_mp.core import (
-    Class,
-    Decoding,
-    Enum,
-    EnumMember,
-    Ontology,
-    Package,
-    Property
-    )
-from esdoc_mp.schemas import schemas as ontology_schemas
+import inspect
+
+from esdoc_mp.core import Class
+from esdoc_mp.core import Decoding
+from esdoc_mp.core import Enum
+from esdoc_mp.core import EnumMember
+from esdoc_mp.core import Ontology
+from esdoc_mp.core import Package
+from esdoc_mp.core import Property
 
 
 
@@ -66,6 +65,8 @@ def create_ontology_schema(name, version):
     :rtype: dict
 
     """
+    from esdoc_mp.schemas import schemas as ontology_schemas
+
     for schema in ontology_schemas:
         if schema['name'].lower() == name.lower() and \
            schema['version'].lower() == version.lower():
@@ -136,3 +137,28 @@ def create_ontology(schema):
         o_packages.append(Package(p_cfg['name'], p_cfg['doc'], p_classes, p_enums))
 
     return Ontology(schema['name'], schema['version'], schema['doc'], o_packages)
+
+
+def _get_type_definition(func):
+    """Returns a type definition instantiated from a module function.
+
+    """
+    result = func()
+    result['name'] = func.__name__
+    result['doc'] = func.__doc__.strip()
+
+    return result
+
+
+def get_type_definitions(mod):
+    """Returns a collection of type definitions instantiated from a module.
+
+    :param module mod: Python module in which type definitions are declared.
+
+    :returns: Collection of type definitions.
+    :rtype: List
+
+    """
+    funcs = [m[1] for m in inspect.getmembers(mod) if inspect.isfunction(m[1])]
+
+    return [_get_type_definition(i) for i in funcs]

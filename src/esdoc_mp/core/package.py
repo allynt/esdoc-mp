@@ -49,6 +49,7 @@ class Package(object):
         self.associated = []
         self.concrete_classes = sorted([c for c in classes if not c.is_abstract], key=lambda c: c.name)
         self.classes = sorted(classes, key=lambda c: c.name)
+        self.decodings = []
         self.doc_string = doc_string
         self.entities = []
         self.enums = sorted(enums, key=lambda e: e.name)
@@ -62,6 +63,10 @@ class Package(object):
 
         # Derive superset of types.
         self.types = sorted(classes + enums, key=lambda t: t.name)
+
+        # Derive superset of decodings.
+        for cls in self.classes:
+            self.decodings += cls.decodings
 
         # Derive superset of properties.
         for cls in self.classes:

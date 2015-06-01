@@ -6,7 +6,7 @@ CIM v1 quality package classes.
 
 
 
-def _evaluation():
+def evaluation():
     """Creates and returns instance of evaluation class."""
     return {
         'type' : 'class',
@@ -39,7 +39,7 @@ def _evaluation():
     }
 
 
-def _measure():
+def measure():
     """Creates and returns instance of measure class."""
     return {
         'type' : 'class',
@@ -64,7 +64,7 @@ def _measure():
     }
 
 
-def _cim_quality():
+def cim_quality():
     """Creates and returns instance of cim_quality class."""
     return {
         'type' : 'class',
@@ -84,7 +84,7 @@ def _cim_quality():
     }
 
 
-def _report():
+def report():
     """Creates and returns instance of report class."""
     return {
         'type' : 'class',
@@ -107,10 +107,3 @@ def _report():
     }
 
 
-# Set of package classes.
-classes = [
-    _cim_quality(),
-    _evaluation(),
-    _measure(),
-    _report(),
-]

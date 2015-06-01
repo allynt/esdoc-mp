@@ -4,7 +4,7 @@
 CIM v1 shared package classes.
 """
 
-def _doc_relationship():
+def doc_relationship():
     """Creates and returns instance of doc_relationship class."""
     return {
         'type' : 'class',
@@ -25,7 +25,7 @@ def _doc_relationship():
     }
 
 
-def _doc_relationship_target():
+def doc_relationship_target():
     """Creates and returns instance of doc_relationship_target class."""
     return {
         'type' : 'class',
@@ -43,7 +43,7 @@ def _doc_relationship_target():
     }
 
 
-def _doc_meta_info():
+def doc_meta_info():
     """Creates and returns instance of doc_meta_info class."""
     return {
         'type' : 'class',
@@ -86,7 +86,7 @@ def _doc_meta_info():
     }
 
 
-def _doc_genealogy():
+def doc_genealogy():
     """Creates and returns instance of doc_genealogy class."""
     return {
         'type' : 'class',
@@ -103,7 +103,7 @@ def _doc_genealogy():
     }
 
 
-def _doc_reference():
+def doc_reference():
     """Creates and returns instance of reference class."""
     return {
         'type' : 'class',
@@ -141,7 +141,7 @@ def _doc_reference():
     }
 
 
-def _relationship():
+def relationship():
     """Creates and returns instance of relationship class."""
     return {
         'type' : 'class',
@@ -157,12 +157,3 @@ def _relationship():
         ]
     }
 
-# Set of package classes.
-classes = [
-    _doc_genealogy(),
-    _doc_meta_info(),
-    _doc_reference(),
-    _doc_relationship(),
-    _doc_relationship_target(),
-    _relationship(),
-]

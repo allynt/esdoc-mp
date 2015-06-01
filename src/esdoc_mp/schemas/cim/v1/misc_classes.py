@@ -4,7 +4,7 @@
 CIM v1 miscellaneous package classes.
 """
 
-def _document_set():
+def document_set():
     """Creates and returns instance of document_set class."""
     return {
         'type' : 'class',
@@ -40,9 +40,3 @@ def _document_set():
             ('simulation', 'child::cim:simulationRun'),
         ]
     }
-
-
-# Set of package classes.
-classes = [
-    _document_set(),
-]

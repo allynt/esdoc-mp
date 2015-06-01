@@ -6,7 +6,7 @@ CIM v1 grids package enums.
 
 
 
-def _arc_type_enum():
+def arc_type_enum():
     """Creates and returns instance of arc_type_enum enum."""
     return {
         'name' : 'arc_type_enum',
@@ -21,7 +21,7 @@ def _arc_type_enum():
     }
 
 
-def _discretization_enum():
+def discretization_enum():
     """Creates and returns instance of discretization_enum enum."""
     return {
         'name' : 'discretization_enum',
@@ -39,7 +39,7 @@ def _discretization_enum():
     }
 
 
-def _feature_type_enum():
+def feature_type_enum():
     """Creates and returns instance of feature_type_enum enum."""
     return {
         'name' : 'feature_type_enum',
@@ -52,7 +52,7 @@ def _feature_type_enum():
     }
 
 
-def _geometry_type_enum():
+def geometry_type_enum():
     """Creates and returns instance of geometry_type_enum enum."""
     return {
         'name' : 'geometry_type_enum',
@@ -66,7 +66,7 @@ def _geometry_type_enum():
     }
 
 
-def _grid_node_position_enum():
+def grid_node_position_enum():
     """Creates and returns instance of grid_node_position_enum enum."""
     return {
         'name' : 'grid_node_position_enum',
@@ -80,7 +80,7 @@ def _grid_node_position_enum():
     }
 
 
-def _grid_type_enum():
+def grid_type_enum():
     """Creates and returns instance of grid_type_enum enum."""
     return {
         'name' : 'grid_type_enum',
@@ -101,7 +101,7 @@ def _grid_type_enum():
     }
 
 
-def _horizontal_cs_enum():
+def horizontal_cs_enum():
     """Creates and returns instance of horizontal_cs_enum enum."""
     return {
         'name' : 'horizontal_cs_enum',
@@ -116,7 +116,7 @@ def _horizontal_cs_enum():
     }
 
 
-def _refinement_type_enum():
+def refinement_type_enum():
     """Creates and returns instance of refinement_type_enum enum."""
     return {
         'name' : 'refinement_type_enum',
@@ -130,7 +130,7 @@ def _refinement_type_enum():
     }
 
 
-def _vertical_cs_enum():
+def vertical_cs_enum():
     """Creates and returns instance of vertical_cs_enum enum."""
     return {
         'name' : 'vertical_cs_enum',
@@ -141,16 +141,3 @@ def _vertical_cs_enum():
             ('space-based', None),
         ],
     }
-
-    
-# Set of package enums.
-enums = [
-    _discretization_enum(),
-    _feature_type_enum(),
-    _geometry_type_enum(),
-    _grid_type_enum(),
-    _horizontal_cs_enum(),
-    _refinement_type_enum(),
-    _vertical_cs_enum(),
-]
-

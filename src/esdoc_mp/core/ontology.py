@@ -61,8 +61,9 @@ class Ontology(object):
         
         # Set supersets.
         self.classes = reduce(add, map(lambda p : p.classes, packages))
+        self.decodings = reduce(add, map(lambda p : p.decodings, packages))
         self.enums = reduce(add, map(lambda p : p.enums, packages))
-        self.enum_members = reduce(add, map(lambda e : e.members, self.enums))
+        self.enum_members = reduce(add, map(lambda e : e.members, self.enums), [])
         self.entities = reduce(add, map(lambda p : p.entities, packages))
         self.properties = reduce(add, map(lambda c : c.properties, self.classes))
         self.property_types = map(lambda p : p.type, self.properties)

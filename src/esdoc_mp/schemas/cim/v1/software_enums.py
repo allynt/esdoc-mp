@@ -6,7 +6,7 @@ CIM v1 software package enums.
 
 
 
-def _component_property_intent_type():
+def component_property_intent_type():
     """Creates and returns instance of component_property_intent_type enum."""
     return {
         'name' : 'component_property_intent_type',
@@ -20,7 +20,7 @@ def _component_property_intent_type():
     }
 
 
-def _connection_type():
+def connection_type():
     """Creates and returns instance of connection_type enum."""
     return {
         'name' : 'connection_type',
@@ -30,7 +30,7 @@ def _connection_type():
     }
 
 
-def _coupling_framework_type():
+def coupling_framework_type():
     """Creates and returns instance of coupling_framework_type enum."""
     return {
         'name' : 'coupling_framework_type',
@@ -44,7 +44,7 @@ def _coupling_framework_type():
     }
 
 
-def _model_component_type():
+def model_component_type():
     """Creates and returns instance of model_component_type enum."""
     return {
         'name' : 'model_component_type',
@@ -54,7 +54,7 @@ def _model_component_type():
     }
 
 
-def _spatial_regridding_dimension_type():
+def spatial_regridding_dimension_type():
     """Creates and returns instance of spatial_regridding_dimension_type enum."""
     return {
         'name' : 'spatial_regridding_dimension_type',
@@ -68,7 +68,7 @@ def _spatial_regridding_dimension_type():
     }
 
 
-def _spatial_regridding_standard_method_type():
+def spatial_regridding_standard_method_type():
     """Creates and returns instance of spatial_regridding_standard_method_type enum."""
     return {
         'name' : 'spatial_regridding_standard_method_type',
@@ -86,7 +86,7 @@ def _spatial_regridding_standard_method_type():
     }
 
 
-def _statistical_model_component_type():
+def statistical_model_component_type():
     """Creates and returns instance of statistical_model_component_type enum."""
     return {
         'name' : 'statistical_model_component_type',
@@ -96,7 +96,7 @@ def _statistical_model_component_type():
     }
 
 
-def _time_mapping_type():
+def time_mapping_type():
     """Creates and returns instance of time_mapping_type enum."""
     return {
         'name' : 'time_mapping_type',
@@ -106,7 +106,7 @@ def _time_mapping_type():
     }
     
 
-def _timing_units():
+def timing_units():
     """Creates and returns instance of timing_units enum."""
     return {
         'name' : 'timing_units',
@@ -125,17 +125,4 @@ def _timing_units():
     }
 
 
-
-# Set of package enums.
-enums = [
-    _component_property_intent_type(),
-    _connection_type(),
-    _coupling_framework_type(),
-    _model_component_type(),
-    _spatial_regridding_dimension_type(),
-    _spatial_regridding_standard_method_type(),
-    _statistical_model_component_type(),
-    _time_mapping_type(),
-    _timing_units(),
-]
 

@@ -126,17 +126,3 @@ def _unit_type():
     }
 
 
-# Set of package enums.
-enums = [
-    _change_property_type(),
-    _compiler_type(),
-    _data_purpose(),
-    _interconnect_type(),
-    _machine_type(),
-    _machine_vendor_type(),
-    _operating_system_type(),
-    _processor_type(),
-    _unit_type(),
-]
-
-

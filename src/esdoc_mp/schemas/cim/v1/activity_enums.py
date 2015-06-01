@@ -6,7 +6,7 @@ CIM v1 activity package enums.
 
 
 
-def _conformance_type():
+def conformance_type():
     """Creates and returns instance of conformance_type enum."""
     return {
         'type' : 'enum',
@@ -23,7 +23,7 @@ def _conformance_type():
     }
 
 
-def _downscaling_type():
+def downscaling_type():
     """Creates and returns instance of downscaling_type enum."""
     return {
         'type' : 'enum',
@@ -37,7 +37,7 @@ def _downscaling_type():
     }
 
 
-def _ensemble_type():
+def ensemble_type():
     """Creates and returns instance of ensemble_type enum."""
     return {
         'type' : 'enum',
@@ -50,7 +50,7 @@ def _ensemble_type():
     }
 
 
-def _experiment_relationship_type():
+def experiment_relationship_type():
     """Creates and returns instance of experiment_relationship_type enum."""
     return {
         'name' : 'experiment_relationship_type',
@@ -70,7 +70,7 @@ def _experiment_relationship_type():
     }
 
 
-def _frequency_type():
+def frequency_type():
     """Creates and returns instance of frequency_type enum."""
     return {
         'type' : 'enum',
@@ -83,7 +83,7 @@ def _frequency_type():
     }
 
 
-def _project_type():
+def project_type():
     """Creates and returns instance of project_type enum."""
     return {
         'type' : 'enum',
@@ -94,7 +94,7 @@ def _project_type():
     }
 
 
-def _resolution_type():
+def resolution_type():
     """Creates and returns instance of resolution_type enum."""
     return {
         'type' : 'enum',
@@ -105,7 +105,7 @@ def _resolution_type():
     }    
 
 
-def _simulation_relationship_type():
+def simulation_relationship_type():
     """Creates and returns instance of simulation_relationship_type enum."""
     return {
         'name' : 'simulation_relationship_type',
@@ -124,7 +124,7 @@ def _simulation_relationship_type():
     }
 
 
-def _simulation_type():
+def simulation_type():
     """Creates and returns instance of simulation_type enum."""
     return {
         'type' : 'enum',
@@ -139,17 +139,4 @@ def _simulation_type():
     }
 
 
-
-# Set of package enums.
-enums = [
-    _conformance_type(),
-    _downscaling_type(),
-    _ensemble_type(),
-    _experiment_relationship_type(),
-    _frequency_type(),
-    _project_type(),
-    _resolution_type(),
-    _simulation_relationship_type(),
-    _simulation_type(),
-]
 

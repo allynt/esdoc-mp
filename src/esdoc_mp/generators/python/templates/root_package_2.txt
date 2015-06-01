@@ -14,7 +14,10 @@
 """
 from typeset import *
 
-import decoder
+try:
+	import decoder
+except ImportError:
+	pass
 import typeset
 
 

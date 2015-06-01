@@ -36,7 +36,11 @@ class Generator(object):
         """
         # Instantiate context.
         ctx = GeneratorContext(ontology, options)
-        
+
+        # Escape if not required.
+        if not self.is_required(ctx):
+            return
+
         # Emits generated code to file system.
         def emit_code(code):
             if code is not None:
@@ -59,9 +63,19 @@ class Generator(object):
         for enum in ctx.ontology.enums:
             ctx.set_enum(enum)
             emit_code(self.on_enum_parse(ctx))
-            
+
         # Notify end.
         self.on_end(ctx)
+
+
+    def is_required(self, ctx):
+        """Predicate determing whether code generation is required.
+
+        :param ctx: Generation context information.
+        :type ctx: esdoc_mp.generators.generator.GeneratorContext
+
+        """
+        return True
 
 
     def on_start(self, ctx):

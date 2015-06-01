@@ -6,7 +6,7 @@ CIM v1 quality package enums.
 
 
 
-def _cim_feature_type():
+def cim_feature_type():
     """Creates and returns instance of cim_feature_type enum."""
     return {
         'name' : 'cim_feature_type',
@@ -19,7 +19,7 @@ def _cim_feature_type():
     }
 
     
-def _cim_result_type():
+def cim_result_type():
     """Creates and returns instance of cim_result_type enum."""
     return {
         'name' : 'cim_result_type',
@@ -33,7 +33,7 @@ def _cim_result_type():
     }
 
 
-def _cim_scope_code_type():
+def cim_scope_code_type():
     """Creates and returns instance of cim_scope_code_type enum."""
     return {
         'name' : 'cim_scope_code_type',
@@ -54,7 +54,7 @@ def _cim_scope_code_type():
     }
 
 
-def _quality_issue_type():
+def quality_issue_type():
     """Creates and returns instance of quality_issue_type enum."""
     return {
         'name' : 'quality_issue_type',
@@ -70,7 +70,7 @@ def _quality_issue_type():
     }
 
 
-def _quality_severity_type():
+def quality_severity_type():
     """Creates and returns instance of quality_severity_type enum."""
     return {
         'name' : 'quality_severity_type',
@@ -84,7 +84,7 @@ def _quality_severity_type():
     }
 
 
-def _quality_status_type():
+def quality_status_type():
     """Creates and returns instance of quality_status_type enum."""
     return {
         'name' : 'quality_status_type',
@@ -99,13 +99,3 @@ def _quality_status_type():
     }
 
     
-# Set of package enums.
-enums = [
-    _cim_feature_type(),
-    _cim_result_type(),
-    _cim_scope_code_type(),
-    _quality_issue_type(),
-    _quality_severity_type(),
-    _quality_status_type()
-]
-

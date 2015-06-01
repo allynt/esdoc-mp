@@ -51,6 +51,16 @@ class DecoderGenerator(Generator):
     """Generates code to support decoding.
 
     """
+    def is_required(self, ctx):
+        """Predicate determing whether code generation is required.
+
+        :param ctx: Generation context information.
+        :type ctx: esdoc_mp.generators.generator.GeneratorContext
+
+        """
+        return bool(ctx.ontology.decodings)
+
+
     def on_ontology_parse(self, ctx):
         """Event handler for the ontology parse event.
 

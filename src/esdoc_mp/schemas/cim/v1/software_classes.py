@@ -5,7 +5,7 @@ CIM v1 software package classes.
 """
 
 
-def _component_language():
+def component_language():
     """Creates and returns instance of component_language class."""
     return {
         'type' : 'class',
@@ -23,7 +23,7 @@ def _component_language():
     }
 
 
-def _component_language_property():
+def component_language_property():
     """Creates and returns instance of component_language_property class."""
     return {
         'type' : 'class',
@@ -40,7 +40,7 @@ def _component_language_property():
     }
 
 
-def _component_property():
+def component_property():
     """Creates and returns instance of _component_property class."""
     return {
         'type' : 'class',
@@ -79,7 +79,7 @@ def _component_property():
     }
 
 
-def _composition():
+def composition():
     """Creates and returns instance of composition class."""
     return {
         'type' : 'class',
@@ -97,7 +97,7 @@ def _composition():
     }
 
 
-def _connection():
+def connection():
     """Creates and returns instance of connection class."""
     return {
         'type' : 'class',
@@ -143,7 +143,7 @@ def _connection():
     }
 
 
-def _connection_endpoint():
+def connection_endpoint():
     """Creates and returns instance of connection_endpoint class."""
     return {
         'type' : 'class',
@@ -171,7 +171,7 @@ def _connection_endpoint():
     }
 
 
-def _connection_property():
+def connection_property():
     """Creates and returns instance of connection_property class."""
     return {
         'type' : 'class',
@@ -188,7 +188,7 @@ def _connection_property():
     }
 
 
-def _coupling():
+def coupling():
     """Creates and returns instance of coupling class."""
     return {
         'type' : 'class',
@@ -240,7 +240,7 @@ def _coupling():
     }
 
 
-def _coupling_endpoint():
+def coupling_endpoint():
     """Creates and returns instance of coupling_endpoint class."""
     return {
         'type' : 'class',
@@ -268,7 +268,7 @@ def _coupling_endpoint():
     }
 
 
-def _coupling_property():
+def coupling_property():
     """Creates and returns instance of coupling_property class."""
     return {
         'type' : 'class',
@@ -285,7 +285,7 @@ def _coupling_property():
     }
 
 
-def _deployment():
+def deployment():
     """Creates and returns instance of deployment class."""
     return {
         'type' : 'class',
@@ -314,7 +314,7 @@ def _deployment():
     }
 
 
-def _entry_point():
+def entry_point():
     """Creates and returns instance of entry_point class."""
     # TODO define
     return {
@@ -332,7 +332,7 @@ def _entry_point():
     }
 
 
-def _model_component():
+def model_component():
     """Creates and returns instance of model_component class."""
     return {
         'type' : 'class',
@@ -357,7 +357,7 @@ def _model_component():
     }
 
 
-def _parallelisation():
+def parallelisation():
     """Creates and returns instance of parallelisation class."""
     return {
         'type' : 'class',
@@ -376,7 +376,7 @@ def _parallelisation():
     }
 
 
-def _processor_component():
+def processor_component():
     """Creates and returns instance of processor_component class."""
     return {
         'type' : 'class',
@@ -394,7 +394,7 @@ def _processor_component():
     }
 
 
-def _rank():
+def rank():
     """Creates and returns instance of rank class."""
     return {
         'type' : 'class',
@@ -417,7 +417,7 @@ def _rank():
     }
 
 
-def _component():
+def component():
     """Creates and returns instance of _component class."""
     return {
         'type' : 'class',
@@ -466,7 +466,7 @@ def _component():
     }
 
 
-def _spatial_regridding():
+def spatial_regridding():
     """Creates and returns instance of spatial_regridding class."""
     return {
         'type' : 'class',
@@ -489,7 +489,7 @@ def _spatial_regridding():
     }
 
 
-def _spatial_regridding_property():
+def spatial_regridding_property():
     """Creates and returns instance of spatial_regridding_property class."""
     return {
         'type' : 'class',
@@ -502,7 +502,7 @@ def _spatial_regridding_property():
     }
 
 
-def _spatial_regridding_user_method():
+def spatial_regridding_user_method():
     """Creates and returns instance of spatial_regridding_user_method class."""
     return {
         'type' : 'class',
@@ -523,7 +523,7 @@ def _spatial_regridding_user_method():
     }
 
 
-def _statistical_model_component():
+def statistical_model_component():
     """Creates and returns instance of statistical_model_component class."""
     return {
         'type' : 'class',
@@ -546,7 +546,7 @@ def _statistical_model_component():
         ]
     }
 
-def _time_lag():
+def time_lag():
     """Creates and returns instance of time_lag class."""
     return {
         'type' : 'class',
@@ -565,7 +565,7 @@ def _time_lag():
     }
 
 
-def _timing():
+def timing():
     """Creates and returns instance of timing class."""
     return {
         'type' : 'class',
@@ -590,7 +590,7 @@ def _timing():
     }
 
 
-def _time_transformation():
+def time_transformation():
     """Creates and returns instance of time_transformation class."""
     return {
         'type' : 'class',
@@ -609,30 +609,3 @@ def _time_transformation():
     }
 
 
-# Set of package classes.
-classes = [
-    _component(),
-    _component_language(),
-    _component_language_property(),
-    _component_property(),
-    _composition(),
-    _connection(),
-    _connection_endpoint(),
-    _connection_property(),
-    _coupling(),
-    _coupling_endpoint(),
-    _coupling_property(),
-    _deployment(),
-    _entry_point(),
-    _model_component(),
-    _parallelisation(),
-    _processor_component(),
-    _rank(),
-    _spatial_regridding(),
-    _spatial_regridding_property(),
-    _spatial_regridding_user_method(),
-    _statistical_model_component(),
-    _time_lag(),
-    _time_transformation(),
-    _timing(),
-]

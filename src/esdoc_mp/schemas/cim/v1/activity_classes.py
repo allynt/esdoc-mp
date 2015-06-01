@@ -4,7 +4,7 @@
 CIM v1 activity package classes.
 """
 
-def _activity():
+def activity():
     """Creates and returns instance of numerical_experiment class."""
     return {
         'type' : 'class',
@@ -27,7 +27,7 @@ def _activity():
     }
 
 
-def _conformance():
+def conformance():
     """Creates and returns instance of conformance class."""
     return {
         'type' : 'class',
@@ -67,7 +67,7 @@ def _conformance():
     }
 
 
-def _downscaling_simulation():
+def downscaling_simulation():
     """Creates and returns instance of downscaling simulation class."""
     return {
         'type' : 'class',
@@ -108,7 +108,7 @@ def _downscaling_simulation():
     }
 
 
-def _ensemble():
+def ensemble():
     """Creates and returns instance of ensemble class."""
     return {
         'type' : 'class',
@@ -139,7 +139,7 @@ def _ensemble():
     }
 
 
-def _ensemble_member():
+def ensemble_member():
     """Creates and returns instance of ensemble_member class."""
     return {
         'type' : 'class',
@@ -164,7 +164,7 @@ def _ensemble_member():
     }
 
 
-def _experiment():
+def experiment():
     """Creates and returns instance of experiment class."""
     return {
         'type' : 'class',
@@ -185,7 +185,7 @@ def _experiment():
     }
 
 
-def _experiment_relationship():
+def experiment_relationship():
     """Creates and returns instance of experiment_relationship class."""
     return {
         'type' : 'class',
@@ -200,7 +200,7 @@ def _experiment_relationship():
     }
 
 
-def _experiment_relationship_target():
+def experiment_relationship_target():
     """Creates and returns instance of experiment_relationship_target class."""
     return {
         'type' : 'class',
@@ -215,7 +215,7 @@ def _experiment_relationship_target():
     }
 
 
-def _lateral_boundary_condition():
+def lateral_boundary_condition():
     """Creates and returns instance of lateral_boundary_condition class."""
     return {
         'type' : 'class',
@@ -229,7 +229,7 @@ def _lateral_boundary_condition():
     }
 
 
-def _measurement_campaign():
+def measurement_campaign():
     """Creates and returns instance of measurement_campaign class."""
     return {
         'type' : 'class',
@@ -246,7 +246,7 @@ def _measurement_campaign():
     }
 
 
-def _numerical_activity():
+def numerical_activity():
     """Creates and returns instance of numerical_activity class."""
     return {
         'type' : 'class',
@@ -271,7 +271,7 @@ def _numerical_activity():
     }
 
 
-def _numerical_experiment():
+def numerical_experiment():
     """Creates and returns instance of numerical_experiment class."""
     return {
         'type' : 'class',
@@ -310,7 +310,7 @@ def _numerical_experiment():
     }
 
 
-def _numerical_requirement():
+def numerical_requirement():
     """Creates and returns instance of numerical_requirement class."""
     return {
         'type' : 'class',
@@ -343,7 +343,7 @@ def _numerical_requirement():
     }
 
 
-def _numerical_requirement_option():
+def numerical_requirement_option():
     """Creates and returns instance of numerical_requirement_option class."""
     return {
         'type' : 'class',
@@ -385,7 +385,7 @@ def _numerical_requirement_option():
     }
 
 
-def _boundary_condition():
+def boundary_condition():
     """Creates and returns instance of boundary_condition class."""
     return {
         'type' : 'class',
@@ -399,7 +399,7 @@ def _boundary_condition():
     }
 
 
-def _initial_condition():
+def initial_condition():
     """Creates and returns instance of initial_condition class."""
     return {
         'type' : 'class',
@@ -413,7 +413,7 @@ def _initial_condition():
     }
 
 
-def _spatio_temporal_constraint():
+def spatio_temporal_constraint():
     """Creates and returns instance of spatio_temporal_constraint class."""
     return {
         'type' : 'class',
@@ -436,7 +436,7 @@ def _spatio_temporal_constraint():
     }
 
 
-def _output_requirement():
+def output_requirement():
     """Creates and returns instance of output_requirement class."""
     return {
         'type' : 'class',
@@ -450,7 +450,7 @@ def _output_requirement():
     }
 
 
-def _physical_modification():
+def physical_modification():
     """Creates and returns instance of physical_modification class."""
     return {
         'type' : 'class',
@@ -461,7 +461,7 @@ def _physical_modification():
     }
 
 
-def _simulation():
+def simulation():
     """Creates and returns instance of simulation class."""
     return {
         'type' : 'class',
@@ -506,7 +506,7 @@ def _simulation():
     }
 
 
-def _simulation_composite():
+def simulation_composite():
     """Creates and returns instance of simulation_composite class."""
     return {
         'type' : 'class',
@@ -532,7 +532,7 @@ def _simulation_composite():
     }
 
 
-def _simulation_relationship():
+def simulation_relationship():
     """Creates and returns instance of simulation_relationship class."""
     return {
         'type' : 'class',
@@ -547,7 +547,7 @@ def _simulation_relationship():
     }
 
 
-def _simulation_relationship_target():
+def simulation_relationship_target():
     """Creates and returns instance of simulation_relationship_target class."""
     return {
         'type' : 'class',
@@ -562,7 +562,7 @@ def _simulation_relationship_target():
     }
 
 
-def _simulation_run():
+def simulation_run():
     """Creates and returns instance of simulation_run class."""
     return {
         'type' : 'class',
@@ -585,32 +585,3 @@ def _simulation_run():
             ('model_reference', 'child::cim:model/cim:reference'),
         ]
     }
-
-
-# Set of package classes.
-classes = [
-    _activity(),
-    _boundary_condition(),
-    _conformance(),
-    _downscaling_simulation(),
-    _ensemble(),
-    _ensemble_member(),
-    _experiment(),
-    _experiment_relationship(),
-    _experiment_relationship_target(),
-    _initial_condition(),
-    _lateral_boundary_condition(),
-    _measurement_campaign(),
-    _numerical_activity(),
-    _numerical_experiment(),
-    _numerical_requirement(),
-    _numerical_requirement_option(),
-    _output_requirement(),
-    _physical_modification(),
-    _simulation(),
-    _simulation_composite(),
-    _simulation_relationship(),
-    _simulation_relationship_target(),
-    _simulation_run(),
-    _spatio_temporal_constraint(),
-]

@@ -6,7 +6,7 @@ CIM v1 data package classes.
 
 
 
-def _data_content():
+def data_content():
     """Creates and returns instance of data_content class."""
     return {
         'type' : 'class',
@@ -27,7 +27,7 @@ def _data_content():
     }
 
 
-def _data_distribution():
+def data_distribution():
     """Creates and returns instance of data_distribution class."""
     return {
         'type' : 'class',
@@ -49,7 +49,7 @@ def _data_distribution():
     }
 
 
-def _data_extent():
+def data_extent():
     """Creates and returns instance of data_extent class."""
 
     return {
@@ -69,7 +69,7 @@ def _data_extent():
     }
 
 
-def _data_extent_geographical():
+def data_extent_geographical():
     """Creates and returns instance of data_extent_geographical class."""
     return {
         'type' : 'class',
@@ -92,7 +92,7 @@ def _data_extent_geographical():
     }
 
 
-def _data_extent_temporal():
+def data_extent_temporal():
     """Creates and returns instance of data_extent_temporal class."""
     return {
         'type' : 'class',
@@ -113,7 +113,7 @@ def _data_extent_temporal():
     }
 
 
-def _data_extent_time_interval():
+def data_extent_time_interval():
     """Creates and returns instance of data_extent_time_interval class."""
     return {
         'type' : 'class',
@@ -134,7 +134,7 @@ def _data_extent_time_interval():
     }
 
 
-def _data_hierarchy_level():
+def data_hierarchy_level():
     """Creates and returns instance of data_hierarchy_level class."""
     return {
         'type' : 'class',
@@ -157,7 +157,7 @@ def _data_hierarchy_level():
     }
 
 
-def _data_object():
+def data_object():
     """Creates and returns instance of data_object class."""
     return {
         'type' : 'class',
@@ -207,7 +207,7 @@ def _data_object():
     }
 
 
-def _data_property():
+def data_property():
     """Creates and returns instance of data_property class."""
     return {
         'type' : 'class',
@@ -224,7 +224,7 @@ def _data_property():
     }
 
 
-def _data_restriction():
+def data_restriction():
     """Creates and returns instance of data_restriction class."""
     return {
         'type' : 'class',
@@ -243,7 +243,7 @@ def _data_restriction():
     }
 
 
-def _data_storage():
+def data_storage():
     """Creates and returns instance of data_storage class."""
     return {
         'type' : 'class',
@@ -262,7 +262,7 @@ def _data_storage():
     }
 
 
-def _data_storage_db():
+def data_storage_db():
     """Creates and returns instance of data_storage_db class."""
     return {
         'type' : 'class',
@@ -282,7 +282,7 @@ def _data_storage_db():
     }
 
 
-def _data_storage_file():
+def data_storage_file():
     """Creates and returns instance of data_storage_file class."""
     return {
         'type' : 'class',
@@ -301,7 +301,7 @@ def _data_storage_file():
     }
 
 
-def _data_storage_ip():
+def data_storage_ip():
     """Creates and returns instance of data_storage_ip class."""
     return {
         'type' : 'class',
@@ -322,7 +322,7 @@ def _data_storage_ip():
     }
 
 
-def _data_topic():
+def data_topic():
     """Creates and returns instance of data_topic class."""
     return {
         'type' : 'class',
@@ -343,23 +343,4 @@ def _data_topic():
     }
 
 
-
-# Set of package classes.
-classes = [
-    _data_content(),
-    _data_distribution(),
-    _data_extent(),
-    _data_extent_geographical(),
-    _data_extent_temporal(),
-    _data_extent_time_interval(),
-    _data_hierarchy_level(),
-    _data_object(),
-    _data_property(),
-    _data_restriction(),
-    _data_storage(),
-    _data_storage_db(),
-    _data_storage_file(),
-    _data_storage_ip(),
-    _data_topic()
-]
 

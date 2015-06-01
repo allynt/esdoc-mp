@@ -4,7 +4,7 @@
 CIM v1 shared package time reated classes.
 """
 
-def _calendar():
+def calendar():
     """Creates and returns instance of calendar class."""
     return {
         'type' : 'class',
@@ -26,7 +26,7 @@ def _calendar():
     }
 
 
-def _closed_date_range():
+def closed_date_range():
     """Creates and returns instance of closed_date_range class."""
     return {
         'type' : 'class',
@@ -45,7 +45,7 @@ def _closed_date_range():
     }
 
 
-def _daily_360():
+def daily_360():
     """Creates and returns instance of daily_360 class."""
     return {
         'type' : 'class',
@@ -58,7 +58,7 @@ def _daily_360():
     }
 
 
-def _date_range():
+def date_range():
     """Creates and returns instance of date_range class."""
     return {
         'type' : 'class',
@@ -75,7 +75,7 @@ def _date_range():
     }
 
 
-def _open_date_range():
+def open_date_range():
     """Creates and returns instance of open_date_range class."""
     return {
         'type' : 'class',
@@ -94,7 +94,7 @@ def _open_date_range():
     }
 
 
-def _perpetual_period():
+def perpetual_period():
     """Creates and returns instance of perpetual_period class."""
     return {
         'type' : 'class',
@@ -107,7 +107,7 @@ def _perpetual_period():
     }
     
 
-def _real_calendar():
+def real_calendar():
     """Creates and returns instance of real_calendar class."""
     return {
         'type' : 'class',
@@ -118,15 +118,3 @@ def _real_calendar():
         'properties' : [ ],
         'decodings' : [ ]
     }
-
-# Set of package classes.
-classes = [
-    _calendar(),
-    _closed_date_range(),
-    _daily_360(),
-    _date_range(),
-    _open_date_range(),
-    _perpetual_period(),
-    _real_calendar()
-]
-

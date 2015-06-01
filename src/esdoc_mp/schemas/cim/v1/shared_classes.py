@@ -5,7 +5,7 @@ CIM v1 shared package classes.
 """
 
 
-def _change():
+def change():
     """Creates and returns instance of change class."""
     return {
         'type' : 'class',
@@ -32,7 +32,7 @@ def _change():
     }
     
 
-def _change_property():
+def change_property():
     """Creates and returns instance of change class."""
     return {
         'type' : 'class',
@@ -51,7 +51,7 @@ def _change_property():
     }
 
 
-def _citation():
+def citation():
     """Creates and returns instance of citation class."""
     return {
         'type' : 'class',
@@ -87,7 +87,7 @@ def _citation():
     }
 
 
-def _compiler():
+def compiler():
     """Creates and returns instance of compiler class."""
     return {
         'type' : 'class',
@@ -114,7 +114,7 @@ def _compiler():
     }
 
 
-def _data_source():
+def data_source():
     """Creates and returns instance of data_source class."""
     return {
         'type' : 'class',
@@ -131,7 +131,7 @@ def _data_source():
     }
 
 
-def _license():
+def license():
     """Creates and returns instance of license class."""
     return {
         'type' : 'class',
@@ -151,7 +151,7 @@ def _license():
     }
 
 
-def _machine():
+def machine():
     """Creates and returns instance of machine class."""
     return {
         'type' : 'class',
@@ -190,7 +190,7 @@ def _machine():
     }
 
 
-def _machine_compiler_unit():
+def machine_compiler_unit():
     """Creates and returns instance of machine_compiler_unit class."""
     return {
         'type' : 'class',
@@ -209,7 +209,7 @@ def _machine_compiler_unit():
     }
 
 
-def _platform():
+def platform():
     """Creates and returns instance of platform class."""
     return {
         'type' : 'class',
@@ -237,7 +237,7 @@ def _platform():
     }
     
 
-def _property():
+def property():
     """Creates and returns instance of property class."""
     return {
         'type' : 'class',
@@ -256,7 +256,7 @@ def _property():
     }
 
 
-def _responsible_party():
+def responsible_party():
     """Creates and returns instance of responsible_party class."""
     return {
         'type' : 'class',
@@ -289,7 +289,7 @@ def _responsible_party():
     }
 
 
-def _standard():
+def standard():
     """Creates and returns instance of standard class."""
     return {
         'type' : 'class',
@@ -311,7 +311,7 @@ def _standard():
     }
 
 
-def _standard_name():
+def standard_name():
     """Creates and returns instance of standard_name class."""
     return {
         'type' : 'class',
@@ -331,21 +331,4 @@ def _standard_name():
         ]
     }
 
-
-# Set of package classes.
-classes = [
-    _change(),
-    _change_property(),
-    _citation(),
-    _compiler(),
-    _data_source(),
-    _license(),
-    _machine(),
-    _machine_compiler_unit(),
-    _platform(),
-    _property(),
-    _responsible_party(),
-    _standard(),
-    _standard_name(),
-]
 

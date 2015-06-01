@@ -6,7 +6,7 @@ CIM v1 grids package classes.
 
 
 
-def _coordinate_list():
+def coordinate_list():
     """Creates and returns instance of coordinate_list class."""
     return {
         'type' : 'class',
@@ -27,7 +27,7 @@ def _coordinate_list():
     }
 
 
-def _grid_extent():
+def grid_extent():
     """Creates and returns instance of grid_extent class."""
     return {
         'type' : 'class',
@@ -52,7 +52,7 @@ def _grid_extent():
     }
 
 
-def _grid_mosaic():
+def grid_mosaic():
     """Creates and returns instance of grid_mosaic class."""
     return {
         'type' : 'class',
@@ -94,7 +94,7 @@ def _grid_mosaic():
     }
 
 
-def _grid_property():
+def grid_property():
     """Creates and returns instance of grid_property class."""
     return {
         'type' : 'class',
@@ -107,7 +107,7 @@ def _grid_property():
     }
 
 
-def _grid_spec():
+def grid_spec():
     """Creates and returns instance of grid_spec class."""
     return {
         'type' : 'class',
@@ -129,7 +129,7 @@ def _grid_spec():
     }
 
 
-def _grid_tile():
+def grid_tile():
     """Creates and returns instance of grid_tile class."""
     return {
         'type' : 'class',
@@ -193,7 +193,7 @@ def _grid_tile():
     }
 
 
-def _grid_tile_resolution_type():
+def grid_tile_resolution_type():
     """Creates and returns instance of grid_tile_resolution_type class."""
     return {
         'type' : 'class',
@@ -211,7 +211,7 @@ def _grid_tile_resolution_type():
         ]
     }
 
-def _simple_grid_geometry():
+def simple_grid_geometry():
     """Creates and returns instance of simple_grid_geometry class."""
     return {
         'type' : 'class',
@@ -231,7 +231,7 @@ def _simple_grid_geometry():
     }
 
 
-def _vertical_coordinate_list():
+def vertical_coordinate_list():
     """Creates and returns instance of coordinate_list class."""
     return {
         'type' : 'class',
@@ -250,17 +250,3 @@ def _vertical_coordinate_list():
             ('form', '@coordinateForm'),
         ]
     }
-
-
-# Set of package classes.
-classes = [
-    _coordinate_list(),
-    _grid_extent(),
-    _grid_mosaic(),
-    _grid_property(),
-    _grid_spec(),
-    _grid_tile(),
-    _grid_tile_resolution_type(),
-    _simple_grid_geometry(),
-    _vertical_coordinate_list(),
-]
