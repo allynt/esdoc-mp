@@ -1,18 +1,26 @@
 # -*- coding: utf-8 -*-
 
 """
-CIM v1 software package classes.
+.. module:: software_classes.py
+   :copyright: @2013 Earth System Documentation (http://es-doc.org)
+   :license: GPL/CeCIL
+   :platform: Unix, Windows
+   :synopsis: Set of CIM v1 software package class definitions.
+
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
+
 """
 
 
 def component_language():
-    """Creates and returns instance of component_language class."""
+    """Details of the programming language a component is written in. There is an assumption that all EntryPoints use the same ComponentLanguage.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'component_language',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'Details of the programming language a component is written in. There is an assumption that all EntryPoints use the same ComponentLanguage.',
         'properties' : [
             ('name', 'str', '1.1', 'The name of the language.'),
             ('properties', 'software.component_language_property', '0.N', None),
@@ -24,30 +32,24 @@ def component_language():
 
 
 def component_language_property():
-    """Creates and returns instance of component_language_property class."""
+    """This provides a place to include language-specific information. Every property is basically a name/value pair, where the names are things like: moduleName, reservedUnits, reservedNames (these are all examples of Fortran-specific properties).
+
+    """
     return {
         'type' : 'class',
-        'name' : 'component_language_property',
         'base' : 'shared.property',
-        'is_abstract' : False,
-        'doc' : 'This provides a place to include language-specific information. Every property is basically a name/value pair, where the names are things like: moduleName, reservedUnits, reservedNames (these are all examples of Fortran-specific properties).',
-        'properties' : [
-
-        ],
-        'decodings' : [
-
-        ]
+        'is_abstract' : False
     }
 
 
 def component_property():
-    """Creates and returns instance of _component_property class."""
+    """ComponentProperties include things that a component simulates (ie: pressure, humidity) and things that prescribe that simulation (ie: gravity, choice of advection scheme). Note that this is a specialisation of shared::DataSource. data::DataObject is also a specialisation of shared::DataSource. This allows software::Connections and/or activity::Conformance to refer to either ComponentProperties or DataObjects.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'component_property',
         'base' : 'shared.data_source',
         'is_abstract' : False,
-        'doc' : 'ComponentProperties include things that a component simulates (ie: pressure, humidity) and things that prescribe that simulation (ie: gravity, choice of advection scheme). Note that this is a specialisation of shared::DataSource. data::DataObject is also a specialisation of shared::DataSource. This allows software::Connections and/or activity::Conformance to refer to either ComponentProperties or DataObjects.',
         'properties' : [
             ('sub_properties', 'software.component_property', '0.N', None),
             ('citations', 'shared.citation', '0.N', None),
@@ -80,31 +82,28 @@ def component_property():
 
 
 def composition():
-    """Creates and returns instance of composition class."""
+    """The set of Couplings used by a Component. Couplings can only occur between child components. That is, a composition must belong to an ancestor component of the components whose fields are being connected.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'composition',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'The set of Couplings used by a Component. Couplings can only occur between child components. That is, a composition must belong to an ancestor component of the components whose fields are being connected.',
         'properties' : [
             ('couplings', 'str', '0.N', None),
             ('description', 'str', '0.1', None),
-        ],
-        'decodings' : [
-
         ]
     }
 
 
 def connection():
-    """Creates and returns instance of connection class."""
+    """A Connection represents a link from a source DataSource to a target DataSource.  These can either be ComponentProperties (ie: the values come from an internal component) or DataObjects (ie: the values come from an external file).   It can be associated with another software component (a transformer).  If present, the rate, lag, timeTransformation, and spatialRegridding override that of the parent coupling.  Note that there is the potential for multiple connectionSource & connectionTarget and multiple couplingSources & couplingTargets.  This may lead users to wonder how to match up a connection source (a ComponentProperty) with its coupling source (a SoftwareComponent). Clever logic is not required though; because the sources and targets are listed by reference, they can be found in a CIM document and the parent can be navigated to from there - there is no need to consult the source or target of the coupling.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'connection',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'A Connection represents a link from a source DataSource to a target DataSource.  These can either be ComponentProperties (ie: the values come from an internal component) or DataObjects (ie: the values come from an external file).   It can be associated with another software component (a transformer).  If present, the rate, lag, timeTransformation, and spatialRegridding override that of the parent coupling.  Note that there is the potential for multiple connectionSource & connectionTarget and multiple couplingSources & couplingTargets.  This may lead users to wonder how to match up a connection source (a ComponentProperty) with its coupling source (a SoftwareComponent). Clever logic is not required though; because the sources and targets are listed by reference, they can be found in a CIM document and the parent can be navigated to from there - there is no need to consult the source or target of the coupling.',
         'properties' : [
             ('properties', 'software.connection_property', '0.N', None),
             ('sources', 'software.connection_endpoint', '0.N', 'The source property being connected.  (note that there can be multiple sources)  This is optional; the file/component source may have already been specified by the couplingSource.'),
@@ -144,13 +143,13 @@ def connection():
 
 
 def connection_endpoint():
-    """Creates and returns instance of connection_endpoint class."""
+    """The source/target of a coupling.  This is a DataSource (a SoftwareComponent or DataObject).  This is a separate class in order to associate an instanceID with the DataSource; this is used to identify which particular instance is being coupled in case the same DataSource is used more than once in a coupled model (this may be required for BFG).
+
+    """
     return {
         'type' : 'class',
-        'name' : 'connection_endpoint',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'The source/target of a coupling.  This is a DataSource (a SoftwareComponent or DataObject).  This is a separate class in order to associate an instanceID with the DataSource; this is used to identify which particular instance is being coupled in case the same DataSource is used more than once in a coupled model (this may be required for BFG).',
         'properties' : [
             ('properties', 'software.connection_property', '0.N', 'The place to describe features specific to the source/target of a connection.'),
             ('data_source', 'shared.data_source', '0.1', None),
@@ -172,30 +171,24 @@ def connection_endpoint():
 
 
 def connection_property():
-    """Creates and returns instance of connection_property class."""
+    """A ConnectionProperty is a name/value pair used to specify OASIS-specific properties.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'connection_property',
         'base' : 'shared.property',
-        'is_abstract' : False,
-        'doc' : 'A ConnectionProperty is a name/value pair used to specify OASIS-specific properties.',
-        'properties' : [
-
-        ],
-        'decodings' : [
-
-        ]
+        'is_abstract' : False
     }
 
 
 def coupling():
-    """Creates and returns instance of coupling class."""
+    """A coupling represents a set of Connections between a source and target component. Couplings can be complete or incomplete. If they are complete then they must include all Connections between model properties. If they are incomplete then the connections can be underspecified or not listed at all.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'coupling',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'A coupling represents a set of Connections between a source and target component. Couplings can be complete or incomplete. If they are complete then they must include all Connections between model properties. If they are incomplete then the connections can be underspecified or not listed at all.',
         'properties' : [
             ('connections', 'software.connection', '0.N', None),
             ('properties', 'software.coupling_property', '0.N', None),
@@ -241,13 +234,13 @@ def coupling():
 
 
 def coupling_endpoint():
-    """Creates and returns instance of coupling_endpoint class."""
+    """The source/target of a coupling.  This is a DataSource (a SoftwareComponent or DataObject).  This is a separate class in order to associate an instanceID with the DataSource; this is used to identify which particular instance is being coupled in case the same DataSource is used more than once in a coupled model (this may be required for BFG).
+
+    """
     return {
         'type' : 'class',
-        'name' : 'coupling_endpoint',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'The source/target of a coupling.  This is a DataSource (a SoftwareComponent or DataObject).  This is a separate class in order to associate an instanceID with the DataSource; this is used to identify which particular instance is being coupled in case the same DataSource is used more than once in a coupled model (this may be required for BFG).',
         'properties' : [
             ('properties', 'software.coupling_property', '0.N', 'A place to describe features specific to the source/target of a coupling'),
             ('data_source', 'shared.data_source', '0.1', None),
@@ -269,30 +262,24 @@ def coupling_endpoint():
 
 
 def coupling_property():
-    """Creates and returns instance of coupling_property class."""
+    """A CouplingProperty is a name/value pair used to specify OASIS-specific properties.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'coupling_property',
         'base' : 'shared.property',
-        'is_abstract' : False,
-        'doc' : 'A CouplingProperty is a name/value pair used to specify OASIS-specific properties.',
-        'properties' : [
-
-        ],
-        'decodings' : [
-
-        ]
+        'is_abstract' : False
     }
 
 
 def deployment():
-    """Creates and returns instance of deployment class."""
+    """Gives information about the technical properties of a component: what machine it was run on, which compilers were used, how it was parallised, etc. A deployment basically associates a deploymentDate with a Platform. A deployment only exists if something has been deployed. A platform, in contrast, can exist independently, waiting to be used in deployments.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'deployment',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'Gives information about the technical properties of a component: what machine it was run on, which compilers were used, how it was parallised, etc. A deployment basically associates a deploymentDate with a Platform. A deployment only exists if something has been deployed. A platform, in contrast, can exist independently, waiting to be used in deployments.',
         'properties' : [
             ('deployment_date', 'datetime', '0.1', None),
             ('description', 'str', '0.1', None),
@@ -315,32 +302,27 @@ def deployment():
 
 
 def entry_point():
-    """Creates and returns instance of entry_point class."""
-    # TODO define
+    """Describes a function or subroutine of a SoftwareComponent. BFG will use these EntryPoints to define a schedule of subroutine calls for a coupled model. Currently, a very basic schedule can be approximated by using the "proceeds" and "follows" attributes, however a more complete system is required for full BFG compatibility. Every EntryPoint can have a set of arguments associated with it. These reference (previously defined) ComponentProperties.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'entry_point',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'Describes a function or subroutine of a SoftwareComponent. BFG will use these EntryPoints to define a schedule of subroutine calls for a coupled model. Currently, a very basic schedule can be approximated by using the "proceeds" and "follows" attributes, however a more complete system is required for full BFG compatibility. Every EntryPoint can have a set of arguments associated with it. These reference (previously defined) ComponentProperties.',
         'properties' : [
             ('name', 'str', '0.1', None),
-        ],
-        'decodings' : [
-
         ]
     }
 
 
 def model_component():
-    """Creates and returns instance of model_component class."""
+    """A ModelComponent is a scientific model; it represents code which models some physical phenomena for a particular length of time.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'model_component',
         'base' : 'software.component',
         'is_abstract' : False,
-        'is_entity' : True,
-        'doc' : 'A ModelComponent is a scientific model; it represents code which models some physical phenomena for a particular length of time.',
         'properties' : [
             ('meta', 'shared.doc_meta_info', '1.1', None),
             ('type', 'software.model_component_type', '0.1', 'Describes the type of component. There can be multiple types.'),
@@ -358,13 +340,13 @@ def model_component():
 
 
 def parallelisation():
-    """Creates and returns instance of parallelisation class."""
+    """Describes how a deployment has been parallelised across a computing platform.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'parallelisation',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'Describes how a deployment has been parallelised across a computing platform.',
         'properties' : [
             ('processes', 'int', '1.1', None),
             ('ranks', 'software.rank', '0.N', None),
@@ -377,14 +359,13 @@ def parallelisation():
 
 
 def processor_component():
-    """Creates and returns instance of processor_component class."""
+    """A ModelComponent is a scientific model; it represents code which models some physical phenomena for a particular length of time.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'processor_component',
         'base' : 'software.component',
         'is_abstract' : False,
-        'is_entity' : True,
-        'doc' : 'A ModelComponent is a scientific model; it represents code which models some physical phenomena for a particular length of time.',
         'properties' : [
             ('meta', 'shared.doc_meta_info', '1.1', None),
         ],
@@ -395,13 +376,13 @@ def processor_component():
 
 
 def rank():
-    """Creates and returns instance of rank class."""
+    """Creates and returns instance of rank class.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'rank',
         'base' : None,
         'is_abstract' : False,
-        'doc' : None,
         'properties' : [
             ('value', 'int', '0.1', None),
             ('min', 'int', '0.1', None),
@@ -418,13 +399,13 @@ def rank():
 
 
 def component():
-    """Creates and returns instance of _component class."""
+    """A SofwareComponent is an abstract component from which all other components derive. It represents an element that takes input data and generates output data. A SoftwareCompnent can include nested "child" components. Every component can have "componentProperties" which describe the scientific properties that a component simulates (for example, temperature, pressure, etc.) and the numerical properties that influence how a component performs its simulation (for example, the force of gravity). A SoftwareComponent can also have a Deployment, which describes how software is deployed onto computing resources. And a SoftwareComponent can have a composition, which describes how ComponentProperties are coupled together either to/from other SoftwareComponents or external data files. The properties specified by a component\'s composition must be owned by that component or a child of that component; child components cannot couple together their parents\' properties.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'component',
         'base' : 'shared.data_source',
         'is_abstract' : False,
-        'doc' : 'A SofwareComponent is an abstract component from which all other components derive. It represents an element that takes input data and generates output data. A SoftwareCompnent can include nested "child" components. Every component can have "componentProperties" which describe the scientific properties that a component simulates (for example, temperature, pressure, etc.) and the numerical properties that influence how a component performs its simulation (for example, the force of gravity). A SoftwareComponent can also have a Deployment, which describes how software is deployed onto computing resources. And a SoftwareComponent can have a composition, which describes how ComponentProperties are coupled together either to/from other SoftwareComponents or external data files. The properties specified by a component\'s composition must be owned by that component or a child of that component; child components cannot couple together their parents\' properties.',
         'properties' : [
             ('sub_components', 'software.component', '0.N', None),
             ('citations', 'shared.citation', '0.N', None),
@@ -467,13 +448,13 @@ def component():
 
 
 def spatial_regridding():
-    """Creates and returns instance of spatial_regridding class."""
+    """Characteristics of the scheme used to interpolate a field from one grid (source grid) to another (target grid).  Documents should use either the spatialRegriddingStandardMethod _or_ the spatialRegriddingUserMethod, but not both.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'spatial_regridding',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'Characteristics of the scheme used to interpolate a field from one grid (source grid) to another (target grid).  Documents should use either the spatialRegriddingStandardMethod _or_ the spatialRegriddingUserMethod, but not both.',
         'properties' : [
             ('dimension', 'software.spatial_regridding_dimension_type', '0.1', None),
             ('properties', 'software.spatial_regridding_property', '0.N', None),
@@ -490,26 +471,24 @@ def spatial_regridding():
 
 
 def spatial_regridding_property():
-    """Creates and returns instance of spatial_regridding_property class."""
+    """Used for OASIS-specific regridding information (ie: masked, order, normalisation, etc.)
+
+    """
     return {
         'type' : 'class',
-        'name' : 'spatial_regridding_property',
         'base' : 'shared.property',
-        'is_abstract' : False,
-        'doc' : 'Used for OASIS-specific regridding information (ie: masked, order, normalisation, etc.)',
-        'properties' : [ ],
-        'decodings' : [ ]
+        'is_abstract' : False
     }
 
 
 def spatial_regridding_user_method():
-    """Creates and returns instance of spatial_regridding_user_method class."""
+    """Characteristics of the scheme used to interpolate a field from one grid (source grid) to another (target grid).  Documents should use either the spatialRegriddingStandardMethod _or_ the spatialRegriddingUserMethod, but not both.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'spatial_regridding_user_method',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'Characteristics of the scheme used to interpolate a field from one grid (source grid) to another (target grid).  Documents should use either the spatialRegriddingStandardMethod _or_ the spatialRegriddingUserMethod, but not both.',
         'properties' : [
             ('file', 'data.data_object', '0.1', None),
             ('file_reference', 'shared.doc_reference', '0.1', None),
@@ -524,14 +503,13 @@ def spatial_regridding_user_method():
 
 
 def statistical_model_component():
-    """Creates and returns instance of statistical_model_component class."""
+    """Creates and returns instance of statistical_model_component class.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'statistical_model_component',
         'base' : 'software.component',
         'is_abstract' : False,
-        'is_entity' : True,
-        'doc' : None,
         'properties' : [
             ('meta', 'shared.doc_meta_info', '1.1', None),
             ('type', 'software.statistical_model_component_type', '0.1', 'Describes the type of component. There can be multiple types.'),
@@ -546,14 +524,15 @@ def statistical_model_component():
         ]
     }
 
+
 def time_lag():
-    """Creates and returns instance of time_lag class."""
+    """The coupling field used in the target at a given time corresponds to a field produced by the source at a previous time. This lag specifies the difference in time.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'time_lag',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'The coupling field used in the target at a given time corresponds to a field produced by the source at a previous time. This lag specifies the difference in time.',
         'properties' : [
             ('value', 'int', '0.1', None),
             ('units', 'software.timing_units', '0.1', None),
@@ -566,13 +545,13 @@ def time_lag():
 
 
 def timing():
-    """Creates and returns instance of timing class."""
+    """Provides information about the rate of couplings and connections and/or the timing characteristics of individual components - for example, the start and stop times that the component was run for or the units of time that a component is able to model (in a single timestep).
+
+    """
     return {
         'type' : 'class',
-        'name' : 'timing',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'Provides information about the rate of couplings and connections and/or the timing characteristics of individual components - for example, the start and stop times that the component was run for or the units of time that a component is able to model (in a single timestep).',
         'properties' : [
             ('end', 'datetime', '0.1', None),
             ('is_variable_rate', 'bool', '0.1', 'Describes whether or not the model supports a variable timestep. If set to true, then rate should not be specified.'),
@@ -591,13 +570,13 @@ def timing():
 
 
 def time_transformation():
-    """Creates and returns instance of time_transformation class."""
+    """The coupling field used in the target at a given time corresponds to a field produced by the source at a previous time. This lag specifies the difference in time.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'time_transformation',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'The coupling field used in the target at a given time corresponds to a field produced by the source at a previous time. This lag specifies the difference in time.',
         'properties' : [
             ('description', 'str', '0.1', None),
             ('mapping_type', 'software.time_mapping_type', '1.1', None),

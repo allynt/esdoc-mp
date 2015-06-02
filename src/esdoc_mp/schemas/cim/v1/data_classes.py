@@ -1,19 +1,27 @@
 # -*- coding: utf-8 -*-
 
 """
-CIM v1 data package classes.
+.. module:: data_classes.py
+   :copyright: @2013 Earth System Documentation (http://es-doc.org)
+   :license: GPL/CeCIL
+   :platform: Unix, Windows
+   :synopsis: Set of CIM v1 data package class definitions.
+
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
+
 """
 
 
 
 def data_content():
-    """Creates and returns instance of data_content class."""
+    """The contents of the data object; like ISO: MD_ContentInformation.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'data_content',
         'base' : 'shared.data_source',
         'is_abstract' : False,
-        'doc' : 'The contents of the data object; like ISO: MD_ContentInformation.',
         'properties' : [
             ('aggregation', 'str', '0.1', 'Describes how the content has been aggregated together: sum, min, mean, max, ...'),
             ('frequency', 'str', '0.1', 'Describes the frequency of the data content: daily, hourly, ...'),
@@ -28,13 +36,13 @@ def data_content():
 
 
 def data_distribution():
-    """Creates and returns instance of data_distribution class."""
+    """Describes how a DataObject is distributed.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'data_distribution',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'Describes how a DataObject is distributed.',
         'properties' : [
             ('access', 'str', '0.1', None),
             ('fee', 'str', '0.1', None),
@@ -50,14 +58,14 @@ def data_distribution():
 
 
 def data_extent():
-    """Creates and returns instance of data_extent class."""
+    """A data object extent represents the geographical and temporal coverage associated with a data object.
+
+    """
 
     return {
         'type' : 'class',
-        'name' : 'data_extent',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'A data object extent represents the geographical and temporal coverage associated with a data object.',
         'properties' : [
             ('temporal', 'data.data_extent_temporal', '1.1', None),
             ('geographical', 'data.data_extent_geographical', '1.1', None),
@@ -70,13 +78,13 @@ def data_extent():
 
 
 def data_extent_geographical():
-    """Creates and returns instance of data_extent_geographical class."""
+    """A data object geographical extent represents the geographical coverage associated with a data object.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'data_extent_geographical',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'A data object geographical extent represents the geographical coverage associated with a data object.',
         'properties' : [
             ('east', 'float', '0.1', None),
             ('south', 'float', '0.1', None),
@@ -93,13 +101,13 @@ def data_extent_geographical():
 
 
 def data_extent_temporal():
-    """Creates and returns instance of data_extent_temporal class."""
+    """A data object temporal extent represents the temporal coverage associated with a data object.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'data_extent_temporal',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'A data object temporal extent represents the temporal coverage associated with a data object.',
         'properties' : [
             ('begin', 'date', '0.1', None),
             ('end', 'date', '0.1', None),
@@ -114,13 +122,13 @@ def data_extent_temporal():
 
 
 def data_extent_time_interval():
-    """Creates and returns instance of data_extent_time_interval class."""
+    """A data object temporal extent represents the temporal coverage associated with a data object.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'data_extent_time_interval',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'A data object temporal extent represents the temporal coverage associated with a data object.',
         'properties' : [
             ('unit', 'str', '0.1', None),
             ('factor', 'int', '0.1', None),
@@ -135,13 +143,13 @@ def data_extent_time_interval():
 
 
 def data_hierarchy_level():
-    """Creates and returns instance of data_hierarchy_level class."""
+    """The type of data object that is grouped together into a particular hierarchy.  Currently, this is made up of terms describing how the Met Office splits up archived data and how THREDDS categorises variables.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'data_hierarchy_level',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'The type of data object that is grouped together into a particular hierarchy.  Currently, this is made up of terms describing how the Met Office splits up archived data and how THREDDS categorises variables.',
         'properties' : [
             ('name', 'data.data_hierarchy_type', '0.1', 'What level in the data hierarchy (constructed by the self-referential parent/child aggregations) is this DataObject.'),
             # TODO - sink to to shared.property_value
@@ -158,14 +166,14 @@ def data_hierarchy_level():
 
 
 def data_object():
-    """Creates and returns instance of data_object class."""
+    """A DataObject describes a unit of data.  DataObjects can be grouped hierarchically.  The attributes hierarchyLevelName and hierarchyLevelValue describe how objects are grouped.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'data_object',
         'base' : 'shared.data_source',
         'is_abstract' : False,
         'is_entity' : True,
-        'doc' : 'A DataObject describes a unit of data.  DataObjects can be grouped hierarchically.  The attributes hierarchyLevelName and hierarchyLevelValue describe how objects are grouped.',
         'properties' : [
             ('meta', 'shared.doc_meta_info', '1.1', None),
             ('acronym', 'str', '0.1', None),
@@ -208,13 +216,13 @@ def data_object():
 
 
 def data_property():
-    """Creates and returns instance of data_property class."""
+    """A property of a DataObject. Currently this is intended to be used to record CF specific information (like packing, scaling, etc.) for OASIS4.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'data_property',
         'base' : 'shared.property',
         'is_abstract' : False,
-        'doc' : 'A property of a DataObject. Currently this is intended to be used to record CF specific information (like packing, scaling, etc.) for OASIS4.',
         'properties' : [
             ('description', 'str', '0.1', None),
         ],
@@ -225,13 +233,13 @@ def data_property():
 
 
 def data_restriction():
-    """Creates and returns instance of data_restriction class."""
+    """An access or use restriction on some element of the DataObject actual data.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'data_restriction',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'An access or use restriction on some element of the DataObject\'s actual data.',
         'properties' : [
             ('scope', 'str', '0.1', 'The thing (data or metadata, access or use) that this restriction is applied to.'),
             ('restriction', 'str', '0.1', 'The thing (data or metadata, access or use) that this restriction is applied to.'),
@@ -244,13 +252,13 @@ def data_restriction():
 
 
 def data_storage():
-    """Creates and returns instance of data_storage class."""
+    """Describes the method that the DataObject is stored. An abstract class with specific child classes for each supported method.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'data_storage',
         'base' : None,
         'is_abstract' : True,
-        'doc' : 'Describes the method that the DataObject is stored. An abstract class with specific child classes for each supported method.',
         'properties' : [
             ('size', 'int', '0.1', None),
             ('format', 'str', '0.1', None),
@@ -263,13 +271,13 @@ def data_storage():
 
 
 def data_storage_db():
-    """Creates and returns instance of data_storage_db class."""
+    """Contains attributes to describe a DataObject stored as a database file.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'data_storage_db',
         'base' : 'data.data_storage',
         'is_abstract' : False,
-        'doc' : 'Contains attributes to describe a DataObject stored as a database file.',
         'properties' : [
             ('access_string', 'str', '0.1', None),
             ('name', 'str', '0.1', None),
@@ -283,13 +291,13 @@ def data_storage_db():
 
 
 def data_storage_file():
-    """Creates and returns instance of data_storage_file class."""
+    """Contains attributes to describe a DataObject stored as a single file.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'data_storage_file',
         'base' : 'data.data_storage',
         'is_abstract' : False,
-        'doc' : 'Contains attributes to describe a DataObject stored as a single file.',
         'properties' : [
             ('file_system', 'str', '0.1', None),
             ('path', 'str', '0.1', None),
@@ -302,13 +310,13 @@ def data_storage_file():
 
 
 def data_storage_ip():
-    """Creates and returns instance of data_storage_ip class."""
+    """Contains attributes to describe a DataObject stored as a database file.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'data_storage_ip',
         'base' : 'data.data_storage',
         'is_abstract' : False,
-        'doc' : 'Contains attributes to describe a DataObject stored as a database file.',
         'properties' : [
             ('protocol', 'str', '0.1', None),
             ('host', 'str', '0.1', None),
@@ -323,13 +331,13 @@ def data_storage_ip():
 
 
 def data_topic():
-    """Creates and returns instance of data_topic class."""
+    """Describes the content of a data object: the variable name, units, etc.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'data_topic',
         'base' : None,
         'is_abstract' : False,
-        'doc' : 'Describes the content  of a data object; the variable\'s name, units, etc.',
         'properties' : [
             ('name', 'str', '0.1', None),
             ('description', 'str', '0.1', None),
@@ -341,6 +349,3 @@ def data_topic():
             ('unit', 'child::cim:unit/@value'),
         ]
     }
-
-
-

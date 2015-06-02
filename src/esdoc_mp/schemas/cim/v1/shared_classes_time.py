@@ -1,23 +1,33 @@
 # -*- coding: utf-8 -*-
 
 """
-CIM v1 shared package time reated classes.
+.. module:: shared_classes_time.py
+   :copyright: @2013 Earth System Documentation (http://es-doc.org)
+   :license: GPL/CeCIL
+   :platform: Unix, Windows
+   :synopsis: Set of CIM v1 shared package time related class definitions.
+
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
+
 """
 
+
+
 def calendar():
-    """Creates and returns instance of calendar class."""
+    """Describes a method of calculating a span of dates.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'calendar',
-        'base' : None,
-        'is_abstract' : True,
-        'doc' : 'Describes a method of calculating a span of dates.',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': True,
+        'properties': [
             ('description', 'str', '0.1', 'Describes the finer details of the calendar, in case they are not-obvious.  For example, if an experiment has changing conditions within it (ie: 1% CO2 increase until 2100, then hold fixed for the remaining period of the  experment)'),
             ('length', 'int', '0.1', None),
             ('range', 'shared.date_range', '0.1', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('description', 'child::cim:description'),
             ('length', 'child::cim:length'),
             ('range', 'child::cim:range/cim:closedDateRange', 'shared.closed_date_range'),
@@ -27,18 +37,18 @@ def calendar():
 
 
 def closed_date_range():
-    """Creates and returns instance of closed_date_range class."""
+    """A date range with specified start and end points.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'closed_date_range',
-        'base' : 'shared.date_range',
-        'is_abstract' : False,
-        'doc' : 'A date range with specified start and end points.',
-        'properties' : [
+        'type': 'class',
+        'base': 'shared.date_range',
+        'is_abstract': False,
+        'properties': [
             ('end', 'datetime', '0.1', 'End date is optional becuase the length of a ClosedDateRange can be calculated from the StartDate plus the Duration element.'),
             ('start', 'datetime', '1.1', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('end', 'child::cim:endDate'),
             ('start', 'child::cim:startDate'),
         ]
@@ -46,48 +56,46 @@ def closed_date_range():
 
 
 def daily_360():
-    """Creates and returns instance of daily_360 class."""
+    """Creates and returns instance of daily_360 class.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'daily_360',
-        'base' : 'shared.calendar',
-        'is_abstract' : False,
-        'doc' : None,
-        'properties' : [ ],
-        'decodings' : [ ]
+        'type': 'class',
+        'base': 'shared.calendar',
+        'is_abstract': False
     }
 
 
 def date_range():
-    """Creates and returns instance of date_range class."""
+    """Creates and returns instance of date_range class.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'date_range',
-        'base' : None,
-        'is_abstract' : True,
-        'doc' : None,
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': True,
+        'properties': [
             ('duration', 'str', '0.1', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('duration', 'child::cim:duration'),
         ]
     }
 
 
 def open_date_range():
-    """Creates and returns instance of open_date_range class."""
+    """A date range without a specified start and/or end point.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'open_date_range',
-        'base' : 'shared.date_range',
-        'is_abstract' : False,
-        'doc' : 'A date range without a specified start and/or end point.',
-        'properties' : [
+        'type': 'class',
+        'base': 'shared.date_range',
+        'is_abstract': False,
+        'properties': [
             ('end', 'datetime', '0.1', None),
             ('start', 'datetime', '0.1', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('end', 'child::cim:endDate'),
             ('start', 'child::cim:startDate'),
         ]
@@ -95,26 +103,22 @@ def open_date_range():
 
 
 def perpetual_period():
-    """Creates and returns instance of perpetual_period class."""
+    """Creates and returns instance of perpetual_period class.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'perpetual_period',
-        'base' : 'shared.calendar',
-        'is_abstract' : False,
-        'doc' : None,
-        'properties' : [ ],
-        'decodings' : [ ]
+        'type': 'class',
+        'base': 'shared.calendar',
+        'is_abstract': False
     }
-    
+
 
 def real_calendar():
-    """Creates and returns instance of real_calendar class."""
+    """Creates and returns instance of real_calendar class.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'real_calendar',
-        'base' : 'shared.calendar',
-        'is_abstract' : False,
-        'doc' : None,
-        'properties' : [ ],
-        'decodings' : [ ]
+        'type': 'class',
+        'base': 'shared.calendar',
+        'is_abstract': False
     }

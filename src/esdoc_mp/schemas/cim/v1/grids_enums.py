@@ -1,17 +1,24 @@
 # -*- coding: utf-8 -*-
 
 """
-CIM v1 grids package enums.
+.. module:: grids_enums.py
+   :copyright: @2013 Earth System Documentation (http://es-doc.org)
+   :license: GPL/CeCIL
+   :platform: Unix, Windows
+   :synopsis: Set of CIM v1 grids package enum definitions.
+
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
+
 """
 
 
-
 def arc_type_enum():
-    """Creates and returns instance of arc_type_enum enum."""
+    """Creates and returns instance of arc_type_enum enum.
+
+    """
     return {
-        'name' : 'arc_type_enum',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('geodesic', None),
             ('great_circle', None),
@@ -22,11 +29,11 @@ def arc_type_enum():
 
 
 def discretization_enum():
-    """Creates and returns instance of discretization_enum enum."""
+    """Creates and returns instance of discretization_enum enum.
+
+    """
     return {
-        'name' : 'discretization_enum',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('logically_rectangular', None),
             ('structured_triangular', None),
@@ -40,11 +47,11 @@ def discretization_enum():
 
 
 def feature_type_enum():
-    """Creates and returns instance of feature_type_enum enum."""
+    """Creates and returns instance of feature_type_enum enum.
+
+    """
     return {
-        'name' : 'feature_type_enum',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('point', None),
             ('edge', None),
@@ -53,11 +60,11 @@ def feature_type_enum():
 
 
 def geometry_type_enum():
-    """Creates and returns instance of geometry_type_enum enum."""
+    """Creates and returns instance of geometry_type_enum enum.
+
+    """
     return {
-        'name' : 'geometry_type_enum',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('ellipsoid', None),
             ('plane', None),
@@ -67,11 +74,11 @@ def geometry_type_enum():
 
 
 def grid_node_position_enum():
-    """Creates and returns instance of grid_node_position_enum enum."""
+    """Creates and returns instance of grid_node_position_enum enum.
+
+    """
     return {
-        'name' : 'grid_node_position_enum',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('centre', None),
             ('plane', None),
@@ -81,11 +88,11 @@ def grid_node_position_enum():
 
 
 def grid_type_enum():
-    """Creates and returns instance of grid_type_enum enum."""
+    """Creates and returns instance of grid_type_enum enum.
+
+    """
     return {
-        'name' : 'grid_type_enum',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('cubed_sphere', None),
             ('displaced_pole', None),
@@ -102,11 +109,11 @@ def grid_type_enum():
 
 
 def horizontal_cs_enum():
-    """Creates and returns instance of horizontal_cs_enum enum."""
+    """Creates and returns instance of horizontal_cs_enum enum.
+
+    """
     return {
-        'name' : 'horizontal_cs_enum',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('cartesian', None),
             ('ellipsoidal', None),
@@ -117,11 +124,11 @@ def horizontal_cs_enum():
 
 
 def refinement_type_enum():
-    """Creates and returns instance of refinement_type_enum enum."""
+    """Creates and returns instance of refinement_type_enum enum.
+
+    """
     return {
-        'name' : 'refinement_type_enum',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('none', 'Tile boundaries have no refinement when the grid lines meeting at the tile boundary are continuous.'),
             ('integer', 'The refinement is integer when grid lines from the coarser grid are continuous on the finer grid, but not vice versa.'),
@@ -131,11 +138,11 @@ def refinement_type_enum():
 
 
 def vertical_cs_enum():
-    """Creates and returns instance of vertical_cs_enum enum."""
+    """Creates and returns instance of vertical_cs_enum enum.
+
+    """
     return {
-        'name' : 'vertical_cs_enum',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('mass-based', None),
             ('space-based', None),

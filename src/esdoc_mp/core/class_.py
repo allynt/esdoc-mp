@@ -16,7 +16,6 @@ class Class(object):
     :ivar name: Class name.
     :ivar base: Base class used in object hierarchies.
     :ivar is_abstract: Flag indicating whether this is an abstract class or not.
-    :ivar is_entity: Flag indicating whether this is considered to be an entity or not.
     :ivar doc_string: Class documentation string.
     :ivar properties: Set of associated properties.
     :ivar constants: Set of associated property constants.
@@ -24,33 +23,17 @@ class Class(object):
 
     """
 
-    def __init__(self, name, base, is_abstract, is_entity, doc_string, properties, constants, decodings):
+    def __init__(self, name, base, is_abstract, doc_string, properties, constants, decodings):
         """Constructor.
 
-        :param name: Class name.
-        :type name: str
-        
-        :param base: Base class used in object hierarchies.
-        :type base: str
+        :param str name: Class name.
+        :param str base: Base class used in object hierarchies.
+        :param bool is_abstract: Flag indicating whether this is an abstract class or not.
+        :param str doc_string: Class documentation string.
+        :param list properties: Set of associated properties.
+        :param list constants: Set of associated property constants.
+        :param list decodings: Set of associated property decodings.
 
-        :param is_abstract: Flag indicating whether this is an abstract class or not.
-        :type is_abstract: bool
-
-        :param is_entity: Flag indicating whether this is considered to be an entity or not.
-        :type is_entity: bool
-
-        :param doc_string: Class documentation string.
-        :type doc_string: str
-
-        :param properties: Set of associated properties.
-        :type properties: list
-
-        :param constants: Set of associated property constants.
-        :type constants: list
-
-        :param decodings: Set of associated property decodings.
-        :type decodings: list
-        
         """
         # Set relations.
         for prp in properties:
@@ -66,7 +49,7 @@ class Class(object):
         self.doc_string = doc_string if doc_string is not None else ''
         self.imports = []
         self.is_abstract = is_abstract
-        self.is_entity = is_entity
+        self.is_entity = 'meta' in [p.name for p in properties]
         self.name = name
         self.properties = sorted(properties, key=lambda p: p.name)
         self.package = None
@@ -80,7 +63,7 @@ class Class(object):
         self.op_import_name = None
         self.op_name = None
 
-        
+
     def __repr__(self):
         """String representation for debugging."""
         return self.name

@@ -1,30 +1,38 @@
 # -*- coding: utf-8 -*-
 
 """
-CIM v1 quality package enums.
+.. module:: quality_enums.py
+   :copyright: @2013 Earth System Documentation (http://es-doc.org)
+   :license: GPL/CeCIL
+   :platform: Unix, Windows
+   :synopsis: Set of CIM v1 quality package enum definitions.
+
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
+
 """
 
 
 
 def cim_feature_type():
-    """Creates and returns instance of cim_feature_type enum."""
+    """Creates and returns instance of cim_feature_type enum.
+
+    """
     return {
-        'name' : 'cim_feature_type',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('file', None),
             ('diagnostic', None),
         ],
     }
 
-    
+
 def cim_result_type():
-    """Creates and returns instance of cim_result_type enum."""
+    """Creates and returns instance of cim_result_type enum.
+
+    """
     return {
-        'name' : 'cim_result_type',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('plot', None),
             ('document', None),
@@ -34,11 +42,11 @@ def cim_result_type():
 
 
 def cim_scope_code_type():
-    """Creates and returns instance of cim_scope_code_type enum."""
+    """This would cover quality issues with the CIM itself.
+
+    """
     return {
-        'name' : 'cim_scope_code_type',
         'is_open' : False,
-        'doc' : 'This would cover quality issues with the CIM itself',
         'members' : [
             ('dataset', None),
             ('software', None),
@@ -55,11 +63,11 @@ def cim_scope_code_type():
 
 
 def quality_issue_type():
-    """Creates and returns instance of quality_issue_type enum."""
+    """Creates and returns instance of quality_issue_type enum.
+
+    """
     return {
-        'name' : 'quality_issue_type',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('metadata', None),
             ('data_format', None),
@@ -71,11 +79,11 @@ def quality_issue_type():
 
 
 def quality_severity_type():
-    """Creates and returns instance of quality_severity_type enum."""
+    """Creates and returns instance of quality_severity_type enum.
+
+    """
     return {
-        'name' : 'quality_severity_type',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('cosmetic', None),
             ('minor', None),
@@ -85,11 +93,11 @@ def quality_severity_type():
 
 
 def quality_status_type():
-    """Creates and returns instance of quality_status_type enum."""
+    """Creates and returns instance of quality_status_type enum.
+
+    """
     return {
-        'name' : 'quality_status_type',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('reported', None),
             ('confirmed', None),
@@ -97,5 +105,3 @@ def quality_status_type():
             ('resolved', None),
         ],
     }
-
-    

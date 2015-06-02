@@ -1,18 +1,27 @@
 # -*- coding: utf-8 -*-
 
 """
-CIM v1 miscellaneous package classes.
+.. module:: misc_classes.py
+   :copyright: @2013 Earth System Documentation (http://es-doc.org)
+   :license: GPL/CeCIL
+   :platform: Unix, Windows
+   :synopsis: Set of CIM v1 miscellaneous package class definitions.
+
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
+
 """
 
+
+
 def document_set():
-    """Creates and returns instance of document_set class."""
+    """Represents a bundled set of documents.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'document_set',
         'base' : None,
         'is_abstract' : False,
-        'is_entity' : True,
-        'doc' : 'Encapsulates a set of documents.',
         'properties' : [
             ('meta', 'shared.doc_meta_info', '1.1', None),
             ('data', 'data.data_object', '0.N', 'Associated input/output data.'),

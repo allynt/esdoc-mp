@@ -88,10 +88,6 @@ def create_ontology(schema):
         # ... package classes
         p_classes = []
         for c_cfg in p_cfg['classes']:
-            # ... inject defaults.
-            if 'is_entity' not in c_cfg:
-                c_cfg['is_entity'] = False
-
             # ... class properties
             c_properties = []
             if 'properties' in c_cfg:
@@ -117,7 +113,7 @@ def create_ontology(schema):
                     c_decodings.append(c_decoding)
 
             # ... class
-            c = Class(c_cfg['name'], c_cfg['base'], c_cfg['is_abstract'], c_cfg['is_entity'], c_cfg['doc'], c_properties, c_constants, c_decodings)
+            c = Class(c_cfg['name'], c_cfg['base'], c_cfg['is_abstract'], c_cfg['doc'], c_properties, c_constants, c_decodings)
             p_classes.append(c)
 
         # ... package enums
@@ -125,7 +121,7 @@ def create_ontology(schema):
         for e_cfg in p_cfg['enums']:
             # ... enum members
             e_members = []
-            for em_cfg in e_cfg['members']:
+            for em_cfg in e_cfg.get('members', []):
                 em_name = em_cfg[0]
                 em_doc = em_cfg[1]
                 e_members.append(EnumMember(em_name, em_doc))

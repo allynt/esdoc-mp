@@ -1,22 +1,32 @@
 # -*- coding: utf-8 -*-
 
 """
-CIM v1 shared package classes.
+.. module:: shared_classes_doc.py
+   :copyright: @2013 Earth System Documentation (http://es-doc.org)
+   :license: GPL/CeCIL
+   :platform: Unix, Windows
+   :synopsis: Set of CIM v1 shared package document related class definitions.
+
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
+
 """
 
+
+
 def doc_relationship():
-    """Creates and returns instance of doc_relationship class."""
+    """Contains the set of relationships supported by a Document.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'doc_relationship',
-        'base' : 'shared.relationship',
-        'is_abstract' : False,
-        'doc' : 'Contains the set of relationships supported by a Document.',
-        'properties' : [
+        'type': 'class',
+        'base': 'shared.relationship',
+        'is_abstract': False,
+        'properties': [
             ('target', 'shared.doc_relationship_target', '1.1', None),
             ('type', 'shared.doc_relationship_type', '1.1', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('description', 'child::cim:description'),
             ('direction', 'self::cim:documentRelationship/@direction'),
             ('type', 'self::cim:documentRelationship/@type'),
@@ -26,32 +36,32 @@ def doc_relationship():
 
 
 def doc_relationship_target():
-    """Creates and returns instance of doc_relationship_target class."""
+    """Creates and returns instance of doc_relationship_target class.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'doc_relationship_target',
-        'base' : None,
-        'is_abstract' : False,
-        'doc' : None,
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
             ('reference', 'shared.doc_reference', '0.1', None),
             ('document', 'shared.doc_type', '0.1', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('reference', 'child::cim:reference'),
         ]
     }
 
 
 def doc_meta_info():
-    """Creates and returns instance of doc_meta_info class."""
+    """Encapsulates document meta information.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'doc_meta_info',
-        'base' : None,
-        'is_abstract' : False,
-        'doc' : 'Encapsulates document meta information.',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
             ('author', 'shared.responsible_party', '0.1', 'Associated document author.'),
             ('create_date', 'datetime', '1.1', 'Date upon which the instance was created'),
             ('drs_path', 'str', '0.1', 'DRS related path to support documents with datasets.'),
@@ -74,7 +84,7 @@ def doc_meta_info():
             ('type_sort_key', 'str', '0.1', 'Document type sort key.'),
             ('version', 'int', '1.1', 'Document version identifier.'),
         ],
-        'decodings' : [
+        'decodings': [
             ('author', 'child::cim:documentAuthor'),
             ('create_date', 'child::cim:documentCreationDate'),
             ('external_ids', 'child::cim:externalID'),
@@ -87,31 +97,31 @@ def doc_meta_info():
 
 
 def doc_genealogy():
-    """Creates and returns instance of doc_genealogy class."""
+    """A record of a document\'s history. A genealogy element contains a textual description and a set of relationships. Each relationship has a type and a reference to some target. There are different relationships for different document types.
+
+    """
     return {
-        'type' : 'class',
-            'name' : 'doc_genealogy',
-        'base' : None,
-        'is_abstract' : False,
-        'doc' : 'A record of a document\'s history. A genealogy element contains a textual description and a set of relationships. Each relationship has a type and a reference to some target. There are different relationships for different document types.',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
             ('relationships', 'shared.doc_relationship', '0.N', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('relationships', 'child::cim:relationship/cim:documentRelationship', 'shared.doc_relationship'),
         ]
     }
 
 
 def doc_reference():
-    """Creates and returns instance of reference class."""
+    """A reference to another cim entity.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'doc_reference',
-        'base' : None,
-        'is_abstract' : False,
-        'doc' : 'A reference to another cim entity',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
             ('changes', 'shared.change', '0.N', 'An optional description of how the item being referenced has been modified.  This is particularly useful for dealing with Ensembles (a set of simulations where something about each simulation has changed) or Conformances.'),
             ('description', 'str', '0.1', 'A description of the element being referenced, in the context of the current class.'),
             ('external_id', 'str', '0.1', 'A non-CIM (non-GUID) id used to reference the element in question.'),
@@ -120,7 +130,7 @@ def doc_reference():
             ('type', 'str', '0.1', 'The type of the element being referenced.'),
             ('version', 'int', '0.1', 'The version of the element being referenced.'),
         ],
-        'decodings' : [
+        'decodings': [
             ('changes', 'child::cim:change'),
             ('description', 'child::cim:description'),
             ('external_id', 'child::cim:externalID'),
@@ -129,7 +139,7 @@ def doc_reference():
             ('type', 'child::cim:type'),
             ('version', 'child::cim:version'),
         ],
-        'docstrings' : [
+        'docstrings': [
             ('changes', 'An optional description of how the item being referenced has been modified.  This is particularly useful for dealing with Ensembles (a set of simulations where something about each simulation has changed) or Conformances.'),
             ('description', 'A description of the element being referenced, in the context of the current class.'),
             ('external_id', 'A non-CIM (non-GUID) id used to reference the element in question.'),
@@ -142,18 +152,18 @@ def doc_reference():
 
 
 def relationship():
-    """Creates and returns instance of relationship class."""
+    """A record of a relationship between one document and another. This class is abstract; specific document types must specialise this class for their relationshipTypes to be included in a document\'s genealogy.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'relationship',
-        'base' : None,
-        'is_abstract' : True,
-        'doc' : 'A record of a relationship between one document and another. This class is abstract; specific document types must specialise this class for their relationshipTypes to be included in a document\'s genealogy.',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': True,
+        'properties': [
             ('description', 'str', '0.1', None),
             ('direction', 'shared.doc_relationship_direction_type', '1.1', None),
         ],
-        'decodings' : [
+        'decodings': [
         ]
     }
 

@@ -35,36 +35,36 @@ from esdoc_mp.utils.factory import get_type_definitions
 schema = {
     'name' : 'cim',
     'version' : '1',
-    'is_latest' : True,
+    'is_latest' : False,
     'doc' : 'Metafor CIM ontology schema - version 1',
     'packages' : [
         {
             'name' : 'activity',
-            'doc' : 'TODO get package documentation',
+            'doc' : 'Types that describe context against which climate models are run.',
             'classes' : get_type_definitions(activity_classes),
             'enums' : get_type_definitions(activity_enums),
         },
         {
             'name' : 'data',
-            'doc' : 'TODO get package documentation',
+            'doc' : 'Types that describe output that climate models emit.',
             'classes' : get_type_definitions(data_classes),
             'enums' : get_type_definitions(data_enums),
         },
         {
             'name' : 'grids',
-            'doc' : 'TODO get package documentation',
+            'doc' : 'Types that describe the grids that climate models plot.',
             'classes' : get_type_definitions(grids_classes),
             'enums' : get_type_definitions(grids_enums),
         },
         {
             'name' : 'quality',
-            'doc' : 'TODO get package documentation',
+            'doc' : 'Types that describe the quailty of output that climate models emit.',
             'classes' : get_type_definitions(quality_classes),
             'enums' : get_type_definitions(quality_enums),
         },
         {
             'name' : 'shared',
-            'doc' : 'TODO get package documentation',
+            'doc' : 'Shared types that might be imported from other packages within the ontology.',
             'classes' : get_type_definitions(shared_classes) +
                         get_type_definitions(shared_classes_doc) +
                         get_type_definitions(shared_classes_time),
@@ -73,13 +73,13 @@ schema = {
         },
         {
             'name' : 'software',
-            'doc' : 'TODO get package documentation',
+            'doc' : 'Types that describe the climate models software.',
             'classes' : get_type_definitions(software_classes),
             'enums' : get_type_definitions(software_enums),
         },
         {
             'name' : 'misc',
-            'doc' : 'TODO get package documentation',
+            'doc' : 'Miscellaneui',
             'classes' : get_type_definitions(misc_classes),
             'enums' : [],
         },

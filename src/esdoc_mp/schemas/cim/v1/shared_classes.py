@@ -1,19 +1,28 @@
 # -*- coding: utf-8 -*-
 
 """
-CIM v1 shared package classes.
+.. module:: shared_classes.py
+   :copyright: @2013 Earth System Documentation (http://es-doc.org)
+   :license: GPL/CeCIL
+   :platform: Unix, Windows
+   :synopsis: Set of CIM v1 shared package class definitions.
+
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
+
 """
 
 
+
 def change():
-    """Creates and returns instance of change class."""
+    """A description of [a set of] changes applied at a particular time, by a particular party, to a particular unit of metadata.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'change',
-        'base' : None,
-        'is_abstract' : False,
-        'doc' : 'A description of [a set of] changes applied at a particular time, by a particular party, to a particular unit of metadata.',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
             ('author', 'shared.responsible_party', '0.1', 'The person that made the change.'),
             ('date', 'datetime', '0.1', 'The date the change was implemented.'),
             ('description', 'str', '0.1', None),
@@ -21,7 +30,7 @@ def change():
             ('name', 'str', '0.1', 'A mnemonic for describing a particular change.'),
             ('type', 'shared.change_property_type', '0.1', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('author', 'child::cim:changeAuthor'),
             ('date', 'child::cim:changeDate'),
             ('description', 'child::cim:description'),
@@ -30,21 +39,21 @@ def change():
             ('type', 'self::cim:change/@type'),
         ]
     }
-    
+
 
 def change_property():
-    """Creates and returns instance of change class."""
+    """A description of a single change applied to a single target.  Every ChangeProperty has a description, and may also have a name from a controlled vocabulary and a value.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'change_property',
-        'base' : 'shared.property',
-        'is_abstract' : False,
-        'doc' : 'A description of a single change applied to a single target.  Every ChangeProperty has a description, and may also have a name from a controlled vocabulary and a value.',
-        'properties' : [
+        'type': 'class',
+        'base': 'shared.property',
+        'is_abstract': False,
+        'properties': [
             ('description', 'str', '0.1', 'A text description of the change.  May be used in addition to, or instead of, the more formal description provided by the "value" attribute.'),
             ('id', 'str', '0.1', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('description', 'child::cim:description'),
             ('id', 'child::cim:id'),
         ]
@@ -52,14 +61,14 @@ def change_property():
 
 
 def citation():
-    """Creates and returns instance of citation class."""
+    """An academic reference to published work.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'citation',
-        'base' : None,
-        'is_abstract' : False,
-        'doc' : 'An academic reference to published work.',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
             ('alternative_title', 'str', '0.1', None),
             ('collective_title', 'str', '0.1', None),
             ('location', 'str', '0.1', None),
@@ -71,7 +80,7 @@ def citation():
             ('title', 'str', '0.1', None),
             ('type', 'str', '0.1', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('alternative_title', 'child::gmd:alternateTitle/gco:CharacterString'),
             ('alternative_title', 'child::gmd:alternateTitle'),
             ('collective_title', 'gmd:collectiveTitle/gco:CharacterString'),
@@ -88,14 +97,14 @@ def citation():
 
 
 def compiler():
-    """Creates and returns instance of compiler class."""
+    """A description of a compiler used on a particular platform.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'compiler',
-        'base' : None,
-        'is_abstract' : False,
-        'doc' : 'A description of a compiler used on a particular platform.',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
             ('environment_variables', 'str', '0.1', 'The set of environment_variables used during compilation (recorded here as a single string rather than separate elements)'),
             ('language', 'str', '0.1', None),
             ('name', 'str', '1.1', None),
@@ -103,7 +112,7 @@ def compiler():
             ('type', 'shared.compiler_type', '0.1', None),
             ('version', 'str', '1.1', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('environment_variables', 'child::cim:compilerEnvironmentVariables'),
             ('language', 'child::cim:compilerLanguage'),
             ('name', 'child::cim:compilerName'),
@@ -115,51 +124,45 @@ def compiler():
 
 
 def data_source():
-    """Creates and returns instance of data_source class."""
+    """A DataSource can be realised by either a DataObject (file), a DataContent (variable), a Component (model), or a ComponentProperty (variable); all of those can supply data.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'data_source',
-        'base' : None,
-        'is_abstract' : True,
-        'doc' : 'A DataSource can be realised by either a DataObject (file), a DataContent (variable), a Component (model), or a ComponentProperty (variable); all of those can supply data.',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': True,
+        'properties': [
             ('purpose', 'shared.data_purpose', '0.1', None),
-        ],
-        'decodings' : [
-            
         ]
     }
 
 
 def license():
-    """Creates and returns instance of license class."""
+    """A description of a license restricting access to a unit of data or software.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'license',
-        'base' : None,
-        'is_abstract' : False,
-        'doc' : 'A description of a license restricting access to a unit of data or software',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
             ('name', 'str', '0.1', 'The name that the license goes by (ie: "GPL")'),
             ('contact', 'str', '0.1', 'The point of contact for access to this artifact; may be either a person or an institution.'),
             ('description', 'str', '0.1', 'A textual description of the license; might be the full text of the license, more likely to be a brief summary'),
             ('is_unrestricted', 'str', '0.1', 'If unrestricted="true" then the artifact can be downloaded with no restrictions (ie: there are no administrative steps for the user to deal with; code or data can be downloaded and used directly).'),
-        ],
-        'decodings' : [
-
         ]
     }
 
 
 def machine():
-    """Creates and returns instance of machine class."""
+    """A description of a machine used by a particular platform.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'machine',
-        'base' : None,
-        'is_abstract' : False,
-        'doc' : 'A description of a machine used by a particular platform',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
             ('cores_per_processor', 'int', '0.1', None),
             ('description', 'str', '0.1', None),
             ('interconnect', 'shared.interconnect_type', '0.1', None),
@@ -173,7 +176,7 @@ def machine():
             ('vendor', 'shared.machine_vendor_type', '0.1', None),
             ('processor_type', 'shared.processor_type', '0.1', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('cores_per_processor', 'child::cim:machineCoresPerProcessor'),
             ('description', 'child::cim:machineDescription'),
             ('interconnect', 'child::cim:machineInterconnect/@value'),
@@ -191,18 +194,18 @@ def machine():
 
 
 def machine_compiler_unit():
-    """Creates and returns instance of machine_compiler_unit class."""
+    """Associates a machine with a [set of] compilers.  This is a separate class in case a platform needs to specify more than one machine/compiler pair.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'machine_compiler_unit',
-        'base' : None,
-        'is_abstract' : False,
-        'doc' : 'Associates a machine with a [set of] compilers.  This is a separate class in case a platform needs to specify more than one machine/compiler pair.',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
             ('compilers', 'shared.compiler', '0.N', None),
             ('machine', 'shared.machine', '1.1', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('compilers', 'child::cim:compiler'),
             ('machine', 'child::cim:machine'),
         ]
@@ -210,15 +213,15 @@ def machine_compiler_unit():
 
 
 def platform():
-    """Creates and returns instance of platform class."""
+    """A platform is a description of resources used to deploy a component/simulation.  A platform pairs a machine with a (set of) compilers.  There is also a point of contact for the platform.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'platform',
-        'base' : None,
-        'is_abstract' : False,
-        'is_entity' : True,
-        'doc' : 'A platform is a description of resources used to deploy a component/simulation.  A platform pairs a machine with a (set of) compilers.  There is also a point of contact for the platform.',
-        'properties' : [
+        'type': 'class',
+        'name': 'platform',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
             ('meta', 'shared.doc_meta_info', '1.1', None),
             ('contacts', 'shared.responsible_party', '0.N', None),
             ('description', 'str', '0.1', None),
@@ -226,7 +229,7 @@ def platform():
             ('short_name', 'str', '1.1', None),
             ('units', 'shared.machine_compiler_unit', '1.N', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('meta', 'self::cim:platform'),
             ('contacts', 'child::cim:contact'),
             ('description', 'child::cim:description'),
@@ -238,18 +241,18 @@ def platform():
     
 
 def property():
-    """Creates and returns instance of property class."""
+    """A simple name/value pair representing a property of some entity or other.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'property',
-        'base' : None,
-        'is_abstract' : False,
-        'doc' : 'A simple name/value pair representing a property of some entity or other',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
             ('name', 'str', '0.1', None),
             ('value', 'str', '0.1', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('name', 'child::cim:name'),
             ('value', 'child::cim:value'),
         ]
@@ -257,14 +260,14 @@ def property():
 
 
 def responsible_party():
-    """Creates and returns instance of responsible_party class."""
+    """A person/organsiation responsible for some aspect of a climate science artefact.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'responsible_party',
-        'base' : None,
-        'is_abstract' : False,
-        'doc' : 'A person/organsiation responsible for some aspect of a climate science artefact',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
             ('abbreviation', 'str', '0.1', None),
             ('address', 'str', '0.1', None),
             ('email', 'str', '0.1', None),
@@ -273,7 +276,7 @@ def responsible_party():
             ('role', 'str', '0.1', None),
             ('url', 'str', '0.1', None),
         ],
-        'decodings' : [
+        'decodings': [
             ('abbreviation', 'child::cim:abbreviation'),
             ('address', 'child::gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:deliveryPoint/gco:CharacterString'),
             ('address', 'child::gmd:contactInfo/gmd:CI_Contact/gmd:address/gmd:CI_Address/gmd:deliveryPoint'),
@@ -290,20 +293,20 @@ def responsible_party():
 
 
 def standard():
-    """Creates and returns instance of standard class."""
+    """Describes a name given to an entity from a recognised standard.  The CIM records the standard and the name.  For example, the standard might be CF and the name might be atmospheric_pressure.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'standard',
-        'base' : None,
-        'is_abstract' : False,
-        'doc' : 'Describes a name given to an entity from a recognised standard.  The CIM records the standard and the name.  For example, the standard might be CF and the name might be atmospheric_pressure.',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
             ('name', 'str', '1.1', 'The name of the standard'),
             ('version', 'str', '0.1', 'The version of the standard'),
             ('description', 'str', '0.1', 'The version of the standard'),
 
         ],
-        'decodings' : [
+        'decodings': [
             ('name', 'child::cim:name'),
             ('version', 'child::cim:version'),
             ('description', 'child::cim:description'),
@@ -312,19 +315,19 @@ def standard():
 
 
 def standard_name():
-    """Creates and returns instance of standard_name class."""
+    """Describes a name given to an entity from a recognised standard.  The CIM records the standard and the name.  For example, the standard might be CF and the name might be atmospheric_pressure.
+
+    """
     return {
-        'type' : 'class',
-        'name' : 'standard_name',
-        'base' : None,
-        'is_abstract' : False,
-        'doc' : 'Describes a name given to an entity from a recognised standard.  The CIM records the standard and the name.  For example, the standard might be CF and the name might be atmospheric_pressure.',
-        'properties' : [
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
             ('is_open', 'bool', '1.1', None),
             ('value', 'str', '1.1', None),
             ('standards', 'shared.standard', '0.N', 'Details of the standard being used.'),
         ],
-        'decodings' : [
+        'decodings': [
             ('is_open', '@open'),
             ('value', '@value'),
             ('standards', 'child::cim:standard'),

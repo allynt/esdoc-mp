@@ -1,19 +1,27 @@
 # -*- coding: utf-8 -*-
 
 """
-CIM v1 activity package enums.
+.. module:: activity_enums.py
+   :copyright: @2013 Earth System Documentation (http://es-doc.org)
+   :license: GPL/CeCIL
+   :platform: Unix, Windows
+   :synopsis: Set of CIM v1 activity package enum definitions.
+
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
+
 """
 
 
 
 def conformance_type():
-    """Creates and returns instance of conformance_type enum."""
+    """Creates and returns instance of conformance_type enum.
+
+    """
     return {
-        'type' : 'enum',
-        'name' : 'conformance_type',
-        'is_open' : False,
-        'doc' : None,
-        'members' : [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ('not conformant', 'Describes a simulation that is purpefully non-conformant to an experimental requirement.'),
             ('standard config', 'Describes a simulation that is "naturally" conformant to an experimental requirement.'),
             ('via inputs', 'Describes a simulation that conforms to an experimental requirement by using particular inputs.'),
@@ -24,13 +32,13 @@ def conformance_type():
 
 
 def downscaling_type():
-    """Creates and returns instance of downscaling_type enum."""
+    """Creates and returns instance of downscaling_type enum.
+
+    """
     return {
-        'type' : 'enum',
-        'name' : 'downscaling_type',
-        'is_open' : False,
-        'doc' : None,
-        'members' : [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ('statistical', None),
             ('dynamic', None),
         ],
@@ -38,25 +46,23 @@ def downscaling_type():
 
 
 def ensemble_type():
-    """Creates and returns instance of ensemble_type enum."""
-    return {
-        'type' : 'enum',
-        'name' : 'ensemble_type',
-        'is_open' : True,
-        'doc' : None,
-        'members' : [
+    """Creates and returns instance of ensemble_type enum.
 
-        ],
+    """
+    return {
+        'type': 'enum',
+        'is_open': True,
+        'members': [],
     }
 
 
 def experiment_relationship_type():
-    """Creates and returns instance of experiment_relationship_type enum."""
+    """Creates and returns instance of experiment_relationship_type enum.
+
+    """
     return {
-        'name' : 'experiment_relationship_type',
-        'is_open' : False,
-        'doc' : None,
-        'members' : [
+        'is_open': False,
+        'members': [
             ('previousRealisation', None),
             ('continuationOf', None),
             ('controlExperiment', None),
@@ -71,47 +77,46 @@ def experiment_relationship_type():
 
 
 def frequency_type():
-    """Creates and returns instance of frequency_type enum."""
-    return {
-        'type' : 'enum',
-        'name' : 'frequency_type',
-        'is_open' : True,
-        'doc' : None,
-        'members' : [
+    """Creates and returns instance of frequency_type enum.
 
-        ],
+    """
+    return {
+        'type': 'enum',
+        'is_open': True,
+        'members': [],
     }
 
 
 def project_type():
-    """Creates and returns instance of project_type enum."""
+    """Creates and returns instance of project_type enum.
+
+    """
     return {
-        'type' : 'enum',
-        'name' : 'project_type',
-        'is_open' : True,
-        'doc' : None,
-        'members' : [],
+        'type': 'enum',
+        'is_open': True,
+        'members': [],
     }
 
 
 def resolution_type():
-    """Creates and returns instance of resolution_type enum."""
+    """Creates and returns instance of resolution_type enum.
+
+    """
     return {
-        'type' : 'enum',
-        'name' : 'resolution_type',
-        'is_open' : True,
-        'doc' : None,
-        'members' : [],
-    }    
+        'type': 'enum',
+        'is_open': True,
+        'members': [],
+    }
 
 
 def simulation_relationship_type():
-    """Creates and returns instance of simulation_relationship_type enum."""
+    """Creates and returns instance of simulation_relationship_type enum.
+
+    """
     return {
-        'name' : 'simulation_relationship_type',
-        'is_open' : False,
-        'doc' : None,
-        'members' : [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ('extensionOf', None),
             ('responseTo', None),
             ('continuationOf', None),
@@ -125,18 +130,15 @@ def simulation_relationship_type():
 
 
 def simulation_type():
-    """Creates and returns instance of simulation_type enum."""
+    """Creates and returns instance of simulation_type enum.
+
+    """
     return {
-        'type' : 'enum',
-        'name' : 'simulation_type',
-        'is_open' : False,
-        'doc' : None,
-        'members' : [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ('simulationRun', None),
             ('assimilation', None),
             ('simulationComposite', None),
         ],
     }
-
-
-

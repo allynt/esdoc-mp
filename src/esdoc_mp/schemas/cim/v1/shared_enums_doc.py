@@ -1,16 +1,26 @@
 # -*- coding: utf-8 -*-
 
 """
-CIM v1 shared package enums.
+.. module:: shared_enums_doc.py
+   :copyright: @2013 Earth System Documentation (http://es-doc.org)
+   :license: GPL/CeCIL
+   :platform: Unix, Windows
+   :synopsis: Set of CIM v1 shared package document related enum definitions.
+
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
+
 """
 
+
+
 def doc_relationship_direction_type():
-    """Creates and returns instance of relationship_direction_type enum."""
+    """Creates and returns instance of relationship_direction_type enum.
+
+    """
     return {
         'type' : 'enum',
-        'name' : 'doc_relationship_direction_type',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('toTarget', None),
             ('fromTarget', None),
@@ -19,12 +29,12 @@ def doc_relationship_direction_type():
 
 
 def doc_relationship_type():
-    """Creates and returns instance of document_relationship_type enum."""
+    """Creates and returns instance of document_relationship_type enum.
+
+    """
     return {
         'type' : 'enum',
-        'name' : 'doc_relationship_type',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('similarTo', None),
             ('other', None),
@@ -36,12 +46,12 @@ def doc_relationship_type():
 
 
 def doc_status_type():
-    """Creates and returns instance of doc_status_type enum."""
+    """Status of cim document.
+
+    """
     return {
         'type' : 'enum',
-        'name' : 'doc_status_type',
         'is_open' : False,
-        'doc' : 'Status of cim document.',
         'members' : [
             ('complete', None),
             ('incomplete', None),
@@ -51,12 +61,12 @@ def doc_status_type():
 
 
 def doc_type():
-    """Creates and returns instance of doc_type enum."""
+    """Creates and returns instance of doc_type enum.
+
+    """
     return {
         'type' : 'enum',
-        'name' : 'doc_type',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('downscalingSimulation', None),
             ('statisticalModelComponent', None),

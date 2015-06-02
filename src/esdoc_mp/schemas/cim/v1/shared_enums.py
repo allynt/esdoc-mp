@@ -1,18 +1,26 @@
 # -*- coding: utf-8 -*-
 
 """
-CIM v1 shared package enums.
+.. module:: shared_enums.py
+   :copyright: @2013 Earth System Documentation (http://es-doc.org)
+   :license: GPL/CeCIL
+   :platform: Unix, Windows
+   :synopsis: Set of CIM v1 shared package enum definitions.
+
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
+
 """
 
 
 
 def _change_property_type():
-    """Creates and returns instance of change_property_type enum."""
+    """Creates and returns instance of change_property_type enum.
+
+    """
     return {
         'type' : 'enum',
-        'name' : 'change_property_type',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('InputMod', None),
             ('ModelMod', None),
@@ -31,23 +39,22 @@ def _change_property_type():
 
 
 def _compiler_type():
-    """Creates and returns instance of compiler_type enum."""
+    """Creates and returns instance of compiler_type enum.
+
+    """
     return {
         'type' : 'enum',
-        'name' : 'compiler_type',
-        'is_open' : True,
-        'doc' : 'A list of known compilers.',
-        'members' : [ ],
+        'is_open' : True
     }
 
 
 def _data_purpose():
-    """Creates and returns instance of data_purpose enum."""
+    """Purpose of the data - i.e. ancillaryFile, boundaryCondition or initialCondition.
+
+    """
     return {
         'type' : 'enum',
-        'name' : 'data_purpose',
         'is_open' : False,
-        'doc' : 'Purpose of the data - i.e. ancillaryFile, boundaryCondition or initialCondition.',
         'members' : [
             ('ancillaryFile', None),
             ('boundaryCondition', None),
@@ -57,23 +64,22 @@ def _data_purpose():
 
 
 def _interconnect_type():
-    """Creates and returns instance of interconnect_type enum."""
+    """A list of connectors between machines.
+
+    """
     return {
         'type' : 'enum',
-        'name' : 'interconnect_type',
-        'is_open' : True,
-        'doc' : "A list of connectors between machines.",
-        'members' : [ ],
+        'is_open' : True
     }
 
 
 def _machine_type():
-    """Creates and returns instance of machine_type enum."""
+    """A list of known machines.
+
+    """
     return {
         'type' : 'enum',
-        'name' : 'machine_type',
         'is_open' : False,
-        'doc' : 'A list of known machines.',
         'members' : [
             ('Parallel', None),
             ('Vector', None),
@@ -83,46 +89,42 @@ def _machine_type():
 
 
 def _machine_vendor_type():
-    """Creates and returns instance of machine_vendor_type enum."""
+    """A list of organisations that create machines.
+
+    """
     return {
         'type' : 'enum',
-        'name' : 'machine_vendor_type',
-        'is_open' : True,
-        'doc' : 'A list of organisations that create machines.',
-        'members' : [ ],
+        'is_open' : True
     }
 
 
 def _operating_system_type():
-    """Creates and returns instance of operating_system_type enum."""
+    """A list of common operating systems.
+
+    """
     return {
         'type' : 'enum',
-        'name' : 'operating_system_type',
-        'is_open' : True,
-        'doc' : 'A list of common operating systems.',
-        'members' : [ ],
+        'is_open' : True
     }
 
 
 def _processor_type():
-    """Creates and returns instance of processor_type enum."""
+    """A list of known cpu's.
+
+    """
     return {
         'type' : 'enum',
-        'name' : 'processor_type',
-        'is_open' : True,
-        'doc' : "A list of known cpu's.",
-        'members' : [ ],
+        'is_open' : True
     }
 
 
 def _unit_type():
-    """Creates and returns instance of unit_type enum."""
+    """A list of scientific units.
+
+    """
     return {
         'type' : 'enum',
-        'name' : 'unit_type',
-        'is_open' : True,
-        'doc' : "A list of scientific units.",
-        'members' : [ ],
+        'is_open' : True
     }
 
 

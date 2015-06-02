@@ -1,17 +1,25 @@
 # -*- coding: utf-8 -*-
 
 """
-CIM v1 software package enums.
+.. module:: software_enums.py
+   :copyright: @2013 Earth System Documentation (http://es-doc.org)
+   :license: GPL/CeCIL
+   :platform: Unix, Windows
+   :synopsis: Set of CIM v1 software package enum definitions.
+
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
+
 """
 
 
 
 def component_property_intent_type():
-    """Creates and returns instance of component_property_intent_type enum."""
+    """The direction that the associated component property is intended to be coupled: in, out, or inout.
+
+    """
     return {
-        'name' : 'component_property_intent_type',
         'is_open' : False,
-        'doc' : 'The direction that the associated component property is intended to be coupled: in, out, or inout..',
         'members' : [
             ('in', None),
             ('out', None),
@@ -21,21 +29,20 @@ def component_property_intent_type():
 
 
 def connection_type():
-    """Creates and returns instance of connection_type enum."""
+    """The ConnectionType enumeration describes the mechanism of transport for a connection.
+
+    """
     return {
-        'name' : 'connection_type',
-        'is_open' : True,
-        'doc' : 'The ConnectionType enumeration describes the mechanism of transport for a connection.',
-        'members' : [ ],
+        'is_open' : True
     }
 
 
 def coupling_framework_type():
-    """Creates and returns instance of coupling_framework_type enum."""
+    """Creates and returns instance of coupling_framework_type enum.
+
+    """
     return {
-        'name' : 'coupling_framework_type',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('BFG', None),
             ('ESMF', None),
@@ -45,21 +52,20 @@ def coupling_framework_type():
 
 
 def model_component_type():
-    """Creates and returns instance of model_component_type enum."""
+    """An enumeration of types of ModelComponent. This includes things like atmosphere & ocean models, radiation schemes, etc. CIM best-practice is to describe every component for which there is a named ComponentType as a separate component, even if it is not a separate unit of software (ie: even if it is embedded), instead of as a (set of) ModelParameters. This codelist is synonomous with "realm" for the purposes of CMIP5.
+
+    """
     return {
-        'name' : 'model_component_type',
-        'is_open' : True,
-        'doc' : 'An enumeration of types of ModelComponent. This includes things like atmosphere & ocean models, radiation schemes, etc. CIM best-practice is to describe every component for which there is a named ComponentType as a separate component, even if it is not a separate unit of software (ie: even if it is embedded), instead of as a (set of) ModelParameters. This codelist is synonomous with "realm" for the purposes of CMIP5.',
-        'members' : [ ],
+        'is_open' : True
     }
 
 
 def spatial_regridding_dimension_type():
-    """Creates and returns instance of spatial_regridding_dimension_type enum."""
+    """Creates and returns instance of spatial_regridding_dimension_type enum.
+
+    """
     return {
-        'name' : 'spatial_regridding_dimension_type',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('1D', None),
             ('2D', None),
@@ -69,11 +75,11 @@ def spatial_regridding_dimension_type():
 
 
 def spatial_regridding_standard_method_type():
-    """Creates and returns instance of spatial_regridding_standard_method_type enum."""
+    """Creates and returns instance of spatial_regridding_standard_method_type enum.
+
+    """
     return {
-        'name' : 'spatial_regridding_standard_method_type',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('linear', None),
             ('near-neighbour', None),
@@ -87,31 +93,29 @@ def spatial_regridding_standard_method_type():
 
 
 def statistical_model_component_type():
-    """Creates and returns instance of statistical_model_component_type enum."""
+    """An enumeration of types of ProcessorComponent.  This includes things like transformers and post-processors.
+
+    """
     return {
-        'name' : 'statistical_model_component_type',
-        'is_open' : True,
-        'doc' : 'An enumeration of types of ProcessorComponent.  This includes things like transformers and post-processors.',
-        'members' : [ ],
+        'is_open' : True
     }
 
 
 def time_mapping_type():
-    """Creates and returns instance of time_mapping_type enum."""
+    """Enumerates the different ways that time can be mapped when transforming from one field to another.
+
+    """
     return {
-        'name' : 'time_mapping_type',
-        'is_open' : True,
-        'doc' : 'Enumerates the different ways that time can be mapped when transforming from one field to another.',
-        'members' : [ ],
+        'is_open' : True
     }
-    
+
 
 def timing_units():
-    """Creates and returns instance of timing_units enum."""
+    """Creates and returns instance of timing_units enum.
+
+    """
     return {
-        'name' : 'timing_units',
         'is_open' : False,
-        'doc' : None,
         'members' : [
             ('seconds', None),
             ('minutes', None),
@@ -123,6 +127,3 @@ def timing_units():
             ('centuries', None),
         ],
     }
-
-
-

@@ -1,19 +1,27 @@
 # -*- coding: utf-8 -*-
 
 """
-CIM v1 quality package classes.
+.. module:: quality_classes.py
+   :copyright: @2013 Earth System Documentation (http://es-doc.org)
+   :license: GPL/CeCIL
+   :platform: Unix, Windows
+   :synopsis: Set of CIM v1 quality package class definitions.
+
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
+
 """
 
 
 
 def evaluation():
-    """Creates and returns instance of evaluation class."""
+    """Creates and returns instance of evaluation class.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'evaluation',
         'base' : None,
         'is_abstract' : False,
-        'doc' : None,
         'properties' : [
             ('date', 'datetime', '0.1', None),
             ('description', 'str', '0.1', None),
@@ -40,13 +48,13 @@ def evaluation():
 
 
 def measure():
-    """Creates and returns instance of measure class."""
+    """Creates and returns instance of measure class.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'measure',
         'base' : None,
         'is_abstract' : False,
-        'doc' : None,
         'properties' : [
             ('description', 'str', '0.1', None),
             ('identification', 'str', '0.1', None),
@@ -65,14 +73,13 @@ def measure():
 
 
 def cim_quality():
-    """Creates and returns instance of cim_quality class."""
+    """The starting point for a quality record.  It can contain any number of issues and reports.  An issue is an open-ended description of some issue about a CIM instance.  A record is a prescribed description of some specific quantitative measure that has been applied to a CIM instance.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'cim_quality',
         'base' : None,
         'is_abstract' : False,
-        'is_entity' : True,
-        'doc' : 'The starting point for a quality record.  It can contain any number of issues and reports.  An issue is an open-ended description of some issue about a CIM instance.  A record is a prescribed description of some specific quantitative measure that has been applied to a CIM instance.',
         'properties' : [
             ('meta', 'shared.doc_meta_info', '1.1', None),
             ('reports', 'quality.report', '0.N', None),
@@ -85,13 +92,13 @@ def cim_quality():
 
 
 def report():
-    """Creates and returns instance of report class."""
+    """Creates and returns instance of report class.
+
+    """
     return {
         'type' : 'class',
-        'name' : 'report',
         'base' : None,
         'is_abstract' : False,
-        'doc' : None,
         'properties' : [
             ('date', 'datetime', '0.1', None),
             ('evaluation', 'quality.evaluation', '1.1', None),
