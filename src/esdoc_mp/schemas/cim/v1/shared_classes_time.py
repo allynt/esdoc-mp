@@ -23,10 +23,13 @@ def calendar():
         'base': None,
         'is_abstract': True,
         'properties': [
-            ('description', 'str', '0.1', 'Describes the finer details of the calendar, in case they are not-obvious.  For example, if an experiment has changing conditions within it (ie: 1% CO2 increase until 2100, then hold fixed for the remaining period of the  experment)'),
-            ('length', 'int', '0.1', None),
-            ('range', 'shared.date_range', '0.1', None),
+            ('description', 'str', '0.1'),
+            ('length', 'int', '0.1'),
+            ('range', 'shared.date_range', '0.1'),
         ],
+        'doc_strings': {
+            'description': 'Describes the finer details of the calendar, in case they are not-obvious.  For example, if an experiment has changing conditions within it (ie: 1% CO2 increase until 2100, then hold fixed for the remaining period of the  experment)',
+        },
         'decodings': [
             ('description', 'child::cim:description'),
             ('length', 'child::cim:length'),
@@ -45,9 +48,12 @@ def closed_date_range():
         'base': 'shared.date_range',
         'is_abstract': False,
         'properties': [
-            ('end', 'datetime', '0.1', 'End date is optional becuase the length of a ClosedDateRange can be calculated from the StartDate plus the Duration element.'),
-            ('start', 'datetime', '1.1', None),
+            ('end', 'datetime', '0.1'),
+            ('start', 'datetime', '1.1'),
         ],
+        'doc_strings': {
+            'end': 'End date is optional becuase the length of a ClosedDateRange can be calculated from the StartDate plus the Duration element.',
+        },
         'decodings': [
             ('end', 'child::cim:endDate'),
             ('start', 'child::cim:startDate'),
@@ -75,7 +81,7 @@ def date_range():
         'base': None,
         'is_abstract': True,
         'properties': [
-            ('duration', 'str', '0.1', None),
+            ('duration', 'str', '0.1'),
         ],
         'decodings': [
             ('duration', 'child::cim:duration'),
@@ -92,8 +98,8 @@ def open_date_range():
         'base': 'shared.date_range',
         'is_abstract': False,
         'properties': [
-            ('end', 'datetime', '0.1', None),
-            ('start', 'datetime', '0.1', None),
+            ('end', 'datetime', '0.1'),
+            ('start', 'datetime', '0.1'),
         ],
         'decodings': [
             ('end', 'child::cim:endDate'),

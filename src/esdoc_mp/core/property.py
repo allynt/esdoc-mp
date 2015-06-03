@@ -25,7 +25,7 @@ class Property(object):
 
     """
 
-    def __init__(self, name, doc_string, type_name, cardinality):
+    def __init__(self, name, type_name, cardinality, doc_string):
         """Constructor.
 
         :param str name: Property name.

@@ -21,13 +21,21 @@ def citation():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('abstract', 'str', '0.1', 'Document abstract'),
-            ('citation_str', 'str', '1.1', 'How the citation should be referenced'),
-            ('description', 'str', '0.1', 'Brief textural description of document'),
-            ('doi', 'str', '0.1', 'A digital object identifer'),
-            ('title', 'str', '0.1', 'Document title'),
-            ('url', 'shared.online_resource', '0.1', 'A URL where the artifact can be obtained'),
+            ('abstract', 'str', '0.1'),
+            ('citation_str', 'str', '1.1'),
+            ('description', 'str', '0.1'),
+            ('doi', 'str', '0.1'),
+            ('title', 'str', '0.1'),
+            ('url', 'shared.online_resource', '0.1')
         ],
+        'doc_strings': {
+            'abstract': 'Document abstract',
+            'citation_str': 'How the citation should be referenced',
+            'description': 'Brief textural description of document',
+            'doi': 'A digital object identifer',
+            'title': 'Document title',
+            'url': 'A URL where the artifact can be obtained'
+        }
     }
 
 
@@ -40,11 +48,17 @@ def online_resource():
         'base': None,
         'is_abstract': False,
         'properties':  [
-            ('description', 'str', '0.1', 'Detail of how to access the resource'),
-            ('linkage', 'str', '1.1', 'A URL'),
-            ('name', 'str', '1.1', 'Name of online resource'),
-            ('protocol', 'str', '0.1', 'Protocol to use at the linkage'),
+            ('description', 'str', '0.1'),
+            ('linkage', 'str', '1.1'),
+            ('name', 'str', '1.1'),
+            ('protocol', 'str', '0.1')
         ],
+        'doc_strings': {
+            'description': 'Detail of how to access the resource',
+            'linkage': 'A URL',
+            'name': 'Name of online resource',
+            'protocol': 'Protocol to use at the linkage'
+        }
     }
 
 
@@ -60,10 +74,15 @@ def responsibility():
         'is_abstract': False,
         'pstr':  ('%s:%s', ('role', 'party',)),
         'properties':  [
-            ('role', 'shared.role_code', '1.1', 'Role that the party plays or played'),
-            ('party', 'linked_to(shared.party)', '1.N', 'Parties delivering responsibility'),
-            ('when', 'time.time_period', '0.1', 'Period when role was active, if no longer'),
-        ]
+            ('role', 'shared.role_code', '1.1'),
+            ('party', 'linked_to(shared.party)', '1.N'),
+            ('when', 'time.time_period', '0.1')
+        ],
+        'doc_strings': {
+            'role': 'Role that the party plays or played',
+            'party': 'Parties delivering responsibility',
+            'when': 'Period when role was active, if no longer'
+        }
     }
 
 
@@ -81,13 +100,18 @@ def party():
         'base': None,
         'is_abstract': False,
         'properties':  [
-            ('address', 'str', '0.1', None),
-            ('email', 'str', '0.1', None),
-            ('meta', 'shared.meta', '1.1', 'Provides a unique identifier for the party'),
-            ('name', 'str', '0.1', 'Name of person or organisation'),
-            ('organisation', 'bool', '0.1', 'True if an organisation not a person'),
-            ('url', 'shared.online_resource', '0.1', None),
+            ('address', 'str', '0.1'),
+            ('email', 'str', '0.1'),
+            ('meta', 'shared.meta', '1.1'),
+            ('name', 'str', '0.1'),
+            ('organisation', 'bool', '0.1'),
+            ('url', 'shared.online_resource', '0.1')
         ],
+        'doc_strings': {
+            'meta': 'Provides a unique identifier for the party',
+            'name': 'Name of person or organisation',
+            'organisation': 'True if an organisation not a person'
+        }
     }
 
 
@@ -104,8 +128,11 @@ def number_array():
         'is_abstract': False,
         'pstr': ('%s',('values',)),
         'properties': [
-            ('values', 'str', '1.1', 'A space separated list of numbers'),
-        ]
+            ('values', 'str', '1.1')
+        ],
+        'doc_strings': {
+            'values': 'A space separated list of numbers'
+        }
     }
 
 
@@ -119,10 +146,13 @@ def vocab_member():
         'is_abstract': False,
         'pstr': ('%s',('value',)),
         'properties': [
-            ('uri', 'str', '0.1', 'URI of the term in the controlled vocabulary'),
-            ('value', 'str', '1.1', 'Text value of the CV term'),
-            ('vocab', 'shared.citation', '0.1', 'Type of content'),
+            ('uri', 'str', '0.1'),
+            ('value', 'str', '1.1'),
+            ('vocab', 'shared.citation', '0.1'),
         ],
+        'doc_strings': {
+            'uri': 'URI of the term in the controlled vocabulary',
+            'value': 'Text value of the CV term',
+            'vocab': 'Type of content'
+        }
     }
-
-

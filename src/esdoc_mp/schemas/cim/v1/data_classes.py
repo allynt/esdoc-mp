@@ -23,10 +23,14 @@ def data_content():
         'base' : 'shared.data_source',
         'is_abstract' : False,
         'properties' : [
-            ('aggregation', 'str', '0.1', 'Describes how the content has been aggregated together: sum, min, mean, max, ...'),
-            ('frequency', 'str', '0.1', 'Describes the frequency of the data content: daily, hourly, ...'),
-            ('topic', 'data.data_topic', '1.1', None),
+            ('aggregation', 'str', '0.1'),
+            ('frequency', 'str', '0.1'),
+            ('topic', 'data.data_topic', '1.1'),
         ],
+        'doc_strings': {
+            'aggregation': 'Describes how the content has been aggregated together: sum, min, mean, max, ...',
+            'frequency': 'Describes the frequency of the data content: daily, hourly, ...',
+        },
         'decodings' : [
             ('aggregation', 'child::cim:aggregation'),
             ('frequency', 'child::cim:frequency/@value'),
@@ -44,10 +48,10 @@ def data_distribution():
         'base' : None,
         'is_abstract' : False,
         'properties' : [
-            ('access', 'str', '0.1', None),
-            ('fee', 'str', '0.1', None),
-            ('format', 'str', '0.1', None),
-            ('responsible_party', 'shared.responsible_party', '0.1', None),
+            ('access', 'str', '0.1'),
+            ('fee', 'str', '0.1'),
+            ('format', 'str', '0.1'),
+            ('responsible_party', 'shared.responsible_party', '0.1'),
         ],
         'decodings' : [
             ('access', '@distributionAccess'),
@@ -67,8 +71,8 @@ def data_extent():
         'base' : None,
         'is_abstract' : False,
         'properties' : [
-            ('temporal', 'data.data_extent_temporal', '1.1', None),
-            ('geographical', 'data.data_extent_geographical', '1.1', None),
+            ('temporal', 'data.data_extent_temporal', '1.1'),
+            ('geographical', 'data.data_extent_geographical', '1.1'),
         ],
         'decodings' : [
             ('geographical', 'child::gmd:geographicElement'),
@@ -86,10 +90,10 @@ def data_extent_geographical():
         'base' : None,
         'is_abstract' : False,
         'properties' : [
-            ('east', 'float', '0.1', None),
-            ('south', 'float', '0.1', None),
-            ('west', 'float', '0.1', None),
-            ('north', 'float', '0.1', None),
+            ('east', 'float', '0.1'),
+            ('south', 'float', '0.1'),
+            ('west', 'float', '0.1'),
+            ('north', 'float', '0.1'),
         ],
         'decodings' : [
             ('east', 'child::gmd:EX_GeographicBoundingBox/gmd:eastBoundLongitude/gco:Decimal'),
@@ -109,9 +113,9 @@ def data_extent_temporal():
         'base' : None,
         'is_abstract' : False,
         'properties' : [
-            ('begin', 'date', '0.1', None),
-            ('end', 'date', '0.1', None),
-            ('time_interval', 'data.data_extent_time_interval', '0.1', None),
+            ('begin', 'date', '0.1'),
+            ('end', 'date', '0.1'),
+            ('time_interval', 'data.data_extent_time_interval', '0.1'),
         ],
         'decodings' : [
             ('begin', 'child::gml:beginPosition'),
@@ -130,9 +134,9 @@ def data_extent_time_interval():
         'base' : None,
         'is_abstract' : False,
         'properties' : [
-            ('unit', 'str', '0.1', None),
-            ('factor', 'int', '0.1', None),
-            ('radix', 'int', '0.1', None),
+            ('unit', 'str', '0.1'),
+            ('factor', 'int', '0.1'),
+            ('radix', 'int', '0.1'),
         ],
         'decodings' : [
             ('factor', '@factor'),
@@ -151,12 +155,14 @@ def data_hierarchy_level():
         'base' : None,
         'is_abstract' : False,
         'properties' : [
-            ('name', 'data.data_hierarchy_type', '0.1', 'What level in the data hierarchy (constructed by the self-referential parent/child aggregations) is this DataObject.'),
-            # TODO - sink to to shared.property_value
-            ('is_open', 'bool', '0.1', None),
-            # TODO - resolve property type to shared.property_value
-            ('value', 'str', '0.1', 'What is the name of the specific HierarchyLevel this DataObject is being organised at (ie: if the HierarchyLevel is "run" then the name might be the runid).'),
+            ('name', 'data.data_hierarchy_type', '0.1'),
+            ('is_open', 'bool', '0.1'),
+            ('value', 'str', '0.1'),
         ],
+        'doc_strings': {
+            'name': 'What level in the data hierarchy (constructed by the self-referential parent/child aggregations) is this DataObject.',
+            'value': 'What is the name of the specific HierarchyLevel this DataObject is being organised at (ie: if the HierarchyLevel is "run" then the name might be the runid).',
+        },
         'decodings' : [
             ('is_open', 'child::cim:hierarchyLevelName/@open'),
             ('name', 'child::cim:hierarchyLevelName/@value'),
@@ -175,28 +181,29 @@ def data_object():
         'is_abstract' : False,
         'is_entity' : True,
         'properties' : [
-            ('meta', 'shared.doc_meta_info', '1.1', None),
-            ('acronym', 'str', '0.1', None),
-            ('child_object', 'data.data_object', '0.N', None),
-            ('citations', 'shared.citation', '0.N', None),
-            ('content', 'data.data_content', '0.N', 'The content of a DataObject corresponds to a variable (in THREDDS, ...etc.)'),
-            ('data_status', 'data.data_status_type', '0.1', None),
-            ('description', 'str', '0.1', None),
-            ('distribution', 'data.data_distribution', '0.1', None),
-            ('extent', 'data.data_extent', '0.1', None),
-            ('hierarchy_level', 'data.data_hierarchy_level', '0.1', None),
-            ('keyword', 'str', '0.1', None),
-            # TODO - define type
-            ('geometry_model', 'str', '0.1', None),
-            ('parent_object', 'data.data_object', '0.1', None),
-            ('parent_object_reference', 'shared.doc_reference', '0.1', None),
-            ('properties', 'data.data_property', '0.N', None),
-            ('purpose', 'str', '0.1', None),
-            ('restriction', 'data.data_restriction', '0.N', None),
-            # TODO - define type
-            ('source_simulation', 'str', '0.1', None),
-            ('storage', 'data.data_storage', '0.N', None),
+            ('meta', 'shared.doc_meta_info', '1.1'),
+            ('acronym', 'str', '0.1'),
+            ('child_object', 'data.data_object', '0.N'),
+            ('citations', 'shared.citation', '0.N'),
+            ('content', 'data.data_content', '0.N'),
+            ('data_status', 'data.data_status_type', '0.1'),
+            ('description', 'str', '0.1'),
+            ('distribution', 'data.data_distribution', '0.1'),
+            ('extent', 'data.data_extent', '0.1'),
+            ('hierarchy_level', 'data.data_hierarchy_level', '0.1'),
+            ('keyword', 'str', '0.1'),
+            ('geometry_model', 'str', '0.1'),
+            ('parent_object', 'data.data_object', '0.1'),
+            ('parent_object_reference', 'shared.doc_reference', '0.1'),
+            ('properties', 'data.data_property', '0.N'),
+            ('purpose', 'str', '0.1'),
+            ('restriction', 'data.data_restriction', '0.N'),
+            ('source_simulation', 'str', '0.1'),
+            ('storage', 'data.data_storage', '0.N'),
         ],
+        'doc_strings': {
+            'content': 'The content of a DataObject corresponds to a variable (in THREDDS, ...etc.)'
+        },
         'decodings' : [
             ('meta', 'self::cim:dataObject'),
             ('acronym', 'child::cim:acronym'),
@@ -224,7 +231,7 @@ def data_property():
         'base' : 'shared.property',
         'is_abstract' : False,
         'properties' : [
-            ('description', 'str', '0.1', None),
+            ('description', 'str', '0.1'),
         ],
         'decodings' : [
             ('description', 'child::cim:description'),
@@ -241,10 +248,15 @@ def data_restriction():
         'base' : None,
         'is_abstract' : False,
         'properties' : [
-            ('scope', 'str', '0.1', 'The thing (data or metadata, access or use) that this restriction is applied to.'),
-            ('restriction', 'str', '0.1', 'The thing (data or metadata, access or use) that this restriction is applied to.'),
-            ('license', 'shared.license', '0.1', 'The thing (data or metadata, access or use) that this restriction is applied to.'),
+            ('scope', 'str', '0.1'),
+            ('restriction', 'str', '0.1'),
+            ('license', 'shared.license', '0.1'),
         ],
+        'doc_strings': {
+            'scope': 'The thing (data or metadata, access or use) that this restriction is applied to.',
+            'restriction': 'The thing (data or metadata, access or use) that this restriction is applied to.',
+            'license': 'The thing (data or metadata, access or use) that this restriction is applied to.'
+        },
         'decodings' : [
 
         ]
@@ -260,10 +272,10 @@ def data_storage():
         'base' : None,
         'is_abstract' : True,
         'properties' : [
-            ('size', 'int', '0.1', None),
-            ('format', 'str', '0.1', None),
-            ('modification_date', 'datetime', '0.1', None),
-            ('location', 'str', '0.1', None),
+            ('size', 'int', '0.1'),
+            ('format', 'str', '0.1'),
+            ('modification_date', 'datetime', '0.1'),
+            ('location', 'str', '0.1'),
         ],
         'decodings' : [
         ]
@@ -279,10 +291,10 @@ def data_storage_db():
         'base' : 'data.data_storage',
         'is_abstract' : False,
         'properties' : [
-            ('access_string', 'str', '0.1', None),
-            ('name', 'str', '0.1', None),
-            ('owner', 'str', '0.1', None),
-            ('table', 'str', '0.1', None),
+            ('access_string', 'str', '0.1'),
+            ('name', 'str', '0.1'),
+            ('owner', 'str', '0.1'),
+            ('table', 'str', '0.1'),
         ],
         'decodings' : [
 
@@ -299,9 +311,9 @@ def data_storage_file():
         'base' : 'data.data_storage',
         'is_abstract' : False,
         'properties' : [
-            ('file_system', 'str', '0.1', None),
-            ('path', 'str', '0.1', None),
-            ('file_name', 'str', '0.1', None),
+            ('file_system', 'str', '0.1'),
+            ('path', 'str', '0.1'),
+            ('file_name', 'str', '0.1'),
         ],
         'decodings' : [
 
@@ -318,10 +330,10 @@ def data_storage_ip():
         'base' : 'data.data_storage',
         'is_abstract' : False,
         'properties' : [
-            ('protocol', 'str', '0.1', None),
-            ('host', 'str', '0.1', None),
-            ('path', 'str', '0.1', None),
-            ('file_name', 'str', '0.1', None),
+            ('protocol', 'str', '0.1'),
+            ('host', 'str', '0.1'),
+            ('path', 'str', '0.1'),
+            ('file_name', 'str', '0.1'),
         ],
         'decodings' : [
             ('file_name', 'child::cim:fileName'),
@@ -339,9 +351,9 @@ def data_topic():
         'base' : None,
         'is_abstract' : False,
         'properties' : [
-            ('name', 'str', '0.1', None),
-            ('description', 'str', '0.1', None),
-            ('unit', 'str', '0.1', None),
+            ('name', 'str', '0.1'),
+            ('description', 'str', '0.1'),
+            ('unit', 'str', '0.1'),
         ],
         'decodings' : [
             ('description', 'child::cim:description'),

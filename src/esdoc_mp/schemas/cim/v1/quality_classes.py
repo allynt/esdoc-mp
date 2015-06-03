@@ -23,15 +23,15 @@ def evaluation():
         'base' : None,
         'is_abstract' : False,
         'properties' : [
-            ('date', 'datetime', '0.1', None),
-            ('description', 'str', '0.1', None),
-            ('did_pass', 'bool', '0.1', None),
-            ('explanation', 'str', '0.1', None),
-            ('specification', 'str', '0.1', None),
-            ('specification_hyperlink', 'str', '0.1', None),
-            ('type', 'str', '0.1', None),
-            ('type_hyperlink', 'str', '0.1', None),
-            ('title', 'str', '0.1', None),
+            ('date', 'datetime', '0.1'),
+            ('description', 'str', '0.1'),
+            ('did_pass', 'bool', '0.1'),
+            ('explanation', 'str', '0.1'),
+            ('specification', 'str', '0.1'),
+            ('specification_hyperlink', 'str', '0.1'),
+            ('type', 'str', '0.1'),
+            ('type_hyperlink', 'str', '0.1'),
+            ('title', 'str', '0.1'),
         ],
         'decodings' : [
             ('date', 'child::gmd:result/gmd:DQ_ConformanceResult/gmd:specification/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date/gco:Date'),
@@ -56,9 +56,9 @@ def measure():
         'base' : None,
         'is_abstract' : False,
         'properties' : [
-            ('description', 'str', '0.1', None),
-            ('identification', 'str', '0.1', None),
-            ('name', 'str', '0.1', None),
+            ('description', 'str', '0.1'),
+            ('identification', 'str', '0.1'),
+            ('name', 'str', '0.1'),
         ],
         'decodings' : [
             ('description', 'child::cim:measureDescription'),
@@ -81,8 +81,8 @@ def cim_quality():
         'base' : None,
         'is_abstract' : False,
         'properties' : [
-            ('meta', 'shared.doc_meta_info', '1.1', None),
-            ('reports', 'quality.report', '0.N', None),
+            ('meta', 'shared.doc_meta_info', '1.1'),
+            ('reports', 'quality.report', '0.N'),
         ],
         'decodings' : [
             ('meta', 'self::cim:cIM_Quality'),
@@ -100,10 +100,10 @@ def report():
         'base' : None,
         'is_abstract' : False,
         'properties' : [
-            ('date', 'datetime', '0.1', None),
-            ('evaluation', 'quality.evaluation', '1.1', None),
-            ('evaluator', 'shared.responsible_party', '0.1', None),
-            ('measure', 'quality.measure', '1.1', None),
+            ('date', 'datetime', '0.1'),
+            ('evaluation', 'quality.evaluation', '1.1'),
+            ('evaluator', 'shared.responsible_party', '0.1'),
+            ('measure', 'quality.measure', '1.1'),
         ],
         'decodings' : [
             ('date', 'child::gmd:dateTime/gco:DateTime'),

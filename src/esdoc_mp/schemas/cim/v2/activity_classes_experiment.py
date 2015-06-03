@@ -19,11 +19,15 @@ def ensemble_requirement():
         'base': 'activity.numerical_requirement',
         'is_abstract':False,
         'properties': [
-            ('ensemble_type', 'activity.ensembleTypes', '1.1', 'Type of ensemble'),
-            ('minimum_size', 'int', '1.1', 'Minimum number of members'),
-            ('ensemble_member', 'linked_to(activity.numerical_requirement)', '0.N',
-                'Constraint on each ensemble member'),
-            ],
+            ('ensemble_type', 'activity.ensembleTypes', '1.1'),
+            ('minimum_size', 'int', '1.1'),
+            ('ensemble_member', 'linked_to(activity.numerical_requirement)', '0.N')
+        ],
+        'doc_strings': {
+            'ensemble_type': 'Type of ensemble',
+            'minimum_size': 'Minimum number of members',
+            'ensemble_member': 'Constraint on each ensemble member'
+        },
         'constraints':[
             ('additional_requirements', 'hidden'),
         ]
@@ -39,14 +43,23 @@ def forcing_constraint():
         'is_abstract':False,
         'base': 'activity.numerical_requirement',
         'properties': [
-            ('code', 'activity.vocab_member', '1.1', 'Programme wide code from a controlled vocabulary (e.g. N2O)'),
-            ('category', 'activity.vocab_member', '1.1', 'Category to which this belongs (from a CV, e.g. GASES)'),
-            ('group', 'activity.vocab_member', '0.1', 'Sub-Category (e.g. GHG)'),
-            ('forcing_Type', 'activity.forcingTypes', '1.1', 'Type of integration'),
-            ('additional_constraint', 'shared.cim_text', '0.1', 'Additional information, e.g. hold constant from 2100-01-01'),
-            ('origin', 'shared.citation', '0.1', 'Pointer to origin, e.g. CMIP6 RCP database'),
-            ('data_link', 'shared.onlineResource', '0.1', 'Link to actual data record if possible')
-            ],
+            ('code', 'activity.vocab_member', '1.1'),
+            ('category', 'activity.vocab_member', '1.1'),
+            ('group', 'activity.vocab_member', '0.1'),
+            ('forcing_Type', 'activity.forcingTypes', '1.1'),
+            ('additional_constraint', 'shared.cim_text', '0.1'),
+            ('origin', 'shared.citation', '0.1'),
+            ('data_link', 'shared.onlineResource', '0.1')
+        ],
+        'doc_strings': {
+            'code': 'Programme wide code from a controlled vocabulary (e.g. N2O)',
+            'category': 'Category to which this belongs (from a CV, e.g. GASES)',
+            'group': 'Sub-Category (e.g. GHG)',
+            'forcing_Type': 'Type of integration',
+            'additional_constraint': 'Additional information, e.g. hold constant from 2100-01-01',
+            'origin': 'Pointer to origin, e.g. CMIP6 RCP database',
+            'data_link': 'Link to actual data record if possible'
+        },
         'constraints':[
             ('additional_requirements', 'hidden'),
         ],
@@ -62,10 +75,15 @@ def numerical_experiment():
         'base': 'activity.activity',
         'is_abstract' : False,
         'properties': [
-            ('experiment_id', 'str', '0.1', 'Identifier used by experiment community'),
-            ('related_experiments', 'linked_to(activity.numerical_experiment)', '0.N', 'A related experiment'),
-            ('requirements', 'linked_to(activity.numerical_requirement)', '0.N', 'A requirement that a conformant simulation needs to satisfy'),
+            ('experiment_id', 'str', '0.1'),
+            ('related_experiments', 'linked_to(activity.numerical_experiment)', '0.N'),
+            ('requirements', 'linked_to(activity.numerical_requirement)', '0.N'),
         ],
+        'doc_strings': {
+            'experiment_id': 'Identifier used by experiment community',
+            'related_experiments': 'A related experiment',
+            'requirements': 'A requirement that a conformant simulation needs to satisfy'
+        },
         'constraints': [
             ('duration', 'hidden'),
         ],
@@ -85,9 +103,13 @@ def numerical_requirement():
         'base': 'activity.activity',
         'is_abstract' : False,
         'properties': [
-            ('was_conformance_requested', 'bool', '1.1', "Indicator as to whether simulation documentation should include conformance information for this requirement"),
-            ('additional_requirements', 'linked_to(activity.numerical_requirement)', '0.N', 'Additional requirement detail')
+            ('was_conformance_requested', 'bool', '1.1'),
+            ('additional_requirements', 'linked_to(activity.numerical_requirement)', '0.N')
         ],
+        'doc_strings': {
+            'was_conformance_requested': "Indicator as to whether simulation documentation should include conformance information for this requirement",
+            'additional_requirements': 'Additional requirement detail'
+        },
         'constraints': [
             ('duration', 'hidden')
         ],
@@ -109,10 +131,15 @@ def output_temporal_requirement():
         'base': 'activity.numerical_requirement',
         'is_abstract': False,
         'properties': [
-            ('throughout', 'bool', '1.1', 'Whether or not output is required throughout simulation'),
-            ('continuous_subset', 'time.time_period', '0.N', 'Set of periods for which continuous output is required'),
-            ('sliced_subset', 'time.timesliceList', '0.1', 'Description of how slices are laid out'),
-            ],
+            ('throughout', 'bool', '1.1'),
+            ('continuous_subset', 'time.time_period', '0.N'),
+            ('sliced_subset', 'time.timesliceList', '0.1'),
+        ],
+        'doc_strings': {
+            'throughout': 'Whether or not output is required throughout simulation',
+            'continuous_subset': 'Set of periods for which continuous output is required',
+            'sliced_subset': 'Description of how slices are laid out',
+        },
         'constraints': [
             ('additional_requirements', 'hidden'),
         ]
@@ -128,15 +155,18 @@ def temporal_constraint():
         'base': 'activity.numerical_requirement',
         'is_abstract':False,
         'properties': [
-            ('required_duration', 'time.time_period', '0.1', 'Constraint on time or length of simulation'),
-            ('required_calendar', 'time.calendar', '0.1', 'Required calendar (e.g. for paleo simulations)'),
-            ('start_date', 'time.date_time', '0.1', 'Required start date'),
-            ('start_flexibility', 'time.time_period', '0.1',
-                'Amount of time before required start date that it is permissible to begin integration'),
-            ],
+            ('required_duration', 'time.time_period', '0.1'),
+            ('required_calendar', 'time.calendar', '0.1'),
+            ('start_date', 'time.date_time', '0.1'),
+            ('start_flexibility', 'time.time_period', '0.1')
+        ],
+        'doc_strings': {
+            'required_duration': 'Constraint on time or length of simulation',
+            'required_calendar': 'Required calendar (e.g. for paleo simulations)',
+            'start_date': 'Required start date',
+            'start_flexibility': 'Amount of time before required start date that it is permissible to begin integration'
+        },
         'constraints':[
             ('additional_requirements', 'hidden')
         ]
     }
-
-

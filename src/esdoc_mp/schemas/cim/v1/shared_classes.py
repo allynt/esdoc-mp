@@ -23,13 +23,18 @@ def change():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('author', 'shared.responsible_party', '0.1', 'The person that made the change.'),
-            ('date', 'datetime', '0.1', 'The date the change was implemented.'),
-            ('description', 'str', '0.1', None),
-            ('details', 'shared.change_property', '1.N', None),
-            ('name', 'str', '0.1', 'A mnemonic for describing a particular change.'),
-            ('type', 'shared.change_property_type', '0.1', None),
+            ('author', 'shared.responsible_party', '0.1'),
+            ('date', 'datetime', '0.1'),
+            ('description', 'str', '0.1'),
+            ('details', 'shared.change_property', '1.N'),
+            ('name', 'str', '0.1'),
+            ('type', 'shared.change_property_type', '0.1'),
         ],
+        'doc_strings': {
+            'author': 'The person that made the change.',
+            'date': 'The date the change was implemented.',
+            'name': 'A mnemonic for describing a particular change.',
+        },
         'decodings': [
             ('author', 'child::cim:changeAuthor'),
             ('date', 'child::cim:changeDate'),
@@ -50,9 +55,12 @@ def change_property():
         'base': 'shared.property',
         'is_abstract': False,
         'properties': [
-            ('description', 'str', '0.1', 'A text description of the change.  May be used in addition to, or instead of, the more formal description provided by the "value" attribute.'),
-            ('id', 'str', '0.1', None),
+            ('description', 'str', '0.1'),
+            ('id', 'str', '0.1')
         ],
+        'doc_strings': {
+            'description': 'A text description of the change.  May be used in addition to, or instead of, the more formal description provided by the "value" attribute.',
+        },
         'decodings': [
             ('description', 'child::cim:description'),
             ('id', 'child::cim:id'),
@@ -69,16 +77,16 @@ def citation():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('alternative_title', 'str', '0.1', None),
-            ('collective_title', 'str', '0.1', None),
-            ('location', 'str', '0.1', None),
-            ('date', 'datetime', '0.1', None),
-            ('date_type', 'str', '0.1', None),
-            ('organisation', 'str', '0.1', None),
-            ('reference', 'shared.doc_reference', '0.1', None),
-            ('role', 'str', '0.1', None),
-            ('title', 'str', '0.1', None),
-            ('type', 'str', '0.1', None),
+            ('alternative_title', 'str', '0.1'),
+            ('collective_title', 'str', '0.1'),
+            ('location', 'str', '0.1'),
+            ('date', 'datetime', '0.1'),
+            ('date_type', 'str', '0.1'),
+            ('organisation', 'str', '0.1'),
+            ('reference', 'shared.doc_reference', '0.1'),
+            ('role', 'str', '0.1'),
+            ('title', 'str', '0.1'),
+            ('type', 'str', '0.1'),
         ],
         'decodings': [
             ('alternative_title', 'child::gmd:alternateTitle/gco:CharacterString'),
@@ -105,13 +113,17 @@ def compiler():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('environment_variables', 'str', '0.1', 'The set of environment_variables used during compilation (recorded here as a single string rather than separate elements)'),
-            ('language', 'str', '0.1', None),
-            ('name', 'str', '1.1', None),
-            ('options', 'str', '0.1', 'The set of options used during compilation (recorded here as a single string rather than separate elements)'),
-            ('type', 'shared.compiler_type', '0.1', None),
-            ('version', 'str', '1.1', None),
+            ('environment_variables', 'str', '0.1'),
+            ('language', 'str', '0.1'),
+            ('name', 'str', '1.1'),
+            ('options', 'str', '0.1'),
+            ('type', 'shared.compiler_type', '0.1'),
+            ('version', 'str', '1.1'),
         ],
+        'doc_strings': {
+            'environment_variables': 'The set of environment_variables used during compilation (recorded here as a single string rather than separate elements)',
+            'options': 'The set of options used during compilation (recorded here as a single string rather than separate elements)',
+        },
         'decodings': [
             ('environment_variables', 'child::cim:compilerEnvironmentVariables'),
             ('language', 'child::cim:compilerLanguage'),
@@ -132,7 +144,7 @@ def data_source():
         'base': None,
         'is_abstract': True,
         'properties': [
-            ('purpose', 'shared.data_purpose', '0.1', None),
+            ('purpose', 'shared.data_purpose', '0.1'),
         ]
     }
 
@@ -146,11 +158,17 @@ def license():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('name', 'str', '0.1', 'The name that the license goes by (ie: "GPL")'),
-            ('contact', 'str', '0.1', 'The point of contact for access to this artifact; may be either a person or an institution.'),
-            ('description', 'str', '0.1', 'A textual description of the license; might be the full text of the license, more likely to be a brief summary'),
-            ('is_unrestricted', 'str', '0.1', 'If unrestricted="true" then the artifact can be downloaded with no restrictions (ie: there are no administrative steps for the user to deal with; code or data can be downloaded and used directly).'),
-        ]
+            ('name', 'str', '0.1'),
+            ('contact', 'str', '0.1'),
+            ('description', 'str', '0.1'),
+            ('is_unrestricted', 'str', '0.1'),
+        ],
+        'doc_strings': {
+            'name': 'The name that the license goes by (ie: "GPL")',
+            'contact': 'The point of contact for access to this artifact; may be either a person or an institution.',
+            'description': 'A textual description of the license; might be the full text of the license, more likely to be a brief summary',
+            'is_unrestricted': 'If unrestricted="true" then the artifact can be downloaded with no restrictions (ie: there are no administrative steps for the user to deal with; code or data can be downloaded and used directly).',
+        }
     }
 
 
@@ -163,19 +181,22 @@ def machine():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('cores_per_processor', 'int', '0.1', None),
-            ('description', 'str', '0.1', None),
-            ('interconnect', 'shared.interconnect_type', '0.1', None),
-            ('name', 'str', '1.1', None),
-            ('libraries', 'str', '0.N', 'The libraries residing on this machine.'),
-            ('location', 'str', '0.1', None),
-            ('maximum_processors', 'int', '0.1', None),
-            ('operating_system', 'shared.operating_system_type', '0.1', None),
-            ('system', 'str', '0.1', None),
-            ('type', 'shared.machine_type', '0.1', None),
-            ('vendor', 'shared.machine_vendor_type', '0.1', None),
-            ('processor_type', 'shared.processor_type', '0.1', None),
+            ('cores_per_processor', 'int', '0.1'),
+            ('description', 'str', '0.1'),
+            ('interconnect', 'shared.interconnect_type', '0.1'),
+            ('name', 'str', '1.1'),
+            ('libraries', 'str', '0.N'),
+            ('location', 'str', '0.1'),
+            ('maximum_processors', 'int', '0.1'),
+            ('operating_system', 'shared.operating_system_type', '0.1'),
+            ('system', 'str', '0.1'),
+            ('type', 'shared.machine_type', '0.1'),
+            ('vendor', 'shared.machine_vendor_type', '0.1'),
+            ('processor_type', 'shared.processor_type', '0.1'),
         ],
+        'doc_strings': {
+            'libraries': 'The libraries residing on this machine.',
+        },
         'decodings': [
             ('cores_per_processor', 'child::cim:machineCoresPerProcessor'),
             ('description', 'child::cim:machineDescription'),
@@ -202,8 +223,8 @@ def machine_compiler_unit():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('compilers', 'shared.compiler', '0.N', None),
-            ('machine', 'shared.machine', '1.1', None),
+            ('compilers', 'shared.compiler', '0.N'),
+            ('machine', 'shared.machine', '1.1'),
         ],
         'decodings': [
             ('compilers', 'child::cim:compiler'),
@@ -222,12 +243,12 @@ def platform():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('meta', 'shared.doc_meta_info', '1.1', None),
-            ('contacts', 'shared.responsible_party', '0.N', None),
-            ('description', 'str', '0.1', None),
-            ('long_name', 'str', '0.1', None),
-            ('short_name', 'str', '1.1', None),
-            ('units', 'shared.machine_compiler_unit', '1.N', None),
+            ('meta', 'shared.doc_meta_info', '1.1'),
+            ('contacts', 'shared.responsible_party', '0.N'),
+            ('description', 'str', '0.1'),
+            ('long_name', 'str', '0.1'),
+            ('short_name', 'str', '1.1'),
+            ('units', 'shared.machine_compiler_unit', '1.N'),
         ],
         'decodings': [
             ('meta', 'self::cim:platform'),
@@ -238,7 +259,7 @@ def platform():
             ('units', 'child::cim:unit'),
         ]
     }
-    
+
 
 def property():
     """A simple name/value pair representing a property of some entity or other.
@@ -249,8 +270,8 @@ def property():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('name', 'str', '0.1', None),
-            ('value', 'str', '0.1', None),
+            ('name', 'str', '0.1'),
+            ('value', 'str', '0.1'),
         ],
         'decodings': [
             ('name', 'child::cim:name'),
@@ -268,13 +289,13 @@ def responsible_party():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('abbreviation', 'str', '0.1', None),
-            ('address', 'str', '0.1', None),
-            ('email', 'str', '0.1', None),
-            ('individual_name', 'str', '0.1', None),
-            ('organisation_name', 'str', '0.1', None),
-            ('role', 'str', '0.1', None),
-            ('url', 'str', '0.1', None),
+            ('abbreviation', 'str', '0.1'),
+            ('address', 'str', '0.1'),
+            ('email', 'str', '0.1'),
+            ('individual_name', 'str', '0.1'),
+            ('organisation_name', 'str', '0.1'),
+            ('role', 'str', '0.1'),
+            ('url', 'str', '0.1'),
         ],
         'decodings': [
             ('abbreviation', 'child::cim:abbreviation'),
@@ -301,11 +322,15 @@ def standard():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('name', 'str', '1.1', 'The name of the standard'),
-            ('version', 'str', '0.1', 'The version of the standard'),
-            ('description', 'str', '0.1', 'The version of the standard'),
-
+            ('name', 'str', '1.1'),
+            ('version', 'str', '0.1'),
+            ('description', 'str', '0.1'),
         ],
+        'doc_strings': {
+            'name': 'The name of the standard',
+            'version': 'The version of the standard',
+            'description': 'The version of the standard'
+        },
         'decodings': [
             ('name', 'child::cim:name'),
             ('version', 'child::cim:version'),
@@ -323,10 +348,13 @@ def standard_name():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('is_open', 'bool', '1.1', None),
-            ('value', 'str', '1.1', None),
-            ('standards', 'shared.standard', '0.N', 'Details of the standard being used.'),
+            ('is_open', 'bool', '1.1'),
+            ('value', 'str', '1.1'),
+            ('standards', 'shared.standard', '0.N'),
         ],
+        'doc_strings': {
+            'standards': 'Details of the standard being used.'
+        },
         'decodings': [
             ('is_open', '@open'),
             ('value', '@value'),

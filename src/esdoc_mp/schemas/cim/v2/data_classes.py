@@ -21,13 +21,23 @@ def dataset():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('dataset_author', 'linked_to(shared.party)', '0.N', 'Creator of the dataset'),
-            ('availability', 'shared.onlineResource', '0.N', 'Where the data is located, and how it is accessed'),
-            ('description', 'str', '0.1', 'Textural description of dataset'),
-            ('meta', 'shared.meta', '1.1', 'Metadata describing the creation of this dataset description document.'),
-            ('name', 'str', '1.1', 'Name of dataset'),
-            ('produced_by', 'linked_to(activity.simulation)', '0.1', 'Makes a link back to originating activity'),
-            ('references', 'shared.citation', '0.N', 'Relevant reference document'),
-            ('related_to_dataset', 'linked_to(data.dataset)', '0.N', 'Related dataset'),
+            ('dataset_author', 'linked_to(shared.party)', '0.N'),
+            ('availability', 'shared.onlineResource', '0.N'),
+            ('description', 'str', '0.1'),
+            ('meta', 'shared.meta', '1.1'),
+            ('name', 'str', '1.1'),
+            ('produced_by', 'linked_to(activity.simulation)', '0.1'),
+            ('references', 'shared.citation', '0.N'),
+            ('related_to_dataset', 'linked_to(data.dataset)', '0.N')
         ],
+        'doc_strings': {
+            'dataset_author': 'Creator of the dataset',
+            'availability': 'Where the data is located, and how it is accessed',
+            'description': 'Textural description of dataset',
+            'meta': 'Metadata describing the creation of this dataset description document.',
+            'name': 'Name of dataset',
+            'produced_by': 'Makes a link back to originating activity',
+            'references': 'Relevant reference document',
+            'related_to_dataset': 'Related dataset'
+        }
     }

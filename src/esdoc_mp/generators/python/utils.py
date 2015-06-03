@@ -430,7 +430,9 @@ def get_module_file_name(name):
 
 
 def format(o):
-    """Pythonizes ontology names."""
+    """Pythonizes ontology names.
+
+    """
     o.op_name = get_ontology_name(o)
     o.op_version = get_ontology_version(o)
 

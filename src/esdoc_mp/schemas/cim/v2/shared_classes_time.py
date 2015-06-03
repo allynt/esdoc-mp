@@ -24,11 +24,17 @@ def calendar():
         'is_abstract' : False,
         'pstr':('%s',('cal_type',)),
         'properties' : [
-            ('description', 'str', '0.1', 'Extra information about the calendar'),
-            ('cal_type','time.calendar_types','1.1','Type of calendar used'),
-            ('name','str','0.1','Can be used to name a special calendar type'),
-            ('month_lengths','int','0.N','Used for special calendars to provide month lengths'),
+            ('description', 'str', '0.1'),
+            ('cal_type', 'time.calendar_types', '1.1'),
+            ('name', 'str', '0.1'),
+            ('month_lengths', 'int', '0.N')
         ],
+        'doc_strings': {
+            'description': 'Extra information about the calendar',
+            'cal_type': 'Type of calendar used',
+            'name': 'Can be used to name a special calendar type',
+            'month_lengths': 'Used for special calendars to provide month lengths'
+        }
     }
 
 
@@ -44,9 +50,13 @@ def date_time():
         'base': None,
         'pstr': ('%s(offset %s)',('value','offset')),
         'properties':[
-            ('value','str','1.1','Date or time - some of (from left to right): yyyy-mm-dd:hh:mm:ss'),
-            ('offset','bool','0.1','Date is offset from start of an integration'),
+            ('value', 'str', '1.1'),
+            ('offset', 'bool', '0.1')
         ],
+        'doc_strings': {
+            'value': 'Date or time - some of (from left to right): yyyy-mm-dd:hh:mm:ss',
+            'offset': 'Date is offset from start of an integration',
+        }
     }
 
 
@@ -62,8 +72,11 @@ def datetime_set():
         'is_abstract': True,
         'base': None,
         'properties': [
-            ('length','int','1.1','Number of times in set'),
-        ]
+            ('length', 'int', '1.1')
+        ],
+        'doc_strings': {
+            'length': 'Number of times in set'
+        }
     }
 
 
@@ -76,8 +89,11 @@ def irregular_date_set():
         'is_abstract':False,
         'base': 'shared.datetime_set',
         'properties': [
-            ('date_set','str','1.1','Set of dates, comma separated yyyy-mm-dd'),
+            ('date_set', 'str', '1.1')
         ],
+        'doc_strings': {
+            'date_set': 'Set of dates, comma separated yyyy-mm-dd'
+        }
     }
 
 
@@ -91,15 +107,22 @@ def regular_time_set():
         'base': 'shared.datetime_set',
         'pstr':('%s times from %s at %s intervals',('length','start_date','increment')),
         'properties': [
-            ('start_date','time.date_time','1.1','Beginning of time set'),
-            ('length','int','1.1','Number of times in set'),
-            ('increment','time.time_period','1.1','Interval between members of set'),
+            ('start_date', 'time.date_time', '1.1'),
+            ('length', 'int', '1.1'),
+            ('increment', 'time.time_period', '1.1')
         ],
+        'doc_strings': {
+            'start_date': 'Beginning of time set',
+            'length': 'Number of times in set',
+            'increment': 'Interval between members of set'
+        }
     }
 
 
 def time_period():
-    """Provides a time interval description."""
+    """Provides a time interval description.
+
+    """
     # Simplify all those things we had in CIM 1.x ... they're all in here ...
     # Should be XML serialised using an EX_TemporalExtent.
     return {
@@ -108,12 +131,19 @@ def time_period():
         'base':None,
         'pstr':('%s %s',('length','units')),
         'properties': [
-            ('length','int','1.1','Duration of the time period'),
-            ('units','time.time_units','1.1','Appropriate time units'),
-            ('calendar','time.calendar','0.1','Calendar, default is standard aka gregorian'),
-            ('date','time.date_time','0.1','Optional start/end date of time period'),
-            ('date_type','time.period_date_types','1.1','Describes how the date is used to define the period'),
-        ]
+            ('length', 'int', '1.1'),
+            ('units', 'time.time_units', '1.1'),
+            ('calendar', 'time.calendar', '0.1'),
+            ('date', 'time.date_time', '0.1'),
+            ('date_type', 'time.period_date_types', '1.1')
+        ],
+        'doc_strings': {
+            'length': 'Duration of the time period',
+            'units': 'Appropriate time units',
+            'calendar': 'Calendar, default is standard aka gregorian',
+            'date': 'Optional start/end date of time period',
+            'date_type': 'Describes how the date is used to define the period'
+        }
     }
 
 
@@ -128,7 +158,11 @@ def timeslice_list():
         'base': None,
         'is_abstract':False,
         'properties': [
-            ('members','shared.numberArray','1.1','Values as integers'),
-            ('units','time.slicetimeUnits','1.1','Interval against which members refer'),
-        ]
+            ('members','shared.numberArray','1.1'),
+            ('units','time.slicetimeUnits','1.1')
+        ],
+        'doc_strings': {
+            'members': 'Values as integers',
+            'units': 'Interval against which members refer'
+        }
     }

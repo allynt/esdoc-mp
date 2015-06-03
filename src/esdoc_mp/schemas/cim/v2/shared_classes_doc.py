@@ -21,11 +21,14 @@ def cim_link():
         'base': 'shared.online_resource',
         'is_abstract': False,
         'properties':  [
-            ('remote_type', 'str', '1.1', 'Type of remote record'),
+            ('remote_type', 'str', '1.1')
         ],
-         'constraints':  [
-             ('description', 'value', 'Link to CIM document, accessible at the URL')
-         ]
+        'doc_strings': {
+            'remote_type': 'Type of remote record'
+        },
+        'constraints':  [
+            ('description', 'value', 'Link to CIM document, accessible at the URL')
+        ]
     }
 
 
@@ -39,9 +42,13 @@ def cim_text():
         'is_abstract': False,
         'pstr': ('%s',('content',)),
         'properties': [
-            ('content', 'str', '1.1', 'Raw content (including markup)'),
-            ('content_type', 'shared.textCode', '1.1', 'Type of content')
-        ]
+            ('content', 'str', '1.1'),
+            ('content_type', 'shared.textCode', '1.1')
+        ],
+        'doc_strings': {
+            'content': 'Raw content (including markup)',
+            'content_type': 'Type of content'
+        }
     }
 
 
@@ -55,14 +62,23 @@ def meta():
         'is_abstract': False,
         'doc': 'Document metadata',
         'properties': [
-            ('author', 'linked_to(shared.party)', '1.1', 'The document author'),
-            ('completeness', 'str', '0.1', 'Assessment of completeness of this document'),
-            ('create_date', 'datetime', '1.1', 'Date upon which the instance was created'),
-            ('quality', 'str', '0.1', 'Assessment of quality of this document'),
-            ('uid', 'uuid', '1.1', 'Universal document identifier.'),
-            ('update_date', 'datetime', '1.1', 'Date upon which the instance was last updated'),
-            ('version', 'int', '1.1', 'Document version')
+            ('author', 'linked_to(shared.party)', '1.1'),
+            ('completeness', 'str', '0.1'),
+            ('create_date', 'datetime', '1.1'),
+            ('quality', 'str', '0.1'),
+            ('uid', 'uuid', '1.1'),
+            ('update_date', 'datetime', '1.1'),
+            ('version', 'int', '1.1')
         ],
+        'doc_strings': {
+            'author': 'The document author',
+            'completeness': 'Assessment of completeness of this document',
+            'create_date': 'Date upon which the instance was created',
+            'quality': 'Assessment of quality of this document',
+            'uid': 'Universal document identifier.',
+            'update_date': 'Date upon which the instance was last updated',
+            'version': 'Document version'
+        },
         'notes_for_review': [
             ('Is completeness property relevant'),
             ('Is quality property relevant')

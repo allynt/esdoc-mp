@@ -23,11 +23,17 @@ def activity():
         'base': None,
         'is_abstract': True,
         'properties': [
-            ('funding_sources', 'str', '0.N', 'The entities that funded this activity.'),
-            ('projects', 'activity.project_type', '0.N', 'The project(s) that this activity is associated with (ie: CMIP5, AMIP, etc).'),
-            ('rationales', 'str', '0.N', 'For what purpose is this activity being performed?'),
-            ('responsible_parties', 'shared.responsible_party', '0.N', 'The point of contact(s) for this activity.This includes, among others, the principle investigator.'),
+            ('funding_sources', 'str', '0.N'),
+            ('projects', 'activity.project_type', '0.N'),
+            ('rationales', 'str', '0.N'),
+            ('responsible_parties', 'shared.responsible_party', '0.N'),
         ],
+        'doc_strings': {
+            'funding_sources': 'The entities that funded this activity.',
+            'projects': 'The project(s) that this activity is associated with (ie: CMIP5, AMIP, etc).',
+            'rationales': 'For what purpose is this activity being performed?',
+            'responsible_parties': 'The point of contact(s) for this activity.This includes, among others, the principle investigator.',
+        },
         'decodings': [
             ('funding_sources', 'child::cim:fundingSource'),
             ('projects', 'child::cim:project/@value'),
@@ -46,15 +52,21 @@ def conformance():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('description', 'str', '0.1', None),
-            ('frequency', 'activity.frequency_type', '0.1', None),
-            ('is_conformant', 'bool', '1.1', 'Records whether or not this conformance satisfies the requirement.  A simulation should have at least one conformance mapping to every experimental requirement.  If a simulation satisfies the requirement - the usual case - then conformant should have a value of true.  If conformant is true but there is no reference to a source for the conformance, then we can assume that the simulation conforms to the requirement _naturally_, that is without having to modify code or inputs. If a simulation does not conform to a requirement then conformant should be set to false.'),
-            ('requirements', 'activity.numerical_requirement', '0.N', 'Points to the NumericalRequirement that the simulation in question is conforming to.'),
-            ('requirements_references', 'shared.doc_reference', '0.N', None),
-            ('sources', 'shared.data_source', '0.N', 'Points to the DataSource used to conform to a particular Requirement.   This may be part of an activity::simulation or a software::component.  It can be either a DataObject or a SoftwareComponent or a ComponentProperty.  It could also be by using particular attributes of, say, a SoftwareComponent, but in that case the recommended practise is to reference the component and add appropriate text in the conformance description attribute.'),
-            ('sources_references', 'shared.doc_reference', '0.N', None),
-            ('type', 'activity.conformance_type', '0.1', 'Describes the method that this simulation conforms to an experimental requirement (in case it is not specified by the change property of the reference to the source of this conformance)'),
+            ('description', 'str', '0.1'),
+            ('frequency', 'activity.frequency_type', '0.1'),
+            ('is_conformant', 'bool', '1.1'),
+            ('requirements', 'activity.numerical_requirement', '0.N'),
+            ('requirements_references', 'shared.doc_reference', '0.N'),
+            ('sources', 'shared.data_source', '0.N'),
+            ('sources_references', 'shared.doc_reference', '0.N'),
+            ('type', 'activity.conformance_type', '0.1'),
         ],
+        'doc_strings': {
+            'is_conformant': 'Records whether or not this conformance satisfies the requirement.  A simulation should have at least one conformance mapping to every experimental requirement.  If a simulation satisfies the requirement - the usual case - then conformant should have a value of true.  If conformant is true but there is no reference to a source for the conformance, then we can assume that the simulation conforms to the requirement _naturally_, that is without having to modify code or inputs. If a simulation does not conform to a requirement then conformant should be set to false.',
+            'requirements': 'Points to the NumericalRequirement that the simulation in question is conforming to.',
+            'sources': 'Points to the DataSource used to conform to a particular Requirement.   This may be part of an activity::simulation or a software::component.  It can be either a DataObject or a SoftwareComponent or a ComponentProperty.  It could also be by using particular attributes of, say, a SoftwareComponent, but in that case the recommended practise is to reference the component and add appropriate text in the conformance description attribute.',
+            'type': 'Describes the method that this simulation conforms to an experimental requirement (in case it is not specified by the change property of the reference to the source of this conformance)'
+        },
         'decodings': [
             ('description', 'child::cim:description'),
             ('frequency', 'child::cim:frequency'),
@@ -86,16 +98,19 @@ def downscaling_simulation():
         'base': 'activity.numerical_activity',
         'is_abstract': True,
         'properties': [
-            ('meta', 'shared.doc_meta_info', '1.1', None),
-            ('calendar', 'shared.calendar', '1.1', None),
-            ('inputs', 'software.coupling', '0.N', 'Implemented as a mapping from a source to target; can be a forcing file, a boundary condition, etc.'),
-            ('outputs', 'data.data_object', '0.N', None),
-            ('output_references', 'shared.doc_reference', '0.N', None),
-            ('downscaling_id', 'str', '0.1', None),
-            ('downscaled_from', 'shared.data_source', '1.1', None),
-            ('downscaled_from_reference', 'shared.doc_reference', '1.1', None),
-            ('downscaling_type', 'activity.downscaling_type', '0.1', None),
+            ('meta', 'shared.doc_meta_info', '1.1'),
+            ('calendar', 'shared.calendar', '1.1'),
+            ('inputs', 'software.coupling', '0.N'),
+            ('outputs', 'data.data_object', '0.N'),
+            ('output_references', 'shared.doc_reference', '0.N'),
+            ('downscaling_id', 'str', '0.1'),
+            ('downscaled_from', 'shared.data_source', '1.1'),
+            ('downscaled_from_reference', 'shared.doc_reference', '1.1'),
+            ('downscaling_type', 'activity.downscaling_type', '0.1'),
         ],
+        'doc_strings': {
+            'inputs': 'Implemented as a mapping from a source to target; can be a forcing file, a boundary condition, etc.',
+        },
         'decodings': [
             ('meta', 'self::cim:downscalingSimulation'),
             ('calendar', 'child::cim:calendar/cim:daily-360', 'shared.daily_360'),
@@ -126,12 +141,15 @@ def ensemble():
         'base': 'activity.numerical_activity',
         'is_abstract': False,
         'properties': [
-            ('meta', 'shared.doc_meta_info', '1.1', None),
-            ('members', 'activity.ensemble_member', '1.N', None),
-            ('types', 'activity.ensemble_type', '1.N', None),
-            ('outputs', 'shared.data_source', '0.N', 'Points to the DataSource used to conform to a particular Requirement.   This may be part of an activity::simulation or a software::component.  It can be either a DataObject or a SoftwareComponent or a ComponentProperty.  It could also be by using particular attributes of, say, a SoftwareComponent, but in that case the recommended practise is to reference the component and add appropriate text in the conformance description attribute.'),
-            ('outputs_references', 'shared.doc_reference', '0.N', None),
+            ('meta', 'shared.doc_meta_info', '1.1'),
+            ('members', 'activity.ensemble_member', '1.N'),
+            ('types', 'activity.ensemble_type', '1.N'),
+            ('outputs', 'shared.data_source', '0.N'),
+            ('outputs_references', 'shared.doc_reference', '0.N'),
         ],
+        'doc_strings': {
+            'outputs': 'Points to the DataSource used to conform to a particular Requirement.   This may be part of an activity::simulation or a software::component.  It can be either a DataObject or a SoftwareComponent or a ComponentProperty.  It could also be by using particular attributes of, say, a SoftwareComponent, but in that case the recommended practise is to reference the component and add appropriate text in the conformance description attribute.',
+        },
         'decodings': [
             ('meta', 'self::cim:ensemble'),
             ('members', 'child::cim:ensembleMember'),
@@ -156,11 +174,11 @@ def ensemble_member():
         'base': 'activity.numerical_activity',
         'is_abstract': False,
         'properties': [
-            ('ensemble', 'activity.ensemble', '0.1', None),
-            ('ensemble_reference', 'shared.doc_reference', '0.1', None),
-            ('ensemble_ids', 'shared.standard_name', '0.N', None),
-            ('simulation', 'activity.simulation', '0.1', None),
-            ('simulation_reference', 'shared.doc_reference', '0.1', None),
+            ('ensemble', 'activity.ensemble', '0.1'),
+            ('ensemble_reference', 'shared.doc_reference', '0.1'),
+            ('ensemble_ids', 'shared.standard_name', '0.N'),
+            ('simulation', 'activity.simulation', '0.1'),
+            ('simulation_reference', 'shared.doc_reference', '0.1'),
         ],
         'decodings': [
             ('ensemble', 'child::cim:ensemble/cim:ensemble'),
@@ -181,14 +199,12 @@ def experiment():
         'base': 'activity.activity',
         'is_abstract': True,
         'properties': [
-            ('measurement_campaigns', 'activity.measurement_campaign', '0.N', None),
-            ('requires', 'activity.numerical_activity', '0.N', None),
-            ('requires_references', 'shared.doc_reference', '0.N', None),
-            ('generates', 'str', '0.N', None),
-            ('supports', 'str', '0.N', None),
-#            ('generates', 'activity.numerical_experiment', '0.N', None),
-#            ('supports', 'activity.experiment', '0.N', None),
-            ('supports_references', 'shared.doc_reference', '0.N', None),
+            ('measurement_campaigns', 'activity.measurement_campaign', '0.N'),
+            ('requires', 'activity.numerical_activity', '0.N'),
+            ('requires_references', 'shared.doc_reference', '0.N'),
+            ('generates', 'str', '0.N'),
+            ('supports', 'str', '0.N'),
+            ('supports_references', 'shared.doc_reference', '0.N'),
         ],
     }
 
@@ -202,8 +218,8 @@ def experiment_relationship():
         'base': 'shared.relationship',
         'is_abstract': False,
         'properties': [
-            ('target', 'activity.experiment_relationship_target', '1.1', None),
-            ('type', 'activity.experiment_relationship_type', '1.1', None),
+            ('target', 'activity.experiment_relationship_target', '1.1'),
+            ('type', 'activity.experiment_relationship_type', '1.1'),
         ],
     }
 
@@ -217,8 +233,8 @@ def experiment_relationship_target():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('reference', 'shared.doc_reference', '0.1', None),
-            ('numerical_experiment', 'activity.numerical_experiment', '0.1', None),
+            ('reference', 'shared.doc_reference', '0.1'),
+            ('numerical_experiment', 'activity.numerical_experiment', '0.1'),
         ],
     }
 
@@ -246,10 +262,7 @@ def measurement_campaign():
         'base': 'activity.activity',
         'is_abstract': False,
         'properties': [
-            # todo - clarify type
-            ('duration', 'int', '1.1', None),
-            # todo - resolve circular dependencies.
-            #('experiments', 'activity.experiment', '1.N', None),
+            ('duration', 'int', '1.1'),
         ],
     }
 
@@ -263,12 +276,17 @@ def numerical_activity():
         'base': 'activity.activity',
         'is_abstract': True,
         'properties': [
-            ('description', 'str', '0.1', 'A free-text description of the experiment.'),
-            ('long_name', 'str', '0.1', 'The name of the experiment (that is recognized externally).'),
-            ('short_name', 'str', '1.1', 'The name of the experiment (that is used internally).'),
-            ('supports', 'activity.experiment', '0.N', None),
-            ('supports_references', 'shared.doc_reference', '0.N', None),
+            ('description', 'str', '0.1'),
+            ('long_name', 'str', '0.1'),
+            ('short_name', 'str', '1.1'),
+            ('supports', 'activity.experiment', '0.N'),
+            ('supports_references', 'shared.doc_reference', '0.N'),
         ],
+        'doc_strings': {
+            'description': 'A free-text description of the experiment.',
+            'long_name': 'The name of the experiment (that is recognized externally).',
+            'short_name': 'The name of the experiment (that is used internally).'
+        },
         'decodings': [
             ('description', 'child::cim:description'),
             ('long_name', 'child::cim:longName'),
@@ -288,13 +306,20 @@ def numerical_experiment():
         'base': 'activity.experiment',
         'is_abstract': False,
         'properties': [
-            ('meta', 'shared.doc_meta_info', '1.1', None),
-            ('description', 'str', '0.1', 'A free-text description of the experiment.'),
-            ('experiment_id', 'str', '0.1', 'An experiment ID takes the form <number>.<number>[-<letter>].'),
-            ('long_name', 'str', '0.1', 'The name of the experiment (that is recognized externally).'),
-            ('requirements', 'activity.numerical_requirement', '0.N', 'The name of the experiment (that is used internally).'),
-            ('short_name', 'str', '1.1', 'The name of the experiment (that is used internally).'),
+            ('meta', 'shared.doc_meta_info', '1.1'),
+            ('description', 'str', '0.1'),
+            ('experiment_id', 'str', '0.1'),
+            ('long_name', 'str', '0.1'),
+            ('requirements', 'activity.numerical_requirement', '0.N'),
+            ('short_name', 'str', '1.1'),
         ],
+        'doc_strings': {
+            'description': 'A free-text description of the experiment.',
+            'experiment_id': 'An experiment ID takes the form <number>.<number>[-<letter>].',
+            'long_name': 'The name of the experiment (that is recognized externally).',
+            'requirements': 'The name of the experiment (that is used internally).',
+            'short_name': 'The name of the experiment (that is used internally).',
+        },
         'decodings': [
             ('meta', 'self::cim:numericalExperiment'),
             ('description', 'child::cim:description'),
@@ -326,14 +351,17 @@ def numerical_requirement():
         'base': None,
         'is_abstract': True,
         'properties': [
-            ('description', 'str', '0.1', None),
-            ('id', 'str', '0.1', None),
-            ('name', 'str', '1.1', None),
-            ('options', 'activity.numerical_requirement_option', '0.N', None),
-            ('requirement_type', 'str', '1.1', 'Type of reqirement to which the experiment must conform.'),
-            ('source', 'shared.data_source', '0.1', None),
-            ('source_reference', 'shared.doc_reference', '0.1', None),
+            ('description', 'str', '0.1'),
+            ('id', 'str', '0.1'),
+            ('name', 'str', '1.1'),
+            ('options', 'activity.numerical_requirement_option', '0.N'),
+            ('requirement_type', 'str', '1.1'),
+            ('source', 'shared.data_source', '0.1'),
+            ('source_reference', 'shared.doc_reference', '0.1'),
         ],
+        'doc_strings': {
+            'requirement_type': 'Type of reqirement to which the experiment must conform.',
+        },
         'decodings': [
             ('description', 'child::cim:description'),
             ('id', 'child::cim:id'),
@@ -359,12 +387,15 @@ def numerical_requirement_option():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('description', 'str', '0.1', None),
-            ('id', 'str', '0.1', None),
-            ('name', 'str', '1.1', None),
-            ('sub_options', 'activity.numerical_requirement_option', '0.N', None),
-            ('relationship', 'str', '0.1', 'Describes how this optional (child) requirement is related to its sibling requirements.  For example, a NumericalRequirement could consist of a set of optional requirements each with an "OR" relationship meaning use this boundary condition _or_ that one.'),
+            ('description', 'str', '0.1'),
+            ('id', 'str', '0.1'),
+            ('name', 'str', '1.1'),
+            ('sub_options', 'activity.numerical_requirement_option', '0.N'),
+            ('relationship', 'str', '0.1'),
         ],
+        'doc_strings': {
+            'relationship': 'Describes how this optional (child) requirement is related to its sibling requirements.  For example, a NumericalRequirement could consist of a set of optional requirements each with an "OR" relationship meaning use this boundary condition _or_ that one.'
+        },
         'decodings': [
             ('description', 'child::cim:description'),
             ('id', 'child::cim:id'),
@@ -432,8 +463,8 @@ def spatio_temporal_constraint():
             ('requirement_type', 'spatioTemporalConstraint'),
         ],
         'properties': [
-            ('date_range', 'shared.date_range', '0.1', None),
-            ('spatial_resolution', 'activity.resolution_type', '0.1', None),
+            ('date_range', 'shared.date_range', '0.1'),
+            ('spatial_resolution', 'activity.resolution_type', '0.1'),
         ],
         'decodings': [
             ('date_range', 'child::cim:requiredDuration/cim:closedDateRange', 'shared.closed_date_range'),
@@ -477,25 +508,29 @@ def simulation():
         'base': 'activity.numerical_activity',
         'is_abstract': True,
         'properties': [
-            ('authors', 'str', '0.1', 'List of associated authors.'),
-            # TODO implement : Daily-360 | RealCalendar | PerpetualPeriod
-            ('calendar', 'shared.calendar', '1.1', None),
-            ('control_simulation', 'activity.simulation', '0.1', 'Points to a simulation being used as the basis (control) run.  Note that only "derived" simulations can describe something as being control; a simulation should not know if it is being used itself as the control of some other run.'),
-            ('control_simulation_reference', 'shared.doc_reference', '0.1', None),
-            # TODO implement: Conformance | PhysicalModification
-            ('conformances', 'activity.conformance', '0.N', None),
-            ('deployments', 'software.deployment', '0.N', None),
-            # TODO implement: Coupling
-            ('inputs', 'software.coupling', '0.N', 'Implemented as a mapping from a source to target; can be a forcing file, a boundary condition, etc.'),
-            ('outputs', 'data.data_object', '0.N', None),
-            ('output_references', 'shared.doc_reference', '0.N', None),
-            ('restarts', 'data.data_object', '0.N', None),
-            ('restart_references', 'shared.doc_reference', '0.N', None),
-            ('simulation_id', 'str', '0.1', None),
-            ('spinup_date_range', 'shared.closed_date_range', '0.1', 'The date range that a simulation is engaged in spinup.'),
-            ('spinup_simulation', 'activity.simulation', '0.1', 'The (external) simulation used during "spinup."  Note that this element can be used in conjuntion with spinupDateRange.  If a simulation has the latter but not the former, then one can assume that the simulation is performing its own spinup.'),
-            ('spinup_simulation_reference', 'shared.doc_reference', '0.1', None),
+            ('authors', 'str', '0.1'),
+            ('calendar', 'shared.calendar', '1.1'),
+            ('control_simulation', 'activity.simulation', '0.1'),
+            ('control_simulation_reference', 'shared.doc_reference', '0.1'),
+            ('conformances', 'activity.conformance', '0.N'),
+            ('deployments', 'software.deployment', '0.N'),
+            ('inputs', 'software.coupling', '0.N'),
+            ('outputs', 'data.data_object', '0.N'),
+            ('output_references', 'shared.doc_reference', '0.N'),
+            ('restarts', 'data.data_object', '0.N'),
+            ('restart_references', 'shared.doc_reference', '0.N'),
+            ('simulation_id', 'str', '0.1'),
+            ('spinup_date_range', 'shared.closed_date_range', '0.1'),
+            ('spinup_simulation', 'activity.simulation', '0.1'),
+            ('spinup_simulation_reference', 'shared.doc_reference', '0.1'),
         ],
+        'doc_strings': {
+            'authors': 'List of associated authors.',
+            'control_simulation': 'Points to a simulation being used as the basis (control) run.  Note that only "derived" simulations can describe something as being control; a simulation should not know if it is being used itself as the control of some other run.',
+            'inputs': 'Implemented as a mapping from a source to target; can be a forcing file, a boundary condition, etc.',
+            'spinup_date_range': 'The date range that a simulation is engaged in spinup.',
+            'spinup_simulation': 'The (external) simulation used during "spinup."  Note that this element can be used in conjuntion with spinupDateRange.  If a simulation has the latter but not the former, then one can assume that the simulation is performing its own spinup.',
+        },
         'decodings': [
             ('calendar', 'child::cim:calendar/cim:daily-360', 'shared.daily_360'),
             ('calendar', 'child::cim:calendar/cim:perpetualPeriod', 'shared.perpetual_period'),
@@ -522,11 +557,14 @@ def simulation_composite():
         'base': 'activity.simulation',
         'is_abstract': False,
         'properties': [
-            ('meta', 'shared.doc_meta_info', '1.1', None),
-            ('child', 'activity.simulation', '0.N', None),
-            ('date_range', 'shared.date_range', '1.1', None),
-            ('rank', 'int', '1.1', 'Position of a simulation in the SimulationComposite timeline. eg:  Is this the first (rank = 1) or second (rank = 2) simulation'),
+            ('meta', 'shared.doc_meta_info', '1.1'),
+            ('child', 'activity.simulation', '0.N'),
+            ('date_range', 'shared.date_range', '1.1'),
+            ('rank', 'int', '1.1'),
         ],
+        'doc_strings': {
+            'rank': 'Position of a simulation in the SimulationComposite timeline. eg:  Is this the first (rank = 1) or second (rank = 2) simulation'
+        },
         'decodings': [
             ('meta', 'self::cim:simulationRun'),
             ('child', 'child::cim:child', 'activity.simulation_run'),
@@ -547,8 +585,8 @@ def simulation_relationship():
         'base': 'shared.relationship',
         'is_abstract': False,
         'properties': [
-            ('target', 'activity.simulation_relationship_target', '1.1', None),
-            ('type', 'activity.simulation_relationship_type', '1.1', None),
+            ('target', 'activity.simulation_relationship_target', '1.1'),
+            ('type', 'activity.simulation_relationship_type', '1.1'),
         ],
     }
 
@@ -562,8 +600,8 @@ def simulation_relationship_target():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('reference', 'shared.doc_reference', '0.1', None),
-            ('target', 'activity.simulation_type', '0.1', None),
+            ('reference', 'shared.doc_reference', '0.1'),
+            ('target', 'activity.simulation_type', '0.1'),
         ],
     }
 
@@ -577,10 +615,10 @@ def simulation_run():
         'base': 'activity.simulation',
         'is_abstract': False,
         'properties': [
-            ('meta', 'shared.doc_meta_info', '1.1', None),
-            ('date_range', 'shared.date_range', '1.1', None),
-            ('model', 'software.model_component', '0.1', None),
-            ('model_reference', 'shared.doc_reference', '0.1', None),
+            ('meta', 'shared.doc_meta_info', '1.1'),
+            ('date_range', 'shared.date_range', '1.1'),
+            ('model', 'software.model_component', '0.1'),
+            ('model_reference', 'shared.doc_reference', '0.1'),
         ],
         'decodings': [
             ('meta', 'self::cim:simulationRun'),

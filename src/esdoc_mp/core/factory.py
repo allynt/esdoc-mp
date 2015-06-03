@@ -21,26 +21,6 @@ from esdoc_mp.core import Property
 
 
 
-def create_ontology_schema(name, version):
-    """Factory method to instantiate an ontology schema instance.
-
-    :param name: Schema name.
-    :param version: Schema version.
-    :type name: str
-    :type version: str
-    :returns: An ontology schema.
-    :rtype: dict
-
-    """
-    from esdoc_mp.schemas import schemas as ontology_schemas
-
-    for schema in ontology_schemas:
-        if schema['name'].lower() == name.lower() and \
-           schema['version'].lower() == version.lower():
-            return schema
-    return None
-
-
 def _get_type_definition(func):
     """Returns a type definition instantiated from a module function.
 
@@ -78,7 +58,13 @@ def _get_class_properties(class_):
 
     """
     result = []
-    for name, type_name, cardinality, doc_string in class_.get('properties', []):
+    doc_strings = class_.get('doc_strings', dict())
+    for prop in class_.get('properties', []):
+        if len(prop) != 3:
+            print class_['name'], prop[0]
+
+    for name, type_name, cardinality in class_.get('properties', []):
+        doc_string = doc_strings.get(name, None)
         result.append(Property(name, type_name, cardinality, doc_string))
 
     return result
@@ -161,3 +147,23 @@ def create_ontology(schema):
                     schema['version'],
                     schema['doc'],
                     _get_ontology_packages(schema))
+
+
+def create_ontology_schema(name, version):
+    """Factory method to instantiate an ontology schema instance.
+
+    :param name: Schema name.
+    :param version: Schema version.
+    :type name: str
+    :type version: str
+    :returns: An ontology schema.
+    :rtype: dict
+
+    """
+    from esdoc_mp.schemas import schemas as ontology_schemas
+
+    for schema in ontology_schemas:
+        if schema['name'].lower() == name.lower() and \
+           schema['version'].lower() == version.lower():
+            return schema
+    return None
