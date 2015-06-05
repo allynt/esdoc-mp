@@ -9,16 +9,13 @@
 
 
 """
-
-# Module imports.
 import v1
 import v2
 
 
 
 # Set of supported Metafor CIM schemas.
-schemas = [
-    v1.schema,
-    v2.schema,
-]
-
+SCHEMAS = {
+    v1,
+    v2,
+}

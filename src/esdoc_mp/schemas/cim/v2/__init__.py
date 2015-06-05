@@ -23,57 +23,57 @@ from esdoc_mp.schemas.cim.v2 import shared_enums
 from esdoc_mp.schemas.cim.v2 import shared_enums_time
 
 
-# Schema :: CIM v2.
-schema = {
-    'name': 'cim',
-    'version': '2',
-    'is_latest': True,
-    'doc': 'Metafor CIM ontology schema - version 2',
-    'packages': [
-        {
-            'name': 'activity',
-            'doc': 'Types that describe context against which climate models are run.',
-            'classes': [
-                activity_classes,
-                activity_classes_ensemble,
-                activity_classes_experiment
-            ],
-            'enums': activity_enums
-        },
-        {
-            'name': 'activity',
-            'doc': 'Types that describe context against which climate models are run.',
-            'classes': [
-                activity_classes,
-                activity_classes_ensemble,
-                activity_classes_experiment
-            ],
-            'enums': activity_enums
-        },
-        {
-            'name': 'data',
-            'doc': 'Types that describe output that climate models emit.',
-            'classes': data_classes,
-            'enums': []
-        },
-        {
-            'name': 'platform',
-            'doc': 'Types that describe hardware upon which climate models are run.',
-            'classes': platform_classes,
-            'enums': platform_enums
-        },
-        {
-            'name': 'shared',
-            'doc': 'Shared types that might be imported from other packages within the ontology.',
-            'classes': [
-                shared_classes,
-                shared_classes_doc,
-                shared_classes_time
-            ],
-            'enums': [
-                shared_enums,
-                shared_enums_time
-            ],
-        }
+
+# Ontology name.
+NAME = 'cim'
+
+# Ontology version.
+VERSION = '2'
+
+# Ontology doc string.
+DOC = 'Metafor CIM ontology schema - version 2'
+
+
+def activity():
+    """Types that describe context against which climate models are run.
+
+    """
+    return [
+        activity_classes,
+        activity_classes_ensemble,
+        activity_classes_experiment,
+        activity_enums
     ]
-}
+
+
+def data():
+    """Types that describe output that climate models emit.
+
+    """
+    return [
+        data_classes
+    ]
+
+
+def platform():
+    """Types that describe hardware upon which climate models are run.
+
+    """
+    return [
+        platform_classes,
+        platform_enums
+    ]
+
+
+def shared():
+    """Shared types that might be imported from other packages within the ontology.
+
+    """
+    return [
+        shared_classes,
+        shared_classes_doc,
+        shared_classes_time,
+        shared_enums,
+        shared_enums_time
+    ]
+

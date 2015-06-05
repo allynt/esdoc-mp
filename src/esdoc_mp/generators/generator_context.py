@@ -20,7 +20,7 @@ class GeneratorContext(object):
 
     """
     def __init__(self, ontology, options):
-        """Constructor.
+        """Instance constructor.
 
         :param ontology: Ontology being processed.
         :param options: Generation options.
@@ -56,8 +56,7 @@ class GeneratorContext(object):
     def set_package(self, pkg):
         """Sets current package being processed.
 
-        :param pkg: An ontology package being processed.
-        :type pkg: esdoc_mp.core.package.Package
+        :param esdoc_mp.core.Package pkg: An ontology package being processed.
 
         """
         self.pkg = pkg
@@ -68,8 +67,7 @@ class GeneratorContext(object):
     def set_class(self, cls):
         """Sets current class type being processed.
 
-        :param cls: A class type being processed.
-        :type cls: esdoc_mp.core.class_.Class
+        :param esdoc_mp.core.Class cls: A class type being processed.
 
         """
         self.pkg = cls.package
@@ -80,8 +78,7 @@ class GeneratorContext(object):
     def set_enum(self, enum):
         """Sets current enumerated type being processed.
 
-        :param enum: An enumerated type being processed.
-        :type enum: esdoc_mp.core.enum.Enum
+        :param esdoc_mp.core.Enum enum: An enumerated type being processed.
 
         """
         self.pkg = enum.package

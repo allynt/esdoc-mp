@@ -9,13 +9,11 @@
 
 
 """
-
-# Module imports.
 from operator import add
 
+from esdoc_mp.generators import generator_utils as gu
 from esdoc_mp.generators.generator import Generator
-import esdoc_mp.generators.generator_utils as gu
-import esdoc_mp.generators.python.utils as pgu
+from esdoc_mp.generators.python import utils as pgu
 
 
 
@@ -113,9 +111,9 @@ def _emit_snippet_decoder_imports(o, p):
             imports.append(imp)
 
     # Set type decoding imports.
-    for type in [t for t in p.external_types if t.is_class]:
+    for type_ in [t for t in p.external_types if t.is_class]:
         imp = 'from {0} import *'.format(
-            pgu.get_package_module_name(type.name_of_package, 'decoder'))
+            pgu.get_package_module_name(type_.name_of_package, 'decoder'))
         append_import(imp)
 
     if len(imports) > 0:

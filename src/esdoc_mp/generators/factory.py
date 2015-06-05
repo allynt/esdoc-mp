@@ -36,10 +36,10 @@ _generators = {
 def create_generators(language):
     """Factory method to instantiate a set of generators filtered by programming language.
 
-    :param language: A supported programming language.
-    :type language: str
-    :returns: A list of generators.
-    :rtype: list
+    :param str language: A supported programming language.
+
+    :returns: A set of generators.
+    :rtype: dict
 
     """
     return {} if language not in _generators else _generators[language]()

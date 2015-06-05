@@ -9,13 +9,11 @@
 
 
 """
-
-# Module imports.
+from esdoc_mp import core
+from esdoc_mp.generators import generator_utils as gu
+from esdoc_mp.generators.python import utils as pgu
 from esdoc_mp.generators.generator import Generator
-import esdoc_mp.core as ontology
-import esdoc_mp.utils.runtime as rt
-import esdoc_mp.generators.generator_utils as gu
-import esdoc_mp.generators.python.utils as pgu
+from esdoc_mp.utils import runtime as rt
 
 
 
@@ -190,7 +188,7 @@ def _emit_module_typeset_for_pkg(o, p):
 
     def emit_types():
         def emit_code(code, t):
-            if isinstance(t, ontology.Class):
+            if isinstance(t, core.Class):
                 code += _emit_snippet_class(t)
             else:
                 code += _emit_snippet_enum(t)

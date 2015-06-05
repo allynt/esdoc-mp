@@ -12,7 +12,7 @@
 
 class ESDOC_MP_Exception(Exception):
     """Default library exception class.
-    
+
     """
 
     def __init__(self, message):
@@ -32,17 +32,16 @@ class ESDOC_MP_Exception(Exception):
         return "ES-DOC MP :: !!! EXCEPTION !!! : {0}".format(repr(self.message))
 
 
-def raise_error(msg, type=ESDOC_MP_Exception):
+def raise_error(msg, type_=ESDOC_MP_Exception):
     """Helper function to raise a runtime error.
 
-    :param msg: Error message.
+    :param str msg: Error message.
     :type msg: str
 
-    :param type: Error type.
-    :type type: class
+    :param class type: Error type.
 
     """
-    raise type(msg)
+    raise type_(msg)
 
 
 def throw(msg):
@@ -62,4 +61,4 @@ def log(msg):
     :type msg: str
 
     """
-    print "ES-DOC MP :: " + str(msg)
+    print("ES-DOC MP :: {}".format(msg))

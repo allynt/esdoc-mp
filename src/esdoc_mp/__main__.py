@@ -13,7 +13,7 @@
 import optparse
 
 from esdoc_mp import generate
-from esdoc_mp.utils.factory import create_ontology_schema
+from esdoc_mp import get_schema
 
 
 
@@ -57,8 +57,7 @@ def _get_options():
 options = _get_options()
 
 # Get ontology schema.
-ontology_schema = create_ontology_schema(options.schema_name, options.schema_version)
+schema = get_schema(options.schema_name, options.schema_version)
 
 # Generate.
-generate(ontology_schema, options.language, options.output_dir)
-
+generate(schema, options.language, options.output_dir)

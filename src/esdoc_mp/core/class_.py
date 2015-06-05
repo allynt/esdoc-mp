@@ -13,48 +13,28 @@
 class Class(object):
     """Represents an ontological class definition.
 
-    :ivar name: Class name.
-    :ivar base: Base class used in object hierarchies.
-    :ivar is_abstract: Flag indicating whether this is an abstract class or not.
-    :ivar doc_string: Class documentation string.
-    :ivar properties: Set of associated properties.
-    :ivar constants: Set of associated property constants.
-    :ivar decodings: Set of associated property decodings.
-
     """
-
     def __init__(self, name, base, is_abstract, doc_string, properties, constants, decodings):
-        """Constructor.
+        """Instance constructor.
 
         :param str name: Class name.
         :param str base: Base class used in object hierarchies.
         :param bool is_abstract: Flag indicating whether this is an abstract class or not.
         :param str doc_string: Class documentation string.
-        :param list properties: Set of associated properties.
-        :param list constants: Set of associated property constants.
-        :param list decodings: Set of associated property decodings.
+        :param set properties: Set of associated properties.
+        :param set constants: Set of associated property constants.
+        :param set decodings: Set of associated property decodings.
 
         """
-        # Set relations.
-        for prp in properties:
-            prp.cls = self
-
-        # Set attributes.
-        self.__all_decodings = None
-        self.__all_properties = None
         self.base = base
-        self.circular_imports = []
+        self.circular_imports = set()
         self.constants = constants
-        self.decodings = sorted(decodings, key=lambda dc: dc.property_name)
+        self.decodings = set(sorted(decodings, key=lambda dc: dc.property_name))
         self.doc_string = doc_string if doc_string is not None else ''
-        self.imports = []
+        self.imports = set()
         self.is_abstract = is_abstract
         self.is_entity = 'meta' in [p.name for p in properties]
         self.name = name
-        self.properties = sorted(properties, key=lambda p: p.name)
-        self.package = None
-
-        # Initialise output attributes.
         self.op_base_name = None
         self.op_doc_string_name = None
         self.op_file_name = None
@@ -62,92 +42,70 @@ class Class(object):
         self.op_functional_name = None
         self.op_import_name = None
         self.op_name = None
+        self.properties = set(sorted(properties, key=lambda p: p.name))
+        self.package = None
 
 
     def __repr__(self):
-        """String representation for debugging."""
+        """Instance string representation.
+
+        """
         return self.name
 
 
     @property
     def all_constants(self):
-        """Gets all associated constants including those of base class (sorted by name)."""
-        # JIT instantiation.
-        if self.__all_constants is None:
-            self.__all_constants = list(self.constants)
-            if self.base is not None:
-                self.__all_constants += self.base.all_constants
+        """Gets all associated constants including those of base class (sorted by name).
 
-        return self.__all_constants
+        """
+        result = set(self.constants)
+        if self.base:
+            result = result.union(self.base.all_constants)
+
+        return result
 
 
     @property
     def all_properties(self):
-        """Gets all associated properties including those of base class (sorted by name)."""
-        # JIT instantiation.
-        if self.__all_properties is None:
-            self.__all_properties = list(self.properties)
-            if self.base is not None:
-                self.__all_properties += self.base.all_properties
-            self.__all_properties = sorted(self.__all_properties, key=lambda p: p.name)
+        """Gets all associated properties including those of base class (sorted by name).
 
-        return self.__all_properties
+        """
+        result = set(self.properties)
+        if self.base:
+            result = result.union(self.base.all_properties)
+
+        return result
 
 
     @property
     def all_decodings(self):
-        """Gets class plus base class decodings."""
-        # JIT instantiation.
-        if self.__all_decodings is None:
-            self.__all_decodings = list(self.decodings)
-            if self.base is not None:
-                self.__all_decodings += self.base.all_decodings
-                
-        return self.__all_decodings
+        """Gets class plus base class decodings.
+
+        """
+        result = set(self.decodings)
+        if self.base:
+            result = result.union(self.base.all_decodings)
+
+        return result
 
 
     def get_property_decodings(self, prp):
         """Returns set of property decodings.
 
-        :param prp: A property being processed.
-        :type prp: esdoc_mp.decoding.Decodings
+        :param esdoc_mp.core.Property prp: A property being processed.
 
         """
-        result = []
-        for dc in [dc for dc in self.all_decodings if dc.property_name == prp.name]:
-            result.append(dc)
-        return result
-
-
-    def has_property(self, name):
-        """Gets flag indicating whether this class has a property with same name.
-
-        :param name: Name of a property potentially supported by this class.
-        :type name: str
-
-        """
-        for prp in self.properties:
-            if prp.name == name:
-                return True
-        return False
+        return set(dc for dc in self.all_decodings if dc.property_name == prp.name)
 
 
     def get_property(self, name):
-        """Gets associated property either from self or from base.
+        """Recursively gets associated property either from self or from base class.
 
-        :param name: Name of a property.
-        :type name: str
+        :param str name: Name of a property.
 
         """
-        # Return from self.
         for prp in self.properties:
             if prp.name == name:
                 return prp
-
-        # Return from base.
-        if self.base is not None:
+        if self.base:
             return self.base.get_property(name)
-
-        # Unsupported.
-        return None
-        

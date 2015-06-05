@@ -3,7 +3,7 @@
 """A set of CIM meta-programming ontology configurqtion validation functions.
 
 """
-# Module level imports.
+import inspect
 import os
 import re
 
@@ -271,20 +271,21 @@ def _validate(cfg, cfg_type_name, ctx):
     return errors
 
 
-def validate_ontology_schema(ontology_schema):
+def validate_schema(schema):
     """Validates ontology schema.
 
-    :param ontology_schema: Ontology schema definition.
-    :type ontology_schema: dict
+    :param module schema: Ontology schema definition.
+
     :returns: List of validation errors (if any).
     :rtype: list
 
     """
     errors = []
 
-    if not isinstance(ontology_schema, dict):
+    if not inspect.ismodule(schema):
         errors.append('Ontology schema is not a python dictionary.')
     else:
+        # TODO - more detailed validation.
         pass
 
     return errors
@@ -293,8 +294,8 @@ def validate_ontology_schema(ontology_schema):
 def validate_language(language):
     """Returns list of target programming language validation errors.
 
-    :param language: Target programming language.
-    :type language: str
+    :param str language: Target programming language.
+
     :returns: List of validation errors (if any).
     :rtype: list
 
@@ -310,8 +311,8 @@ def validate_language(language):
 def validate_output_dir(output_dir):
     """Returns list of target output directory validation errors.
 
-    :param output_dir: Target output directory.
-    :type output_dir: str
+    :param str output_dir: Target output directory.
+
     :returns: List of validation errors (if any).
     :rtype: list
 

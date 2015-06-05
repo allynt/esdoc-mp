@@ -19,8 +19,9 @@ def component_property_intent_type():
 
     """
     return {
-        'is_open' : False,
-        'members' : [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ('in', None),
             ('out', None),
             ('inout', None),
@@ -33,7 +34,8 @@ def connection_type():
 
     """
     return {
-        'is_open' : True
+        'type': 'enum',
+        'is_open': True
     }
 
 
@@ -42,8 +44,9 @@ def coupling_framework_type():
 
     """
     return {
-        'is_open' : False,
-        'members' : [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ('BFG', None),
             ('ESMF', None),
             ('OASIS', None),
@@ -56,7 +59,8 @@ def model_component_type():
 
     """
     return {
-        'is_open' : True
+        'type': 'enum',
+        'is_open': True
     }
 
 
@@ -65,8 +69,9 @@ def spatial_regridding_dimension_type():
 
     """
     return {
-        'is_open' : False,
-        'members' : [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ('1D', None),
             ('2D', None),
             ('3D', None),
@@ -79,8 +84,9 @@ def spatial_regridding_standard_method_type():
 
     """
     return {
-        'is_open' : False,
-        'members' : [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ('linear', None),
             ('near-neighbour', None),
             ('cubic', None),
@@ -97,7 +103,8 @@ def statistical_model_component_type():
 
     """
     return {
-        'is_open' : True
+        'type': 'enum',
+        'is_open': True
     }
 
 
@@ -106,7 +113,8 @@ def time_mapping_type():
 
     """
     return {
-        'is_open' : True
+        'type': 'enum',
+        'is_open': True
     }
 
 
@@ -115,8 +123,9 @@ def timing_units():
 
     """
     return {
-        'is_open' : False,
-        'members' : [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ('seconds', None),
             ('minutes', None),
             ('hours', None),

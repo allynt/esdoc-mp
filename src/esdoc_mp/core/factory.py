@@ -21,6 +21,22 @@ from esdoc_mp.core import Property
 
 
 
+def _get_functions(modules):
+    """Returns a collection of function pointers declared within a module.
+
+    """
+    try:
+        iter(modules)
+    except TypeError:
+        modules = [modules]
+
+    result = set()
+    for module in modules:
+        result.update({m[1] for m in inspect.getmembers(module) if inspect.isfunction(m[1])})
+
+    return result
+
+
 def _get_type_definition(func):
     """Returns a type definition instantiated from a module function.
 
@@ -32,25 +48,29 @@ def _get_type_definition(func):
     return result
 
 
-def _get_type_definitions(modules):
-    """Returns a collection of type definitions instantiated from a module.
-
-    :param module mod: Python module in which type definitions are declared.
-
-    :returns: Collection of type definitions.
-    :rtype: List
+def _get_package_definition(func):
+    """Returns a package definition instantiated from a module function.
 
     """
-    try:
-        iter(modules)
-    except TypeError:
-        modules = [modules]
+    return {
+        'name': func.__name__,
+        'doc': func.__doc__.strip(),
+        'types': func()
+    }
 
-    funcs = []
-    for module in modules:
-        funcs += [m[1] for m in inspect.getmembers(module) if inspect.isfunction(m[1])]
 
-    return [_get_type_definition(i) for i in funcs]
+def _get_type_definitions(modules):
+    """Returns set of type definitions instantiated from a set of modules.
+
+    """
+    return [_get_type_definition(i) for i in _get_functions(modules)]
+
+
+def _get_package_definitions(modules):
+    """Returns set of package definitions instantiated from a set of modules.
+
+    """
+    return [_get_package_definition(i) for i in _get_functions(modules)]
 
 
 def _get_class_properties(class_):
@@ -59,10 +79,6 @@ def _get_class_properties(class_):
     """
     result = []
     doc_strings = class_.get('doc_strings', dict())
-    for prop in class_.get('properties', []):
-        if len(prop) != 3:
-            print class_['name'], prop[0]
-
     for name, type_name, cardinality in class_.get('properties', []):
         doc_string = doc_strings.get(name, None)
         result.append(Property(name, type_name, cardinality, doc_string))
@@ -82,12 +98,12 @@ def _get_class_decodings(class_):
     return result
 
 
-def _get_package_classes(package):
+def _get_package_classes(types):
     """Returns package class definitions.
 
     """
     result = []
-    for class_ in _get_type_definitions(package.get('classes', [])):
+    for class_ in [t for t in types if t['type'] == 'class']:
         result.append(
             Class(class_['name'],
                   class_.get('base', None),
@@ -101,12 +117,12 @@ def _get_package_classes(package):
     return result
 
 
-def _get_package_enums(package):
+def _get_package_enums(types):
     """Returns package enum definitions.
 
     """
     result = []
-    for enum in _get_type_definitions(package.get('enums', [])):
+    for enum in [t for t in types if t['type'] == 'enum']:
         result.append(
             Enum(enum['name'],
                  enum.get('is_open', True),
@@ -117,17 +133,28 @@ def _get_package_enums(package):
     return result
 
 
+def _get_package_types(package):
+    """Returns package type definitions.
+
+    """
+    types = _get_type_definitions(package.get('types', []))
+
+    return _get_package_classes(types), \
+           _get_package_enums(types)
+
+
 def _get_ontology_packages(schema):
     """Returns ontology package definitions.
 
     """
     result = []
-    for package in schema['packages']:
+    for package in _get_package_definitions(schema):
+        classes, enums = _get_package_types(package)
         result.append(
             Package(package['name'],
                     package['doc'],
-                    _get_package_classes(package),
-                    _get_package_enums(package)
+                    classes,
+                    enums
                     )
             )
 
@@ -137,33 +164,13 @@ def _get_ontology_packages(schema):
 def create_ontology(schema):
     """Factory method to instantiate an ontology instance from a schema declaration.
 
-    :param dict schema: An ontology schema declaration.
+    :param module schema: An ontology schema declaration.
 
     :returns: An ontology declaration.
     :rtype: esdoc_mp.core.Ontology
 
     """
-    return Ontology(schema['name'],
-                    schema['version'],
-                    schema['doc'],
+    return Ontology(schema.NAME,
+                    schema.VERSION,
+                    schema.DOC,
                     _get_ontology_packages(schema))
-
-
-def create_ontology_schema(name, version):
-    """Factory method to instantiate an ontology schema instance.
-
-    :param name: Schema name.
-    :param version: Schema version.
-    :type name: str
-    :type version: str
-    :returns: An ontology schema.
-    :rtype: dict
-
-    """
-    from esdoc_mp.schemas import schemas as ontology_schemas
-
-    for schema in ontology_schemas:
-        if schema['name'].lower() == name.lower() and \
-           schema['version'].lower() == version.lower():
-            return schema
-    return None

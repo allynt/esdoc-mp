@@ -9,12 +9,10 @@
 
 
 """
-
-# Module imports.
 from abc import ABCMeta
 
+from esdoc_mp.generators import generator_utils as gu
 from esdoc_mp.generators.generator_context import GeneratorContext
-import esdoc_mp.generators.generator_utils as gu
 
 
 
@@ -28,10 +26,8 @@ class Generator(object):
     def execute(self, ontology, options):
         """Executes the code generator.
 
-        :param ontology: Ontology being processed.
-        :param options: Generation options.
-        :type ontology: esdoc_mp.core.Ontology
-        :type options: esdoc_mp.GeneratorOptions
+        :param esdoc_mp.core.Ontology ontology: Ontology being processed.
+        :param esdoc_mp.generator.GeneratorOptions options: Generation options.
 
         """
         # Instantiate context.
@@ -71,8 +67,7 @@ class Generator(object):
     def is_required(self, ctx):
         """Predicate determing whether code generation is required.
 
-        :param ctx: Generation context information.
-        :type ctx: esdoc_mp.generators.generator.GeneratorContext
+        :param esdoc_mp.generators.generator.GeneratorContext ctx: Generation context information.
 
         """
         return True
@@ -81,8 +76,7 @@ class Generator(object):
     def on_start(self, ctx):
         """Event handler for the parsing start event.
 
-        :param ctx: Generation context information.
-        :type ctx: esdoc_mp.generators.generator.GeneratorContext
+        :param esdoc_mp.generators.generator.GeneratorContext ctx: Generation context information.
 
         """
         pass
@@ -91,8 +85,7 @@ class Generator(object):
     def on_end(self, ctx):
         """Event handler for the parsing end event.
 
-        :param ctx: Generation context information.
-        :type ctx: esdoc_mp.generators.generator.GeneratorContext
+        :param esdoc_mp.generators.generator.GeneratorContext ctx: Generation context information.
 
         """
         pass
@@ -101,40 +94,36 @@ class Generator(object):
     def on_ontology_parse(self, ctx):
         """Event handler for the ontology parse event.
 
-        :param ctx: Generation context information.
-        :type ctx: esdoc_mp.generators.generator.GeneratorContext
+        :param esdoc_mp.generators.generator.GeneratorContext ctx: Generation context information.
 
         """
-        return None
+        pass
 
 
     def on_package_parse(self, ctx):
         """Event handler for the package parse event.
 
-        :param ctx: Generation context information.
-        :type ctx: esdoc_mp.generators.generator.GeneratorContext
+        :param esdoc_mp.generators.generator.GeneratorContext ctx: Generation context information.
 
         """
-        return None
+        pass
 
 
     def on_class_parse(self, ctx):
         """Event handler for the class parse event.
 
-        :param ctx: Generation context information.
-        :type ctx: esdoc_mp.generators.generator.GeneratorContext
+        :param esdoc_mp.generators.generator.GeneratorContext ctx: Generation context information.
 
         """
-        return None
+        pass
 
 
     def on_enum_parse(self, ctx):
         """Event handler for the enum parse event.
 
-        :param ctx: Generation context information.
-        :type ctx: esdoc_mp.generators.generator.GeneratorContext
+        :param esdoc_mp.generators.generator.GeneratorContext ctx: Generation context information.
 
         """
-        return None
+        pass
 
 

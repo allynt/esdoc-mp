@@ -9,8 +9,6 @@
 
 
 """
-
-# Module imports.
 from esdoc_mp.core.class_ import Class
 from esdoc_mp.core.enum import Enum
 
@@ -24,13 +22,11 @@ class Type(object):
     """
 
     def __init__(self, name):
-        """Constructor.
+        """Instance constructor.
 
-        :param name: Name of type.
-        :type name: str
+        :param str name: Name of type.
 
         """
-        # Set attributes.
         self.__complex_type = None
         self.__is_enum = False
         self.is_class = False
@@ -42,21 +38,24 @@ class Type(object):
 
 
     def __repr__(self):
-        """Returns a string representation."""
+        """Instance string representation.
+
+        """
         return self.name
 
 
     @property
     def complex_type(self):
-        """Gets complex type."""
+        """Gets complex type.
+
+        """
         return self.__complex_type
 
     @complex_type.setter
     def complex_type(self, value):
         """Sets complex type.
 
-        :param value: Name of type.
-        :type value: esdoc_mp.core.class_.Class | esdoc_mp.core.enum.Enum
+        :param Class|Enum value: Name of type.
 
         """
         if self.is_complex == False:
@@ -69,6 +68,8 @@ class Type(object):
 
     @property
     def is_enum(self):
-        """Gets flag indicating whether type represents an enumerated type."""
+        """Gets flag indicating whether type represents an enumerated type.
+
+        """
         return self.is_complex and not self.is_class
 

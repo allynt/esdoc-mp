@@ -19,6 +19,7 @@ def data_hierarchy_type():
 
     """
     return {
+        'type' : 'enum',
         'is_open' : True,
         'members' : [],
     }
@@ -29,6 +30,7 @@ def data_status_type():
 
     """
     return {
+        'type' : 'enum',
         'is_open' : False,
         'members' : [
             ('complete', 'This DataObject is complete.'),

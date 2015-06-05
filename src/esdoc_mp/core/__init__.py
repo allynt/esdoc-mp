@@ -16,4 +16,4 @@ from esdoc_mp.core.enum_member import EnumMember
 from esdoc_mp.core.ontology import Ontology
 from esdoc_mp.core.package import Package
 from esdoc_mp.core.property import Property
-from esdoc_mp.core.type import Type
+from esdoc_mp.core.type_ import Type

@@ -9,11 +9,10 @@
 
 
 """
-
-# Module imports.
+from esdoc_mp.generators import generator_utils as gu
 from esdoc_mp.generators.generator import Generator
-import esdoc_mp.generators.generator_utils as gu
-import esdoc_mp.generators.python.utils as pgu
+from esdoc_mp.generators.python import utils as pgu
+
 
 
 # Generator language.

@@ -9,6 +9,9 @@
 
 
 """
+from operator import or_
+
+
 
 class Package(object):
     """Represents a package within an ontology.
@@ -21,69 +24,43 @@ class Package(object):
     """
 
     def __init__(self, name, doc_string, classes, enums):
-        """Constructor.
+        """Instance constructor.
 
-        :param name: Package name.
-        :type name: str
-        
-        :param doc_string: Package documentation string.
-        :type doc_string: str
-
-        :param classes: Set of associated classes.
-        :type classes: list
-
-        :param enums: Set of associated enums.
-        :type enums: list
+        :param str name: Package name.
+        :param str doc_string: Package documentation string.
+        :param iterable classes: Set of associated classes.
+        :param iterable enums: Set of associated enums.
 
         """
-        # Set relations.
-        for cls in classes:
-            cls.package = self
-            for prp in cls.properties:
-                prp.package = self
-        for enum in enums:
-            enum.package = self
-
-        # Set attributes.
-        self.abstract_classes = sorted([c for c in classes if c.is_abstract], key=lambda c: c.name)
-        self.associated = []
-        self.concrete_classes = sorted([c for c in classes if not c.is_abstract], key=lambda c: c.name)
-        self.classes = sorted(classes, key=lambda c: c.name)
-        self.decodings = []
+        self.abstract_classes = _get_sorted(classes, lambda c: c.is_abstract)
+        self.associated = set()
+        self.concrete_classes = _get_sorted(classes, lambda c: not c.is_abstract)
+        self.classes = _get_sorted(classes)
+        self.decodings = reduce(or_, [c.decodings for c in classes])
         self.doc_string = doc_string
-        self.entities = []
-        self.enums = sorted(enums, key=lambda e: e.name)
-        self.external_types = []
+        self.entities = _get_sorted(classes, lambda c: not c.is_entity)
+        self.enums = _get_sorted(enums)
+        self.external_types = set()
         self.name = name
-        self.properties = []
-        self.types = []
-        
-        # Derive superset of entities.
-        self.entities = sorted([c for c in classes if c.is_entity])
-
-        # Derive superset of types.
-        self.types = sorted(classes + enums, key=lambda t: t.name)
-
-        # Derive superset of decodings.
-        for cls in self.classes:
-            self.decodings += cls.decodings
-
-        # Derive superset of properties.
-        for cls in self.classes:
-            for prp in cls.properties:
-                self.properties.append(prp)
-        
-        # Derive superset of external types.
-        for prp in self.properties:
-            if prp.type.is_complex and \
-               prp.type.name_of_package != self.name and \
-               prp.type not in self.external_types:
-                self.external_types.append(prp.type)
-
-        # Initialise output attributes.
         self.op_name = None
+        self.properties = reduce(or_, [c.properties for c in classes])
+        self.types = _get_sorted(classes + enums)
 
 
     def __repr__(self):
-        """String representation for debugging."""
+        """Instance string representation.
+
+        """
         return self.name
+
+
+def _get_sorted(collection, predicate=None, sort_key=None):
+    """Returns a sorted collection.
+
+    """
+    if predicate:
+        collection = [i for i in collection if predicate(i)]
+    if sort_key is None:
+        sort_key = lambda i: i.name
+
+    return set(sorted(collection, key=sort_key))

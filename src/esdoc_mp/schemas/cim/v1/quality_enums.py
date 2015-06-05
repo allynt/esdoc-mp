@@ -19,8 +19,9 @@ def cim_feature_type():
 
     """
     return {
-        'is_open' : False,
-        'members' : [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ('file', None),
             ('diagnostic', None),
         ],
@@ -32,8 +33,9 @@ def cim_result_type():
 
     """
     return {
-        'is_open' : False,
-        'members' : [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ('plot', None),
             ('document', None),
             ('logfile', None),
@@ -46,8 +48,9 @@ def cim_scope_code_type():
 
     """
     return {
-        'is_open' : False,
-        'members' : [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ('dataset', None),
             ('software', None),
             ('service', None),
@@ -67,8 +70,9 @@ def quality_issue_type():
 
     """
     return {
-        'is_open' : False,
-        'members' : [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ('metadata', None),
             ('data_format', None),
             ('data_content', None),
@@ -83,8 +87,9 @@ def quality_severity_type():
 
     """
     return {
-        'is_open' : False,
-        'members' : [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ('cosmetic', None),
             ('minor', None),
             ('major', None),
@@ -97,8 +102,9 @@ def quality_status_type():
 
     """
     return {
-        'is_open' : False,
-        'members' : [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ('reported', None),
             ('confirmed', None),
             ('partially_resolved', None),

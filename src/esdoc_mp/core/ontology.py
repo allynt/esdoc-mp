@@ -9,169 +9,170 @@
 
 
 """
-
-# Module imports.
 from operator import add
+from operator import or_
 from functools import reduce
 
 from esdoc_mp.core.class_ import Class
-import esdoc_mp.utils.runtime as rt
+from esdoc_mp.utils import runtime as rt
 
 
 
 class Ontology(object):
     """Represents an ontology, i.e. a set of classes organised into packages.
 
-    :ivar name: Ontology name.
-    :ivar version: Ontology version.
-    :ivar doc_string: Ontology documentation string.
-    :ivar packages: Set of associated packages.
-
     """
-
     def __init__(self, name, version, doc_string, packages):
-        """Constructor.
+        """Instance constructor.
 
-        :param name: Ontology name.
-        :type name: str
-        
-        :param version: Ontology version.
-        :type version: str
-
-        :param doc_string: Ontology documentation string.
-        :type doc_string: str
-
-        :param packages: Set of associated packages.
-        :type packages: list
+        :param str name: Ontology name.
+        :param str version: Ontology version.
+        :param str doc_string: Ontology documentation string.
+        :param iterable packages: Set of associated packages.
 
         """
-        # Set relations.
-        for pkg in packages:
-            pkg.ontology = self
-
-        # Set attributes.
-        self.name = name
-        self.version = version
+        self.classes = reduce(or_, [p.classes for p in packages])
+        self.decodings = reduce(or_, [p.decodings for p in packages])
         self.doc_string = doc_string
-        self.packages = sorted(packages, key=lambda p: p.name)
-
-        # Initialise output attributes.
+        self.entities = reduce(or_, [p.entities for p in packages])
+        self.enums = reduce(or_, [p.enums for p in packages])
+        self.enum_members = reduce(or_, [e.members for e in self.enums])
+        self.name = name
         self.op_name = None
         self.op_version = None
-        
-        # Set supersets.
-        self.classes = reduce(add, map(lambda p : p.classes, packages))
-        self.decodings = reduce(add, map(lambda p : p.decodings, packages))
-        self.enums = reduce(add, map(lambda p : p.enums, packages))
-        self.enum_members = reduce(add, map(lambda e : e.members, self.enums), [])
-        self.entities = reduce(add, map(lambda p : p.entities, packages))
-        self.properties = reduce(add, map(lambda c : c.properties, self.classes))
-        self.property_types = map(lambda p : p.type, self.properties)
-        self.types = sorted(self.classes + self.enums)
+        self.packages = set(sorted(packages, key=lambda p: p.name))
+        self.properties = reduce(or_, [c.properties for c in self.classes])
+        self.property_types = set(p.type for p in self.properties)
+        self.types = sorted(self.classes.union(self.enums))
+        self.version = version
 
-        # Set base classes.
-        _set_base_classes(self)
-        
-        # Set property type information.
-        _set_property_type_info(self)
+        # Set derived information.
+        for setter in [
+            _set_relations,
+            _set_base_classes,
+            _set_property_type_info,
+            _set_class_imports,
+            _set_circular_imports,
+            _set_associated_packages,
+            _set_package_external_type_refs
+        ]:
+            setter(self)
 
-        # Set intra-class imports.
-        _set_class_imports(self)
-
-        # Set class circular imports.
-        _set_circular_imports(self)
-
-        # For each package assign packages used by it's classes.
-        _set_associated_packages(self)
-        
 
     def __repr__(self):
-        """String representation for debugging."""
-        return self.name + ' v' + self.version
+        """Instance string representation.
+
+        """
+        return "{0} v{1}".format(self.name, self.version)
 
 
     def get_type(self, name):
         """Returns type with matching name.
 
-        :param name: Fully qualified name of target type.
-        :type name: str
+        :param str name: Fully qualified name of target type.
 
         """
         pkg_name = name.split('.')[0]
         type_name = name.split('.')[1]
-        
         for t in self.types:
             if t.package.name == pkg_name and t.name == type_name:
                 return t
-            
-        return None
 
 
-def _set_base_classes(o):
-    """Sets base classes."""
-    for c in [c for c in o.classes if c.base is not None]:
-        t = o.get_type(c.base)
-        if t is not None:
-            c.base = t
+def _set_relations(ontology):
+    """Sets relations between various nodes within an ontology.
+
+    """
+    for pkg in ontology.packages:
+        pkg.ontology = ontology
+        for cls in pkg.classes:
+            cls.package = pkg
+            for prp in cls.properties:
+                prp.package = pkg
+                prp.cls = cls
+        for enum in pkg.enums:
+            enum.package = pkg
+            for enum_member in enum.members:
+                enum_member.enum = enum
+
+
+def _set_base_classes(ontology):
+    """Sets base classes.
+
+    """
+    for cls in [c for c in ontology.classes if c.base]:
+        base_cls = ontology.get_type(cls.base)
+        if base_cls:
+            cls.base = base_cls
         else:
             msg = "Base class not found :: class = {0}.{1} :: base = {2}"
-            msg = msg.format(c.package, c, c.base)
+            msg = msg.format(cls.package, cls, cls.base)
             rt.log(msg)
 
 
-def _set_property_type_info(o):
-    """Sets a property type flag indicating whether the property is related to an ontology class."""
-    for pt in o.property_types:
+def _set_property_type_info(ontology):
+    """Sets a property type information.
+
+    """
+    for pt in ontology.property_types:
         pt.cls = pt.package = None
         if pt.is_complex:
-            t = o.get_type(pt.name)
-            if t is not None:
-                pt.is_class = isinstance(t, Class)
-                pt.ontology = o
-                pt.package = t.package
-                pt.cls = t
+            type_ = ontology.get_type(pt.name)
+            if type_ is not None:
+                pt.is_class = isinstance(type_, Class)
+                pt.ontology = ontology
+                pt.package = type_.package
+                pt.cls = type_
 
 
-def _set_class_imports(o):
-    """Assigns set of intra-class imports."""
-        # Set class imports.
-    def append_to_class_imports(cls, pkg, type):
-        if pkg != cls.package.name or \
-           type != cls.name and \
-           (pkg, type) not in cls.imports:
-            cls.imports.append((pkg, type))
+def _set_class_imports(ontology):
+    """Assigns set of intra-class imports.
 
-    for c in o.classes:
-        if c.base is not None:
-            append_to_class_imports(c, c.base.package.name, c.base.name)
+    """
+    def _append(cls, pkg, type_):
+        """Appends an import to the classes set of imports.
 
-        for p in [p for p in c.properties if p.type.is_complex]:
-            append_to_class_imports(c, p.type.name_of_package, p.type.name_of_type)
+        """
+        if pkg != cls.package.name or type_ != cls.name:
+            cls.imports.add((pkg, type_))
+
+    for cls in ontology.classes:
+        if cls.base is not None:
+            _append(cls, cls.base.package.name, cls.base.name)
+        for p in [p for p in cls.properties if p.type.is_complex]:
+            _append(cls, p.type.name_of_package, p.type.name_of_type)
 
 
-def _set_circular_imports(o):
-    """Assigns set of intra-class circular imports."""
-    for c in o.classes:
+def _set_circular_imports(ontology):
+    """Assigns set of intra-class circular imports.
+
+    """
+    for c in ontology.classes:
         c_import = (c.package.name, c.name)
-        for p in [p for p in c.properties if p.type.is_class]:
-            p_type = o.get_type(p.type.name)
+        for prp in [p for p in c.properties if p.type.is_class]:
+            p_type = ontology.get_type(prp.type.name)
             if c_import in p_type.imports:
                 p_type.imports.remove(c_import)
-                p_type.circular_imports.append(c_import)
+                p_type.circular_imports.add(c_import)
 
 
-def _set_associated_packages(o):
-    """Assigns set of intra-package classes."""
-    def append(p, targets):
-        for target in targets:
-            if target != p and target not in p.associated:
-                p.associated.append(target)
+def _set_associated_packages(ontology):
+    """Assigns set of intra-package associations.
 
-    for p in o.packages:
-        # Packages associated with base classes.
-        append(p, [c.base.package for c in p.classes if c.base is not None])
-        for c in p.classes:
-            # Packages associated with property types.
-            for prp in c.properties:
-                if prp.is_required and prp.type.package is not None:
-                    append(p, [prp.type.package])
+    """
+    for pkg in ontology.packages:
+        pkg.associated.update([c.base.package for c in pkg.classes
+                               if c.base and c.base.package != pkg])
+        pkg.associated.update([prp.type.package for prp in pkg.properties
+                               if prp.is_required and prp.type.package])
+
+
+def _set_package_external_type_refs(ontology):
+    """Assigns set of a package's external type references so that .
+
+    """
+    for pkg in ontology.packages:
+        for prp in pkg.properties:
+            if prp.type.is_complex and \
+               prp.type.name_of_package != pkg.name:
+                pkg.external_types.add(prp.type)

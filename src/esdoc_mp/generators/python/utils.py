@@ -3,7 +3,6 @@
 """Encapsualtes a set of python specific name conversion operations.
 
 """
-# Module imports.
 from operator import add
 
 from esdoc_mp.generators.generator_utils import *

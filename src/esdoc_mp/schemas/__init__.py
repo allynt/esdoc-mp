@@ -9,11 +9,36 @@
 
 
 """
-from esdoc_mp.schemas.cim import schemas as cim_schemas
-from esdoc_mp.schemas.test import schemas as test_schemas
+from esdoc_mp.schemas import cim
+
 
 
 # Set of schemas supported 'out of the box'.
-schemas = []
-schemas.extend(cim_schemas)
-schemas.extend(test_schemas)
+SCHEMAS = set()
+SCHEMAS.update(cim.SCHEMAS)
+
+
+def get_schema(name, version):
+    """Returns a supported ontology schema module.
+
+    :param str name: Schema name.
+    :param str version: Schema version.
+
+    :returns: An ontology schema.
+    :rtype: module
+
+    """
+    for schema in SCHEMAS:
+        if schema.NAME.lower() == name.lower() and \
+           schema.VERSION.lower() == version.lower():
+            return schema
+
+
+def register_schema(schema):
+    """Registers a schema with set of supported schemas.
+
+    :param module schema: An ontology schema definition.
+
+    """
+    # TODO - validate input
+    SCHEMAS.add(schema)

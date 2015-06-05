@@ -13,18 +13,12 @@
 class EnumMember(object):
     """Represents an enumeration member, i.e. a constrained value associated with an enumeration.
 
-    :ivar name: Enumeration member name.
-    :ivar name: Enumeration member documentation string.
-
     """
     def __init__(self, name, doc_string):
-        """Constructor.
+        """Instance constructor.
 
-        :param name: Enumeration member name.
-        :type name: str
-        
-        :param doc_string: Enumeration member documentation string.
-        :type doc_string: str
+        :param str name: Enumeration member name.
+        :param str doc_string: Enumeration member documentation string.
 
         """
         # Set attributes.
@@ -34,5 +28,7 @@ class EnumMember(object):
 
 
     def __repr__(self):
-        """String representation for debugging."""
+        """Instance string representation.
+
+        """
         return self.name

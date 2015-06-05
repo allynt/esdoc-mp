@@ -9,8 +9,6 @@
 
 
 """
-
-# Module imports.
 import datetime
 import os
 import pwd
@@ -33,10 +31,8 @@ _loaded_templates = dict()
 def convert_to_camel_case(name, separator='_'):
     """Converts passed name to camel case.
 
-    :param name: A name as specified in ontology specification.
-    :param separator: Separator to use in order to split name into constituent parts.
-    :type name: str
-    :type separator: str
+    :param str name: A name as specified in ontology specification.
+    :param str separator: Separator to use in order to split name into constituent parts.
 
     """
     r = ''
@@ -53,10 +49,8 @@ def convert_to_camel_case(name, separator='_'):
 def convert_to_pascal_case(name, separator='_'):
     """Converts passed name to camel case.
 
-    :param name: A name as specified in ontology specification.
-    :param separator: Separator to use in order to split name into constituent parts.
-    :type name: str
-    :type separator: str
+    :param str name: A name as specified in ontology specification.
+    :param str separator: Separator to use in order to split name into constituent parts.
 
     """
     r = ''
@@ -71,11 +65,8 @@ def convert_to_pascal_case(name, separator='_'):
 def _load_template(language, filename):
     """Returns code template.
 
-    :param language: Generator language.
-    :type language: str
-
-    :param filename: Name of template file.
-    :type filename: str
+    :param str language: Generator language.
+    :param str filename: Name of template file.
 
     """
     path = _TEMPLATE_FOLDER + "/{0}/templates/{1}".format(language, filename)
@@ -91,11 +82,8 @@ def _load_template(language, filename):
 def load_templates(language, filenames):
     """Returns a dictionary of loaded code templates.
 
-    :param language: Generator language.
-    :type language: str
-
-    :param filenames: Set of template file names.
-    :type filenames: iterable
+    :param str language: Generator language.
+    :param str filenames: Set of template file names.
 
     """
     templates = {}
@@ -128,8 +116,7 @@ def emit_indent(count=1):
 def emit_line_return(count=1):
     """Emits code corresponding to a code line return.
 
-    :param count: Number of line returns to emit.
-    :type count: int
+    :param int count: Number of line returns to emit.
 
     """
     return reduce(lambda x, y: x + _LINE_RETURN, range(count), '')
@@ -151,12 +138,9 @@ def create_directory(dir):
 def write_file(code, dir, file):
     """Writes code to a file.
 
-    :param code: Code to be written to a file.
-    :param dir: Directory into which code is to be generated.
-    :param file: Name of code file being written.
-    :type code: str
-    :type dir: str
-    :type file: str
+    :param str code: Code to be written to a file.
+    :param str dir: Directory into which code is to be generated.
+    :param str file: Name of code file being written.
 
     """
     # Create directory.
@@ -174,11 +158,8 @@ def write_file(code, dir, file):
 def format_code(ctx, code):
     """Formats code prior to being written to file system.
 
-    :param ctx: Generation context information.
-    :type ctx: esdoc_mp.generators.generator.GeneratorContext
-
-    :param code: Code to be injected with standard params.
-    :type code: str
+    :param esdoc_mp.generators.generator.GeneratorContext ctx: Generation context information.
+    :param str code: Code to be injected with standard params.
 
     """
     # Ontology related params.

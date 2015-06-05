@@ -15,23 +15,15 @@
 class GeneratorOptions(object):
     """Encapsulates set of generator options.
 
-    :ivar generator_key: Key assigned to generator.
-    :ivar language: Target code generation programming language.
-    :ivar output_dir: Directory to which output will be generated.
-
     """
-    def __init__(self, generator_key, language, output_dir):
-        """Constructor.
+    def __init__(self, key, language, io_dir):
+        """Instance constructor.
 
-        :param generator_key: Key assigned to generator.
-        :param language: Target code generation programming language.
-        :param output_dir: Directory to which output will be generated.
-        :type generator_key: str
-        :type language: str
-        :type output_dir: str
+        :param str key: Key assigned to generator.
+        :param str language: Target code generation programming language.
+        :param str io_dir: Directory to which output will be generated.
 
         """
-        self.generator_key = generator_key
+        self.generator_key = key
         self.language = str(language).lower()
-        self.output_dir = str(output_dir)
-        
+        self.output_dir = str(io_dir)

@@ -29,62 +29,82 @@ from esdoc_mp.schemas.cim.v1 import software_enums
 
 
 
+# Ontology name.
+NAME = 'cim'
 
-# Schema :: CIM v1.
-schema = {
-    'name' : 'cim',
-    'version' : '1',
-    'is_latest' : False,
-    'doc' : 'Metafor CIM ontology schema - version 1',
-    'packages' : [
-        {
-            'name' : 'activity',
-            'doc' : 'Types that describe context against which climate models are run.',
-            'classes' : activity_classes,
-            'enums' : [],
-        },
-        {
-            'name' : 'data',
-            'doc' : 'Types that describe output that climate models emit.',
-            'classes' : data_classes,
-            'enums' : data_enums,
-        },
-        {
-            'name' : 'grids',
-            'doc' : 'Types that describe the grids that climate models plot.',
-            'classes' : grids_classes,
-            'enums' : grids_enums,
-        },
-        {
-            'name' : 'quality',
-            'doc' : 'Types that describe the quailty of output that climate models emit.',
-            'classes' : quality_classes,
-            'enums' : quality_enums,
-        },
-        {
-            'name' : 'shared',
-            'doc' : 'Shared types that might be imported from other packages within the ontology.',
-            'classes' : [
-                shared_classes,
-                shared_classes_doc,
-                shared_classes_time
-            ],
-            'enums' : [
-                shared_enums,
-                shared_enums_doc
-            ],
-        },
-        {
-            'name' : 'software',
-            'doc' : 'Types that describe the climate models software.',
-            'classes' : software_classes,
-            'enums' : software_enums,
-        },
-        {
-            'name' : 'misc',
-            'doc' : 'Miscellaneous types.',
-            'classes' : misc_classes,
-            'enums' : [],
-        },
+# Ontology version.
+VERSION = '1'
+
+# Ontology doc string.
+DOC = 'Metafor CIM ontology schema - version 1'
+
+
+def activity():
+    """Types that describe context against which climate models are run.
+
+    """
+    return [
+        activity_classes
     ]
-}
+
+
+def data():
+    """Types that describe output that climate models emit.
+
+    """
+    return [
+        data_classes,
+        data_enums
+    ]
+
+
+def grids():
+    """Types that describe the grids that climate models plot.
+
+    """
+    return [
+        grids_classes,
+        grids_enums
+    ]
+
+
+def misc():
+    """Miscellaneous types.
+
+    """
+    return [
+        misc_classes
+    ]
+
+
+def quality():
+    """Types that describe the quailty of output that climate models emit.
+
+    """
+    return [
+        quality_classes,
+        quality_enums
+    ]
+
+
+def shared():
+    """Shared types that might be imported from other packages within the ontology.
+
+    """
+    return [
+        shared_classes,
+        shared_classes_doc,
+        shared_classes_time,
+        shared_enums,
+        shared_enums_doc
+    ]
+
+
+def software():
+    """Types that describe the climate models software.
+
+    """
+    return [
+        software_classes,
+        software_enums
+    ]
