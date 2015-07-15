@@ -37,40 +37,34 @@ def _get_functions(modules):
     return result
 
 
-def _get_type_definition(func):
-    """Returns a type definition instantiated from a module function.
-
-    """
-    result = func()
-    result['name'] = func.__name__
-    result['doc'] = func.__doc__.strip()
-
-    return result
-
-
-def _get_package_definition(func):
-    """Returns a package definition instantiated from a module function.
-
-    """
-    return {
-        'name': func.__name__,
-        'doc': func.__doc__.strip(),
-        'types': func()
-    }
-
-
 def _get_type_definitions(modules):
     """Returns set of type definitions instantiated from a set of modules.
 
     """
-    return [_get_type_definition(i) for i in _get_functions(modules)]
+    def _get_definition(func):
+        """Returns a type definition."""
+        result = func()
+        result['name'] = func.__name__
+        result['doc'] = func.__doc__.strip()
+
+        return result
+
+    return [_get_definition(i) for i in _get_functions(modules)]
 
 
 def _get_package_definitions(modules):
     """Returns set of package definitions instantiated from a set of modules.
 
     """
-    return [_get_package_definition(i) for i in _get_functions(modules)]
+    def _get_definition(func):
+        """Returns a package definition."""
+        return {
+            'name': func.__name__,
+            'doc': func.__doc__.strip(),
+            'types': func()
+        }
+
+    return [_get_definition(i) for i in _get_functions(modules)]
 
 
 def _get_class_properties(class_):

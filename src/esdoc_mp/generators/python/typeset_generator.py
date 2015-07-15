@@ -13,7 +13,7 @@ from esdoc_mp import core
 from esdoc_mp.generators import generator_utils as gu
 from esdoc_mp.generators.python import utils as pgu
 from esdoc_mp.generators.generator import Generator
-from esdoc_mp.utils import runtime as rt
+from esdoc_mp import utils
 
 
 
@@ -181,7 +181,7 @@ def _emit_module_typeset_for_pkg(o, p):
             if n == len(result):
                 msg = "Package {0} has circular class dependencies."
                 msg = msg.format(p)
-                rt.throw(msg.format(p))
+                utils.raise_error(msg.format(p))
 
         return result
 

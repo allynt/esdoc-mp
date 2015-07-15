@@ -28,7 +28,6 @@ from esdoc_mp.schemas.cim.v1 import software_classes
 from esdoc_mp.schemas.cim.v1 import software_enums
 
 
-
 # Ontology name.
 NAME = 'cim'
 
@@ -39,72 +38,75 @@ VERSION = '1'
 DOC = 'Metafor CIM ontology schema - version 1'
 
 
+
+
 def activity():
     """Types that describe context against which climate models are run.
 
     """
-    return [
-        activity_classes
-    ]
+    return {
+        activity_classes,
+        activity_enums
+    }
 
 
 def data():
     """Types that describe output that climate models emit.
 
     """
-    return [
+    return {
         data_classes,
         data_enums
-    ]
+    }
 
 
 def grids():
     """Types that describe the grids that climate models plot.
 
     """
-    return [
+    return {
         grids_classes,
         grids_enums
-    ]
+    }
 
 
 def misc():
     """Miscellaneous types.
 
     """
-    return [
+    return {
         misc_classes
-    ]
+    }
 
 
 def quality():
     """Types that describe the quailty of output that climate models emit.
 
     """
-    return [
+    return {
         quality_classes,
         quality_enums
-    ]
+    }
 
 
 def shared():
     """Shared types that might be imported from other packages within the ontology.
 
     """
-    return [
+    return {
         shared_classes,
         shared_classes_doc,
         shared_classes_time,
         shared_enums,
         shared_enums_doc
-    ]
+    }
 
 
 def software():
     """Types that describe the climate models software.
 
     """
-    return [
+    return {
         software_classes,
         software_enums
-    ]
+    }

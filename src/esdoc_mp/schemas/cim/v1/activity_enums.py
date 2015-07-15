@@ -61,6 +61,7 @@ def experiment_relationship_type():
 
     """
     return {
+        'type': 'enum',
         'is_open': False,
         'members': [
             ('previousRealisation', None),

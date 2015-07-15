@@ -14,7 +14,7 @@ from operator import or_
 from functools import reduce
 
 from esdoc_mp.core.class_ import Class
-from esdoc_mp.utils import runtime as rt
+from esdoc_mp import utils
 
 
 
@@ -107,7 +107,7 @@ def _set_base_classes(ontology):
         else:
             msg = "Base class not found :: class = {0}.{1} :: base = {2}"
             msg = msg.format(cls.package, cls, cls.base)
-            rt.log(msg)
+            utils.log(msg)
 
 
 def _set_property_type_info(ontology):

@@ -9,7 +9,7 @@
 
 
 """
-from esdoc_mp.core.type import Type
+from esdoc_mp.core.type_ import Type
 
 
 

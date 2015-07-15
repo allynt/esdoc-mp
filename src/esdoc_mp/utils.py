@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: esdoc_mp.utils.runtime
+.. module:: esdoc_mp.utils
    :platform: Unix, Windows
    :synopsis: Runtime utilty functions.
 
@@ -44,16 +44,6 @@ def raise_error(msg, type_=ESDOC_MP_Exception):
     raise type_(msg)
 
 
-def throw(msg):
-    """Throws an ES-DOC API error.
-
-    :param msg: Error message.
-    :type msg: str
-
-    """
-    raise_error(msg)
-
-
 def log(msg):
     """Outputs a message to log.
 
@@ -61,4 +51,7 @@ def log(msg):
     :type msg: str
 
     """
-    print("ES-DOC MP :: {}".format(msg))
+    if msg.startswith('-'):
+        print(msg)
+    else:
+        print("ES-DOC Meta-Programming Framework :: {}".format(msg))

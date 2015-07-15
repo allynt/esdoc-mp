@@ -38,42 +38,42 @@ def activity():
     """Types that describe context against which climate models are run.
 
     """
-    return [
+    return {
         activity_classes,
         activity_classes_ensemble,
         activity_classes_experiment,
         activity_enums
-    ]
+    }
 
 
 def data():
     """Types that describe output that climate models emit.
 
     """
-    return [
+    return {
         data_classes
-    ]
+    }
 
 
 def platform():
     """Types that describe hardware upon which climate models are run.
 
     """
-    return [
+    return {
         platform_classes,
         platform_enums
-    ]
+    }
 
 
 def shared():
     """Shared types that might be imported from other packages within the ontology.
 
     """
-    return [
+    return {
         shared_classes,
         shared_classes_doc,
         shared_classes_time,
         shared_enums,
         shared_enums_time
-    ]
+    }
 

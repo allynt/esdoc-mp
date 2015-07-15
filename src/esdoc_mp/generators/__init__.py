@@ -9,14 +9,14 @@
 
 
 """
+import os
+
+from esdoc_mp import utils
 from esdoc_mp.core.factory import create_ontology
 from esdoc_mp.generators.factory import create_generators
 from esdoc_mp.generators.generator_options import GeneratorOptions
 from esdoc_mp.generators.python.utils import format as format_python
-from esdoc_mp.utils.validation import validate_language
-from esdoc_mp.utils.validation import validate_schema
-from esdoc_mp.utils.validation import validate_output_dir
-
+from esdoc_mp.schemas import validate_schema
 
 
 
@@ -26,14 +26,34 @@ _formatters = {
 }
 
 
-def _log(msg):
-    """Logging helper function.
+# Set of supported programming languages.
+_LANGUAGES = {
+    'c++',
+    'fortran',
+    'java',
+    'javascript',
+    'python',
+}
+
+
+def _validate_language(language):
+    """Returns list of target programming language validation errors.
 
     """
-    if msg.startswith('-'):
-        print(msg)
-    else:
-        print("ES-DOC :: MP :: {}".format(msg))
+    if not language in _LANGUAGES:
+        return ['Programming language is unsupported [{0}].  Supported languages are {1}.'.format(language, _LANGUAGES)]
+
+    return []
+
+
+def _validate_output_dir(output_dir):
+    """Returns list of target output directory validation errors.
+
+    """
+    if not os.path.exists(output_dir):
+        return ['Output directory does not exist [{0}].'.format(output_dir)]
+
+    return []
 
 
 def generate(schema, language, io_dir):
@@ -44,35 +64,35 @@ def generate(schema, language, io_dir):
     :param str io_dir: Target I/O directory.
 
     """
-    if can_generate(schema, language, io_dir) == False:
+    if not can_generate(schema, language, io_dir):
         return
 
-    _log("Welcome to the ES-DOC meta-programming code generator !")
-    _log("GENERATION OPTION : schema = {0}".format(schema.NAME))
-    _log("GENERATION OPTION : schema version = {0}".format(schema.VERSION))
-    _log("GENERATION OPTION : language = {0}".format(language))
-    _log("GENERATION OPTION : output directory = {0}".format(io_dir))
+    utils.log("Welcome to the ES-DOC meta-programming code generator !")
+    utils.log("GENERATION OPTION : schema = {0}".format(schema.NAME))
+    utils.log("GENERATION OPTION : schema version = {0}".format(schema.VERSION))
+    utils.log("GENERATION OPTION : language = {0}".format(language))
+    utils.log("GENERATION OPTION : output directory = {0}".format(io_dir))
 
     # Initialise ontology.
     ontology = create_ontology(schema)
-    _log("ONTOLOGY :: {0} (packages={1}, classes={2}, enums={3})".format(
+    utils.log("ONTOLOGY :: {0} (packages={1}, classes={2}, enums={3})".format(
         ontology, len(ontology.packages), len(ontology.classes), len(ontology.enums)))
 
     # Apply language specific pre-generator formatter.
     if language in _formatters:
         _formatters[language](ontology)
-        _log("ONTOLOGY :: formatted for {0}".format(language))
+        utils.log("ONTOLOGY :: formatted for {0}".format(language))
 
     # Invoke language specific generators.
     generators = create_generators(language)
     for key, factory in generators.items():
-        _log("GENERATOR = {0} :: generation begins".format(key))
+        utils.log("GENERATOR = {0} :: generation begins".format(key))
         options = GeneratorOptions(key, language, io_dir)
         generator = factory()
         generator.execute(ontology, options)
-        _log("GENERATOR = {0} :: generation complete".format(key))
+        utils.log("GENERATOR = {0} :: generation complete".format(key))
 
-    _log("Thank you for using the ES-DOC code generator")
+    utils.log("Thank you for using the ES-DOC code generator")
 
 
 def can_generate(schema, language, output_dir):
@@ -86,13 +106,12 @@ def can_generate(schema, language, output_dir):
     :rtype: bool
 
     """
-    errors = validate_language(language)
+    errors = _validate_language(language)
     errors += validate_schema(schema)
-    errors += validate_output_dir(output_dir)
+    errors += _validate_output_dir(output_dir)
     if errors:
-        _log("-------------------------------------------------------------------")
-        _log("INVALID GENERATOR OPTIONS !!!")
+        utils.log("-------------------------------------------------------------------")
         for error in errors:
-            _log("GENERATOR OPTION ERROR :: {0}".format(error))
+            utils.log("VALIDATION ERROR :: {0}".format(error))
 
     return len(errors) == 0
