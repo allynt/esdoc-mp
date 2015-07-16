@@ -17,5 +17,5 @@ import v2
 # Set of supported Metafor CIM schemas.
 SCHEMAS = {
     v1,
-    v2,
+    # v2,
 }

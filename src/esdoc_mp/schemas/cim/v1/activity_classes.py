@@ -13,7 +13,6 @@
 """
 
 
-
 def activity():
     """An abstract class used as the parent of MeasurementCampaigns, Projects, Experiments, and NumericalActivities.
 

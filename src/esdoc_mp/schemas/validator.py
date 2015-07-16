@@ -1,263 +1,47 @@
-# TODO move code from utils.validation to here# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
-"""A set of CIM meta-programming ontology configurqtion validation functions.
+"""
+.. module:: esdoc_mp.schemas.validator
+   :platform: Unix, Windows
+   :synopsis: Validates an ontology schema definition.
+
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
 
 """
 import inspect
-import os
 import re
 
 
-def _get_schema():
-    """Returns configuration schema.
 
-    """
-    return {
-        'ontology' : {
-            'type' : dict,
-            'fields' : {
-                'name' : (str, True, '^[a-z_]+$'),
-                'version' : (str, True, '^[0-9\.]+$'),
-                'doc' : (str, True, None),
-                'packages' : ('packages', True, None),
-            },
-        },
-        'packages': {
-            'type' : list,
-            'item_type' : 'package',
-        },
-        'package' : {
-            'type' : dict,
-            'fields' : {
-                'name' : (str, True, '^[a-z]+$'),
-                'doc' : (str, True, None),
-                'classes' : ('classes', True, None),
-                'enums' : ('enums', True, None),
-            },
-        },
-        'classes': {
-            'type' : list,
-            'item_type' : 'class',
-        },
-        'class' : {
-            'type' : dict,
-            'fields' : {
-                'name' : (str, True, '^[a-z_0-9]+$'),
-                'base' : (str, False, '^[a-z_]+\.?[a-z_]+$'),
-                'abstract' : (bool, True, None),
-                'doc' : (str, False, None),
-                'properties' : ('properties', True, None),
-                'decodings' : ('decodings', True, None),
-            },
-        },
-        'properties': {
-            'type' : list,
-            'item_type' : 'property',
-        },
-        'property' : {
-            'type' : tuple,
-            'length' : '4',
-            '0' : (str, True, '^[a-z_]+$'),                     # name
-            '1' : (str, True, '^[a-z_]+\.?[a-z_]+$'),           # type
-            '2' : (str, True, ['0.1', '0.N', '1.1', '1.N']),    # cardinality
-            '3' : (str, False, None),                           # doc
-        },
-        'decodings': {
-            'type' : list,
-            'item_type' : 'decoding',
-        },
-        'decoding' : {
-            'type' : tuple,
-            'length' : '2|3',
-            '0' : (str, True, '^[a-z_]+$'),                     # name
-            '1' : (str, True, None),                            # decoding
-            '2' : (str, True, '^[a-z_]+\.?[a-z_]+$'),           # sub-type
-        },
-        'enums': {
-            'type' : list,
-            'item_type' : 'enum',
-        },
-        'enum' : {
-            'type' : dict,
-            'fields' : {
-                'name' : (str, True, '^[a-z_]+$'),
-                'is_open' : (bool, True, None),
-                'doc' : (str, False, None),
-                'members' : ('enum_members', True, None),
-            },
-        },
-        'enum_members': {
-            'type' : list,
-            'item_type' : 'enum_member',
-        },
-        'enum_member' : {
-            'type' : tuple,
-            'length' : '2',
-            'fields' : {
-                '0' : (str, True, '^[a-z-A-Z]+$'),          # name
-                '1' : (str, False, None),                   # doc
-            },
-        },
-    }
-
-
-def _validate_field(field, field_data, field_elem, ctx):
-    """Validates configuration data against passed dictionary configuration element.
-
-    Keyword Arguments:
-    data - data being validated.
-    elem - dictionary configuration element that data is associatd with.
-    ctx - validation context.
-
-    """
-    errors = []
-    schema = _get_schema()
-
-    # Unpack field attributes.
-    field_type, field_value_required, field_validator = field_elem
-
-    # Field value required validation.
-    if field_data is None:
-        if field_value_required:
-            _set_error(ctx, 'Required field value :: {0}.'.format(field))
-
-    # Simple field validation.
-    elif field_type not in schema:
-        # ... field type validation.
-        if not isinstance(field_data, field_type):
-            _set_error(ctx, '{0} value is of an invalid type (expected {1}).'.format(field_data, field_type))
-        elif field_validator is not None:
-            if isinstance(field_validator, list) and field_data not in field_validator:
-                _set_error(ctx, '{0} value ({1}) is not permitted value :: expected one of {2}.'.format(field, field_data, field_validator))
-            elif re.match(field_validator, field_data) is None:
-                _set_error(ctx, '{0} format is invalid :: {1}.'.format(field, field_data))
-
-    # Complex field validation.
-    else:
-        # ... field type validation.
-        field_sub_type = schema[field_type]['type']
-        if not isinstance(field_data, field_sub_type):
-            _set_error(ctx, 'Invalid field type :: {0} (expected {1}).'.format(field, field_sub_type))
-        # ... recurse sub-fields.
-        else:
-            _set_error(ctx, _validate(field_data, field_type, ctx))
-
-    return errors
-
-
-def _validate_dict(cfg, cfg_schema, ctx):
-    """Validates configuration data against passed dictionary configuration element.
-
-    Keyword Arguments:
-    cfg - configuration being validated.
-    cfg_schema - configuration schema.
-    ctx - validation context.
-
-    """
-    errors = []
-
-    elem_fields = cfg_schema['fields']
-    for field in elem_fields:
-        # Field required validation.
-        if field not in cfg:
-            _set_error(ctx, 'Required field :: {0}.'.format(field))
-        # Other field level validation.
-        else:
-            field_data = cfg[field]
-            field_elem = elem_fields[field]
-            _set_error(ctx, _validate_field(field, field_data, field_elem, ctx))
-
-    return errors
-
-
-def _validate_list(cfg, cfg_schema, ctx):
-    """Validates configuration data against passed list configuration element.
-
-    Keyword Arguments:
-    cfg - configuration being validated.
-    cfg_schema - configuration schema.
-    ctx - validation context.
-
-    """
-    errors = []
-
-    item_elem_name = cfg_schema['item_type']
-    for item_data in cfg:
-        _set_error(ctx, _validate(item_data, item_elem_name, ctx))
-
-    return errors
-
-
-def _validate_tuple(cfg, cfg_schema, ctx):
-    """Validates configuration data against passed tuple configuration element.
-
-    Keyword Arguments:
-    cfg - configuration being validated.
-    cfg_schema - configuration schema.
-    ctx - validation context.
-
-    """
-    errors = []
-
-    if len(cfg) not in map(int, cfg_schema['length'].split('|')):
-        _set_error(ctx, 'Invalid tuple length.')
-
-    return errors
-
-
-def _validate(cfg, cfg_type_name, ctx):
-    """Validates configuration data against passed configuration element.
-
-    Keyword Arguments:
-    cfg - configuration being validated.
-    cfg_type_name - name of configuration schema type (E.G. ontology).
-    ctx - validation context.
-
-    """
-    errors = []
-    schema = _get_schema()
-
-    if cfg_type_name not in schema:
-        _set_error(ctx, 'Configuration element unsupported :: {0}.'.format(cfg_type_name))
-    else:
-        cfg_schema = schema[cfg_type_name]
-        cfg_type = cfg_schema['type']
-        if isinstance(cfg, cfg_type) == False:
-            _set_error(ctx, 'Configuration element type invalid :: {0} (expected {1}).'.format(cfg_schema, cfg_type))
-        else:
-            if cfg_type == dict:
-                _set_error(ctx, _validate_dict(cfg, cfg_schema, ctx))
-            elif cfg_type == list:
-                _set_error(ctx, _validate_list(cfg, cfg_schema, ctx))
-            elif cfg_type == tuple:
-                _set_error(ctx, _validate_tuple(cfg, cfg_schema, ctx))
-
-    return errors
-
-
-def _get_functions(modules):
-    """Returns a collection of function pointers declared within a module.
-
-    """
-    try:
-        iter(modules)
-    except TypeError:
-        modules = [modules]
-
-    result = set()
-    for module in modules:
-        result.update({m[1] for m in inspect.getmembers(module) if inspect.isfunction(m[1])})
-
-    return result
-
-
-# Regular expressions to apply over schema.
+# Regular expressions to apply over various names.
 _RE_SCHEMA_NAME = '^[a-z_]+$'
 _RE_SCHEMA_VERSION = '^[0-9\.]+$'
-_RE_SCHEMA_BASE_CLASS = '^[a-z_.]+$'
-_RE_SCHEMA_CLASS_PROPERTY_NAME = '^[a-z_]+$'
+_RE_CLASS_NAME = '^[a-z_0-9]+$'
+_RE_CLASS_PROPERTY_NAME = '^[a-z_]+$'
+_RE_CLASS_PROPERTY_TYPE = '^[a-z_]+\.?[a-z_]+$'
+_RE_CLASS_REFERENCE = '^[a-z_]+\.?[a-z_]+$'
+_RE_ENUM_NAME = '^[a-z_]+$'
+_RE_ENUM_MEMBER_NAME = '^[a-zA-Z0-9-_ ]+$'
+_RE_PACKAGE_NAME = '^[a-z]+$'
 
-_PROPERTY_CARDINALITY_WHITELIST = {'0.1', '0.N', '1.1', '1.N'}
+# Whitelist of valid types.
+_TYPE_WHITELIST = {'class', 'enum'}
+
+# Whitelist of valid class property cardinality.
+_CLASS_PROPERTY_CARDINALITIES = {'0.1', '0.N', '1.1', '1.N'}
+
+# Whitelist of valid class property simple types.
+_SIMPLE_CLASS_PROPERTY_TYPES = {
+    'bool',
+    'date',
+    'datetime',
+    'float',
+    'int',
+    'str',
+    'uri',
+    'uuid'
+}
 
 
 class _ValidationContext(object):
@@ -269,14 +53,30 @@ class _ValidationContext(object):
 
         """
         self.schema = schema
-        self.errors = []
+        self.report = list()
 
 
     def set_error(self, err):
         """Adds an error to the manged collection.
 
         """
-        self.errors.append(err)
+        self.report.append(err)
+
+
+    @property
+    def schema_name(self):
+        """Gets schema name.
+
+        """
+        return self.schema.NAME
+
+
+    @property
+    def schema_version(self):
+        """Gets schema version.
+
+        """
+        return "v{}".format(self.schema.VERSION)
 
 
     @property
@@ -292,17 +92,14 @@ class _ValidationContext(object):
         """Gets package definitions.
 
         """
-        result = []
+        result = list()
         for factory in self.package_factories:
             try:
-                type_modules = factory()
+                result.append((factory, factory()))
             except Exception as err:
                 pass
-            else:
-                if isinstance(type_modules, set):
-                    result.append((factory, type_modules))
 
-        return sorted(result)
+        return sorted([p for p in result if isinstance(p[1], set) and len(p[1])])
 
 
     @property
@@ -343,119 +140,250 @@ class _ValidationContext(object):
                 pass
             else:
                 if isinstance(type_, dict):
-                    result.append((package, module, type_factory, type_))
+                    result.append((module, type_factory, type_))
 
         return sorted(result)
 
 
-def _validate_package_factory(ctx, factory):
-    """Asserts that a package has type modules.
+    def get_name(self, factory, module=None):
+        """Gets a name used when displaying an error message.
+
+        """
+        if module is None or module == self.schema:
+            return "{0}.v{1}.{2}".format(
+                self.schema.NAME,
+                self.schema.VERSION,
+                factory.__name__)
+        else:
+            return "{0}.v{1}.{2}.{3}".format(
+                self.schema.NAME,
+                self.schema.VERSION,
+                module.__name__.split(".")[-1].split("_")[0],
+                factory.__name__)
+
+
+def _get_functions(modules):
+    """Returns a collection of function pointers declared within a module.
 
     """
     try:
-        factory()
-    except:
-        ctx.set_error('{} package is invalid: must be a no-arg callable'.format(factory.__name__))
+        iter(modules)
+    except TypeError:
+        modules = [modules]
+
+    result = set()
+    for module in modules:
+        result.update({m[1] for m in inspect.getmembers(module) if inspect.isfunction(m[1])})
+
+    return result
 
 
-def _validate_type_module(ctx, factory, module):
-    """Asserts a type module.
-
-    """
-    if not inspect.ismodule(module):
-        ctx.set_error('{} package is invalid: all type modules must be defined as python modules'.format(factory.__name__))
-    elif not _get_functions(module):
-        ctx.set_error('{} type module is invalid: does not contain at least one type factory'.format(module.__name__.split('.')[-1]))
-
-
-def _validate_package(ctx, factory, type_modules):
-    """Asserts that a package has type modules.
-
-    """
-    if not factory.__doc__ or not factory.__doc__.strip():
-        ctx.set_error('{} package is invalid: must have a doc string'.format(factory.__name__))
-
-    if not isinstance(type_modules, set) or not len(type_modules):
-        ctx.set_error('{} package is invalid: type modules must be defined as a python set'.format(factory.__name__))
-    else:
-        for type_module in type_modules:
-            _validate_type_module(ctx, factory, type_module)
-
-
-def _validate_type_factory(ctx, package, type_module, type_factory):
-    """Validates a type factory function pointer.
-
-    """
-    if not type_factory.__doc__ or not type_factory.__doc__.strip():
-        ctx.set_error('{0}.{1} is invalid: must have a doc string'.format(package.__name__, type_factory.__name__))
-    else:
-        try:
-            type_ = type_factory()
-        except:
-            ctx.set_error('{0}.{1} is invalid: must be a no-arg callable'.format(package.__name__, type_factory.__name__))
-        else:
-            if not isinstance(type_, dict):
-                ctx.set_error('{0}.{1} is invalid: must return a dictionary'.format(package.__name__, type_factory.__name__))
-
-
-def _validate_class_property(ctx, package, module, type_factory, cls, prop):
-    """Validates a class property.
-
-    """
-    if not isinstance(prop, tuple):
-        ctx.set_error('{0}.{1} is invalid: all properties must be declared as a tuple of 3 members (name, type, cardinality)'.format(package.__name__, type_factory.__name__))
-    elif not len(prop) == 3:
-        ctx.set_error('{0}.{1} is invalid: all properties must be declared as a tuple of 3 members (name, type, cardinality)'.format(package.__name__, type_factory.__name__))
-    else:
-        prop_name, prop_type, prop_cardinality = prop
-        if not re.match(_RE_SCHEMA_CLASS_PROPERTY_NAME, prop_name):
-            ctx.set_error('{0}.{1}.{2} is invalid: property name is not in lower case underscore format'.format(package.__name__, type_factory.__name__, prop_name))
-        if prop_cardinality not in _PROPERTY_CARDINALITY_WHITELIST:
-            ctx.set_error('invalid class property --> {0}.{1}.{2}: cardinality must be in {3}'.format(package.__name__, type_factory.__name__, prop_name, _PROPERTY_CARDINALITY_WHITELIST))
-
-
-def _validate_class(ctx, package, module, type_factory, cls):
+def _validate_class(ctx, module, factory, cls):
     """Validates a class definition.
 
     """
     if 'base' not in cls:
-        ctx.set_error('{0}.{1} is invalid: does not contain a "base" attribute'.format(package.__name__, type_factory.__name__))
-    elif cls['base'] is not None and not re.match(_RE_SCHEMA_BASE_CLASS, cls['base']):
-        ctx.set_error('{0}.{1} is invalid: "base" attribute does not refer to a class'.format(package.__name__, type_factory.__name__))
+        err = 'Invalid class: {} --> required attribute "base" is missing'
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+        return
 
     if 'is_abstract' not in cls:
-        ctx.set_error('{0}.{1} is invalid: does not contain an "is_abstract" attribute'.format(package.__name__, type_factory.__name__))
-    elif not isinstance(cls['is_abstract'], bool):
-        ctx.set_error('{0}.{1} is invalid: "is_abstract" attribute must be a boolean'.format(package.__name__, type_factory.__name__))
+        err = 'Invalid class: {} --> required attribute "is_abstract" is missing'
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+        return
 
-    if 'properties' in cls:
-        if not isinstance(cls['properties'], list):
-            ctx.set_error('{0}.{1} is invalid: "properties" attribute must be a set'.format(package.__name__, type_factory.__name__))
-        else:
-            for prop in cls['properties']:
-                _validate_class_property(ctx, package, module, type_factory, cls, prop)
+    if not re.match(_RE_CLASS_NAME, factory.__name__):
+        err = 'Invalid class: {} --> name format must be lower_case_underscore'
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+
+    if cls['base'] is not None and not re.match(_RE_CLASS_REFERENCE, cls['base']):
+        err = 'Invalid class: {} --> base class reference format must be lower_case_underscore '
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+
+    if cls['base'] is not None and not len(cls['base'].split('.')) == 2:
+        err = 'Invalid class: {} --> base class reference must contain a "." spliting the package and type references, e.g. activity.numerical_activity'
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+
+    if not isinstance(cls['is_abstract'], bool):
+        err = 'Invalid class: {} --> "is_abstract" attribute must be a boolean'
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+
+    if 'doc_strings' in cls and not isinstance(cls['doc_strings'], dict):
+        err = 'Invalid class: {} --> "doc_strings" attribute must be a dict'
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+
+    if 'properties' in cls and not isinstance(cls['properties'], list):
+        err = 'Invalid class: {} --> "properties" attribute must be a list'
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+        return
+
+    if [p for p in cls.get('properties', []) if not isinstance(p, tuple) or not len(p) == 3]:
+        err = 'Invalid class: {} --> all properties must be 3 item tuples (name, type, cardinality)'
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+        return
+
+    for p in cls.get('properties', []):
+        _validate_class_property(ctx, module, factory, cls, p[0], p[1], p[2])
 
 
-
-
-def _validate_enum(ctx, package, module, type_factory, enum):
-    """Validates an enum definition.
+def _validate_class_property(ctx, module, factory, cls, name, typeof, cardinality):
+    """Validates a class property.
 
     """
-    pass
+    if not re.match(_RE_CLASS_PROPERTY_NAME, name):
+        err = 'Invalid class property: {0}.{1} --> name format must be lower_case_underscore'
+        err = err.format(ctx.get_name(factory, module), name)
+        ctx.set_error(err)
+
+    if not re.match(_RE_CLASS_PROPERTY_TYPE, typeof):
+        err = 'Invalid class property: {0}.{1} --> type format must be lower_case_underscore'
+        err = err.format(ctx.get_name(factory, module), name)
+        ctx.set_error(err)
+
+    if len(typeof.split('.')) == 1 and \
+       typeof not in _SIMPLE_CLASS_PROPERTY_TYPES:
+        err = 'Invalid class property: {0}.{1} --> type must be in {2}'
+        err = err.format(ctx.get_name(factory, module), name, _SIMPLE_CLASS_PROPERTY_TYPES)
+        ctx.set_error(err)
+
+    if len(typeof.split('.')) == 2:
+        pass
+        # print('TODO: validate complex type reference: {}'.format(typeof))
+
+    if cardinality not in _CLASS_PROPERTY_CARDINALITIES:
+        err = 'Invalid class property: {0}.{1} --> cardinality must be in {2}'
+        err = err.format(ctx.get_name(factory, module), name, _CLASS_PROPERTY_CARDINALITIES)
+        ctx.set_error(err)
 
 
-def _validate_type(ctx, package, module, type_factory, type_):
-    """Asserts package types.
+def _validate_enum(ctx, module, factory, enum):
+    """Validates an enumeration.
 
     """
-    if 'type' not in type_:
-        ctx.set_error('Type definition {0}.{1} is invalid: does not contain a type attribute'.format(package.__name__, type_factory.__name__))
-    elif type_['type'] not in ['class', 'enum']:
-        ctx.set_error('Type definition {0}.{1} is invalid: must be either a class or enum'.format(package.__name__, type_factory.__name__))
-    else:
-        sub_validator = _validate_class if type_['type'] == 'class' else _validate_enum
-        sub_validator(ctx, package, module, type_factory, type_)
+    if not re.match(_RE_ENUM_NAME, factory.__name__):
+        err = 'Invalid enum: {} --> name format must be lower_case_underscore'
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+
+    if 'is_open' not in enum:
+        err = 'Invalid enum: {} --> required attribute "is_open" is missing'
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+        return
+
+    if not isinstance(enum['is_open'], bool):
+        err = 'Invalid enum: {} --> "is_open" attribute must be a boolean'
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+
+    if 'members' in enum and not isinstance(enum['members'], list):
+        err = 'Invalid enum: {} --> "members" attribute must be a list'
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+        return
+
+    if [m for m in enum.get('members', []) if not isinstance(m, tuple) or not len(m) == 2]:
+        err = 'Invalid enum: {} --> all members must be 2 item tuples (name, doc_string)'
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+        return
+
+    for m in enum.get('members', []):
+        _validate_enum_member(ctx, module, factory, enum, m[0], m[1])
+
+
+def _validate_enum_member(ctx, module, factory, enum, name, doc_string):
+    """Validates an enumeration member.
+
+    """
+    if not re.match(_RE_ENUM_MEMBER_NAME, name):
+        err = 'Invalid enum member: {0}.{1} --> name contain invalid characters'
+        err = err.format(ctx.get_name(factory, module), name)
+        ctx.set_error(err)
+
+    if doc_string is not None and not len(doc_string.strip()):
+        err = 'Invalid enum member: {0}.{1} --> doc string must be either None or a string'
+        err = err.format(ctx.get_name(factory, module), name)
+        ctx.set_error(err)
+
+
+def _validate_factory(ctx, module, factory, expected_type, type_description):
+    """Validates a factory function.
+
+    """
+    try:
+        instance = factory()
+    except:
+        err = 'Invalid {0}: {1} --> must be a no-arg callable'
+        err = err.format(type_description, ctx.get_name(factory, module))
+        ctx.set_error(err)
+        return
+
+    if not isinstance(instance, expected_type):
+        err = 'Invalid {0}: {1} --> unexpected return type (was expecting {2})'
+        err = err.format(type_description, ctx.get_name(factory, module), expected_type.__name__)
+        ctx.set_error(err)
+        return
+
+    if not len(instance):
+        err = 'Invalid {0}: {1} --> must not return an empty collection'
+        err = err.format(type_description, ctx.get_name(factory, module))
+        ctx.set_error(err)
+
+
+def _validate_package(ctx, factory, modules):
+    """Validates a package.
+
+    """
+    if not re.match(_RE_PACKAGE_NAME, factory.__name__):
+        err = 'Invalid package: {} --> must be a single word in lower case'
+        err = err.format(ctx.get_name(factory))
+        ctx.set_error(err)
+
+    if not factory.__doc__ or not factory.__doc__.strip():
+        err = 'Invalid package: {} --> must have a doc string'
+        err = err.format(ctx.get_name(factory))
+        ctx.set_error(err)
+        return
+
+    if not len(modules):
+        err = 'Invalid package: {} --> must have at least one package type module'
+        err = err.format(ctx.get_name(factory))
+        ctx.set_error(err)
+        return
+
+    for module in modules:
+        if not inspect.ismodule(module):
+            err = 'Invalid package: {} --> all package type modules must be defined as python modules'
+            err = err.format(ctx.get_name(factory))
+            ctx.set_error(err)
+            continue
+
+        if not _get_functions(module):
+            err = 'Invalid package: {} --> all package type modules must must contain at least one type factory'
+            err = err.format(ctx.get_name(factory))
+            ctx.set_error(err)
+            continue
+
+        for type_factory in  _get_functions(module):
+            _validate_factory(ctx, module, type_factory, dict, 'type')
+
+
+def _validate_packages(ctx):
+    """Validates package level attributes.
+
+    """
+    for factory, modules in ctx.packages:
+        _validate_package(ctx, factory, modules)
 
 
 def _validate_schema(ctx):
@@ -463,57 +391,71 @@ def _validate_schema(ctx):
 
     """
     if not inspect.ismodule(ctx.schema):
-        ctx.set_error('Schemas must be python modules.')
-
-    if not hasattr(ctx.schema, 'DOC') or not ctx.schema.DOC.strip():
-        ctx.set_error('Schema must declare a DOC attribute')
+        ctx.set_error('Invalid schema --> must be python modules.')
+        return
 
     if not hasattr(ctx.schema, 'NAME'):
-        ctx.set_error('Schema must declare a NAME attribute')
-
-    if not re.match(_RE_SCHEMA_NAME, ctx.schema.NAME):
-        ctx.set_error('Schema NAME must be a single word')
+        ctx.set_error('Invalid schema --> required attribute NAME is missing')
 
     if not hasattr(ctx.schema, 'VERSION'):
-        ctx.set_error('Schema must declare a VERSION attribute')
+        ctx.set_error('Invalid schema --> required attribute VERSION is missing')
+
+    if not hasattr(ctx.schema, 'DOC'):
+        ctx.set_error('Invalid schema --> required attribute DOC is missing')
+
+    if not ctx.package_factories:
+        ctx.set_error('Invalid schema --> must declare at least one package')
+
+    if ctx.report:
+        return
+
+    if ctx.schema.DOC is None or not ctx.schema.DOC.strip():
+        ctx.set_error('Invalid schema --> required attribute DOC is missing')
+
+    if not re.match(_RE_SCHEMA_NAME, ctx.schema.NAME):
+        ctx.set_error('Invalid schema --> NAME must be a single word in lower case')
 
     if not re.match(_RE_SCHEMA_VERSION, ctx.schema.VERSION):
-        ctx.set_error('Schema version must be a postive integer')
-
-
-def _validate_package_factories(ctx):
-    """Asserts package type modules.
-
-    """
-    if not ctx.package_factories:
-        ctx.set_error('Schema must declare at least one package factory function')
+        ctx.set_error('Invalid schema --> VERSION must be a postive integer')
 
     for factory in ctx.package_factories:
-        _validate_package_factory(ctx, factory)
+        _validate_factory(ctx, ctx.schema, factory, set, 'package')
 
 
-def _validate_packages(ctx):
-    """Validates package level attributes.
-
-    """
-    for factory, type_modules in ctx.packages:
-        _validate_package(ctx, factory, type_modules)
-
-
-def _validate_type_factories(ctx):
-    """Asserts package type modules.
+def _validate_type(ctx, module, factory, type_):
+    """Asserts package types.
 
     """
-    for package, type_module, factory in ctx.type_factories:
-        _validate_type_factory(ctx, package, type_module, factory)
+    if not factory.__doc__ or not factory.__doc__.strip():
+        err = 'Invalid type: {} --> must specify a doc string'
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+
+    if 'type' not in type_:
+        err = 'Invalid type: {} --> must specify a type attribute'
+        err = err.format(ctx.get_name(factory, module))
+        ctx.set_error(err)
+        return
+
+    if type_['type'] not in _TYPE_WHITELIST:
+        err = 'Invalid type: {0} --> type attribute must be in {1}'
+        err = err.format(ctx.get_name(factory, module), _TYPE_WHITELIST)
+        ctx.set_error(err)
+        return
+
+    if type_['type'] == 'class':
+        _validate_class(ctx, module, factory, type_)
+
+    if type_['type'] == 'enum':
+        _validate_enum(ctx, module, factory, type_)
 
 
 def _validate_types(ctx):
     """Asserts package types.
 
     """
-    for package, module, type_factory, type_ in ctx.types:
-        _validate_type(ctx, package, module, type_factory, type_)
+    for module, type_factory, type_ in ctx.types:
+        _validate_type(ctx, module, type_factory, type_)
 
 
 def validate(schema):
@@ -521,20 +463,18 @@ def validate(schema):
 
     :param module schema: Ontology schema definition.
 
-    :returns: List of validation errors (if any).
-    :rtype: list
+    :returns: Set of validation errors (if any).
+    :rtype: set
 
     """
     ctx = _ValidationContext(schema)
     for validator in (
         _validate_schema,
-        _validate_package_factories,
         _validate_packages,
-        _validate_type_factories,
         _validate_types
         ):
         validator(ctx)
-        if ctx.errors:
+        if ctx.report:
             break
 
-    return ctx.errors
+    return ctx.report

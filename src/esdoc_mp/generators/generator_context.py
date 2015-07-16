@@ -13,7 +13,7 @@
 
 
 class GeneratorContext(object):
-    """Encpasulates contextual information used by generators.
+    """Encpasulates contextual information passed to generators.
 
     :ivar ontology: Ontology being processed.
     :ivar options: Generation options.
@@ -33,7 +33,7 @@ class GeneratorContext(object):
         self.pkg = None
         self.cls = None
         self.enum = None
-        
+
 
     @property
     def language(self):
