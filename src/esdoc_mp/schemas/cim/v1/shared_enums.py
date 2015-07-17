@@ -14,7 +14,7 @@
 
 
 
-def _change_property_type():
+def change_property_type():
     """Creates and returns instance of change_property_type enum.
 
     """
@@ -38,7 +38,7 @@ def _change_property_type():
     }
 
 
-def _compiler_type():
+def compiler_type():
     """Creates and returns instance of compiler_type enum.
 
     """
@@ -48,7 +48,7 @@ def _compiler_type():
     }
 
 
-def _data_purpose():
+def data_purpose():
     """Purpose of the data - i.e. ancillaryFile, boundaryCondition or initialCondition.
 
     """
@@ -63,7 +63,7 @@ def _data_purpose():
     }
 
 
-def _interconnect_type():
+def interconnect_type():
     """A list of connectors between machines.
 
     """
@@ -73,7 +73,7 @@ def _interconnect_type():
     }
 
 
-def _machine_type():
+def machine_type():
     """A list of known machines.
 
     """
@@ -88,7 +88,7 @@ def _machine_type():
     }
 
 
-def _machine_vendor_type():
+def machine_vendor_type():
     """A list of organisations that create machines.
 
     """
@@ -98,7 +98,7 @@ def _machine_vendor_type():
     }
 
 
-def _operating_system_type():
+def operating_system_type():
     """A list of common operating systems.
 
     """
@@ -108,7 +108,7 @@ def _operating_system_type():
     }
 
 
-def _processor_type():
+def processor_type():
     """A list of known cpu's.
 
     """
@@ -118,7 +118,7 @@ def _processor_type():
     }
 
 
-def _unit_type():
+def unit_type():
     """A list of scientific units.
 
     """

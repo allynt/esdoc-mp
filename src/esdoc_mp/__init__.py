@@ -14,7 +14,6 @@ from esdoc_mp.schemas import get_schema
 from esdoc_mp.schemas import register_schema
 from esdoc_mp.schemas import validate_schema
 from esdoc_mp.generators import generate
-from esdoc_mp.generators import can_generate
 
 
 

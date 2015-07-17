@@ -122,7 +122,7 @@ class _ValidationContext(object):
         """
         result = list()
         for factory, module in self.type_modules:
-            result += [(factory, module, f) for f in _get_functions(module)]
+            result += [(module, f) for f in _get_functions(module)]
 
         return sorted(result)
 
@@ -133,16 +133,24 @@ class _ValidationContext(object):
 
         """
         result = list()
-        for package, module, type_factory in self.type_factories:
+        for module, factory in self.type_factories:
             try:
-                type_ = type_factory()
+                type_ = factory()
             except Exception as err:
                 pass
             else:
                 if isinstance(type_, dict):
-                    result.append((module, type_factory, type_))
+                    result.append((module, factory, type_))
 
         return sorted(result)
+
+
+    @property
+    def classes(self):
+        """Get class definitions.
+
+        """
+        return [t for t in self.types if 'type' in t[2] and t[2]['type'] == 'class']
 
 
     def get_name(self, factory, module=None):
@@ -160,6 +168,15 @@ class _ValidationContext(object):
                 self.schema.VERSION,
                 module.__name__.split(".")[-1].split("_")[0],
                 factory.__name__)
+
+
+    def get_type_name(self, factory, module):
+        """Gets a type name.
+
+        """
+        return "{0}.{1}".format(
+            module.__name__.split(".")[-1].split("_")[0],
+            factory.__name__)
 
 
 def _get_functions(modules):
@@ -200,7 +217,7 @@ def _validate_class(ctx, module, factory, cls):
         ctx.set_error(err)
 
     if cls['base'] is not None and not re.match(_RE_CLASS_REFERENCE, cls['base']):
-        err = 'Invalid class: {} --> base class reference format must be lower_case_underscore '
+        err = 'Invalid class: {} --> base class reference format must be lower_case_underscore'
         err = err.format(ctx.get_name(factory, module))
         ctx.set_error(err)
 
@@ -240,18 +257,19 @@ def _validate_class_property(ctx, module, factory, cls, name, typeof, cardinalit
 
     """
     if not re.match(_RE_CLASS_PROPERTY_NAME, name):
-        err = 'Invalid class property: {0}.{1} --> name format must be lower_case_underscore'
+        err = 'Invalid class property: {0}.[{1}] --> name format must be lower_case_underscore'
         err = err.format(ctx.get_name(factory, module), name)
         ctx.set_error(err)
 
     if not re.match(_RE_CLASS_PROPERTY_TYPE, typeof):
-        err = 'Invalid class property: {0}.{1} --> type format must be lower_case_underscore'
+        err = 'Invalid class property: {0}.[{1}] --> type format must be lower_case_underscore '
+        err += '(for class references a "." is expected)'
         err = err.format(ctx.get_name(factory, module), name)
         ctx.set_error(err)
 
     if len(typeof.split('.')) == 1 and \
        typeof not in _SIMPLE_CLASS_PROPERTY_TYPES:
-        err = 'Invalid class property: {0}.{1} --> type must be in {2}'
+        err = 'Invalid class property: {0}.[{1}] --> type must be in {2}'
         err = err.format(ctx.get_name(factory, module), name, _SIMPLE_CLASS_PROPERTY_TYPES)
         ctx.set_error(err)
 
@@ -260,9 +278,38 @@ def _validate_class_property(ctx, module, factory, cls, name, typeof, cardinalit
         # print('TODO: validate complex type reference: {}'.format(typeof))
 
     if cardinality not in _CLASS_PROPERTY_CARDINALITIES:
-        err = 'Invalid class property: {0}.{1} --> cardinality must be in {2}'
+        err = 'Invalid class property: {0}.[{1}] --> cardinality must be in {2}'
         err = err.format(ctx.get_name(factory, module), name, _CLASS_PROPERTY_CARDINALITIES)
         ctx.set_error(err)
+
+
+def _validate_base_class_references(ctx):
+    """Validates base class references.
+
+    """
+    valid_classes = [ctx.get_type_name(factory, module)
+                     for module, factory, cls in ctx.classes]
+
+    for module, factory, cls in ctx.classes:
+        if cls['base'] and cls['base'] not in valid_classes:
+            err = 'Invalid class: {0} --> base class "{1}" is unrecognized'
+            err = err.format(ctx.get_name(factory, module), cls['base'])
+            ctx.set_error(err)
+
+
+def _validate_class_property_type_references(ctx):
+    """Validates base class references.
+
+    """
+    valid_types = [ctx.get_type_name(factory, module)
+                   for module, factory, type_ in ctx.types]
+
+    for module, factory, cls in ctx.classes:
+        for name, typeof in [(p[0], p[1]) for p in cls.get('properties', [])
+                             if len(p[1].split(".")) == 2 and p[1] not in valid_types]:
+            err = 'Invalid class property: {0}.[{1}] --> type reference "{2}" is unrecognized'
+            err = err.format(ctx.get_name(factory, module), name, typeof)
+            ctx.set_error(err)
 
 
 def _validate_enum(ctx, module, factory, enum):
@@ -471,7 +518,9 @@ def validate(schema):
     for validator in (
         _validate_schema,
         _validate_packages,
-        _validate_types
+        _validate_types,
+        _validate_base_class_references,
+        _validate_class_property_type_references
         ):
         validator(ctx)
         if ctx.report:
