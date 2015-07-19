@@ -10,7 +10,7 @@
 
 """
 from esdoc_mp.schemas import cim
-from esdoc_mp.schemas import validator
+from esdoc_mp.schemas.validation import validate as validate_schema
 
 
 # Set of supported schemas.
@@ -51,18 +51,6 @@ def register_schema(schema):
     SCHEMAS.add(schema)
 
 
-def validate_schema(schema):
-    """Validates a schema to determine whether it canb be registered.
-
-    :param module schema: An ontology schema definition.
-
-    :returns: A validation report.
-    :rtype: dict
-
-    """
-    return validator.validate(schema)
-
-
 def is_valid_schema(schema):
     """Returns flag indicating whether the passed schema is deemed to be valid or not.
 
@@ -72,7 +60,7 @@ def is_valid_schema(schema):
     :rtype: bool
 
     """
-    return len(validator.validate(schema)) == 0
+    return len(validate_schema(schema)) == 0
 
 
 # Auto register default schemas.
