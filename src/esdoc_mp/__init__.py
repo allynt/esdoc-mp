@@ -9,10 +9,9 @@
 
 
 """
-from esdoc_mp.schemas import  DEFAULT_SCHEMAS
+from esdoc_mp import exceptions
 from esdoc_mp.schemas import get_schema
-from esdoc_mp.schemas import register_schema
-from esdoc_mp.schemas import validate_schema
+from esdoc_mp.schemas import validate
 from esdoc_mp.generators import generate
 
 

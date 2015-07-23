@@ -10,14 +10,8 @@
 
 """
 from esdoc_mp.schemas import cim
-from esdoc_mp.schemas.validation import validate as validate_schema
+from esdoc_mp.schemas.validation import validate
 
-
-# Set of supported schemas.
-SCHEMAS = set()
-
-# Set of default schemas supported 'out of the box'.
-DEFAULT_SCHEMAS = cim.SCHEMAS
 
 
 def get_schema(name, version):
@@ -30,28 +24,14 @@ def get_schema(name, version):
     :rtype: module
 
     """
-    for schema in SCHEMAS:
-        if schema.NAME.lower() == name.lower() and \
-           schema.VERSION.lower() == version.lower():
-            return schema
+    if name == 'cim':
+        if version == '1':
+            return cim.v1
+        elif version == '2':
+            return cim.v2
 
 
-def register_schema(schema):
-    """Registers a schema with set of supported schemas.
-
-    :param module schema: An ontology schema definition.
-
-    """
-    report = validate_schema(schema)
-    if report:
-        for error in validate_schema(schema):
-            print(error)
-        raise ValueError("Invalid schemas cannot be registered")
-
-    SCHEMAS.add(schema)
-
-
-def is_valid_schema(schema):
+def is_valid(schema):
     """Returns flag indicating whether the passed schema is deemed to be valid or not.
 
     :param module schema: An ontology schema definition.
@@ -60,9 +40,5 @@ def is_valid_schema(schema):
     :rtype: bool
 
     """
-    return len(validate_schema(schema)) == 0
+    return len(validate(schema)) == 0
 
-
-# Auto register default schemas.
-for schema in DEFAULT_SCHEMAS:
-    register_schema(schema)

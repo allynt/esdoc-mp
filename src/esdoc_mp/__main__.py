@@ -9,54 +9,47 @@
 
 
 """
-
-import optparse
+import argparse
 
 import esdoc_mp as mp
 
 
 
-def _get_options():
-    """Returns command line options.
-
-    :returns: Command line options.
-    :rtype: dict
-
-    """
-    p = optparse.OptionParser(prog="ES-DOC Code Generator", version="%prog 1.0")
-    p.description = "The ES-DOC meta-programming utility is a domain driven design tool designed to support the earth system documentation eco-system."
-    p.add_option("-s",
-                 action="store",
-                 dest="schema_name",
-                 type="choice",
-                 choices=["cim", "test"],
-                 default="cim",
-                 help="Target schema. [default = %default] [choices = cim]")
-    p.add_option("-v",
-                 action="store",
-                 dest="schema_version",
-                 type="string",
-                 default="latest",
-                 help="Target schema version. [default = %default]")
-    p.add_option("-l",
-                 action="store",
-                 dest="language",
-                 type="str",
-                 help="Target programming language. [choices = c++, fortran, java, javascript, python]")
-    p.add_option("-o",
-                 action="store",
-                 dest="output_dir",
-                 type="string",
-                 help="Target directory into which code will be generated.")
-
-    return p.parse_args()[0]
+# Define command line arguments.
+_parser = argparse.ArgumentParser("ES-DOC Code Generator.")
+_parser.add_argument(
+    "-s", "--schema-name",
+    help="Target ontology schema. [default = cim]",
+    dest="schema_name",
+    type=str
+    )
+_parser.add_argument(
+    "-v", "--schema-version",
+    help="Target ontology schema version. [default = 1]",
+    dest="schema_version",
+    type=str
+    )
+_parser.add_argument(
+    "-l", "--language",
+    help="Target programming language. [default = python]",
+    dest="language",
+    type=str
+    )
+_parser.add_argument(
+    "-o", "--output-dir",
+    help="Path to a directory to which generated code will be written",
+    dest="output_dir",
+    type=str
+    )
 
 
-# Get command line options.
-options = _get_options()
+# Set command line options.
+args = _parser.parse_args()
 
-# Get ontology schema.
-schema = mp.get_schema(options.schema_name, options.schema_version)
+# Set ontology schema.
+schema = mp.get_schema(args.schema_name, args.schema_version)
+if schema is None:
+    raise mp.exceptions.UnsupportedOntologySchema('Unsupported schema: {0} v{1}.'.format(args.schema_name, args.schema_version))
 
 # Generate.
-mp.generate(schema, options.language, options.output_dir)
+mp.generate(schema, args.language, args.output_dir)

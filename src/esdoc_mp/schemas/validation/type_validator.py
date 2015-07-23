@@ -25,7 +25,7 @@ def _validate_base_class_references(ctx):
                      for module, factory, cls in ctx.classes]
 
     for module, factory, cls in ctx.classes:
-        if cls['base'] and cls['base'] not in valid_classes:
+        if 'base' in cls and cls['base'] is not None and cls['base'] not in valid_classes:
             err = 'Invalid class: {0} --> base class "{1}" is unrecognized'
             err = err.format(ctx.get_name(factory, module), cls['base'])
             ctx.set_error(err)

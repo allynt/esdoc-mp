@@ -24,9 +24,9 @@ def _validate_factory(ctx, module, factory, expected_type, type_description):
     """
     try:
         instance = factory()
-    except:
-        err = 'Invalid {0}: {1} --> must be a no-arg callable'
-        err = err.format(type_description, ctx.get_name(factory, module))
+    except Exception as error:
+        err = 'Invalid {0}: {1} --> type creation error occurred (type must be declared as a no-arg callable): {2}'
+        err = err.format(type_description, ctx.get_name(factory, module), error)
         ctx.set_error(err)
         return
 
@@ -71,7 +71,7 @@ def _validate(ctx, factory, modules):
             continue
 
         if not ctx.get_functions(module):
-            err = 'Invalid package: {} --> all package type modules must must contain at least one type factory'
+            err = 'Invalid package: {} --> all package type modules must contain at least one type factory'
             err = err.format(ctx.get_name(factory))
             ctx.set_error(err)
             continue

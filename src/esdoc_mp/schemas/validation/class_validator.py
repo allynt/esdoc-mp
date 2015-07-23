@@ -41,19 +41,19 @@ def _validate_class_property(ctx, module, factory, cls, name, typeof, cardinalit
 
     """
     if not re.match(_RE_CLASS_PROPERTY_NAME, name):
-        err = 'Invalid class property: {0}.[{1}] --> name format must be lower_case_underscore'
+        err = 'Invalid property: {0}.[{1}] --> name format must be lower_case_underscore'
         err = err.format(ctx.get_name(factory, module), name)
         ctx.set_error(err)
 
     if not re.match(_RE_CLASS_PROPERTY_TYPE, typeof):
-        err = 'Invalid class property: {0}.[{1}] --> type format must be lower_case_underscore '
+        err = 'Invalid property: {0}.[{1}] --> type format must be lower_case_underscore '
         err += '(for class references a "." is expected)'
         err = err.format(ctx.get_name(factory, module), name)
         ctx.set_error(err)
 
     if len(typeof.split('.')) == 1 and \
        typeof not in _SIMPLE_CLASS_PROPERTY_TYPES:
-        err = 'Invalid class property: {0}.[{1}] --> type must be in {2}'
+        err = 'Invalid property: {0}.[{1}] --> simple type must be in {2}'
         err = err.format(ctx.get_name(factory, module), name, _SIMPLE_CLASS_PROPERTY_TYPES)
         ctx.set_error(err)
 
@@ -62,7 +62,7 @@ def _validate_class_property(ctx, module, factory, cls, name, typeof, cardinalit
         # print('TODO: validate complex type reference: {}'.format(typeof))
 
     if cardinality not in _CLASS_PROPERTY_CARDINALITIES:
-        err = 'Invalid class property: {0}.[{1}] --> cardinality must be in {2}'
+        err = 'Invalid property: {0}.[{1}] --> cardinality must be in {2}'
         err = err.format(ctx.get_name(factory, module), name, _CLASS_PROPERTY_CARDINALITIES)
         ctx.set_error(err)
 

@@ -9,13 +9,5 @@
 
 
 """
-import v1
-import v2
-
-
-
-# Set of supported Metafor CIM schemas.
-SCHEMAS = {
-    v1,
-    # v2,
-}
+from esdoc_mp.schemas.cim import v1
+from esdoc_mp.schemas.cim import v2

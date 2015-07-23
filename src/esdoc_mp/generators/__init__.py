@@ -12,11 +12,12 @@
 import os
 
 from esdoc_mp import utils
+from esdoc_mp import schemas
+
 from esdoc_mp.core.factory import create_ontology
 from esdoc_mp.generators.factory import create_generators
 from esdoc_mp.generators.generator_options import GeneratorOptions
 from esdoc_mp.generators.python.utils import format as format_python
-from esdoc_mp.schemas import validate_schema
 
 
 
@@ -68,9 +69,8 @@ def generate(schema, language, io_dir):
         return
 
     utils.log("Welcome to the ES-DOC meta-programming code generator !")
-    utils.log("GENERATION OPTION : schema = {0}".format(schema.NAME))
-    utils.log("GENERATION OPTION : schema version = {0}".format(schema.VERSION))
-    utils.log("GENERATION OPTION : language = {0}".format(language))
+    utils.log("GENERATION OPTION : ontology schema = {0} v{1}".format(schema.NAME, schema.VERSION))
+    utils.log("GENERATION OPTION : programming language = {0}".format(language))
     utils.log("GENERATION OPTION : output directory = {0}".format(io_dir))
 
     # Initialise ontology.
@@ -107,7 +107,7 @@ def can_generate(schema, language, output_dir):
 
     """
     errors = _validate_language(language)
-    errors += validate_schema(schema)
+    errors += schemas.validate(schema)
     errors += _validate_output_dir(output_dir)
     if errors:
         utils.log("-------------------------------------------------------------------")
