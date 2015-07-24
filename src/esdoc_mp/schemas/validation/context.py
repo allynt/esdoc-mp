@@ -14,7 +14,8 @@ import inspect
 
 # Set of supported reformatters.
 _REFORMATTER_FUNCS = {
-    '_reformat_class'
+    'reformat_class',
+    'reformat_enum'
 }
 
 
@@ -29,7 +30,6 @@ class ValidationContext(object):
         """
         self.schema = schema
         self.report = list()
-        self.cls_formatter = None
 
 
     def set_error(self, err):
@@ -45,7 +45,18 @@ class ValidationContext(object):
 
         """
         try:
-            return self.schema._reformat_class
+            return self.schema.reformat_class
+        except AttributeError:
+            return None
+
+
+    @property
+    def enum_reformatter(self):
+        """Gets schema enum reformatter.
+
+        """
+        try:
+            return self.schema.reformat_enum
         except AttributeError:
             return None
 
@@ -138,7 +149,40 @@ class ValidationContext(object):
         """Get class definitions.
 
         """
-        return [t for t in self.types if 'type' in t[2] and t[2]['type'] == 'class']
+        # return [t for t in self.types
+        #         if 'type' in t[2] and t[2]['type'] == 'class']
+
+        return [(t[0], t[1], self.get_reformatted_class(t[0], t[2])) for t in self.types
+                if 'type' in t[2] and t[2]['type'] == 'class']
+
+
+    @property
+    def enums(self):
+        """Get enum definitions.
+
+        """
+        return [(t[0], t[1], self.get_reformatted_enum(t[0], t[2])) for t in self.types
+                if 'type' in t[2] and t[2]['type'] == 'enum']
+
+
+    def get_reformatted_class(self, module, cls):
+        """Returns a reformatted class definition.
+
+        """
+        if self.class_reformatter:
+            return self.class_reformatter(self.get_package_name(module), cls)
+
+        return cls
+
+
+    def get_reformatted_enum(self, module, enum):
+        """Returns a reformatted enum definition.
+
+        """
+        if self.enum_reformatter:
+            return self.enum_reformatter(self.get_package_name(module), enum)
+
+        return enum
 
 
     def get_name(self, factory, module=None):
@@ -154,8 +198,15 @@ class ValidationContext(object):
             return "{0}.v{1}.{2}.{3}".format(
                 self.schema.NAME,
                 self.schema.VERSION,
-                module.__name__.split(".")[-1].split("_")[0],
+                self.get_package_name(module),
                 factory.__name__)
+
+
+    def get_package_name(self, module):
+        """Returns name of a package from a module.
+
+        """
+        return module.__name__.split('.')[-1].split('_')[0]
 
 
     def get_type_name(self, factory, module):
@@ -163,7 +214,7 @@ class ValidationContext(object):
 
         """
         return "{0}.{1}".format(
-            module.__name__.split(".")[-1].split("_")[0],
+            self.get_package_name(module),
             factory.__name__)
 
 

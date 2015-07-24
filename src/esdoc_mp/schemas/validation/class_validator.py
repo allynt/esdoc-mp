@@ -57,10 +57,6 @@ def _validate_class_property(ctx, module, factory, cls, name, typeof, cardinalit
         err = err.format(ctx.get_name(factory, module), name, _SIMPLE_CLASS_PROPERTY_TYPES)
         ctx.set_error(err)
 
-    if len(typeof.split('.')) == 2:
-        pass
-        # print('TODO: validate complex type reference: {}'.format(typeof))
-
     if cardinality not in _CLASS_PROPERTY_CARDINALITIES:
         err = 'Invalid property: {0}.[{1}] --> cardinality must be in {2}'
         err = err.format(ctx.get_name(factory, module), name, _CLASS_PROPERTY_CARDINALITIES)
@@ -72,8 +68,7 @@ def validate(ctx, module, factory, cls):
 
     """
     # Apply reformatting.
-    if ctx.class_reformatter:
-        cls = ctx.class_reformatter(module, cls)
+    cls = ctx.get_reformatted_class(module, cls)
 
     if 'base' not in cls:
         err = 'Invalid class: {} --> required attribute "base" is missing'

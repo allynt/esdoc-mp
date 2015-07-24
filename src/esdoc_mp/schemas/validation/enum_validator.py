@@ -15,7 +15,7 @@ import re
 
 # Regular expressions.
 _RE_ENUM_NAME = '^[a-z_]+$'
-_RE_ENUM_MEMBER_NAME = '^[a-zA-Z0-9-_ ]+$'
+_RE_ENUM_MEMBER_NAME = '^[a-zA-Z0-9-_ +]+$'
 
 
 def _validate_enum_member(ctx, module, factory, enum, name, doc_string):
@@ -37,6 +37,9 @@ def validate(ctx, module, factory, enum):
     """Validates an enumeration.
 
     """
+    # Apply reformatting.
+    enum = ctx.get_reformatted_enum(module, enum)
+
     if not re.match(_RE_ENUM_NAME, factory.__name__):
         err = 'Invalid enum: {} --> name format must be lower_case_underscore'
         err = err.format(ctx.get_name(factory, module))
