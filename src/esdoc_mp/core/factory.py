@@ -19,6 +19,8 @@ from esdoc_mp.core import Ontology
 from esdoc_mp.core import Package
 from esdoc_mp.core import Property
 
+from esdoc_mp.schemas import reformatter
+
 
 
 def _get_functions(modules):
@@ -64,7 +66,7 @@ def _get_package_definitions(modules):
             'types': func()
         }
 
-    return [_get_definition(i) for i in _get_functions(modules)]
+    return [_get_definition(f) for f in _get_functions(modules)]
 
 
 def _get_class_properties(class_):
@@ -92,31 +94,33 @@ def _get_class_decodings(class_):
     return result
 
 
-def _get_package_classes(types):
+def _get_package_classes(schema, package, types):
     """Returns package class definitions.
 
     """
     result = []
-    for class_ in [t for t in types if t['type'] == 'class']:
+    classes = [reformatter.reformat_class(schema, package, t) for t in types if t['type'] == 'class']
+    for cls in classes:
         result.append(
-            Class(class_['name'],
-                  class_.get('base', None),
-                  class_.get('is_abstract', False),
-                  class_.get('doc', None),
-                  _get_class_properties(class_),
-                  class_.get('constants', []),
-                  _get_class_decodings(class_))
+            Class(cls['name'],
+                  cls.get('base', None),
+                  cls.get('is_abstract', False),
+                  cls.get('doc', None),
+                  _get_class_properties(cls),
+                  cls.get('constants', []),
+                  _get_class_decodings(cls))
         )
 
     return result
 
 
-def _get_package_enums(types):
+def _get_package_enums(schema, package, types):
     """Returns package enum definitions.
 
     """
     result = []
-    for enum in [t for t in types if t['type'] == 'enum']:
+    enums = [reformatter.reformat_enum(schema, package, t) for t in types if t['type'] == 'enum']
+    for enum in enums:
         result.append(
             Enum(enum['name'],
                  enum.get('is_open', True),
@@ -127,14 +131,14 @@ def _get_package_enums(types):
     return result
 
 
-def _get_package_types(package):
+def _get_package_types(schema, package):
     """Returns package type definitions.
 
     """
     types = _get_type_definitions(package.get('types', []))
 
-    return _get_package_classes(types), \
-           _get_package_enums(types)
+    return _get_package_classes(schema, package, types), \
+           _get_package_enums(schema, package, types)
 
 
 def _get_ontology_packages(schema):
@@ -143,7 +147,7 @@ def _get_ontology_packages(schema):
     """
     result = []
     for package in _get_package_definitions(schema):
-        classes, enums = _get_package_types(package)
+        classes, enums = _get_package_types(schema, package)
         result.append(
             Package(package['name'],
                     package['doc'],

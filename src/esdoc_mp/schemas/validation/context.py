@@ -11,12 +11,7 @@
 """
 import inspect
 
-
-# Set of supported reformatters.
-_REFORMATTER_FUNCS = {
-    'reformat_class',
-    'reformat_enum'
-}
+from esdoc_mp.schemas import reformatter
 
 
 
@@ -40,41 +35,6 @@ class ValidationContext(object):
 
 
     @property
-    def reformatter(self):
-        """Gets schema reformatter.
-
-        """
-        try:
-            return self.schema.reformatter
-        except AttributeError:
-            pass
-
-
-    @property
-    def class_reformatter(self):
-        """Gets schema class reformatter.
-
-        """
-        if self.reformatter:
-            try:
-                return self.reformatter.reformat_class
-            except AttributeError:
-                pass
-
-
-    @property
-    def enum_reformatter(self):
-        """Gets schema enum reformatter.
-
-        """
-        if self.reformatter:
-            try:
-                return self.reformatter.reformat_enum
-            except AttributeError:
-                pass
-
-
-    @property
     def schema_name(self):
         """Gets schema name.
 
@@ -95,8 +55,7 @@ class ValidationContext(object):
         """Gets package factories.
 
         """
-        return [f for f in self.get_functions(self.schema)
-                if f.__name__ not in _REFORMATTER_FUNCS]
+        return self.get_functions(self.schema)
 
 
     @property
@@ -162,10 +121,7 @@ class ValidationContext(object):
         """Get class definitions.
 
         """
-        # return [t for t in self.types
-        #         if 'type' in t[2] and t[2]['type'] == 'class']
-
-        return [(t[0], t[1], self.get_reformatted_class(t[0], t[2])) for t in self.types
+        return [(t[0], t[1], reformatter.reformat_class(self.schema, t[0], t[2])) for t in self.types
                 if 'type' in t[2] and t[2]['type'] == 'class']
 
 
@@ -174,28 +130,8 @@ class ValidationContext(object):
         """Get enum definitions.
 
         """
-        return [(t[0], t[1], self.get_reformatted_enum(t[0], t[2])) for t in self.types
+        return [(t[0], t[1], reformatter.reformat_enum(self.schema, t[0], t[2])) for t in self.types
                 if 'type' in t[2] and t[2]['type'] == 'enum']
-
-
-    def get_reformatted_class(self, module, cls):
-        """Returns a reformatted class definition.
-
-        """
-        if self.class_reformatter:
-            return self.class_reformatter(self.get_package_name(module), cls)
-
-        return cls
-
-
-    def get_reformatted_enum(self, module, enum):
-        """Returns a reformatted enum definition.
-
-        """
-        if self.enum_reformatter:
-            return self.enum_reformatter(self.get_package_name(module), enum)
-
-        return enum
 
 
     def get_name(self, factory, module=None):
