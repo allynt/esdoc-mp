@@ -40,14 +40,26 @@ class ValidationContext(object):
 
 
     @property
+    def reformatter(self):
+        """Gets schema reformatter.
+
+        """
+        try:
+            return self.schema.reformatter
+        except AttributeError:
+            pass
+
+
+    @property
     def class_reformatter(self):
         """Gets schema class reformatter.
 
         """
-        try:
-            return self.schema.reformat_class
-        except AttributeError:
-            return None
+        if self.reformatter:
+            try:
+                return self.reformatter.reformat_class
+            except AttributeError:
+                pass
 
 
     @property
@@ -55,10 +67,11 @@ class ValidationContext(object):
         """Gets schema enum reformatter.
 
         """
-        try:
-            return self.schema.reformat_enum
-        except AttributeError:
-            return None
+        if self.reformatter:
+            try:
+                return self.reformatter.reformat_enum
+            except AttributeError:
+                pass
 
 
     @property
