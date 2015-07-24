@@ -78,7 +78,7 @@ def validate(ctx):
     """Asserts package types.
 
     """
-    for module, type_factory, type_ in ctx.types:
-        _validate_type(ctx, module, type_factory, type_)
+    for module, factory, type_ in ctx.types:
+        _validate_type(ctx, module, factory, type_)
     _validate_base_class_references(ctx)
     _validate_class_property_type_references(ctx)

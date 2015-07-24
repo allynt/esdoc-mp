@@ -10,11 +10,12 @@
 
 """
 from esdoc_mp.schemas import cim
+from esdoc_mp.schemas import samples
 from esdoc_mp.schemas.validation import validate
 
 
 
-def get_schema(name, version):
+def get_schema(name, version=None):
     """Returns a supported ontology schema module.
 
     :param str name: Schema name.
@@ -27,8 +28,10 @@ def get_schema(name, version):
     if name == 'cim':
         if version == '1':
             return cim.v1
-        elif version == '2':
-            return cim.v2
+    elif name == 'test-valid':
+        return samples.valid
+    elif name == 'test-invalid':
+        return samples.invalid
 
 
 def is_valid(schema):

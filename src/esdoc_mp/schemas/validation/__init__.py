@@ -32,11 +32,11 @@ def validate(schema):
     """
     ctx = ValidationContext(schema)
     for validator in (
-        schema_validator.validate,
-        package_validator.validate,
-        type_validator.validate
+        schema_validator,
+        package_validator,
+        type_validator
         ):
-        validator(ctx)
+        validator.validate(ctx)
         if ctx.report:
             break
 

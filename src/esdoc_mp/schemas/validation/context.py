@@ -12,6 +12,12 @@
 import inspect
 
 
+# Set of supported reformatters.
+_REFORMATTER_FUNCS = {
+    '_reformat_class'
+}
+
+
 
 class ValidationContext(object):
     """Encapsulates schema validation processing information.
@@ -23,6 +29,7 @@ class ValidationContext(object):
         """
         self.schema = schema
         self.report = list()
+        self.cls_formatter = None
 
 
     def set_error(self, err):
@@ -30,6 +37,17 @@ class ValidationContext(object):
 
         """
         self.report.append(err)
+
+
+    @property
+    def class_reformatter(self):
+        """Gets schema class reformatter.
+
+        """
+        try:
+            return self.schema._reformat_class
+        except AttributeError:
+            return None
 
 
     @property
@@ -53,7 +71,8 @@ class ValidationContext(object):
         """Gets package factories.
 
         """
-        return self.get_functions(self.schema)
+        return [f for f in self.get_functions(self.schema)
+                if f.__name__ not in _REFORMATTER_FUNCS]
 
 
     @property

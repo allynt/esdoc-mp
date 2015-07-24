@@ -71,6 +71,10 @@ def validate(ctx, module, factory, cls):
     """Validates a class definition.
 
     """
+    # Apply reformatting.
+    if ctx.class_reformatter:
+        cls = ctx.class_reformatter(module, cls)
+
     if 'base' not in cls:
         err = 'Invalid class: {} --> required attribute "base" is missing'
         err = err.format(ctx.get_name(factory, module))
@@ -89,8 +93,8 @@ def validate(ctx, module, factory, cls):
         ctx.set_error(err)
 
     if cls['base'] is not None and not re.match(_RE_CLASS_REFERENCE, cls['base']):
-        err = 'Invalid class: {} --> base class reference format must be lower_case_underscore'
-        err = err.format(ctx.get_name(factory, module))
+        err = 'Invalid class: {0} --> base class reference [{1}] format must be lower_case_underscore'
+        err = err.format(ctx.get_name(factory, module), cls['base'])
         ctx.set_error(err)
 
     if cls['base'] is not None and not len(cls['base'].split('.')) == 2:
@@ -122,8 +126,4 @@ def validate(ctx, module, factory, cls):
 
     for p in cls.get('properties', []):
         _validate_class_property(ctx, module, factory, cls, p[0], p[1], p[2])
-
-
-
-
 
