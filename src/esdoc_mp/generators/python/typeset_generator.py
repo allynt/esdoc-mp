@@ -169,11 +169,12 @@ def _emit_module_typeset_for_pkg(o, p):
 
     def get_classes(p):
         # Return list of classes sorted in dependency order.
-        result = sorted([c for c in p.classes if c.base is None or c.base.package != p])
+        result = [c for c in p.classes if c.base is None or c.base.package != p]
+        result = sorted(result, key=lambda c: c.name)
 
         while len(result) < len(p.classes):
             n = len(result)
-            for c in [c for c in sorted(p.classes) if c not in result]:
+            for c in [c for c in sorted(p.classes, key=lambda c: c.name) if c not in result]:
                 if c.base in result:
                     result.append(c)
 
