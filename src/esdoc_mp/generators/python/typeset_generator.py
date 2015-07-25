@@ -94,20 +94,20 @@ class TypesetGenerator(Generator):
 def _emit_module_meta(o):
     """Emits typeset meta-information module."""
     def emit_imports():
-        def emit_code(code, p):
-            code += "import {0} as {1}".format(
+        def get_code(p):
+            code = "import {0} as {1}".format(
                 pgu.get_package_module_name(p, 'typeset'),
                 p.op_name)
             code += gu.emit_line_return()
 
             return code
 
-        return reduce(emit_code, o.packages, str())
+        return gu.emit_sorted(o.packages, get_code)
 
 
     def emit_type_keys():
-        def emit_code(code, c):
-            code += "{0}.type_key = '{1}.{2}.{0}'".format(
+        def get_code(c):
+            code = "{0}.type_key = '{1}.{2}.{0}'".format(
                 c.op_full_name,
                 o.op_name,
                 o.op_version)
@@ -115,12 +115,12 @@ def _emit_module_meta(o):
 
             return code
 
-        return reduce(emit_code, o.classes, str())
+        return gu.emit_sorted(o.classes, get_code)
 
 
     def emit_type_attribute_info(c):
-        def emit_code(code, p):
-            code += gu.emit_indent()
+        def get_code(p):
+            code = gu.emit_indent()
             code += "('{0}', {1}, {2}, {3}),".format(
                 pgu.get_property_name(p),
                 pgu.get_type_functional_name(p.type, True),
@@ -130,19 +130,19 @@ def _emit_module_meta(o):
 
             return code
 
-        return reduce(emit_code, c.properties, str())
+        return gu.emit_sorted(c.properties, get_code)
 
 
     def emit_type_info():
-        def emit_code(code, c):
-            code += "{0}.type_info = ({1})".format(
+        def get_code(c):
+            code = "{0}.type_info = ({1})".format(
                 c.op_full_name,
                 gu.emit_line_return() + emit_type_attribute_info(c))
             code += gu.emit_line_return(2)
 
             return code
 
-        return reduce(emit_code, o.classes, str())
+        return gu.emit_sorted(o.classes, get_code)
 
 
     code = _templates[_TEMPLATE_META_MODULE]
@@ -156,15 +156,15 @@ def _emit_module_meta(o):
 def _emit_module_typeset_for_pkg(o, p):
     """Emits typeset module for an ontology package."""
     def emit_imports():
-        def emit_code(code, p):
-            code += "import {0} as {1}".format(
-                pgu.get_package_module_name(p, 'typeset'),
-                p.op_name)
+        def get_code(ap):
+            code = "import {0} as {1}".format(
+                pgu.get_package_module_name(ap, 'typeset'),
+                ap.op_name)
             code += gu.emit_line_return()
 
             return code
 
-        return reduce(emit_code, p.associated, str())
+        return gu.emit_sorted(p.associated, get_code)
 
 
     def get_classes(p):
@@ -187,17 +187,17 @@ def _emit_module_typeset_for_pkg(o, p):
 
 
     def emit_types():
-        def emit_code(code, t):
+        def get_code(t):
             if isinstance(t, core.Class):
-                code += _emit_snippet_class(t)
+                code = _emit_snippet_class(t)
             else:
-                code += _emit_snippet_enum(t)
+                code = _emit_snippet_enum(t)
             code += gu.emit_line_return(2)
 
             return code
 
-        return reduce(emit_code, get_classes(p), str()) + \
-               reduce(emit_code, p.enums, str())
+        return gu.emit_sorted(get_classes(p), get_code) + \
+               gu.emit_sorted(p.enums, get_code)
 
 
     code = _templates[_TEMPLATE_TYPESET_MODULE]
@@ -210,54 +210,66 @@ def _emit_module_typeset_for_pkg(o, p):
 
 def _emit_module_init(o):
     """Emits package initializer."""
-    def emit_imports():
-        def emit_code_1(code, p):
-            code += "from {0} import *".format(
-                pgu.get_package_module_name(p, 'typeset'))
-            code += gu.emit_line_return()
-
-            return code
-
-        def emit_code_2(code, p):
-            code += "import {0} as {1}".format(
+    def emit_package_imports():
+        def get_code(p):
+            code = "import {0} as {1}".format(
                 pgu.get_package_module_name(p, 'typeset'),
                 p.op_name)
             code += gu.emit_line_return()
 
             return code
 
-        return reduce(emit_code_1, o.packages, str()) + \
-               reduce(emit_code_2, o.packages, gu.emit_line_return())
+        return gu.emit_sorted(o.packages, get_code)
 
 
-    def emit_exports():
-        def emit_code(code, t):
-            code += "{0}\'{1}\',{2}".format(
+    def emit_type_imports():
+        def get_code(p):
+            code = "from {0} import *".format(
+                pgu.get_package_module_name(p, 'typeset'))
+            code += gu.emit_line_return()
+
+            return code
+
+        return gu.emit_sorted(o.packages, get_code)
+
+
+    def emit_package_exports():
+        def get_code(t):
+            return "{0}\'{1}\',{2}".format(
                 gu.emit_indent(),
                 t.op_name,
                 gu.emit_line_return())
 
-            return code
+        return gu.emit_sorted(o.packages, get_code)
 
-        return reduce(emit_code, o.packages, str()) + \
-               reduce(emit_code, o.classes, str())
+
+    def emit_type_exports():
+        def get_code(t):
+            return "{0}\'{1}\',{2}".format(
+                gu.emit_indent(),
+                t.op_name,
+                gu.emit_line_return())
+
+        return gu.emit_sorted(o.classes, get_code)
 
 
     def emit_supported_type_list():
-        def emit_code(code, c):
-            code += gu.emit_indent()
+        def get_code(c):
+            code = gu.emit_indent()
             code +=  c.op_full_name
             code += ','
             code += gu.emit_line_return()
 
             return code
 
-        return reduce(emit_code, o.classes, str())
+        return gu.emit_sorted(o.classes, get_code)
 
 
     code = _templates[_TEMPLATE_MAIN]
-    code = code.replace('{module-imports}', emit_imports())
-    code = code.replace('{module-exports}', emit_exports())
+    code = code.replace('{module-imports-packages}', emit_package_imports())
+    code = code.replace('{module-imports-types}', emit_type_imports())
+    code = code.replace('{module-exports-packages}', emit_package_exports())
+    code = code.replace('{module-exports-types}', emit_type_exports())
     code = code.replace('{supported-type-list}', emit_supported_type_list())
 
     return code
@@ -307,8 +319,8 @@ def _emit_snippet_class_doc_string(c):
 
 def _emit_snippet_class_properties(c):
     """Emits set of class properties."""
-    def emit_code(code, p):
-        code += "{0}{1}{2}# {3}{4}".format(
+    def get_code(p):
+        return "{0}{1}{2}# {3}{4}".format(
             gu.emit_indent(2),
             pgu.get_property_ctor(p),
             ''.ljust(50 - len(pgu.get_property_ctor(p))),
@@ -316,17 +328,15 @@ def _emit_snippet_class_properties(c):
             gu.emit_line_return()
         )
 
-        return code
-
-    return reduce(emit_code, c.properties, str())
+    return gu.emit_sorted(c.properties, get_code)
 
 
 def _emit_snippet_class_property_constants(c):
     """Emits set of class property constants."""
-    def emit_code(code, cnt):
+    def get_code(cnt):
         prp = c.get_property(cnt[0])
         if prp is not None:
-            code += '{0}self.{1} = {2}("{3}"){4}'.format(
+            return '{0}self.{1} = {2}("{3}"){4}'.format(
                 gu.emit_indent(2),
                 cnt[0],
                 pgu.get_type_functional_name(prp.type),
@@ -334,6 +344,6 @@ def _emit_snippet_class_property_constants(c):
                 gu.emit_line_return()
             )
 
-        return code
+    return gu.emit_sorted(c.constants, get_code)
 
-    return reduce(emit_code, c.constants, str())
+

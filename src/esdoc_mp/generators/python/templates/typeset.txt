@@ -9,10 +9,11 @@
    :synopsis: Typeset information for the {ontology-name} v{ontology-version} ontology.
 
 .. moduleauthor:: Earth System Documentation (ES-DOC) <dev@es-doc.org>
-.. note:: Code generated using esdoc_mp @ {datetime-now}.
+.. note:: Code generated using esdoc_mp.
 
 """
-{module-imports}
+{module-imports-types}
+{module-imports-packages}
 import typeset_meta         # Assigns type info.
 
 
@@ -20,8 +21,9 @@ import typeset_meta         # Assigns type info.
 # Module exports.
 __all__ = [
     'TYPES',
-{module-exports}]
-
+    # Packages
+{module-exports-packages}	# Types
+{module-exports-types}]
 
 
 # Supported types.

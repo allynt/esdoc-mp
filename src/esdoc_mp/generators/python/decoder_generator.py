@@ -125,7 +125,7 @@ def _emit_snippet_decoder_imports(o, p):
 def _emit_snippet_decoding_fns(p):
     """Emits set of package class decodings."""
     code = ''
-    for cls in p.classes:
+    for cls in sorted(p.classes, key=lambda c: pgu.get_class_functional_name(c)):
         fn = _templates[_TEMPLATE_DECODER_FUNCTION]
         fn = fn.replace('{class-name}', cls.op_name)
         fn = fn.replace('{class-function-name}', pgu.get_class_functional_name(cls))
@@ -140,45 +140,47 @@ def _emit_snippet_decoding_fns(p):
 
 def _emit_snippet_decodings(c):
     """Emits a set of class decodings."""
-    code = ''
-    for p in c.all_properties:
+    code = []
+    for p in sorted(c.all_properties, key= lambda p: p.name):
         for dc in c.get_property_decodings(p):
             if dc.decoding is not None:
-                code += _emit_snippet_decoding(p, dc.decoding, dc.type)
+                code.append(_emit_snippet_decoding(p, dc.decoding, dc.type))
 
-    return code
+    return gu.emit_sorted(code)
 
 
-def _emit_snippet_decoding(prp, decoding, type):
+def _get_decoding_function(prp, type_):
+    """Returns decoding function name."""
+    # ... simple/enum types - return type functional name
+    #     (is directly mapped to a convertor function).
+    if prp.type.is_simple or prp.type.is_enum:
+        return '\'{0}\''.format(pgu.get_type_functional_name(prp.type))
+    # ... complex classes - return class functional name.
+    elif prp.type.is_class:
+        type_name = prp.type.name if type_ is None else type_
+        return _get_decoder_function_name(type_name)
+
+
+def _emit_snippet_decoding(prp, decoding, type_):
     """Emits a class property decoding."""
-    def get_decoding_function():
-        # ... simple/enum types - return type functional name
-        #     (is directly mapped to a convertor function).
-        if prp.type.is_simple or prp.type.is_enum:
-            return '\'{0}\''.format(pgu.get_type_functional_name(prp.type))
-        # ... complex classes - return class functional name.
-        elif prp.type.is_class:
-            type_name = prp.type.name if type is None else type
-            return _get_decoder_function_name(type_name)
-
     tmpl = '{0}(\'{1}\', {2}, {3}, \'{4}\'),'
     return tmpl.format(
         gu.emit_line_return() + gu.emit_indent(2),
         prp.name,
         prp.is_iterative,
-        get_decoding_function(),
+        _get_decoding_function(prp, type_),
         '' if decoding is None else decoding)
 
 
 def _emit_module_init(o):
     """Emits package initializer."""
     def get_imports():
-        def emit_code(code, c):
-            return code + "from {0} import {1}".format(
+        def get_code(c):
+            return "from {0} import {1}".format(
                 pgu.get_package_module_name(c.package, 'decoder'),
                 _get_decoder_function_name(c)) + gu.emit_line_return()
 
-        return reduce(emit_code, o.entities, str())
+        return gu.emit_sorted(o.entities, get_code)
 
     code = _templates[_TEMPLATE_MAIN]
     code = code.replace('{module-imports}', get_imports())
