@@ -33,8 +33,8 @@ esdoc-mp supports the whole of the ES-DOC eco-system of tools and services.  It 
 What are the contents of esdoc-mp ?
 --------------------------------------
 
+    \esdoc_mp        	Source code.
     \tests              Unit tests.
-    \src        		Source code.
 
 
 Further Information ?
