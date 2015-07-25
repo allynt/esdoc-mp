@@ -62,7 +62,7 @@ def convert_to_pascal_case(name, separator='_'):
     return r
 
 
-def emit(iterable, func=None):
+def emit(iterable, func=None, sort=True):
     """Returns code (sorted).
 
     """
@@ -70,8 +70,9 @@ def emit(iterable, func=None):
         code = [func(i) for i in iterable]
     else:
         code = iterable
+    code = [l for l in code if l is not None]
 
-    return "".join(sorted([l for l in code if l is not None]))
+    return "".join(sorted(code)) if sort else "".join(code)
 
 
 def _load_template(language, filename):

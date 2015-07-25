@@ -33,7 +33,6 @@ class Class(object):
         self.doc_string = doc_string if doc_string is not None else ''
         self.imports = set()
         self.is_abstract = is_abstract
-        self.is_entity = 'meta' in [p.name for p in properties]
         self.name = name
         self.op_base_name = None
         self.op_doc_string_name = None
@@ -51,6 +50,14 @@ class Class(object):
 
         """
         return self.name
+
+
+    @property
+    def is_entity(self):
+        """Gets a flag indicating whether this class is considered an entity.
+
+        """
+        return 'meta' in [p.name for p in self.properties]
 
 
     @property

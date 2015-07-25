@@ -169,11 +169,11 @@ def _emit_module_typeset_for_pkg(o, p):
 
     def get_classes(p):
         # Return list of classes sorted in dependency order.
-        result = [c for c in p.classes if c.base is None or c.base.package != p]
+        result = sorted([c for c in p.classes if c.base is None or c.base.package != p])
 
         while len(result) < len(p.classes):
             n = len(result)
-            for c in [c for c in p.classes if c not in result]:
+            for c in [c for c in sorted(p.classes) if c not in result]:
                 if c.base in result:
                     result.append(c)
 
@@ -196,7 +196,7 @@ def _emit_module_typeset_for_pkg(o, p):
 
             return code
 
-        return gu.emit(get_classes(p), get_code) + \
+        return gu.emit(get_classes(p), get_code, sort=False) + \
                gu.emit(p.enums, get_code)
 
 
