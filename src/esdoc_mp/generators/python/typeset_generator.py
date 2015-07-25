@@ -102,7 +102,7 @@ def _emit_module_meta(o):
 
             return code
 
-        return gu.emit_sorted(o.packages, get_code)
+        return gu.emit(o.packages, get_code)
 
 
     def emit_type_keys():
@@ -115,7 +115,7 @@ def _emit_module_meta(o):
 
             return code
 
-        return gu.emit_sorted(o.classes, get_code)
+        return gu.emit(o.classes, get_code)
 
 
     def emit_type_attribute_info(c):
@@ -130,7 +130,7 @@ def _emit_module_meta(o):
 
             return code
 
-        return gu.emit_sorted(c.properties, get_code)
+        return gu.emit(c.properties, get_code)
 
 
     def emit_type_info():
@@ -142,7 +142,7 @@ def _emit_module_meta(o):
 
             return code
 
-        return gu.emit_sorted(o.classes, get_code)
+        return gu.emit(o.classes, get_code)
 
 
     code = _templates[_TEMPLATE_META_MODULE]
@@ -164,7 +164,7 @@ def _emit_module_typeset_for_pkg(o, p):
 
             return code
 
-        return gu.emit_sorted(p.associated, get_code)
+        return gu.emit(p.associated, get_code)
 
 
     def get_classes(p):
@@ -196,8 +196,8 @@ def _emit_module_typeset_for_pkg(o, p):
 
             return code
 
-        return gu.emit_sorted(get_classes(p), get_code) + \
-               gu.emit_sorted(p.enums, get_code)
+        return gu.emit(get_classes(p), get_code) + \
+               gu.emit(p.enums, get_code)
 
 
     code = _templates[_TEMPLATE_TYPESET_MODULE]
@@ -219,7 +219,7 @@ def _emit_module_init(o):
 
             return code
 
-        return gu.emit_sorted(o.packages, get_code)
+        return gu.emit(o.packages, get_code)
 
 
     def emit_type_imports():
@@ -230,7 +230,7 @@ def _emit_module_init(o):
 
             return code
 
-        return gu.emit_sorted(o.packages, get_code)
+        return gu.emit(o.packages, get_code)
 
 
     def emit_package_exports():
@@ -240,7 +240,7 @@ def _emit_module_init(o):
                 t.op_name,
                 gu.emit_line_return())
 
-        return gu.emit_sorted(o.packages, get_code)
+        return gu.emit(o.packages, get_code)
 
 
     def emit_type_exports():
@@ -250,7 +250,7 @@ def _emit_module_init(o):
                 t.op_name,
                 gu.emit_line_return())
 
-        return gu.emit_sorted(o.classes, get_code)
+        return gu.emit(o.classes, get_code)
 
 
     def emit_supported_type_list():
@@ -262,7 +262,7 @@ def _emit_module_init(o):
 
             return code
 
-        return gu.emit_sorted(o.classes, get_code)
+        return gu.emit(o.classes, get_code)
 
 
     code = _templates[_TEMPLATE_MAIN]
@@ -328,7 +328,7 @@ def _emit_snippet_class_properties(c):
             gu.emit_line_return()
         )
 
-    return gu.emit_sorted(c.properties, get_code)
+    return gu.emit(c.properties, get_code)
 
 
 def _emit_snippet_class_property_constants(c):
@@ -344,6 +344,6 @@ def _emit_snippet_class_property_constants(c):
                 gu.emit_line_return()
             )
 
-    return gu.emit_sorted(c.constants, get_code)
+    return gu.emit(c.constants, get_code)
 
 

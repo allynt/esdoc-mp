@@ -146,7 +146,7 @@ def _emit_snippet_decodings(c):
             if dc.decoding is not None:
                 code.append(_emit_snippet_decoding(p, dc.decoding, dc.type))
 
-    return gu.emit_sorted(code)
+    return gu.emit(code)
 
 
 def _get_decoding_function(prp, type_):
@@ -180,7 +180,7 @@ def _emit_module_init(o):
                 pgu.get_package_module_name(c.package, 'decoder'),
                 _get_decoder_function_name(c)) + gu.emit_line_return()
 
-        return gu.emit_sorted(o.entities, get_code)
+        return gu.emit(o.entities, get_code)
 
     code = _templates[_TEMPLATE_MAIN]
     code = code.replace('{module-imports}', get_imports())

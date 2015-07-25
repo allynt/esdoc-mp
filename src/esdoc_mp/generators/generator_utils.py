@@ -62,8 +62,8 @@ def convert_to_pascal_case(name, separator='_'):
     return r
 
 
-def emit_sorted(iterable, func=None):
-    """Returns sorted code.
+def emit(iterable, func=None):
+    """Returns code (sorted).
 
     """
     if func:
