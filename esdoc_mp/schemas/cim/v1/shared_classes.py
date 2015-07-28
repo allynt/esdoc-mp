@@ -161,7 +161,7 @@ def license():
             ('name', 'str', '0.1'),
             ('contact', 'str', '0.1'),
             ('description', 'str', '0.1'),
-            ('is_unrestricted', 'str', '0.1'),
+            ('is_unrestricted', 'bool', '0.1'),
         ],
         'doc_strings': {
             'name': 'The name that the license goes by (ie: "GPL")',
