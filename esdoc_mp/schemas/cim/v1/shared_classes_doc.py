@@ -149,6 +149,7 @@ def doc_reference():
             ('id', 'uuid', '0.1'),
             ('name', 'str', '0.1'),
             ('type', 'str', '0.1'),
+            ('url', 'str', '0.1'),
             ('version', 'int', '0.1'),
         ],
         'doc_strings': {
@@ -158,6 +159,7 @@ def doc_reference():
             'id': 'The ID of the element being referenced.',
             'name': 'The name of the element being referenced.',
             'type': 'The type of the element being referenced.',
+            'url': 'A URL associated witht he document reference.',
             'version': 'The version of the element being referenced.',
         },
         'decodings': [
