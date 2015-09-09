@@ -82,6 +82,7 @@ def doc_meta_info():
             ('type', 'str', '1.1'),
             ('type_display_name', 'str', '0.1'),
             ('type_sort_key', 'str', '0.1'),
+            ('update_date', 'datetime', '1.1'),
             ('version', 'int', '1.1')
         ],
         'doc_strings': {
@@ -103,6 +104,7 @@ def doc_meta_info():
             'type': 'Document ontology type.',
             'type_display_name': 'Document type display name.',
             'type_sort_key': 'Document type sort key.',
+            'update_date': 'Date upon which the instance was last updated',
             'version': 'Document version identifier.'
         },
         'decodings': [
