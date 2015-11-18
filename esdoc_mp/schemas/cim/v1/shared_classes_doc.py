@@ -66,7 +66,6 @@ def doc_meta_info():
             ('create_date', 'datetime', '1.1'),
             ('drs_path', 'str', '0.1'),
             ('drs_keys', 'str', '0.N'),
-            ('encodings', 'str', '0.N'),
             ('external_ids', 'shared.standard_name', '0.N'),
             ('genealogy', 'shared.doc_genealogy', '0.1'),
             ('id', 'uuid', '1.1'),
@@ -85,12 +84,14 @@ def doc_meta_info():
             ('update_date', 'datetime', '1.1'),
             ('version', 'int', '1.1')
         ],
+        'constants': [
+            ('source', 'scripts'),
+        ],
         'doc_strings': {
             'author': 'Associated document author.',
             'create_date': 'Date upon which the instance was created',
             'drs_path': 'DRS related path to support documents with datasets.',
             'drs_keys': 'DRS related keys to support correlation of documents with datasets.',
-            'encodings': 'Set of supported document encodings',
             'external_ids': 'Set of identifiers used to reference the document by external parties.',
             'genealogy': 'Specifies the relationship of this document with another document. Various relationship types (depending on the type of document; ie: simulation, component, etc.) are supported.',
             'id': 'Universal document identifier.',
@@ -113,6 +114,7 @@ def doc_meta_info():
             ('external_ids', 'child::cim:externalID'),
             ('genealogy', 'child::cim:documentGenealogy'),
             ('id', 'child::cim:documentID'),
+            ('update_date', 'child::cim:documentCreationDate'),
             ('version', 'child::cim:documentVersion'),
             ('version', 'self::cim:numericalExperiment/@documentVersion'),
         ]

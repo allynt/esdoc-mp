@@ -3,8 +3,6 @@
 """Encapsualtes a set of python specific name conversion operations.
 
 """
-from operator import add
-
 from esdoc_mp.generators.generator_utils import *
 
 
@@ -31,8 +29,9 @@ _SIMPLE_TYPE_MAPPINGS = {
     'datetime' : 'datetime.datetime',
     'float' : 'float',
     'int' : 'int',
-    'str' : 'str',
-    'uri' : 'str',
+    'str' : 'unicode',
+    'unicode' : 'unicode',
+    'uri' : 'unicode',
     'uuid' : 'uuid.UUID',
 }
 
@@ -121,10 +120,9 @@ def _get_ontology_directory(o, root=None, sub=None, suffix_root=False):
 def get_ontology_directory(ctx, sub=None, include_version=True):
     """Returns ontology directory into which code is generated code.
 
-    :param ctx: Generation context information.
-    :param sub: Subpackage name.
-    :type ctx: esdoc_mp.generators.generator.GeneratorContext
-    :type sub: str
+    :param GeneratorContext ctx: Generation context information.
+    :param str sub: Subpackage name.
+    :param bool include_version: Subpackage name.
 
     """
     dir = ''
@@ -143,8 +141,7 @@ def get_ontology_directory(ctx, sub=None, include_version=True):
 def get_package_name(name):
     """Converts name to a python package name.
 
-    Keyword Arguments:
-    name - name being converted.
+    :param str name: Package name being converted.
 
     """
     return _strip_package_name(name)
@@ -153,8 +150,7 @@ def get_package_name(name):
 def get_full_class_name(c):
     """Converts name to a python class name.
 
-    Keyword Arguments:
-    name - name being converted.
+    :param str name: Class name being converted.
 
     """
     return get_package_name(c.package) + "." + get_class_name(c)
@@ -163,8 +159,7 @@ def get_full_class_name(c):
 def get_class_name(name):
     """Converts name to a python class name.
 
-    Keyword Arguments:
-    name - name being converted.
+    :param str name: Class name being converted.
 
     """
     return convert_to_camel_case(_strip_class_name(name))
@@ -173,8 +168,7 @@ def get_class_name(name):
 def get_class_import_name(name):
     """Converts name to a python class import name.
 
-    Keyword Arguments:
-    name - name being converted.
+    :param str name: Class name being converted.
 
     """
     return _strip_class_name(name)
@@ -183,8 +177,7 @@ def get_class_import_name(name):
 def get_class_functional_name(name):
     """Converts name to one suitable for use in a python function definition.
 
-    Keyword Arguments:
-    name - name being converted.
+    :param str name: Class name being converted.
 
     """
     return _strip_class_name(name)
@@ -193,8 +186,7 @@ def get_class_functional_name(name):
 def get_class_doc_string_name(name):
     """Converts name to one suitable for use in python documentation.
 
-    Keyword Arguments:
-    name - name being converted.
+    :param str name: Class name being converted.
 
     """
     name = _strip_class_name(name)
@@ -204,8 +196,7 @@ def get_class_doc_string_name(name):
 def _get_class_file_name(name):
     """Converts name to a python class file name.
 
-    Keyword Arguments:
-    name - name being converted.
+    :param str name: Class name being converted.
 
     """
     name = _strip_class_name(name)
@@ -214,9 +205,6 @@ def _get_class_file_name(name):
 
 def _get_class_base_name(c):
     """Converts name to a python base class name.
-
-    Keyword Arguments:
-    name - name being converted.
 
     """
     if c.base is None:
@@ -229,6 +217,7 @@ def _get_class_base_name(c):
 
 def get_property_ctor(p):
     """Converts class property to a python property constructor declaration.
+
     """
     return 'self.{0} = {1}'.format(get_property_name(p),
                                    get_property_default_value(p))
@@ -237,18 +226,12 @@ def get_property_ctor(p):
 def get_property_name(name):
     """Converts name to a python class property name.
 
-    Keyword Arguments:
-    name - name being converted.
-
     """
     return _strip(name)
 
 
 def get_property_field_name(name):
     """Converts name to a python class property field name.
-
-    Keyword Arguments:
-    name - name being converted.
 
     """
     return _PROPERTY_FIELD_PREFIX + _strip(name)
@@ -279,15 +262,14 @@ def get_property_default_value(p):
 def get_type_name(type):
     """Returns python type name.
 
-    Keyword Arguments:
-    type - a type declaration.
+    :param str name: Type name being converted.
 
     """
     name = type.name
     if type.is_simple:
         return _get_simple_type_mapping(name)
     elif type.is_enum:
-        return _get_simple_type_mapping('str')
+        return _get_simple_type_mapping('unicode')
     elif type.is_complex:
         return get_class_name(name)
 
@@ -295,15 +277,14 @@ def get_type_name(type):
 def get_type_functional_name(t, get_full_name=False):
     """Returns python type functional name.
 
-    Keyword Arguments:
-    type - a type declaration.
+    :param str name: Type name being converted.
 
     """
     name = t.name
     if t.is_simple:
         return _get_simple_type_mapping(name)
     elif t.is_enum:
-        return 'str'
+        return 'unicode'
     elif t.is_complex:
         if get_full_name:
             return get_package_name(name) + "." + get_class_name(name)
@@ -314,8 +295,7 @@ def get_type_functional_name(t, get_full_name=False):
 def get_type_doc_name(t):
     """Returns python type documentation name.
 
-    Keyword Arguments:
-    type - a type declaration.
+    :param str name: Type name being converted.
 
     """
     name = t.name
@@ -330,9 +310,6 @@ def get_type_doc_name(t):
 def _strip_enum_name(name):
     """Returns stripped enum name.
 
-    Keyword Arguments:
-    name - name being converted.
-
     """
     name = _strip(name)
     if name.find('.') != -1:
@@ -343,8 +320,7 @@ def _strip_enum_name(name):
 def get_enum_name(name):
     """Converts name to a python enum name.
 
-    Keyword Arguments:
-    name - name being converted.
+    :param str name: Enum name being converted.
 
     """
     return convert_to_camel_case(_strip_enum_name(name))
@@ -353,8 +329,7 @@ def get_enum_name(name):
 def get_enum_file_name(name):
     """Converts name to a python enum file name.
 
-    Keyword Arguments:
-    name - name being converted.
+    :param str name: Enum name being converted.
 
     """
     return _strip_enum_name(name) + FILE_EXTENSION
@@ -363,18 +338,12 @@ def get_enum_file_name(name):
 def _get_simple_type_mapping(simple):
     """Returns matching simple type mapping.
 
-    Keyword Arguments:
-    simple - simple type name.
-
     """
     return _SIMPLE_TYPE_MAPPINGS[simple]
 
 
 def _strip_package_name(name):
     """Returns stripped package name.
-
-    Keyword Arguments:
-    name - name being converted.
 
     """
     name = _strip(name)
@@ -386,8 +355,7 @@ def _strip_package_name(name):
 def get_package_init_file_name():
     """Returns python package init file name.
 
-    Keyword Arguments:
-    name - name being converted.
+    :param str name: Package name being converted.
 
     """
     return _PACKAGE_INIT_FILE + FILE_EXTENSION
@@ -397,10 +365,8 @@ def get_package_init_file_name():
 def get_package_module_name(name, prefix):
     """Returns a package module name by injecting package name into a template.
 
-    :param name: A package name, e.g. "types".
-    :param prefix: A package name prefix, e.g. "validator".
-    :type name: str
-    :type prefix: str
+    :param str name: Package name.
+    :param str prefix: A package name prefix, e.g. "validator".
 
     """
     return (prefix + "_for_{0}_package").format(get_package_name(name))
@@ -409,10 +375,8 @@ def get_package_module_name(name, prefix):
 def get_package_module_file_name(name, prefix):
     """Returns a package module file name by injecting package name into a template.
 
-    :param name: A package name, e.g. "types".
-    :param prefix: A package name prefix, e.g. "validator".
-    :type name: str
-    :type prefix: str
+    :param str name: Package name.
+    :param str prefix: A package name prefix, e.g. "validator".
 
     """
     return get_package_module_name(name, prefix) + FILE_EXTENSION
@@ -421,8 +385,7 @@ def get_package_module_file_name(name, prefix):
 def get_module_file_name(name):
     """Returns a module file name.
 
-    :param name: A module name, e.g. "typeset_info".
-    :type name: str
+    :param str name: Module name.
 
     """
     return name + FILE_EXTENSION

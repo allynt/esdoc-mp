@@ -32,6 +32,7 @@ _SIMPLE_CLASS_PROPERTY_TYPES = {
     'float',
     'int',
     'str',
+    'unicode',
     'uri',
     'uuid'
 }

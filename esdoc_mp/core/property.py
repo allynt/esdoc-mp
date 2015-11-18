@@ -21,7 +21,7 @@ class Property(object):
         """Instance constructor.
 
         :param str name: Property name.
-        :param str doc_string: Property docuemtnation string.
+        :param str doc_string: Property documentation string.
         :param str type_name: Property type name.
         :param str cardinality: Type of relationship to associated class (i.e. 0.1 | 1.1 | 0.N | 1.N).
 

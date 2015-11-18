@@ -52,8 +52,7 @@ class DecoderGenerator(Generator):
     def is_required(self, ctx):
         """Predicate determing whether code generation is required.
 
-        :param ctx: Generation context information.
-        :type ctx: esdoc_mp.generators.generator.GeneratorContext
+        :param GeneratorContext ctx: Generation context information.
 
         """
         return bool(ctx.ontology.decodings)
@@ -62,8 +61,7 @@ class DecoderGenerator(Generator):
     def on_ontology_parse(self, ctx):
         """Event handler for the ontology parse event.
 
-        :param ctx: Generation context information.
-        :type ctx: esdoc_mp.generators.generator.GeneratorContext
+        :param GeneratorContext ctx: Generation context information.
 
         """
         return [
@@ -82,8 +80,7 @@ class DecoderGenerator(Generator):
     def on_package_parse(self, ctx):
         """Event handler for the package parse event.
 
-        :param ctx: Generation context information.
-        :type ctx: esdoc_mp.generators.generator.GeneratorContext
+        :param GeneratorContext ctx: Generation context information.
 
         """
         return (

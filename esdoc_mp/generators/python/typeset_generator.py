@@ -59,8 +59,7 @@ class TypesetGenerator(Generator):
     def on_ontology_parse(self, ctx):
         """Event handler for the ontology parse event.
 
-        :param ctx: Generation context information.
-        :type ctx: esdoc_mp.generators.generator.GeneratorContext
+        :param GeneratorContext ctx: Generation context information.
 
         """
         return [
@@ -80,8 +79,7 @@ class TypesetGenerator(Generator):
     def on_package_parse(self, ctx):
         """Event handler for the package parse event.
 
-        :param ctx: Generation context information.
-        :type ctx: esdoc_mp.generators.generator.GeneratorContext
+        :param GeneratorContext ctx: Generation context information.
 
         """
         return (

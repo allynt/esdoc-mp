@@ -22,10 +22,8 @@ class GeneratorContext(object):
     def __init__(self, ontology, options):
         """Instance constructor.
 
-        :param ontology: Ontology being processed.
-        :param options: Generation options.
-        :type ontology: esdoc_mp.core.Ontology
-        :type options: esdoc_mp.GeneratorOptions
+        :param esdoc_mp.core.Ontology ontology: Ontology being processed.
+        :param esdoc_mp.GeneratorOptions options: Generation options.
 
         """
         self.ontology = ontology

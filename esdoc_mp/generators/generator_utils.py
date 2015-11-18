@@ -119,8 +119,7 @@ def get_username():
 def emit_indent(count=1):
     """Emits code corresponding to a code indentation.
 
-    :param count: Number of indentations to emit.
-    :type count: int
+    :param int count: Number of indentations to emit.
 
     """
     return reduce(lambda x, y: x + _INDENT, range(count), '')
@@ -138,8 +137,7 @@ def emit_line_return(count=1):
 def create_directory(dir):
     """Generates a directory into which code will be generated.
 
-    :param dir: Target code generation directory.
-    :type dir: str
+    :param str dir: Target code generation directory.
 
     """
     try:
@@ -181,8 +179,7 @@ def format_code(ctx, code):
     code = code.replace('{ontology-version-packagename}', ctx.ontology.op_version.replace('.', '_'))
 
     # Misceallaneous params.
-    code = code.replace('{datetime-now}', str(datetime.datetime.now()))
-    code = code.replace('{datetime-year}', str(datetime.datetime.now().year))
+    code = code.replace('{datetime-year}', unicode(datetime.datetime.now().year))
     code = code.replace('{user-name}', get_username())
 
     return code

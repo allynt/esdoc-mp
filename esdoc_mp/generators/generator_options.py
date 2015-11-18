@@ -25,5 +25,5 @@ class GeneratorOptions(object):
 
         """
         self.generator_key = key
-        self.language = str(language).lower()
-        self.output_dir = str(io_dir)
+        self.language = language.lower()
+        self.output_dir = io_dir
