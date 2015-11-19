@@ -54,6 +54,7 @@ class Ontology(object):
             _set_class_imports,
             _set_circular_imports,
             _set_associated_packages,
+            _set_associated_packages_for_import,
             _set_package_external_type_refs
         ]:
             setter(self)
@@ -164,7 +165,21 @@ def _set_associated_packages(ontology):
         pkg.associated.update([c.base.package for c in pkg.classes
                                if c.base and c.base.package != pkg])
         pkg.associated.update([prp.type.package for prp in pkg.properties
-                               if prp.is_required and prp.type.package])
+                               if prp.type.package and \
+                                  prp.type.package != pkg])
+
+
+def _set_associated_packages_for_import(ontology):
+    """Assigns set of intra-package associations required for import.
+
+    """
+    for pkg in ontology.packages:
+        pkg.associated_for_import.update([c.base.package for c in pkg.classes
+                                          if c.base and c.base.package != pkg])
+        pkg.associated_for_import.update([prp.type.package for prp in pkg.properties
+                                          if prp.type.package and \
+                                          prp.type.package != pkg and \
+                                          prp.type.name_of_type == "meta"])
 
 
 def _set_package_external_type_refs(ontology):

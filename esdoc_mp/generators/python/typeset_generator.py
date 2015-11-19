@@ -152,7 +152,9 @@ def _emit_module_meta(o):
 
 
 def _emit_module_typeset_for_pkg(o, p):
-    """Emits typeset module for an ontology package."""
+    """Emits typeset module for an ontology package.
+
+    """
     def emit_imports():
         def get_code(ap):
             code = "import {0} as {1}".format(
@@ -162,7 +164,7 @@ def _emit_module_typeset_for_pkg(o, p):
 
             return code
 
-        return gu.emit(p.associated, get_code)
+        return gu.emit(p.associated_for_import, get_code)
 
 
     def get_classes(p):

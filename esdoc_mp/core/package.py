@@ -34,6 +34,7 @@ class Package(object):
         """
         self.abstract_classes = _get_sorted(classes, lambda c: c.is_abstract)
         self.associated = set()
+        self.associated_for_import = set()
         self.concrete_classes = _get_sorted(classes, lambda c: not c.is_abstract)
         self.classes = _get_sorted(classes)
         self.decodings = reduce(or_, [c.decodings for c in classes])
