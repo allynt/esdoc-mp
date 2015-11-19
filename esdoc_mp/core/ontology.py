@@ -179,7 +179,7 @@ def _set_associated_packages_for_import(ontology):
         pkg.associated_for_import.update([prp.type.package for prp in pkg.properties
                                           if prp.type.package and \
                                           prp.type.package != pkg and \
-                                          prp.type.name_of_type == "meta"])
+                                          prp.name == "meta"])
 
 
 def _set_package_external_type_refs(ontology):
