@@ -71,8 +71,6 @@ def doc_meta_info():
             ('id', 'uuid', '1.1'),
             ('institute', 'str', '0.1'),
             ('language', 'str', '1.1'),
-            ('metadata_id', 'uri', '0.1'),
-            ('metadata_version', 'str', '0.1'),
             ('project', 'str', '1.1'),
             ('sort_key', 'str', '0.1'),
             ('source', 'str', '1.1'),
