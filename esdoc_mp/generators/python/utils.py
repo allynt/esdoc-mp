@@ -223,6 +223,13 @@ def get_property_ctor(p):
                                    get_property_default_value(p))
 
 
+def get_property_reference_ctor(p):
+    """Converts class property to a python reference property constructor declaration.
+
+    """
+    return 'self.reference_to_{0} = {1}'.format(get_property_name(p), get_property_default_value(p))
+
+
 def get_property_name(name):
     """Converts name to a python class property name.
 

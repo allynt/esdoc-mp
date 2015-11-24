@@ -105,7 +105,7 @@ def _emit_module_meta(o):
 
     def emit_type_keys():
         def get_code(c):
-            code = "{0}.type_key = '{1}.{2}.{0}'".format(
+            code = "{0}.type_key = u'{1}.{2}.{0}'".format(
                 c.op_full_name,
                 o.op_name,
                 o.op_version)

@@ -21,6 +21,20 @@ def _get_formatter(schema):
         pass
 
 
+def _get_class_exclusions(schema):
+    """Returns set of classes to be excluded.
+
+    """
+    formatter = _get_formatter(schema)
+    if formatter:
+        try:
+            return formatter.CLASS_BLACKLIST
+        except AttributeError:
+            pass
+
+    return []
+
+
 def _get_class_formatter(schema):
     """Returns a class formatter.
 
@@ -64,6 +78,12 @@ def _reformat(type_formatter, module, type_):
 
     return reformatted
 
+
+def is_class_excluded(schema, package, cls):
+    """Returns flag indicating whether a class should be excluded or not.
+
+    """
+    return "{}.{}".format(get_package_name(package), cls['name']) in _get_class_exclusions(schema)
 
 
 def get_package_name(package):

@@ -100,7 +100,7 @@ def _get_package_classes(schema, package, types):
     """
     result = []
     classes = [reformatter.reformat_class(schema, package, t) for t in types if t['type'] == 'class']
-    for cls in classes:
+    for cls in [c for c in classes if not reformatter.is_class_excluded(schema, package, c)]:
         result.append(
             Class(cls['name'],
                   cls.get('base', None),

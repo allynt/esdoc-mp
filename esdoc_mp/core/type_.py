@@ -27,8 +27,8 @@ class Type(object):
         :param str name: Name of type.
 
         """
-        self.__complex_type = None
-        self.__is_enum = False
+        self._complex_type = None
+        self._is_enum = False
         self.is_class = False
         self.is_complex = len(name.split('.')) > 1
         self.is_simple = not self.is_complex
@@ -49,7 +49,8 @@ class Type(object):
         """Gets complex type.
 
         """
-        return self.__complex_type
+        return self._complex_type
+
 
     @complex_type.setter
     def complex_type(self, value):
@@ -62,8 +63,8 @@ class Type(object):
             raise TypeError("Type is not complex.")
         if isinstance(value, Class) == False and isinstance(value, Enum) == False:
             raise TypeError("Value is of incorrect type.")
-        self.__complex_type = value
-        self.__is_enum = isinstance(value, Enum)
+        self._complex_type = value
+        self._is_enum = isinstance(value, Enum)
 
 
     @property
