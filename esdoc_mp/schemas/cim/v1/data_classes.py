@@ -2,7 +2,6 @@
 
 """
 .. module:: data_classes.py
-   :copyright: @2013 Earth System Documentation (http://es-doc.org)
    :license: GPL/CeCIL
    :platform: Unix, Windows
    :synopsis: Set of CIM v1 data package class definitions.

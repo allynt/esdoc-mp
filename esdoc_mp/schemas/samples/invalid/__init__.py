@@ -2,7 +2,6 @@
 
 """
 .. module:: esdoc_mp.schemas.samples.invalid.__init__.py
-   :copyright: Copyright "Feb 7, 2013", Earth System Documentation
    :license: GPL/CeCIL
    :platform: Unix, Windows
    :synopsis: Invalid sample schema.

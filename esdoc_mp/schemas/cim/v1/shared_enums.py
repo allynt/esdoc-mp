@@ -2,7 +2,6 @@
 
 """
 .. module:: shared_enums.py
-   :copyright: @2013 Earth System Documentation (http://es-doc.org)
    :license: GPL/CeCIL
    :platform: Unix, Windows
    :synopsis: Set of CIM v1 shared package enum definitions.

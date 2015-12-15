@@ -2,7 +2,6 @@
 
 """
 .. module:: misc_classes.py
-   :copyright: @2013 Earth System Documentation (http://es-doc.org)
    :license: GPL/CeCIL
    :platform: Unix, Windows
    :synopsis: Set of CIM v1 miscellaneous package class definitions.
