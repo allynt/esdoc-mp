@@ -41,24 +41,24 @@ def doc_meta_info():
             ("version", "int", "1.1")
         ],
         "doc_strings": {
-			"author": "Associated document author.",
-			"author_reference": "Reference to the associated document author.",
-			"create_date": "Date upon which the instance was created",
-			"drs_keys": "DRS related keys to support correlation of documents with datasets.",
-			"drs_path": "DRS related path to support documents with datasets.",
-			"external_ids": "Set of identifiers used to reference the document by external parties.",
-			"id": "Universal document identifier.",
-			"institute": "Name of institute with which instance is associated with.",
-			"language": "Language with which instance is associated with.",
-			"project": "Name of project with which instance is associated with.",
-			"sort_key": "Document sort key.",
-			"source": "Name of application that created the instance.",
-			"source_key": "Key of application that created the instance.",
-			"type": "Document ontology type.",
-			"type_display_name": "Document type display name.",
-			"type_sort_key": "Document type sort key.",
-			"update_date": "Date upon which the instance was last updated",
-			"version": "Document version identifier."
+            "author": "Associated document author.",
+            "author_reference": "Reference to the associated document author.",
+            "create_date": "Date upon which the instance was created",
+            "drs_keys": "DRS related keys to support correlation of documents with datasets.",
+            "drs_path": "DRS related path to support documents with datasets.",
+            "external_ids": "Set of identifiers used to reference the document by external parties.",
+            "id": "Universal document identifier.",
+            "institute": "Name of institute with which instance is associated with.",
+            "language": "Language with which instance is associated with.",
+            "project": "Name of project with which instance is associated with.",
+            "sort_key": "Document sort key.",
+            "source": "Name of application that created the instance.",
+            "source_key": "Key of application that created the instance.",
+            "type": "Document ontology type.",
+            "type_display_name": "Document type display name.",
+            "type_sort_key": "Document type sort key.",
+            "update_date": "Date upon which the instance was last updated",
+            "version": "Document version identifier."
         }
     }
 
@@ -80,11 +80,11 @@ def doc_reference():
             ("version", "int", "0.1")
         ],
         "doc_strings": {
-			"description": "A description of the element being referenced, in the context of the current class.",
-			"id": "The ID of the element being referenced.",
-			"name": "The name of the element being referenced.",
-			"type": "The type of the element being referenced.",
-			"url": "A URL associated witht he document reference.",
-			"version": "The version of the element being referenced."
+            "description": "A description of the element being referenced, in the context of the current class.",
+            "id": "The ID of the element being referenced.",
+            "name": "The name of the element being referenced.",
+            "type": "The type of the element being referenced.",
+            "url": "A URL associated witht he document reference.",
+            "version": "The version of the element being referenced."
         }
     }

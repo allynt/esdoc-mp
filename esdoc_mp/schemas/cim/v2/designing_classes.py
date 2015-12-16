@@ -25,8 +25,8 @@ def domain_properties():
             ("required_resolution", "science.resolution", "0.1")
         ],
         "doc_strings": {
-			"required_extent": "Constraint on extent of domain to be simulated",
-			"required_resolution": "Constraint on resolution required in simulated domain"
+            "required_extent": "Constraint on extent of domain to be simulated",
+            "required_resolution": "Constraint on resolution required in simulated domain"
         }
     }
 
@@ -40,15 +40,15 @@ def ensemble_requirement():
         "base": "designing.numerical_requirement",
         "is_abstract": False,
         "properties": [
-			("ensemble_member_references", "shared.doc_reference", "0.N"),
             ("ensemble_member", "designing.numerical_requirement", "0.N"),
+            ("ensemble_member_references", "shared.doc_reference", "0.N"),
             ("ensemble_type", "designing.ensemble_types", "1.1"),
             ("minimum_size", "int", "1.1")
         ],
         "doc_strings": {
-			"ensemble_member": "Constraint on each ensemble member",
-			"ensemble_type": "Type of ensemble",
-			"minimum_size": "Minimum number of members"
+            "ensemble_member": "Constraint on each ensemble member",
+            "ensemble_type": "Type of ensemble",
+            "minimum_size": "Minimum number of members"
         }
     }
 
@@ -61,12 +61,12 @@ def ensemble_types():
         "type": "enum",
         "is_open": False,
         "members": [
-			("Perturbed Physics", "Members differ in some aspects of their physics"),
-			("Initialisation Method", "Members differ in how they are initialised"),
-			("Initialisation", "Members are initialised to sample possible starting states"),
-			("Staggered Start", "Members are initialised at different starting dates"),
-			("Forced", "Members used differing forcing data"),
-			("Resolution", "Members are run at different resolutions")
+            ("Perturbed Physics", "Members differ in some aspects of their physics"),
+            ("Initialisation Method", "Members differ in how they are initialised"),
+            ("Initialisation", "Members are initialised to sample possible starting states"),
+            ("Staggered Start", "Members are initialised at different starting dates"),
+            ("Forced", "Members used differing forcing data"),
+            ("Resolution", "Members are run at different resolutions")
 		]
     }
 
@@ -89,13 +89,13 @@ def forcing_constraint():
             ("origin", "shared.citation", "0.1")
         ],
         "doc_strings": {
-			"additional_constraint": "Additional information, e.g. hold constant from 2100-01-01",
-			"category": "Category to which this belongs (from a CV, e.g. GASES)",
-			"code": "Programme wide code from a controlled vocabulary (e.g. N2O)",
-			"data_link": "Link to actual data record if possible",
-			"forcing_type": "Type of integration",
-			"group": "Sub-Category (e.g. GHG)",
-			"origin": "Pointer to origin, e.g. CMIP6 RCP database"
+            "additional_constraint": "Additional information, e.g. hold constant from 2100-01-01",
+            "category": "Category to which this belongs (from a CV, e.g. GASES)",
+            "code": "Programme wide code from a controlled vocabulary (e.g. N2O)",
+            "data_link": "Link to actual data record if possible",
+            "forcing_type": "Type of integration",
+            "group": "Sub-Category (e.g. GHG)",
+            "origin": "Pointer to origin, e.g. CMIP6 RCP database"
         }
     }
 
@@ -108,10 +108,10 @@ def forcing_types():
         "type": "enum",
         "is_open": False,
         "members": [
-			("historical", "Best estimates of actual state (included synthesized)"),
-			("idealised", "Simplified and/or exemplar, e.g. 1%C02"),
-			("scenario", "Intended to represent a possible future, e.g. RCP4.5"),
-			("another simulation", "From another simulation")
+            ("historical", "Best estimates of actual state (included synthesized)"),
+            ("idealised", "Simplified and/or exemplar, e.g. 1%C02"),
+            ("scenario", "Intended to represent a possible future, e.g. RCP4.5"),
+            ("another simulation", "From another simulation")
 		]
     }
 
@@ -126,11 +126,11 @@ def multi_ensemble():
         "base": "designing.numerical_requirement",
         "is_abstract": False,
         "properties": [
-			("ensemble_axis_references", "shared.doc_reference", "1.N"),
-            ("ensemble_axis", "designing.ensemble_requirement", "1.N")
+            ("ensemble_axis", "designing.ensemble_requirement", "1.N"),
+            ("ensemble_axis_references", "shared.doc_reference", "1.N")
         ],
         "doc_strings": {
-			"ensemble_axis": "List of orthogonal ensembles"
+            "ensemble_axis": "List of orthogonal ensembles"
         }
     }
 
@@ -147,7 +147,7 @@ def multi_time_ensemble():
             ("ensemble_members", "shared.datetime_set", "1.1")
         ],
         "doc_strings": {
-			"ensemble_members": "Description of date or time set of start dates"
+            "ensemble_members": "Description of date or time set of start dates"
         }
     }
 
@@ -161,14 +161,14 @@ def numerical_experiment():
         "base": "activity.activity",
         "is_abstract": False,
         "properties": [
-			("related_experiments_references", "shared.doc_reference", "0.N"),
-			("requirements_references", "shared.doc_reference", "0.N"),
             ("related_experiments", "designing.numerical_experiment", "0.N"),
-            ("requirements", "designing.numerical_requirement", "0.N")
+            ("related_experiments_references", "shared.doc_reference", "0.N"),
+            ("requirements", "designing.numerical_requirement", "0.N"),
+            ("requirements_references", "shared.doc_reference", "0.N")
         ],
         "doc_strings": {
-			"related_experiments": "A related experiment",
-			"requirements": "Requirements that conformant simulations need to satisfy"
+            "related_experiments": "A related experiment",
+            "requirements": "Requirements that conformant simulations need to satisfy"
         }
     }
 
@@ -182,13 +182,13 @@ def numerical_requirement():
         "base": "activity.activity",
         "is_abstract": False,
         "properties": [
-			("additional_requirements_references", "shared.doc_reference", "0.N"),
             ("additional_requirements", "designing.numerical_requirement", "0.N"),
+            ("additional_requirements_references", "shared.doc_reference", "0.N"),
             ("conformance_is_requested", "bool", "1.1")
         ],
         "doc_strings": {
-			"additional_requirements": "Additional requirement detail",
-			"conformance_is_requested": "Indicator as to whether ensemble documentation should include conformance information for this requirement"
+            "additional_requirements": "Additional requirement detail",
+            "conformance_is_requested": "Indicator as to whether ensemble documentation should include conformance information for this requirement"
         }
     }
 
@@ -211,9 +211,9 @@ def output_temporal_requirement():
             ("throughout", "bool", "1.1")
         ],
         "doc_strings": {
-			"continuous_subset": "Set of periods for which continuous output is required",
-			"sliced_subset": "Description of how slices are laid out",
-			"throughout": "Whether or not output is required throughout simulation"
+            "continuous_subset": "Set of periods for which continuous output is required",
+            "sliced_subset": "Description of how slices are laid out",
+            "throughout": "Whether or not output is required throughout simulation"
         }
     }
 
@@ -227,17 +227,17 @@ def project():
         "base": "activity.activity",
         "is_abstract": False,
         "properties": [
-			("previous_projects_references", "shared.doc_reference", "0.N"),
-			("requires_experiments_references", "shared.doc_reference", "0.N"),
-			("sub_projects_references", "shared.doc_reference", "0.N"),
             ("previous_projects", "designing.project", "0.N"),
+            ("previous_projects_references", "shared.doc_reference", "0.N"),
             ("requires_experiments", "designing.numerical_experiment", "0.N"),
-            ("sub_projects", "designing.project", "0.N")
+            ("requires_experiments_references", "shared.doc_reference", "0.N"),
+            ("sub_projects", "designing.project", "0.N"),
+            ("sub_projects_references", "shared.doc_reference", "0.N")
         ],
         "doc_strings": {
-			"previous_projects": "Previous projects with similar aims",
-			"requires_experiments": "Experiments required to deliver project.",
-			"sub_projects": "Activities within the project with their own name and aim(s)."
+            "previous_projects": "Previous projects with similar aims",
+            "requires_experiments": "Experiments required to deliver project.",
+            "sub_projects": "Activities within the project with their own name and aim(s)."
         }
     }
 
@@ -251,19 +251,19 @@ def simulation_plan():
         "base": "activity.activity",
         "is_abstract": False,
         "properties": [
-			("expected_model_reference", "shared.doc_reference", "1.1"),
-			("expected_platform_reference", "shared.doc_reference", "0.1"),
-			("will_support_experiments_references", "shared.doc_reference", "1.N"),
             ("expected_model", "science.model", "1.1"),
+            ("expected_model_reference", "shared.doc_reference", "1.1"),
             ("expected_performance_sypd", "float", "0.1"),
             ("expected_platform", "platform.machine", "0.1"),
-            ("will_support_experiments", "designing.numerical_experiment", "1.N")
+            ("expected_platform_reference", "shared.doc_reference", "0.1"),
+            ("will_support_experiments", "designing.numerical_experiment", "1.N"),
+            ("will_support_experiments_references", "shared.doc_reference", "1.N")
         ],
         "doc_strings": {
-			"expected_model": "The model used to run the simulation",
-			"expected_performance_sypd": "Expected performance in simulated years per real day",
-			"expected_platform": "The machine on which the simulation will be run",
-			"will_support_experiments": "An experiment with which the planned simulation will be associated"
+            "expected_model": "The model used to run the simulation",
+            "expected_performance_sypd": "Expected performance in simulated years per real day",
+            "expected_platform": "The machine on which the simulation will be run",
+            "will_support_experiments": "An experiment with which the planned simulation will be associated"
         }
     }
 
@@ -283,9 +283,9 @@ def temporal_constraint():
             ("start_flexibility", "shared.time_period", "0.1")
         ],
         "doc_strings": {
-			"required_calendar": "Required calendar (e.g. for paleo simulations)",
-			"required_duration": "Constraint on time or length of simulation",
-			"start_date": "Required start date",
-			"start_flexibility": "Amount of time before required start date that it is permissible to begin integration"
+            "required_calendar": "Required calendar (e.g. for paleo simulations)",
+            "required_duration": "Constraint on time or length of simulation",
+            "start_date": "Required start date",
+            "start_flexibility": "Amount of time before required start date that it is permissible to begin integration"
         }
     }

@@ -20,13 +20,13 @@ def coupling_framework():
         "type": "enum",
         "is_open": False,
         "members": [
-			("OASIS", "None"),
-			("OASIS3-MCT", "None"),
-			("ESMF", "None"),
-			("NUOPC", "None"),
-			("Bespoke", "Customised coupler developed for this model"),
-			("Unknown", "It is not known what/if-a coupler is used"),
-			("None", "No coupler is used")
+            ("OASIS", "None"),
+            ("OASIS3-MCT", "None"),
+            ("ESMF", "None"),
+            ("NUOPC", "None"),
+            ("Bespoke", "Customised coupler developed for this model"),
+            ("Unknown", "It is not known what/if-a coupler is used"),
+            ("None", "No coupler is used")
 		]
     }
 
@@ -40,9 +40,9 @@ def programming_language():
         "type": "enum",
         "is_open": False,
         "members": [
-			("Fortran", "None"),
-			("C", "None"),
-			("C++", "None"),
-			("Python", "None")
+            ("Fortran", "None"),
+            ("C", "None"),
+            ("C++", "None"),
+            ("Python", "None")
 		]
     }

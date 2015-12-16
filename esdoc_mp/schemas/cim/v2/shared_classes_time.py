@@ -29,10 +29,10 @@ def calendar():
             ("standard_name", "shared.calendar_types", "1.1")
         ],
         "doc_strings": {
-			"description": "Extra information about the calendar",
-			"month_lengths": "Used for special calendars to provide month lengths",
-			"name": "Can be used to name a special calendar type",
-			"standard_name": "Type of calendar used"
+            "description": "Extra information about the calendar",
+            "month_lengths": "Used for special calendars to provide month lengths",
+            "name": "Can be used to name a special calendar type",
+            "standard_name": "Type of calendar used"
         }
     }
 
@@ -45,16 +45,16 @@ def calendar_types():
         "type": "enum",
         "is_open": False,
         "members": [
-			("gregorian", "Mixed Gregorian/Julian calendar as defined by Udunits"),
-			("standard", "Synonym for gregorian: Mixed Gregorian/Julian calendar as defined by Udunits"),
-			("proleptic_gregorian", "A Gregorian calendar extended to dates before 1582-10-15. That is, a year is a leap year if either (i) it is divisible by 4 but not by 100 or (ii) it is divisible by 400."),
-			("noleap", "Gregorian calendar without leap years, i.e., all years are 365 days long."),
-			("365_day", "Synonym for noleap:Gregorian calendar without leap years, i.e., all years are 365 days long."),
-			("all_leap", "Gregorian calendar with every year being a leap year, i.e., all years are 366 days long."),
-			("366_day", "Synonym for all_leap:Gregorian calendar with every year being a leap year, i.e., all years are 366 days long."),
-			("360_day", "All years are 360 days divided into 30 day months."),
-			("julian", "Julian Calendar"),
-			("none", "Perpetual time axis")
+            ("gregorian", "Mixed Gregorian/Julian calendar as defined by Udunits"),
+            ("standard", "Synonym for gregorian: Mixed Gregorian/Julian calendar as defined by Udunits"),
+            ("proleptic_gregorian", "A Gregorian calendar extended to dates before 1582-10-15. That is, a year is a leap year if either (i) it is divisible by 4 but not by 100 or (ii) it is divisible by 400."),
+            ("noleap", "Gregorian calendar without leap years, i.e., all years are 365 days long."),
+            ("365_day", "Synonym for noleap:Gregorian calendar without leap years, i.e., all years are 365 days long."),
+            ("all_leap", "Gregorian calendar with every year being a leap year, i.e., all years are 366 days long."),
+            ("366_day", "Synonym for all_leap:Gregorian calendar with every year being a leap year, i.e., all years are 366 days long."),
+            ("360_day", "All years are 360 days divided into 30 day months."),
+            ("julian", "Julian Calendar"),
+            ("none", "Perpetual time axis")
 		]
     }
 
@@ -74,8 +74,8 @@ def date_time():
             ("value", "str", "1.1")
         ],
         "doc_strings": {
-			"offset": "Date is offset from start of an integration",
-			"value": "Date or time - some of (from left to right): yyyy-mm-dd:hh:mm:ss"
+            "offset": "Date is offset from start of an integration",
+            "value": "Date or time - some of (from left to right): yyyy-mm-dd:hh:mm:ss"
         }
     }
 
@@ -94,7 +94,7 @@ def datetime_set():
             ("length", "int", "1.1")
         ],
         "doc_strings": {
-			"length": "Number of times in set"
+            "length": "Number of times in set"
         }
     }
 
@@ -111,7 +111,7 @@ def irregular_dateset():
             ("date_set", "str", "1.1")
         ],
         "doc_strings": {
-			"date_set": "Set of dates, comma separated yyyy-mm-dd"
+            "date_set": "Set of dates, comma separated yyyy-mm-dd"
         }
     }
 
@@ -124,9 +124,9 @@ def period_date_types():
         "type": "enum",
         "is_open": False,
         "members": [
-			("unused", "Date is not used"),
-			("date is start", "The date defines the start of the period"),
-			("date is end", "The date is the end of the period")
+            ("unused", "Date is not used"),
+            ("date is start", "The date defines the start of the period"),
+            ("date is end", "The date is the end of the period")
 		]
     }
 
@@ -145,9 +145,9 @@ def regular_timeset():
             ("start_date", "shared.date_time", "1.1")
         ],
         "doc_strings": {
-			"increment": "Interval between members of set",
-			"length": "Number of times in set",
-			"start_date": "Beginning of time set"
+            "increment": "Interval between members of set",
+            "length": "Number of times in set",
+            "start_date": "Beginning of time set"
         }
     }
 
@@ -160,8 +160,8 @@ def slicetime_units():
         "type": "enum",
         "is_open": False,
         "members": [
-			("yearly", "None"),
-			("monthly", "None")
+            ("yearly", "None"),
+            ("monthly", "None")
 		]
     }
 
@@ -182,11 +182,11 @@ def time_period():
             ("units", "shared.time_units", "1.1")
         ],
         "doc_strings": {
-			"calendar": "Calendar, default is standard aka gregorian",
-			"date": "Optional start/end date of time period",
-			"date_type": "Describes how the date is used to define the period",
-			"length": "Duration of the time period",
-			"units": "Appropriate time units"
+            "calendar": "Calendar, default is standard aka gregorian",
+            "date": "Optional start/end date of time period",
+            "date_type": "Describes how the date is used to define the period",
+            "length": "Duration of the time period",
+            "units": "Appropriate time units"
         }
     }
 
@@ -199,10 +199,10 @@ def time_units():
         "type": "enum",
         "is_open": False,
         "members": [
-			("years", "None"),
-			("months", "None"),
-			("days", "None"),
-			("seconds", "None")
+            ("years", "None"),
+            ("months", "None"),
+            ("days", "None"),
+            ("seconds", "None")
 		]
     }
 
@@ -222,7 +222,7 @@ def timeslice_list():
             ("units", "shared.slicetime_units", "1.1")
         ],
         "doc_strings": {
-			"members": "Values as integers",
-			"units": "Interval against which members refer"
+            "members": "Values as integers",
+            "units": "Interval against which members refer"
         }
     }

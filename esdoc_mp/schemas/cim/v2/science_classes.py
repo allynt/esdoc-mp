@@ -32,12 +32,12 @@ def algorithm():
             ("references", "shared.citation", "0.N")
         ],
         "doc_strings": {
-			"detailed_properties": "Sets of properties for this algorithm.",
-			"diagnostic_variables": "Diagnostic variables associated with this algorithm",
-			"heading": "Title for this collection of algorithm/property information.",
-			"implementation_overview": "Overview of the algorithm implementation",
-			"prognostic_variables": "Prognostic variables associated with this algorithm",
-			"references": "Relevant references"
+            "detailed_properties": "Sets of properties for this algorithm.",
+            "diagnostic_variables": "Diagnostic variables associated with this algorithm",
+            "heading": "Title for this collection of algorithm/property information.",
+            "implementation_overview": "Overview of the algorithm implementation",
+            "prognostic_variables": "Prognostic variables associated with this algorithm",
+            "references": "Relevant references"
         }
     }
 
@@ -56,9 +56,9 @@ def conservation_properties():
             ("flux_correction_was_used", "bool", "1.1")
         ],
         "doc_strings": {
-			"corrected_conserved_prognostic_variables": "Set of variables which are conserved by *more* than the numerical scheme alone",
-			"correction_methodology": "Description of method by which correction was achieved",
-			"flux_correction_was_used": "Flag to indicate if correction involved flux correction"
+            "corrected_conserved_prognostic_variables": "Set of variables which are conserved by *more* than the numerical scheme alone",
+            "correction_methodology": "Description of method by which correction was achieved",
+            "flux_correction_was_used": "Flag to indicate if correction involved flux correction"
         }
     }
 
@@ -86,15 +86,15 @@ def extent():
             ("z_units", "str", "1.1")
         ],
         "doc_strings": {
-			"eastern_boundary": "If not global, eastern boundary in degrees of longitude",
-			"is_global": "True if horizontal coverage is global",
-			"maximum_vertical_level": "Maximum vertical level",
-			"minimum_vertical_level": "Minimum vertical level",
-			"northern_boundary": "If not global, northern boundary in degrees of latitude",
-			"region_known_as": "Identifier or identifiers for the region covered by the extent",
-			"southern_boundary": "If not global, southern boundary in degrees of latitude",
-			"western_boundary": "If not global, western boundary in degrees of longitude",
-			"z_units": "Units of vertical measure"
+            "eastern_boundary": "If not global, eastern boundary in degrees of longitude",
+            "is_global": "True if horizontal coverage is global",
+            "maximum_vertical_level": "Maximum vertical level",
+            "minimum_vertical_level": "Minimum vertical level",
+            "northern_boundary": "If not global, northern boundary in degrees of latitude",
+            "region_known_as": "Identifier or identifiers for the region covered by the extent",
+            "southern_boundary": "If not global, southern boundary in degrees of latitude",
+            "western_boundary": "If not global, western boundary in degrees of longitude",
+            "z_units": "Units of vertical measure"
         }
     }
 
@@ -113,9 +113,9 @@ def grid_summary():
             ("grid_type", "science.grid_types", "1.1")
         ],
         "doc_strings": {
-			"grid_extent": "The extent of the computational domain in horizontal and vertical space",
-			"grid_layout": "Type of horizontal grid-layout (e.g. Arakawa C-Grid",
-			"grid_type": "Description of basic grid (e.g. 'cubed-sphere')"
+            "grid_extent": "The extent of the computational domain in horizontal and vertical space",
+            "grid_layout": "Type of horizontal grid-layout (e.g. Arakawa C-Grid",
+            "grid_type": "Description of basic grid (e.g. 'cubed-sphere')"
         }
     }
 
@@ -131,24 +131,24 @@ def model():
         "base": "software.component_base",
         "is_abstract": False,
         "properties": [
-			("coupled_software_components_references", "shared.doc_reference", "0.N"),
-			("scientific_domain_references", "shared.doc_reference", "0.N"),
             ("category", "science.model_types", "1.1"),
             ("coupled_software_components", "science.model", "0.N"),
+            ("coupled_software_components_references", "shared.doc_reference", "0.N"),
             ("coupler", "software.coupling_framework", "0.1"),
             ("extra_conservation_properties", "science.conservation_properties", "0.1"),
             ("internal_software_components", "software.software_component", "0.N"),
             ("meta", "shared.doc_meta_info", "1.1"),
-            ("scientific_domain", "science.scientific_domain", "0.N")
+            ("scientific_domain", "science.scientific_domain", "0.N"),
+            ("scientific_domain_references", "shared.doc_reference", "0.N")
         ],
         "doc_strings": {
-			"category": "Generic type for this model",
-			"coupled_software_components": "Software components which are linked together using a coupler to deliver this model",
-			"coupler": "Overarching coupling framework for model",
-			"extra_conservation_properties": "Details of any extra methodology needed to conserve variables between coupled components",
-			"internal_software_components": "Software modules which together provide the functionality for this model",
-			"meta": "Metadata about how the model description was constructed",
-			"scientific_domain": "The scientific domains which this model simulates"
+            "category": "Generic type for this model",
+            "coupled_software_components": "Software components which are linked together using a coupler to deliver this model",
+            "coupler": "Overarching coupling framework for model",
+            "extra_conservation_properties": "Details of any extra methodology needed to conserve variables between coupled components",
+            "internal_software_components": "Software modules which together provide the functionality for this model",
+            "meta": "Metadata about how the model description was constructed",
+            "scientific_domain": "The scientific domains which this model simulates"
         }
     }
 
@@ -175,14 +175,14 @@ def process():
             ("time_step_in_process", "float", "0.1")
         ],
         "doc_strings": {
-			"algorithm_properties": "Descriptions of algorithms and their properties used in the process",
-			"description": "Short description of the process which is being simulated.",
-			"detailed_properties": "Sets of properties for this process.",
-			"implementation_overview": "General overview description of the implementation of this process.",
-			"keywords": "keywords to help re-use and discovery of this information.",
-			"name": "Short name for the process of interest",
-			"references": "Any relevant references describing this process and/or it's implementation",
-			"time_step_in_process": "Timestep (in seconds). Only needed if differing from parent component."
+            "algorithm_properties": "Descriptions of algorithms and their properties used in the process",
+            "description": "Short description of the process which is being simulated.",
+            "detailed_properties": "Sets of properties for this process.",
+            "implementation_overview": "General overview description of the implementation of this process.",
+            "keywords": "keywords to help re-use and discovery of this information.",
+            "name": "Short name for the process of interest",
+            "references": "Any relevant references describing this process and/or it's implementation",
+            "time_step_in_process": "Timestep (in seconds). Only needed if differing from parent component."
         }
     }
 
@@ -206,11 +206,11 @@ def process_detail():
             ("vocabulary", "str", "0.1")
         ],
         "doc_strings": {
-			"content": "Free text description of process detail (if required).",
-			"heading": "A heading for this detail description",
-			"properties": "Any relevant numeric properties",
-			"selection": "List of choices from the vocabulary of appropriate sub-processes.",
-			"vocabulary": "Name of an enumeration vocabulary of relevant sub-processes."
+            "content": "Free text description of process detail (if required).",
+            "heading": "A heading for this detail description",
+            "properties": "Any relevant numeric properties",
+            "selection": "List of choices from the vocabulary of appropriate sub-processes.",
+            "vocabulary": "Name of an enumeration vocabulary of relevant sub-processes."
         }
     }
 
@@ -235,11 +235,11 @@ def resolution():
             ("number_of_xy_gridpoints", "int", "0.N")
         ],
         "doc_strings": {
-			"equivalent_horizontal_resolution": "Resolution in metres of 'typical grid cell' (for gross comparisons of resolution), eg. 50000 (50km)",
-			"is_adaptive_grid": "Default is False, set true if grid resolution changes during execution.",
-			"name": "This is a string usually used by the modelling group to describe their model component  or process resolution,  e.g. N512L180 or T512L70 etc",
-			"number_of_levels": "Number of vertical levels resolved",
-			"number_of_xy_gridpoints": "Total number of horizontal points on computational grids"
+            "equivalent_horizontal_resolution": "Resolution in metres of 'typical grid cell' (for gross comparisons of resolution), eg. 50000 (50km)",
+            "is_adaptive_grid": "Default is False, set true if grid resolution changes during execution.",
+            "name": "This is a string usually used by the modelling group to describe their model component  or process resolution,  e.g. N512L180 or T512L70 etc",
+            "number_of_levels": "Number of vertical levels resolved",
+            "number_of_xy_gridpoints": "Total number of horizontal points on computational grids"
         }
     }
 
@@ -267,17 +267,17 @@ def scientific_domain():
             ("tuning_applied", "science.tuning", "0.1")
         ],
         "doc_strings": {
-			"extra_conservation_properties": "Details of any extra methodology needed to conserve variables between processes",
-			"grid": "Summary description of the grid upon which computations were carried out",
-			"meta": "Metadata describing the construction of this domain description",
-			"name": "Name of the scientific domain (e.g. ocean)",
-			"overview": "Free text overview description of key properties of domain",
-			"realm": "Canonical name for the domain of this scientific area",
-			"references": "Any relevant references describing the implementation of this domain in a relevant model.",
-			"resolution": "Default resolution of component",
-			"simulates": "Processes simulated within the domain",
-			"time_step": "Timestep (in seconds) of overall component",
-			"tuning_applied": "Describe any tuning used to optimise the parameters in this model/component"
+            "extra_conservation_properties": "Details of any extra methodology needed to conserve variables between processes",
+            "grid": "Summary description of the grid upon which computations were carried out",
+            "meta": "Metadata describing the construction of this domain description",
+            "name": "Name of the scientific domain (e.g. ocean)",
+            "overview": "Free text overview description of key properties of domain",
+            "realm": "Canonical name for the domain of this scientific area",
+            "references": "Any relevant references describing the implementation of this domain in a relevant model.",
+            "resolution": "Default resolution of component",
+            "simulates": "Processes simulated within the domain",
+            "time_step": "Timestep (in seconds) of overall component",
+            "tuning_applied": "Describe any tuning used to optimise the parameters in this model/component"
         }
     }
 
@@ -297,9 +297,9 @@ def tuning():
             ("trend_metrics_used", "data.variable_collection", "0.1")
         ],
         "doc_strings": {
-			"description": "Brief description of tuning methodology. Include information about observational period(s) used",
-			"global_mean_metrics_used": "Set of metrics of the global mean state used in tuning model parameters",
-			"regional_metrics_used": "Which regional metrics of mean state (e.g Monsoons, tropical means etc) have been used in tuning.",
-			"trend_metrics_used": "Which observed trend metrics have been used in tuning model parameters"
+            "description": "Brief description of tuning methodology. Include information about observational period(s) used",
+            "global_mean_metrics_used": "Set of metrics of the global mean state used in tuning model parameters",
+            "regional_metrics_used": "Which regional metrics of mean state (e.g Monsoons, tropical means etc) have been used in tuning.",
+            "trend_metrics_used": "Which observed trend metrics have been used in tuning model parameters"
         }
     }
