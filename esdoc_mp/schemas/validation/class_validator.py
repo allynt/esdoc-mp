@@ -11,8 +11,6 @@
 """
 import re
 
-from esdoc_mp.schemas import reformatter
-
 
 
 # Regular expressions.
@@ -70,9 +68,6 @@ def validate(ctx, module, factory, cls):
     """Validates a class definition.
 
     """
-    # Apply reformatting.
-    cls = reformatter.reformat_class(ctx.schema, module, cls)
-
     if 'base' not in cls:
         err = 'Invalid class: {} --> required attribute "base" is missing'
         err = err.format(ctx.get_name(factory, module))

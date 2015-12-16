@@ -11,8 +11,6 @@
 """
 import inspect
 
-from esdoc_mp.schemas import reformatter
-
 
 
 class ValidationContext(object):
@@ -121,7 +119,7 @@ class ValidationContext(object):
         """Get class definitions.
 
         """
-        return [(t[0], t[1], reformatter.reformat_class(self.schema, t[0], t[2])) for t in self.types
+        return [(t[0], t[1], t[2]) for t in self.types
                 if 'type' in t[2] and t[2]['type'] == 'class']
 
 
@@ -130,7 +128,7 @@ class ValidationContext(object):
         """Get enum definitions.
 
         """
-        return [(t[0], t[1], reformatter.reformat_enum(self.schema, t[0], t[2])) for t in self.types
+        return [(t[0], t[1], t[2]) for t in self.types
                 if 'type' in t[2] and t[2]['type'] == 'enum']
 
 

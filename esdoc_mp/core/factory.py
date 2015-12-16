@@ -19,8 +19,6 @@ from esdoc_mp.core import Ontology
 from esdoc_mp.core import Package
 from esdoc_mp.core import Property
 
-from esdoc_mp.schemas import reformatter
-
 
 
 def _get_functions(modules):
@@ -99,8 +97,7 @@ def _get_package_classes(schema, package, types):
 
     """
     result = []
-    classes = [reformatter.reformat_class(schema, package, t) for t in types if t['type'] == 'class']
-    for cls in [c for c in classes if not reformatter.is_class_excluded(schema, package, c)]:
+    for cls in [t for t in types if t['type'] == 'class']:
         result.append(
             Class(cls['name'],
                   cls.get('base', None),
@@ -119,8 +116,7 @@ def _get_package_enums(schema, package, types):
 
     """
     result = []
-    enums = [reformatter.reformat_enum(schema, package, t) for t in types if t['type'] == 'enum']
-    for enum in enums:
+    for enum in [t for t in types if t['type'] == 'enum']:
         result.append(
             Enum(enum['name'],
                  enum.get('is_open', True),

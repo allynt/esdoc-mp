@@ -11,8 +11,6 @@
 """
 import re
 
-from esdoc_mp.schemas import reformatter
-
 
 
 # Regular expressions.
@@ -39,9 +37,6 @@ def validate(ctx, module, factory, enum):
     """Validates an enumeration.
 
     """
-    # Apply reformatting.
-    enum = reformatter.reformat_enum(ctx.schema, module, enum)
-
     if not re.match(_RE_ENUM_NAME, factory.__name__):
         err = 'Invalid enum: {} --> name format must be lower_case_underscore'
         err = err.format(ctx.get_name(factory, module))

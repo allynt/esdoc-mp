@@ -27,6 +27,8 @@ def get_schema(name, version=None):
     if name == 'cim':
         if version == '1':
             return cim.v1
+        if version == '2':
+            return cim.v2
     elif name == 'test-valid':
         return samples.valid
     elif name == 'test-invalid':
