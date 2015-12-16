@@ -218,7 +218,7 @@ def storage_systems():
             ("Tape - Castor", "None"),
             ("Tape - Other", "None"),
             ("Unknown", "None")
-		]
+        ]
     }
 
 
@@ -256,5 +256,5 @@ def volume_units():
             ("TiB", "Tebibytes (1024^4)"),
             ("PiB", "Pebibytes (1024^5)"),
             ("EiB", "Exbibytes (1024^6)")
-		]
+        ]
     }

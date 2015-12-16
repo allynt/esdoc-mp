@@ -74,7 +74,7 @@ def drs_frequency_types():
             ("subhr", "Sampling frequency less than an hour"),
             ("monClim", "Climatological Monthly Mean"),
             ("fx", "Fixed Time independent")
-		]
+        ]
     }
 
 
@@ -114,7 +114,7 @@ def drs_geographical_operators():
             ("areaavg", "Data is averaged over the area of the region"),
             ("lnd-areaavg", "Data is averaged over the land area of the region"),
             ("ocn-areaavg", "Data is averaged over the ocean area of the region")
-		]
+        ]
     }
 
 
@@ -165,7 +165,7 @@ def drs_realms():
             ("aerosol", "Aerosol"),
             ("atmosChem", "Atmospheric Chemistry"),
             ("ocnBgchem", "Ocean Biogeochemistry")
-		]
+        ]
     }
 
 
@@ -204,5 +204,5 @@ def drs_time_suffixes():
         "members": [
             ("avg", "Indicates data is a single average of DRS frequency data across temporal period N1-N2"),
             ("clim", "Indicates data is climatological average data at the DRS frequency from the period N1-N2")
-		]
+        ]
     }

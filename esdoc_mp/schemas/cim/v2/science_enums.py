@@ -21,7 +21,7 @@ def grid_layouts():
         "is_open": False,
         "members": [
             ("Arakawa-C", "Arakawa C Grid")
-		]
+        ]
     }
 
 
@@ -36,7 +36,7 @@ def grid_types():
             ("LatLon", "Standard lat-lon grid"),
             ("Cubed-Sphere", "Cubed sphere grid"),
             ("Spectral-Gaussian", "Spectral with Gaussian grid")
-		]
+        ]
     }
 
 
@@ -57,5 +57,5 @@ def model_types():
             ("Mesoscale", "Mesoscale Model"),
             ("Process", "Limited Area process model"),
             ("Planetary", "Non-Earth model")
-		]
+        ]
     }

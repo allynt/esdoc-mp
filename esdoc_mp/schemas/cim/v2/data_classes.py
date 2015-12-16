@@ -24,7 +24,7 @@ def data_association_types():
             ("revisonOf", "None"),
             ("partOf", "None"),
             ("isComposedOf", "None")
-		]
+        ]
     }
 
 

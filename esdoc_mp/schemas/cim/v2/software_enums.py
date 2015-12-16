@@ -27,7 +27,7 @@ def coupling_framework():
             ("Bespoke", "Customised coupler developed for this model"),
             ("Unknown", "It is not known what/if-a coupler is used"),
             ("None", "No coupler is used")
-		]
+        ]
     }
 
 
@@ -44,5 +44,5 @@ def programming_language():
             ("C", "None"),
             ("C++", "None"),
             ("Python", "None")
-		]
+        ]
     }

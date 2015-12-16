@@ -245,7 +245,7 @@ def role_code():
             ("point of contact", "None"),
             ("resource provider", "None"),
             ("custodian", "None")
-		]
+        ]
     }
 
 
@@ -284,7 +284,7 @@ def text_code():
         "is_open": False,
         "members": [
             ("plaintext", "Normal plain text")
-		]
+        ]
     }
 
 

@@ -183,7 +183,7 @@ def ensemble_types():
             ("Staggered Start", "Members are initialised at different starting dates"),
             ("Forced", "Members used differing forcing data"),
             ("Resolution", "Members are run at different resolutions")
-		]
+        ]
     }
 
 
@@ -199,7 +199,7 @@ def forcing_types():
             ("idealised", "Simplified and/or exemplar, e.g. 1%C02"),
             ("scenario", "Intended to represent a possible future, e.g. RCP4.5"),
             ("another simulation", "From another simulation")
-		]
+        ]
     }
 
 

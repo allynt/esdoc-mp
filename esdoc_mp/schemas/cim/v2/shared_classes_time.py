@@ -55,7 +55,7 @@ def calendar_types():
             ("360_day", "All years are 360 days divided into 30 day months."),
             ("julian", "Julian Calendar"),
             ("none", "Perpetual time axis")
-		]
+        ]
     }
 
 
@@ -127,7 +127,7 @@ def period_date_types():
             ("unused", "Date is not used"),
             ("date is start", "The date defines the start of the period"),
             ("date is end", "The date is the end of the period")
-		]
+        ]
     }
 
 
@@ -162,7 +162,7 @@ def slicetime_units():
         "members": [
             ("yearly", "None"),
             ("monthly", "None")
-		]
+        ]
     }
 
 
@@ -203,7 +203,7 @@ def time_units():
             ("months", "None"),
             ("days", "None"),
             ("seconds", "None")
-		]
+        ]
     }
 
 
