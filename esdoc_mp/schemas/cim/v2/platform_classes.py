@@ -21,11 +21,11 @@ def component_performance():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("component", "software.software_component", "0.1"),
-			("component_name", "str", "1.1"),
-			("cores_used", "int", "0.1"),
-			("nodes_used", "int", "0.1"),
-			("speed", "float", "1.1")
+            ("component", "software.software_component", "0.1"),
+            ("component_name", "str", "1.1"),
+            ("cores_used", "int", "0.1"),
+            ("nodes_used", "int", "0.1"),
+            ("speed", "float", "1.1")
         ],
         "doc_strings": {
 			"component": "Link to a CIM software component description",
@@ -46,17 +46,17 @@ def compute_pool():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("accelerator_type", "str", "0.1"),
-			("accelerators_per_node", "int", "0.1"),
-			("compute_cores_per_node", "int", "0.1"),
-			("cpu_type", "str", "0.1"),
-			("description", "str", "0.1"),
-			("interconnect", "str", "0.1"),
-			("memory_per_node", "platform.storage_volume", "0.1"),
-			("model_number", "str", "0.1"),
-			("name", "str", "0.1"),
-			("number_of_nodes", "int", "0.1"),
-			("operating_system", "str", "0.1")
+            ("accelerator_type", "str", "0.1"),
+            ("accelerators_per_node", "int", "0.1"),
+            ("compute_cores_per_node", "int", "0.1"),
+            ("cpu_type", "str", "0.1"),
+            ("description", "str", "0.1"),
+            ("interconnect", "str", "0.1"),
+            ("memory_per_node", "platform.storage_volume", "0.1"),
+            ("model_number", "str", "0.1"),
+            ("name", "str", "0.1"),
+            ("number_of_nodes", "int", "0.1"),
+            ("operating_system", "str", "0.1")
         ],
         "doc_strings": {
 			"accelerator_type": "Type of accelerator",
@@ -83,7 +83,7 @@ def machine():
         "base": "platform.partition",
         "is_abstract": False,
         "properties": [
-			("meta", "shared.doc_meta_info", "1.1")
+            ("meta", "shared.doc_meta_info", "1.1")
         ],
         "doc_strings": {
 			"meta": "Document description"
@@ -100,18 +100,18 @@ def partition():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("compute_pools", "platform.compute_pool", "1.N"),
-			("description", "str", "0.1"),
-			("institution", "shared.party", "1.1"),
 			("institution_reference", "shared.doc_reference", "1.1"),
-			("model_number", "str", "0.1"),
-			("name", "str", "1.1"),
-			("online_documentation", "shared.online_resource", "0.N"),
-			("partition", "platform.partition", "0.N"),
-			("storage_pools", "platform.storage_pool", "0.N"),
-			("vendor", "shared.party", "0.1"),
 			("vendor_reference", "shared.doc_reference", "0.1"),
-			("when_used", "shared.time_period", "0.1")
+            ("compute_pools", "platform.compute_pool", "1.N"),
+            ("description", "str", "0.1"),
+            ("institution", "shared.party", "1.1"),
+            ("model_number", "str", "0.1"),
+            ("name", "str", "1.1"),
+            ("online_documentation", "shared.online_resource", "0.N"),
+            ("partition", "platform.partition", "0.N"),
+            ("storage_pools", "platform.storage_pool", "0.N"),
+            ("vendor", "shared.party", "0.1"),
+            ("when_used", "shared.time_period", "0.1")
         ],
         "doc_strings": {
 			"compute_pools": "Layout of compute nodes",
@@ -137,22 +137,22 @@ def performance():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("asypd", "float", "0.1"),
-			("chsy", "float", "0.1"),
-			("compiler", "str", "0.1"),
-			("coupler_load", "float", "0.1"),
-			("io_load", "float", "0.1"),
-			("load_imbalance", "float", "0.1"),
-			("memory_bloat", "float", "0.1"),
-			("meta", "shared.doc_meta_info", "1.1"),
-			("model", "science.model", "1.1"),
 			("model_reference", "shared.doc_reference", "1.1"),
-			("name", "str", "0.1"),
-			("platform", "platform.machine", "1.1"),
 			("platform_reference", "shared.doc_reference", "1.1"),
-			("subcomponent_performance", "platform.component_performance", "0.1"),
-			("sypd", "float", "0.1"),
-			("total_nodes_used", "int", "0.1")
+            ("asypd", "float", "0.1"),
+            ("chsy", "float", "0.1"),
+            ("compiler", "str", "0.1"),
+            ("coupler_load", "float", "0.1"),
+            ("io_load", "float", "0.1"),
+            ("load_imbalance", "float", "0.1"),
+            ("memory_bloat", "float", "0.1"),
+            ("meta", "shared.doc_meta_info", "1.1"),
+            ("model", "science.model", "1.1"),
+            ("name", "str", "0.1"),
+            ("platform", "platform.machine", "1.1"),
+            ("subcomponent_performance", "platform.component_performance", "0.1"),
+            ("sypd", "float", "0.1"),
+            ("total_nodes_used", "int", "0.1")
         ],
         "doc_strings": {
 			"asypd": "Actual simulated years per wall-clock day, all-in",
@@ -182,12 +182,12 @@ def storage_pool():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("description", "str", "0.1"),
-			("name", "str", "1.1"),
-			("type", "platform.storage_systems", "0.1"),
-			("vendor", "shared.party", "0.1"),
 			("vendor_reference", "shared.doc_reference", "0.1"),
-			("volume_available", "platform.storage_volume", "1.1")
+            ("description", "str", "0.1"),
+            ("name", "str", "1.1"),
+            ("type", "platform.storage_systems", "0.1"),
+            ("vendor", "shared.party", "0.1"),
+            ("volume_available", "platform.storage_volume", "1.1")
         ],
         "doc_strings": {
 			"description": "Description of the technology used",
@@ -231,8 +231,8 @@ def storage_volume():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("units", "platform.volume_units", "1.1"),
-			("volume", "int", "1.1")
+            ("units", "platform.volume_units", "1.1"),
+            ("volume", "int", "1.1")
         ],
         "doc_strings": {
 			"units": "Volume units",

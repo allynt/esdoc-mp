@@ -24,12 +24,12 @@ def algorithm():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("detailed_properties", "science.process_detail", "0.N"),
-			("diagnostic_variables", "data.variable_collection", "0.N"),
-			("heading", "str", "1.1"),
-			("implementation_overview", "str", "1.1"),
-			("prognostic_variables", "data.variable_collection", "0.N"),
-			("references", "shared.citation", "0.N")
+            ("detailed_properties", "science.process_detail", "0.N"),
+            ("diagnostic_variables", "data.variable_collection", "0.N"),
+            ("heading", "str", "1.1"),
+            ("implementation_overview", "str", "1.1"),
+            ("prognostic_variables", "data.variable_collection", "0.N"),
+            ("references", "shared.citation", "0.N")
         ],
         "doc_strings": {
 			"detailed_properties": "Sets of properties for this algorithm.",
@@ -51,9 +51,9 @@ def conservation_properties():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("corrected_conserved_prognostic_variables", "data.variable_collection", "0.1"),
-			("correction_methodology", "str", "0.1"),
-			("flux_correction_was_used", "bool", "1.1")
+            ("corrected_conserved_prognostic_variables", "data.variable_collection", "0.1"),
+            ("correction_methodology", "str", "0.1"),
+            ("flux_correction_was_used", "bool", "1.1")
         ],
         "doc_strings": {
 			"corrected_conserved_prognostic_variables": "Set of variables which are conserved by *more* than the numerical scheme alone",
@@ -75,15 +75,15 @@ def extent():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("eastern_boundary", "float", "0.1"),
-			("is_global", "bool", "1.1"),
-			("maximum_vertical_level", "float", "0.1"),
-			("minimum_vertical_level", "float", "0.1"),
-			("northern_boundary", "float", "0.1"),
-			("region_known_as", "str", "0.N"),
-			("southern_boundary", "float", "0.1"),
-			("western_boundary", "float", "0.1"),
-			("z_units", "str", "1.1")
+            ("eastern_boundary", "float", "0.1"),
+            ("is_global", "bool", "1.1"),
+            ("maximum_vertical_level", "float", "0.1"),
+            ("minimum_vertical_level", "float", "0.1"),
+            ("northern_boundary", "float", "0.1"),
+            ("region_known_as", "str", "0.N"),
+            ("southern_boundary", "float", "0.1"),
+            ("western_boundary", "float", "0.1"),
+            ("z_units", "str", "1.1")
         ],
         "doc_strings": {
 			"eastern_boundary": "If not global, eastern boundary in degrees of longitude",
@@ -108,9 +108,9 @@ def grid_summary():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("grid_extent", "science.extent", "1.1"),
-			("grid_layout", "science.grid_layouts", "1.1"),
-			("grid_type", "science.grid_types", "1.1")
+            ("grid_extent", "science.extent", "1.1"),
+            ("grid_layout", "science.grid_layouts", "1.1"),
+            ("grid_type", "science.grid_types", "1.1")
         ],
         "doc_strings": {
 			"grid_extent": "The extent of the computational domain in horizontal and vertical space",
@@ -131,15 +131,15 @@ def model():
         "base": "software.component_base",
         "is_abstract": False,
         "properties": [
-			("category", "science.model_types", "1.1"),
-			("coupled_software_components", "science.model", "0.N"),
 			("coupled_software_components_references", "shared.doc_reference", "0.N"),
-			("coupler", "software.coupling_framework", "0.1"),
-			("extra_conservation_properties", "science.conservation_properties", "0.1"),
-			("internal_software_components", "software.software_component", "0.N"),
-			("meta", "shared.doc_meta_info", "1.1"),
-			("scientific_domain", "science.scientific_domain", "0.N"),
-			("scientific_domain_references", "shared.doc_reference", "0.N")
+			("scientific_domain_references", "shared.doc_reference", "0.N"),
+            ("category", "science.model_types", "1.1"),
+            ("coupled_software_components", "science.model", "0.N"),
+            ("coupler", "software.coupling_framework", "0.1"),
+            ("extra_conservation_properties", "science.conservation_properties", "0.1"),
+            ("internal_software_components", "software.software_component", "0.N"),
+            ("meta", "shared.doc_meta_info", "1.1"),
+            ("scientific_domain", "science.scientific_domain", "0.N")
         ],
         "doc_strings": {
 			"category": "Generic type for this model",
@@ -165,14 +165,14 @@ def process():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("algorithm_properties", "science.algorithm", "0.N"),
-			("description", "str", "0.1"),
-			("detailed_properties", "science.process_detail", "0.N"),
-			("implementation_overview", "str", "1.1"),
-			("keywords", "str", "1.1"),
-			("name", "str", "1.1"),
-			("references", "shared.reference", "0.N"),
-			("time_step_in_process", "float", "0.1")
+            ("algorithm_properties", "science.algorithm", "0.N"),
+            ("description", "str", "0.1"),
+            ("detailed_properties", "science.process_detail", "0.N"),
+            ("implementation_overview", "str", "1.1"),
+            ("keywords", "str", "1.1"),
+            ("name", "str", "1.1"),
+            ("references", "shared.reference", "0.N"),
+            ("time_step_in_process", "float", "0.1")
         ],
         "doc_strings": {
 			"algorithm_properties": "Descriptions of algorithms and their properties used in the process",
@@ -199,11 +199,11 @@ def process_detail():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("content", "str", "0.1"),
-			("heading", "str", "0.1"),
-			("properties", "shared.key_float", "0.N"),
-			("selection", "str", "0.N"),
-			("vocabulary", "str", "0.1")
+            ("content", "str", "0.1"),
+            ("heading", "str", "0.1"),
+            ("properties", "shared.key_float", "0.N"),
+            ("selection", "str", "0.N"),
+            ("vocabulary", "str", "0.1")
         ],
         "doc_strings": {
 			"content": "Free text description of process detail (if required).",
@@ -228,11 +228,11 @@ def resolution():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("equivalent_horizontal_resolution", "float", "1.1"),
-			("is_adaptive_grid", "bool", "0.1"),
-			("name", "str", "1.1"),
-			("number_of_levels", "int", "0.N"),
-			("number_of_xy_gridpoints", "int", "0.N")
+            ("equivalent_horizontal_resolution", "float", "1.1"),
+            ("is_adaptive_grid", "bool", "0.1"),
+            ("name", "str", "1.1"),
+            ("number_of_levels", "int", "0.N"),
+            ("number_of_xy_gridpoints", "int", "0.N")
         ],
         "doc_strings": {
 			"equivalent_horizontal_resolution": "Resolution in metres of 'typical grid cell' (for gross comparisons of resolution), eg. 50000 (50km)",
@@ -254,17 +254,17 @@ def scientific_domain():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("extra_conservation_properties", "science.conservation_properties", "0.1"),
-			("grid", "science.grid_summary", "0.1"),
-			("meta", "shared.doc_meta_info", "1.1"),
-			("name", "str", "1.1"),
-			("overview", "str", "0.1"),
-			("realm", "str", "0.1"),
-			("references", "shared.reference", "0.N"),
-			("resolution", "science.resolution", "1.1"),
-			("simulates", "science.process", "1.N"),
-			("time_step", "float", "1.1"),
-			("tuning_applied", "science.tuning", "0.1")
+            ("extra_conservation_properties", "science.conservation_properties", "0.1"),
+            ("grid", "science.grid_summary", "0.1"),
+            ("meta", "shared.doc_meta_info", "1.1"),
+            ("name", "str", "1.1"),
+            ("overview", "str", "0.1"),
+            ("realm", "str", "0.1"),
+            ("references", "shared.reference", "0.N"),
+            ("resolution", "science.resolution", "1.1"),
+            ("simulates", "science.process", "1.N"),
+            ("time_step", "float", "1.1"),
+            ("tuning_applied", "science.tuning", "0.1")
         ],
         "doc_strings": {
 			"extra_conservation_properties": "Details of any extra methodology needed to conserve variables between processes",
@@ -291,10 +291,10 @@ def tuning():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("description", "str", "1.1"),
-			("global_mean_metrics_used", "data.variable_collection", "0.1"),
-			("regional_metrics_used", "data.variable_collection", "0.1"),
-			("trend_metrics_used", "data.variable_collection", "0.1")
+            ("description", "str", "1.1"),
+            ("global_mean_metrics_used", "data.variable_collection", "0.1"),
+            ("regional_metrics_used", "data.variable_collection", "0.1"),
+            ("trend_metrics_used", "data.variable_collection", "0.1")
         ],
         "doc_strings": {
 			"description": "Brief description of tuning methodology. Include information about observational period(s) used",

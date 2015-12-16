@@ -21,7 +21,7 @@ def cim_link():
         "base": "shared.online_resource",
         "is_abstract": False,
         "properties": [
-			("remote_type", "str", "1.1")
+            ("remote_type", "str", "1.1")
         ],
         "doc_strings": {
 			"remote_type": "CIM type of remote record"
@@ -39,8 +39,8 @@ def cimtext():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("content", "str", "1.1"),
-			("content_type", "shared.text_code", "1.1")
+            ("content", "str", "1.1"),
+            ("content_type", "shared.text_code", "1.1")
         ],
         "doc_strings": {
 			"content": "Raw content (including markup)",
@@ -58,13 +58,13 @@ def citation():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("abstract", "str", "0.1"),
-			("citation_str", "str", "1.1"),
-			("context", "str", "0.1"),
-			("doi", "str", "0.1"),
-			("short_cite", "str", "0.1"),
-			("title", "str", "0.1"),
-			("url", "shared.online_resource", "0.1")
+            ("abstract", "str", "0.1"),
+            ("citation_str", "str", "1.1"),
+            ("context", "str", "0.1"),
+            ("doi", "str", "0.1"),
+            ("short_cite", "str", "0.1"),
+            ("title", "str", "0.1"),
+            ("url", "shared.online_resource", "0.1")
         ],
         "doc_strings": {
 			"abstract": "Document abstract",
@@ -87,8 +87,8 @@ def key_float():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("key", "str", "1.1"),
-			("value", "float", "1.1")
+            ("key", "str", "1.1"),
+            ("value", "float", "1.1")
         ],
         "doc_strings": {
 			"key": "User defined key",
@@ -106,7 +106,7 @@ def number_array():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("values", "str", "1.1")
+            ("values", "str", "1.1")
         ],
         "doc_strings": {
 			"values": "A space separated list of numbers"
@@ -123,10 +123,10 @@ def online_resource():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("description", "str", "0.1"),
-			("linkage", "str", "1.1"),
-			("name", "str", "1.1"),
-			("protocol", "str", "0.1")
+            ("description", "str", "0.1"),
+            ("linkage", "str", "1.1"),
+            ("name", "str", "1.1"),
+            ("protocol", "str", "0.1")
         ],
         "doc_strings": {
 			"description": "Detail of how to access the resource",
@@ -149,12 +149,12 @@ def party():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("address", "str", "0.1"),
-			("email", "str", "0.1"),
-			("meta", "shared.doc_meta_info", "1.1"),
-			("name", "str", "0.1"),
-			("organisation", "bool", "0.1"),
-			("url", "shared.online_resource", "0.1")
+            ("address", "str", "0.1"),
+            ("email", "str", "0.1"),
+            ("meta", "shared.doc_meta_info", "1.1"),
+            ("name", "str", "0.1"),
+            ("organisation", "bool", "0.1"),
+            ("url", "shared.online_resource", "0.1")
         ],
         "doc_strings": {
 			"address": "Institutional address",
@@ -176,8 +176,8 @@ def pid():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("id", "str", "1.1"),
-			("resolution_service", "shared.online_resource", "1.1")
+            ("id", "str", "1.1"),
+            ("resolution_service", "shared.online_resource", "1.1")
         ],
         "doc_strings": {
 			"id": "The identifier",
@@ -211,10 +211,10 @@ def responsibility():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("party", "shared.party", "1.N"),
 			("party_references", "shared.doc_reference", "1.N"),
-			("role", "shared.role_code", "1.1"),
-			("when", "shared.time_period", "0.1")
+            ("party", "shared.party", "1.N"),
+            ("role", "shared.role_code", "1.1"),
+            ("when", "shared.time_period", "0.1")
         ],
         "doc_strings": {
 			"party": "Parties delivering responsibility",
@@ -258,11 +258,11 @@ def standalone_document():
         "base": None,
         "is_abstract": True,
         "properties": [
-			("long_name", "str", "0.1"),
-			("meta", "shared.doc_meta_info", "1.1"),
-			("name", "str", "1.1"),
-			("references", "shared.citation", "0.N"),
-			("responsible_parties", "shared.responsibility", "0.N")
+            ("long_name", "str", "0.1"),
+            ("meta", "shared.doc_meta_info", "1.1"),
+            ("name", "str", "1.1"),
+            ("references", "shared.citation", "0.N"),
+            ("responsible_parties", "shared.responsibility", "0.N")
         ],
         "doc_strings": {
 			"long_name": "Longer version of activity name",
@@ -297,9 +297,9 @@ def vocab_member():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("uri", "str", "0.1"),
-			("value", "str", "1.1"),
-			("vocab", "shared.citation", "0.1")
+            ("uri", "str", "0.1"),
+            ("value", "str", "1.1"),
+            ("vocab", "shared.citation", "0.1")
         ],
         "doc_strings": {
 			"uri": "URI of the term in the controlled vocabulary",

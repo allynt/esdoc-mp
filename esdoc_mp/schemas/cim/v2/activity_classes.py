@@ -21,16 +21,16 @@ def activity():
         "base": None,
         "is_abstract": True,
         "properties": [
-			("canonical_name", "str", "0.1"),
-			("description", "str", "0.1"),
-			("duration", "shared.time_period", "0.1"),
-			("keywords", "str", "0.N"),
-			("long_name", "str", "0.1"),
-			("meta", "shared.doc_meta_info", "1.1"),
-			("name", "str", "1.1"),
-			("rationale", "str", "0.1"),
-			("references", "shared.citation", "0.N"),
-			("responsible_parties", "shared.responsibility", "0.N")
+            ("canonical_name", "str", "0.1"),
+            ("description", "str", "0.1"),
+            ("duration", "shared.time_period", "0.1"),
+            ("keywords", "str", "0.N"),
+            ("long_name", "str", "0.1"),
+            ("meta", "shared.doc_meta_info", "1.1"),
+            ("name", "str", "1.1"),
+            ("rationale", "str", "0.1"),
+            ("references", "shared.citation", "0.N"),
+            ("responsible_parties", "shared.responsibility", "0.N")
         ],
         "doc_strings": {
 			"canonical_name": "Community defined identifier or name",
@@ -58,9 +58,9 @@ def axis_member():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("description", "str", "1.1"),
-			("index", "int", "1.1"),
-			("value", "float", "0.1")
+            ("description", "str", "1.1"),
+            ("index", "int", "1.1"),
+            ("value", "float", "0.1")
         ],
         "doc_strings": {
 			"description": "Description of the member (or name of parameter varied)",
@@ -80,8 +80,8 @@ def conformance():
         "base": "activity.activity",
         "is_abstract": False,
         "properties": [
-			("target_requirement", "designing.numerical_requirement", "1.1"),
-			("target_requirement_reference", "shared.doc_reference", "1.1")
+			("target_requirement_reference", "shared.doc_reference", "1.1"),
+            ("target_requirement", "designing.numerical_requirement", "1.1")
         ],
         "doc_strings": {
 			"target_requirement": "URI of the target numerical requirement"
@@ -101,13 +101,13 @@ def ensemble():
         "base": "activity.activity",
         "is_abstract": False,
         "properties": [
-			("common_conformances", "activity.conformance", "0.N"),
 			("common_conformances_references", "shared.doc_reference", "0.N"),
-			("has_ensemble_axes", "activity.ensemble_axis", "0.N"),
-			("members", "activity.ensemble_member", "1.N"),
-			("part_of", "activity.uber_ensemble", "0.N"),
-			("supported", "designing.numerical_experiment", "1.N"),
-			("supported_references", "shared.doc_reference", "1.N")
+			("supported_references", "shared.doc_reference", "1.N"),
+            ("common_conformances", "activity.conformance", "0.N"),
+            ("has_ensemble_axes", "activity.ensemble_axis", "0.N"),
+            ("members", "activity.ensemble_member", "1.N"),
+            ("part_of", "activity.uber_ensemble", "0.N"),
+            ("supported", "designing.numerical_experiment", "1.N")
         ],
         "doc_strings": {
 			"common_conformances": "Conformance documents for requirements common across ensemble.",
@@ -128,11 +128,11 @@ def ensemble_axis():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("extra_detail", "str", "1.1"),
-			("member", "activity.axis_member", "1.N"),
-			("short_identifier", "str", "1.1"),
-			("target_requirement", "designing.numerical_requirement", "1.1"),
-			("target_requirement_reference", "shared.doc_reference", "1.1")
+			("target_requirement_reference", "shared.doc_reference", "1.1"),
+            ("extra_detail", "str", "1.1"),
+            ("member", "activity.axis_member", "1.N"),
+            ("short_identifier", "str", "1.1"),
+            ("target_requirement", "designing.numerical_requirement", "1.1")
         ],
         "doc_strings": {
 			"extra_detail": "Any extra detail required to describe how this ensemble axis was delivered",
@@ -154,12 +154,12 @@ def ensemble_member():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("had_performance", "platform.performance", "0.1"),
 			("had_performance_reference", "shared.doc_reference", "0.1"),
-			("ran_on", "platform.machine", "1.1"),
 			("ran_on_reference", "shared.doc_reference", "1.1"),
-			("simulation", "data.simulation", "1.1"),
-			("simulation_reference", "shared.doc_reference", "1.1")
+			("simulation_reference", "shared.doc_reference", "1.1"),
+            ("had_performance", "platform.performance", "0.1"),
+            ("ran_on", "platform.machine", "1.1"),
+            ("simulation", "data.simulation", "1.1")
         ],
         "doc_strings": {
 			"had_performance": "Performance of the simulation",
@@ -212,10 +212,10 @@ def parent_simulation():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("branch_time_in_child", "shared.date_time", "0.1"),
-			("branch_time_in_parent", "shared.date_time", "0.1"),
-			("parent", "data.simulation", "1.1"),
-			("parent_reference", "shared.doc_reference", "1.1")
+			("parent_reference", "shared.doc_reference", "1.1"),
+            ("branch_time_in_child", "shared.date_time", "0.1"),
+            ("branch_time_in_parent", "shared.date_time", "0.1"),
+            ("parent", "data.simulation", "1.1")
         ],
         "doc_strings": {
 			"branch_time_in_child": "The time at which the present simulation started in the child calendar",
@@ -236,8 +236,8 @@ def uber_ensemble():
         "base": "activity.ensemble",
         "is_abstract": False,
         "properties": [
-			("child_ensembles", "activity.ensemble", "1.N"),
-			("child_ensembles_references", "shared.doc_reference", "1.N")
+			("child_ensembles_references", "shared.doc_reference", "1.N"),
+            ("child_ensembles", "activity.ensemble", "1.N")
         ],
         "doc_strings": {
 			"child_ensembles": "Ensemble which are aggregated into this one"

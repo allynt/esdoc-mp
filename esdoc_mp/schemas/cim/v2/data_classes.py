@@ -37,17 +37,17 @@ def dataset():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("availability", "shared.online_resource", "0.N"),
-			("description", "str", "0.1"),
-			("drs_datasets", "drs.drs_publication_dataset", "0.N"),
-			("meta", "shared.doc_meta_info", "1.1"),
-			("name", "str", "1.1"),
-			("produced_by", "data.simulation", "0.1"),
 			("produced_by_reference", "shared.doc_reference", "0.1"),
-			("references", "shared.citation", "0.N"),
-			("related_to_dataset", "data.related_data", "0.N"),
-			("responsible_parties", "shared.responsibility", "0.N"),
-			("responsible_parties_references", "shared.doc_reference", "0.N")
+			("responsible_parties_references", "shared.doc_reference", "0.N"),
+            ("availability", "shared.online_resource", "0.N"),
+            ("description", "str", "0.1"),
+            ("drs_datasets", "drs.drs_publication_dataset", "0.N"),
+            ("meta", "shared.doc_meta_info", "1.1"),
+            ("name", "str", "1.1"),
+            ("produced_by", "data.simulation", "0.1"),
+            ("references", "shared.citation", "0.N"),
+            ("related_to_dataset", "data.related_data", "0.N"),
+            ("responsible_parties", "shared.responsibility", "0.N")
         ],
         "doc_strings": {
 			"availability": "Where the data is located, and how it is accessed",
@@ -72,8 +72,8 @@ def downscaling():
         "base": "data.simulation",
         "is_abstract": False,
         "properties": [
-			("downscaled_from", "data.simulation", "1.1"),
-			("downscaled_from_reference", "shared.doc_reference", "1.1")
+			("downscaled_from_reference", "shared.doc_reference", "1.1"),
+            ("downscaled_from", "data.simulation", "1.1")
         ],
         "doc_strings": {
 			"downscaled_from": "The simulation that was downscaled by this downscaling activity"
@@ -90,9 +90,9 @@ def related_data():
         "base": "shared.cim_link",
         "is_abstract": False,
         "properties": [
-			("other_dataset", "data.dataset", "1.1"),
 			("other_dataset_reference", "shared.doc_reference", "1.1"),
-			("relationship", "data.data_association_types", "1.1")
+            ("other_dataset", "data.dataset", "1.1"),
+            ("relationship", "data.data_association_types", "1.1")
         ],
         "doc_strings": {
 			"other_dataset": "Remote dataset",
@@ -111,17 +111,17 @@ def simulation():
         "base": "activity.activity",
         "is_abstract": False,
         "properties": [
-			("calendar", "shared.calendar", "0.1"),
-			("ensemble_identifier", "str", "1.1"),
-			("parent_simulation", "activity.parent_simulation", "0.1"),
-			("part_of_project", "designing.project", "1.N"),
 			("part_of_project_references", "shared.doc_reference", "1.N"),
-			("primary_ensemble", "activity.ensemble", "0.1"),
 			("primary_ensemble_reference", "shared.doc_reference", "0.1"),
-			("ran_for_experiments", "designing.numerical_experiment", "1.N"),
 			("ran_for_experiments_references", "shared.doc_reference", "1.N"),
-			("used", "science.model", "1.1"),
-			("used_reference", "shared.doc_reference", "1.1")
+			("used_reference", "shared.doc_reference", "1.1"),
+            ("calendar", "shared.calendar", "0.1"),
+            ("ensemble_identifier", "str", "1.1"),
+            ("parent_simulation", "activity.parent_simulation", "0.1"),
+            ("part_of_project", "designing.project", "1.N"),
+            ("primary_ensemble", "activity.ensemble", "0.1"),
+            ("ran_for_experiments", "designing.numerical_experiment", "1.N"),
+            ("used", "science.model", "1.1")
         ],
         "doc_strings": {
 			"calendar": "The calendar used in the simulation",
@@ -144,8 +144,8 @@ def variable_collection():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("collection_name", "str", "0.1"),
-			("variables", "str", "1.N")
+            ("collection_name", "str", "0.1"),
+            ("variables", "str", "1.N")
         ],
         "doc_strings": {
 			"collection_name": "Name for this variable collection",

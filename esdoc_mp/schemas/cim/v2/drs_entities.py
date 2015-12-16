@@ -21,11 +21,11 @@ def drs_atomic_dataset():
         "base": "drs.drs_publication_dataset",
         "is_abstract": False,
         "properties": [
-			("ensemble_member", "drs.drs_ensemble_identifier", "1.1"),
-			("geographical_constraint", "drs.drs_geographical_indicator", "0.1"),
-			("mip_table", "str", "1.1"),
-			("temporal_constraint", "drs.drs_temporal_identifier", "0.1"),
-			("variable_name", "str", "1.1")
+            ("ensemble_member", "drs.drs_ensemble_identifier", "1.1"),
+            ("geographical_constraint", "drs.drs_geographical_indicator", "0.1"),
+            ("mip_table", "str", "1.1"),
+            ("temporal_constraint", "drs.drs_temporal_identifier", "0.1"),
+            ("variable_name", "str", "1.1")
         ],
         "doc_strings": {
 			"ensemble_member": "Unambiguously identifiers ensemble realisation information",
@@ -46,9 +46,9 @@ def drs_ensemble_identifier():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("initialisation_method_number", "int", "1.1"),
-			("perturbation_number", "int", "1.1"),
-			("realisation_number", "int", "1.1")
+            ("initialisation_method_number", "int", "1.1"),
+            ("perturbation_number", "int", "1.1"),
+            ("realisation_number", "int", "1.1")
         ],
         "doc_strings": {
 			"initialisation_method_number": "Identifies which method of initialisation was used, if multiple methods used",
@@ -88,9 +88,9 @@ def drs_geographical_indicator():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("bounding_box", "str", "0.1"),
-			("operator", "drs.drs_geographical_operators", "0.1"),
-			("spatial_domain", "str", "0.1")
+            ("bounding_box", "str", "0.1"),
+            ("operator", "drs.drs_geographical_operators", "0.1"),
+            ("spatial_domain", "str", "0.1")
         ],
         "doc_strings": {
 			"bounding_box": "DRS bounding box of the form 'latJHJJHHlonMZMMZZ' where H, HH, Z, ZZ are from {NS} {EW} respectively",
@@ -127,14 +127,14 @@ def drs_publication_dataset():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("activity", "str", "1.1"),
-			("experiment", "str", "1.1"),
-			("frequency", "drs.drs_frequency_types", "0.1"),
-			("institute", "str", "1.1"),
-			("model", "str", "1.1"),
-			("product", "str", "1.1"),
-			("realm", "drs.drs_realms", "0.1"),
-			("version_number", "int", "0.1")
+            ("activity", "str", "1.1"),
+            ("experiment", "str", "1.1"),
+            ("frequency", "drs.drs_frequency_types", "0.1"),
+            ("institute", "str", "1.1"),
+            ("model", "str", "1.1"),
+            ("product", "str", "1.1"),
+            ("realm", "drs.drs_realms", "0.1"),
+            ("version_number", "int", "0.1")
         ],
         "doc_strings": {
 			"activity": "A model intercomparison activity or other project which aggregates or collects data",
@@ -182,9 +182,9 @@ def drs_temporal_identifier():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("end", "str", "0.1"),
-			("start", "str", "1.1"),
-			("suffix", "drs.drs_time_suffixes", "0.1")
+            ("end", "str", "0.1"),
+            ("start", "str", "1.1"),
+            ("suffix", "drs.drs_time_suffixes", "0.1")
         ],
         "doc_strings": {
 			"end": "N2, required to indicate a period",

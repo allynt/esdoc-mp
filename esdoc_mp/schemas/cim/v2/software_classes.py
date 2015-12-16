@@ -24,14 +24,14 @@ def component_base():
         "base": None,
         "is_abstract": True,
         "properties": [
-			("description", "str", "0.1"),
-			("development_history", "software.development_path", "0.1"),
-			("documentation", "shared.citation", "0.N"),
-			("long_name", "str", "0.1"),
-			("name", "str", "1.1"),
-			("release_date", "datetime", "0.1"),
-			("repository", "shared.online_resource", "0.1"),
-			("version", "str", "0.1")
+            ("description", "str", "0.1"),
+            ("development_history", "software.development_path", "0.1"),
+            ("documentation", "shared.citation", "0.N"),
+            ("long_name", "str", "0.1"),
+            ("name", "str", "1.1"),
+            ("release_date", "datetime", "0.1"),
+            ("repository", "shared.online_resource", "0.1"),
+            ("version", "str", "0.1")
         ],
         "doc_strings": {
 			"description": "Textural description of component",
@@ -58,8 +58,8 @@ def composition():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("couplings", "str", "0.N"),
-			("description", "str", "0.1")
+            ("couplings", "str", "0.N"),
+            ("description", "str", "0.1")
         ],
         "doc_strings": {
 			"couplings": "#FIXME",
@@ -77,11 +77,11 @@ def development_path():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("consortium_name", "str", "0.1"),
-			("creators", "shared.responsibility", "0.N"),
-			("developed_in_house", "bool", "1.1"),
-			("funding_sources", "shared.responsibility", "0.N"),
-			("previous_version", "str", "0.1")
+            ("consortium_name", "str", "0.1"),
+            ("creators", "shared.responsibility", "0.N"),
+            ("developed_in_house", "bool", "1.1"),
+            ("funding_sources", "shared.responsibility", "0.N"),
+            ("previous_version", "str", "0.1")
         ],
         "doc_strings": {
 			"consortium_name": "If model/component is developed as part of a consortium, provide consortium name.",
@@ -107,7 +107,7 @@ def entry_point():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("name", "str", "0.1")
+            ("name", "str", "0.1")
         ],
         "doc_strings": {
 			"name": "#FIXME"
@@ -124,7 +124,7 @@ def gridspec():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("description", "str", "1.1")
+            ("description", "str", "1.1")
         ],
         "doc_strings": {
 			"description": "Textural description"
@@ -142,14 +142,14 @@ def software_component():
         "base": "software.component_base",
         "is_abstract": False,
         "properties": [
-			("composition", "software.composition", "0.1"),
-			("connection_points", "software.variable", "0.N"),
-			("coupling_framework", "software.coupling_framework", "0.1"),
-			("dependencies", "software.entry_point", "0.N"),
-			("grid", "software.gridspec", "0.1"),
-			("language", "software.programming_language", "0.1"),
-			("license", "str", "0.1"),
-			("sub_components", "software.software_component", "0.N")
+            ("composition", "software.composition", "0.1"),
+            ("connection_points", "software.variable", "0.N"),
+            ("coupling_framework", "software.coupling_framework", "0.1"),
+            ("dependencies", "software.entry_point", "0.N"),
+            ("grid", "software.gridspec", "0.1"),
+            ("language", "software.programming_language", "0.1"),
+            ("license", "str", "0.1"),
+            ("sub_components", "software.software_component", "0.N")
         ],
         "doc_strings": {
 			"composition": "#FIXME",
@@ -176,9 +176,9 @@ def variable():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("description", "str", "0.1"),
-			("name", "str", "1.1"),
-			("prognostic", "bool", "1.1")
+            ("description", "str", "0.1"),
+            ("name", "str", "1.1"),
+            ("prognostic", "bool", "1.1")
         ],
         "doc_strings": {
 			"description": "Description of how the variable is being used in the s/w",

@@ -23,10 +23,10 @@ def calendar():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("description", "str", "0.1"),
-			("month_lengths", "int", "0.N"),
-			("name", "str", "0.1"),
-			("standard_name", "shared.calendar_types", "1.1")
+            ("description", "str", "0.1"),
+            ("month_lengths", "int", "0.N"),
+            ("name", "str", "0.1"),
+            ("standard_name", "shared.calendar_types", "1.1")
         ],
         "doc_strings": {
 			"description": "Extra information about the calendar",
@@ -70,8 +70,8 @@ def date_time():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("offset", "bool", "0.1"),
-			("value", "str", "1.1")
+            ("offset", "bool", "0.1"),
+            ("value", "str", "1.1")
         ],
         "doc_strings": {
 			"offset": "Date is offset from start of an integration",
@@ -91,7 +91,7 @@ def datetime_set():
         "base": None,
         "is_abstract": True,
         "properties": [
-			("length", "int", "1.1")
+            ("length", "int", "1.1")
         ],
         "doc_strings": {
 			"length": "Number of times in set"
@@ -108,7 +108,7 @@ def irregular_dateset():
         "base": "shared.datetime_set",
         "is_abstract": False,
         "properties": [
-			("date_set", "str", "1.1")
+            ("date_set", "str", "1.1")
         ],
         "doc_strings": {
 			"date_set": "Set of dates, comma separated yyyy-mm-dd"
@@ -140,9 +140,9 @@ def regular_timeset():
         "base": "shared.datetime_set",
         "is_abstract": False,
         "properties": [
-			("increment", "shared.time_period", "1.1"),
-			("length", "int", "1.1"),
-			("start_date", "shared.date_time", "1.1")
+            ("increment", "shared.time_period", "1.1"),
+            ("length", "int", "1.1"),
+            ("start_date", "shared.date_time", "1.1")
         ],
         "doc_strings": {
 			"increment": "Interval between members of set",
@@ -175,11 +175,11 @@ def time_period():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("calendar", "shared.calendar", "0.1"),
-			("date", "shared.date_time", "0.1"),
-			("date_type", "shared.period_date_types", "1.1"),
-			("length", "int", "1.1"),
-			("units", "shared.time_units", "1.1")
+            ("calendar", "shared.calendar", "0.1"),
+            ("date", "shared.date_time", "0.1"),
+            ("date_type", "shared.period_date_types", "1.1"),
+            ("length", "int", "1.1"),
+            ("units", "shared.time_units", "1.1")
         ],
         "doc_strings": {
 			"calendar": "Calendar, default is standard aka gregorian",
@@ -218,8 +218,8 @@ def timeslice_list():
         "base": None,
         "is_abstract": False,
         "properties": [
-			("members", "shared.number_array", "1.1"),
-			("units", "shared.slicetime_units", "1.1")
+            ("members", "shared.number_array", "1.1"),
+            ("units", "shared.slicetime_units", "1.1")
         ],
         "doc_strings": {
 			"members": "Values as integers",
