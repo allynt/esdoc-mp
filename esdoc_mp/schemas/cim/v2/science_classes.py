@@ -24,7 +24,6 @@ def algorithm():
         "base": None,
         "is_abstract": False,
         "properties": [
-            ("detailed_properties", "science.process_detail", "0.N"),
             ("diagnostic_variables", "data.variable_collection", "0.N"),
             ("heading", "str", "1.1"),
             ("implementation_overview", "str", "1.1"),
@@ -32,7 +31,6 @@ def algorithm():
             ("references", "shared.citation", "0.N")
         ],
         "doc_strings": {
-            "detailed_properties": "Sets of properties for this algorithm.",
             "diagnostic_variables": "Diagnostic variables associated with this algorithm.",
             "heading": "Title for this collection of algorithm/property information.",
             "implementation_overview": "Overview of the algorithm implementation.",
@@ -165,23 +163,25 @@ def process():
         "base": None,
         "is_abstract": False,
         "properties": [
-            ("algorithm_properties", "science.algorithm", "0.N"),
+            ("algorithms", "science.algorithm", "0.N"),
             ("description", "str", "0.1"),
-            ("detailed_properties", "science.process_detail", "0.N"),
             ("implementation_overview", "str", "1.1"),
             ("keywords", "str", "1.1"),
             ("name", "str", "1.1"),
+            ("properties", "science.process_detail", "0.N"),
             ("references", "shared.reference", "0.N"),
+            ("sub_processes", "science.sub_process", "0.N"),
             ("time_step_in_process", "float", "0.1")
         ],
         "doc_strings": {
-            "algorithm_properties": "Descriptions of algorithms and their properties used in the process.",
+            "algorithms": "Descriptions of algorithms and their properties used in the process.",
             "description": "Short description of the process which is being simulated.",
-            "detailed_properties": "Sets of properties for this process.",
             "implementation_overview": "General overview description of the implementation of this process.",
             "keywords": "keywords to help re-use and discovery of this information.",
             "name": "Short name for the process of interest.",
+            "properties": "Sets of properties for this process.",
             "references": "Any relevant references describing this process and/or it's implementation.",
+            "sub_processes": "Discrete portion of a process with common process details.",
             "time_step_in_process": "Timestep (in seconds). Only needed if differing from parent component."
         }
     }
@@ -200,17 +200,17 @@ def process_detail():
         "is_abstract": False,
         "properties": [
             ("content", "str", "0.1"),
+            ("detail_selection", "str", "0.N"),
+            ("detail_vocabulary", "str", "0.1"),
             ("heading", "str", "0.1"),
-            ("properties", "shared.key_float", "0.N"),
-            ("selection", "str", "0.N"),
-            ("vocabulary", "str", "0.1")
+            ("numeric_properties", "shared.key_float", "0.N")
         ],
         "doc_strings": {
             "content": "Free text description of process detail (if required).",
+            "detail_selection": "List of choices from the vocabulary of possible detailed options.",
+            "detail_vocabulary": "Name of an enumeration vocabulary of possible detail options.",
             "heading": "A heading for this detail description.",
-            "properties": "Any relevant numeric properties.",
-            "selection": "List of choices from the vocabulary of appropriate sub-processes.",
-            "vocabulary": "Name of an enumeration vocabulary of relevant sub-processes."
+            "numeric_properties": "Any relevant numeric properties."
         }
     }
 
@@ -278,6 +278,37 @@ def scientific_domain():
             "simulates": "Processes simulated within the domain.",
             "time_step": "Timestep (in seconds) of overall component.",
             "tuning_applied": "Describe any tuning used to optimise the parameters in this model/component."
+        }
+    }
+
+
+def sub_process():
+    """Provides structure for description of part of process simulated within a particular
+    area (or domain/realm/component) of a model. Typically this will be a part of process
+    which shares common properties. It will normally be subclassed within a specific
+    implementation so that constraints can be used to ensure that the vocabulary used is
+    consistent with project requirements.
+
+    """
+    return {
+        "type": "class",
+        "base": None,
+        "is_abstract": False,
+        "properties": [
+            ("description", "str", "0.1"),
+            ("implementation_overview", "str", "0.1"),
+            ("keywords", "str", "0.1"),
+            ("name", "str", "1.1"),
+            ("properties", "science.process_detail", "0.N"),
+            ("references", "shared.reference", "0.N")
+        ],
+        "doc_strings": {
+            "description": "Short description of the sub-process context.",
+            "implementation_overview": "General overview description of the implementation of this part of the process.",
+            "keywords": "keywords to help re-use and discovery of this information.",
+            "name": "Short name for the collection of sub-process properties.",
+            "properties": "Sets of properties for this process.",
+            "references": "Any relevant references describing this part of the process and/or it's implementation."
         }
     }
 
