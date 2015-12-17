@@ -29,10 +29,10 @@ def calendar():
             ("standard_name", "shared.calendar_types", "1.1")
         ],
         "doc_strings": {
-            "description": "Extra information about the calendar",
-            "month_lengths": "Used for special calendars to provide month lengths",
-            "name": "Can be used to name a special calendar type",
-            "standard_name": "Type of calendar used"
+            "description": "Extra information about the calendar.",
+            "month_lengths": "Used for special calendars to provide month lengths.",
+            "name": "Can be used to name a special calendar type.",
+            "standard_name": "Type of calendar used."
         }
     }
 
@@ -74,8 +74,8 @@ def date_time():
             ("value", "str", "1.1")
         ],
         "doc_strings": {
-            "offset": "Date is offset from start of an integration",
-            "value": "Date or time - some of (from left to right): yyyy-mm-dd:hh:mm:ss"
+            "offset": "Date is offset from start of an integration.",
+            "value": "Date or time - some of (from left to right): yyyy-mm-dd:hh:mm:ss."
         }
     }
 
@@ -94,7 +94,7 @@ def datetime_set():
             ("length", "int", "1.1")
         ],
         "doc_strings": {
-            "length": "Number of times in set"
+            "length": "Number of times in set."
         }
     }
 
@@ -111,7 +111,7 @@ def irregular_dateset():
             ("date_set", "str", "1.1")
         ],
         "doc_strings": {
-            "date_set": "Set of dates, comma separated yyyy-mm-dd"
+            "date_set": "Set of dates, comma separated yyyy-mm-dd."
         }
     }
 
@@ -145,9 +145,9 @@ def regular_timeset():
             ("start_date", "shared.date_time", "1.1")
         ],
         "doc_strings": {
-            "increment": "Interval between members of set",
-            "length": "Number of times in set",
-            "start_date": "Beginning of time set"
+            "increment": "Interval between members of set.",
+            "length": "Number of times in set.",
+            "start_date": "Beginning of time set."
         }
     }
 
@@ -182,11 +182,11 @@ def time_period():
             ("units", "shared.time_units", "1.1")
         ],
         "doc_strings": {
-            "calendar": "Calendar, default is standard aka gregorian",
-            "date": "Optional start/end date of time period",
-            "date_type": "Describes how the date is used to define the period",
-            "length": "Duration of the time period",
-            "units": "Appropriate time units"
+            "calendar": "Calendar, default is standard aka gregorian.",
+            "date": "Optional start/end date of time period.",
+            "date_type": "Describes how the date is used to define the period.",
+            "length": "Duration of the time period.",
+            "units": "Appropriate time units."
         }
     }
 
@@ -222,7 +222,7 @@ def timeslice_list():
             ("units", "shared.slicetime_units", "1.1")
         ],
         "doc_strings": {
-            "members": "Values as integers",
-            "units": "Interval against which members refer"
+            "members": "Values as integers.",
+            "units": "Interval against which members refer."
         }
     }

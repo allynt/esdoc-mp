@@ -33,16 +33,16 @@ def activity():
             ("responsible_parties", "shared.responsibility", "0.N")
         ],
         "doc_strings": {
-            "canonical_name": "Community defined identifier or name",
+            "canonical_name": "Community defined identifier or name.",
             "description": "Description of what is to be done (or was done).",
-            "duration": "Time the activity was (or will be) active",
-            "keywords": "User defined keywords",
-            "long_name": "Longer version of activity name",
-            "meta": "Metadata describing how this document was created",
+            "duration": "Time the activity was (or will be) active.",
+            "keywords": "User defined keywords.",
+            "long_name": "Longer version of activity name.",
+            "meta": "Metadata describing how this document was created.",
             "name": "Short name or abbreviation.",
             "rationale": "Explanation of why this activity was carried out and/or what it was intended to achieve.",
-            "references": "Relevant documentation",
-            "responsible_parties": "People or organisations responsible for activity"
+            "references": "Relevant documentation.",
+            "responsible_parties": "People or organisations responsible for activity."
         }
     }
 
@@ -63,9 +63,9 @@ def axis_member():
             ("value", "float", "0.1")
         ],
         "doc_strings": {
-            "description": "Description of the member (or name of parameter varied)",
-            "index": "The ensemble member index",
-            "value": "If parameter varied, value thereof for this member"
+            "description": "Description of the member (or name of parameter varied).",
+            "index": "The ensemble member index.",
+            "value": "If parameter varied, value thereof for this member."
         }
     }
 
@@ -84,7 +84,7 @@ def conformance():
             ("target_requirement_reference", "shared.doc_reference", "1.1")
         ],
         "doc_strings": {
-            "target_requirement": "URI of the target numerical requirement"
+            "target_requirement": "URI of the target numerical requirement."
         }
     }
 
@@ -111,10 +111,10 @@ def ensemble():
         ],
         "doc_strings": {
             "common_conformances": "Conformance documents for requirements common across ensemble.",
-            "has_ensemble_axes": "Set of axes for the ensemble",
-            "members": "The set of ensemble members",
-            "part_of": "Link to one or more over-arching ensembles that might includes this one",
-            "supported": "Experiments with which the ensemble is associated (may differ from constituent simulations)"
+            "has_ensemble_axes": "Set of axes for the ensemble.",
+            "members": "The set of ensemble members.",
+            "part_of": "Link to one or more over-arching ensembles that might includes this one.",
+            "supported": "Experiments with which the ensemble is associated (may differ from constituent simulations)."
         }
     }
 
@@ -135,10 +135,10 @@ def ensemble_axis():
             ("target_requirement_reference", "shared.doc_reference", "1.1")
         ],
         "doc_strings": {
-            "extra_detail": "Any extra detail required to describe how this ensemble axis was delivered",
-            "member": "Individual member descriptions along axis",
-            "short_identifier": "e.g. 'r' or 'i' or 'p' to conform with simulation ensemble identifier",
-            "target_requirement": "URI of the target numerical requirement"
+            "extra_detail": "Any extra detail required to describe how this ensemble axis was delivered.",
+            "member": "Individual member descriptions along axis.",
+            "short_identifier": "e.g. 'r' or 'i' or 'p' to conform with simulation ensemble identifier.",
+            "target_requirement": "URI of the target numerical requirement."
         }
     }
 
@@ -162,8 +162,8 @@ def ensemble_member():
             ("simulation_reference", "shared.doc_reference", "1.1")
         ],
         "doc_strings": {
-            "had_performance": "Performance of the simulation",
-            "ran_on": "The machine on which the simulation was run",
+            "had_performance": "Performance of the simulation.",
+            "ran_on": "The machine on which the simulation was run.",
             "simulation": "Actual simulation description for an ensemble member."
         }
     }
@@ -218,8 +218,8 @@ def parent_simulation():
             ("parent_reference", "shared.doc_reference", "1.1")
         ],
         "doc_strings": {
-            "branch_time_in_child": "The time at which the present simulation started in the child calendar",
-            "branch_time_in_parent": "The time in parent simulation calendar at which this simulation was branched",
+            "branch_time_in_child": "The time at which the present simulation started in the child calendar.",
+            "branch_time_in_parent": "The time in parent simulation calendar at which this simulation was branched.",
             "parent": "The parent simulation of this child."
         }
     }
@@ -240,6 +240,6 @@ def uber_ensemble():
             ("child_ensembles_references", "shared.doc_reference", "1.N")
         ],
         "doc_strings": {
-            "child_ensembles": "Ensemble which are aggregated into this one"
+            "child_ensembles": "Ensemble which are aggregated into this one."
         }
     }

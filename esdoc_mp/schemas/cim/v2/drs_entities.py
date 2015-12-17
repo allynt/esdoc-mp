@@ -28,11 +28,11 @@ def drs_atomic_dataset():
             ("variable_name", "str", "1.1")
         ],
         "doc_strings": {
-            "ensemble_member": "Unambiguously identifiers ensemble realisation information",
-            "geographical_constraint": "Identifies geographical subsets and spatial means",
-            "mip_table": "The MIP table, together with the variable defines the physical quantity",
-            "temporal_constraint": "Identifies temporal subsets or means",
-            "variable_name": "Identifies the physical quantity (when used in conjunction with the MIP table)"
+            "ensemble_member": "Unambiguously identifiers ensemble realisation information.",
+            "geographical_constraint": "Identifies geographical subsets and spatial means.",
+            "mip_table": "The MIP table, together with the variable defines the physical quantity.",
+            "temporal_constraint": "Identifies temporal subsets or means.",
+            "variable_name": "Identifies the physical quantity (when used in conjunction with the MIP table)."
         }
     }
 
@@ -51,9 +51,9 @@ def drs_ensemble_identifier():
             ("realisation_number", "int", "1.1")
         ],
         "doc_strings": {
-            "initialisation_method_number": "Identifies which method of initialisation was used, if multiple methods used",
-            "perturbation_number": "Identifies different members of a perturbed physics ensemble",
-            "realisation_number": "Standard ensemble axis realisation number (usually an initial condition ensemble)"
+            "initialisation_method_number": "Identifies which method of initialisation was used, if multiple methods used.",
+            "perturbation_number": "Identifies different members of a perturbed physics ensemble.",
+            "realisation_number": "Standard ensemble axis realisation number (usually an initial condition ensemble)."
         }
     }
 
@@ -93,9 +93,9 @@ def drs_geographical_indicator():
             ("spatial_domain", "str", "0.1")
         ],
         "doc_strings": {
-            "bounding_box": "DRS bounding box of the form 'latJHJJHHlonMZMMZZ' where H, HH, Z, ZZ are from {NS} {EW} respectively",
-            "operator": "Spatial averagin applied to the geographical region",
-            "spatial_domain": "Geographical indicator (currently only 'global' is acceptable)"
+            "bounding_box": "DRS bounding box of the form 'latJHJJHHlonMZMMZZ' where H, HH, Z, ZZ are from {NS} {EW} respectively.",
+            "operator": "Spatial averagin applied to the geographical region.",
+            "spatial_domain": "Geographical indicator (currently only 'global' is acceptable)."
         }
     }
 
@@ -137,14 +137,14 @@ def drs_publication_dataset():
             ("version_number", "int", "0.1")
         ],
         "doc_strings": {
-            "activity": "A model intercomparison activity or other project which aggregates or collects data",
-            "experiment": "An experiment (or experiment family and type, e.g. rcp45)",
-            "frequency": "Frequency of data stored in this entity",
-            "institute": "The institute responsible for this data entity",
-            "model": "A model identifier (sans blanks/periods and parenthesis)",
-            "product": "Used to provide categories of data products within the activity",
-            "realm": "Modelling realm",
-            "version_number": "Uniquely identifies a particular version of a publication level dataset"
+            "activity": "A model intercomparison activity or other project which aggregates or collects data.",
+            "experiment": "An experiment (or experiment family and type, e.g. rcp45).",
+            "frequency": "Frequency of data stored in this entity.",
+            "institute": "The institute responsible for this data entity.",
+            "model": "A model identifier (sans blanks/periods and parenthesis).",
+            "product": "Used to provide categories of data products within the activity.",
+            "realm": "Modelling realm.",
+            "version_number": "Uniquely identifies a particular version of a publication level dataset."
         }
     }
 
@@ -187,9 +187,9 @@ def drs_temporal_identifier():
             ("suffix", "drs.drs_time_suffixes", "0.1")
         ],
         "doc_strings": {
-            "end": "N2, required to indicate a period",
-            "start": "N1,  of the form yyyy[MM[dd[hh[mm[ss]]]]]",
-            "suffix": "If present, used to indicate climatology or average"
+            "end": "N2, required to indicate a period.",
+            "start": "N1,  of the form yyyy[MM[dd[hh[mm[ss]]]]].",
+            "suffix": "If present, used to indicate climatology or average."
         }
     }
 

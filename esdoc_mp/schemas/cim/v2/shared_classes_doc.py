@@ -43,7 +43,7 @@ def doc_meta_info():
         "doc_strings": {
             "author": "Associated document author.",
             "author_reference": "Reference to the associated document author.",
-            "create_date": "Date upon which the instance was created",
+            "create_date": "Date upon which the instance was created.",
             "drs_keys": "DRS related keys to support correlation of documents with datasets.",
             "drs_path": "DRS related path to support documents with datasets.",
             "external_ids": "Set of identifiers used to reference the document by external parties.",
@@ -57,7 +57,7 @@ def doc_meta_info():
             "type": "Document ontology type.",
             "type_display_name": "Document type display name.",
             "type_sort_key": "Document type sort key.",
-            "update_date": "Date upon which the instance was last updated",
+            "update_date": "Date upon which the instance was last updated.",
             "version": "Document version identifier."
         }
     }

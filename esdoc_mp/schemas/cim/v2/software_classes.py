@@ -34,14 +34,14 @@ def component_base():
             ("version", "str", "0.1")
         ],
         "doc_strings": {
-            "description": "Textural description of component",
-            "development_history": "History of the development of this component",
-            "documentation": "Descriptions of the component functionality",
-            "long_name": "Long name for component",
-            "name": "Short name of component",
-            "release_date": "The date of publication of the component code (as opposed to the date of publication of the metadata document, or the date of deployment of the model)",
-            "repository": "Location of code for this component",
-            "version": "Version identifier"
+            "description": "Textural description of component.",
+            "development_history": "History of the development of this component.",
+            "documentation": "Descriptions of the component functionality.",
+            "long_name": "Long name for component.",
+            "name": "Short name of component.",
+            "release_date": "The date of publication of the component code (as opposed to the date of publication of the metadata document, or the date of deployment of the model).",
+            "repository": "Location of code for this component.",
+            "version": "Version identifier."
         }
     }
 
@@ -62,8 +62,8 @@ def composition():
             ("description", "str", "0.1")
         ],
         "doc_strings": {
-            "couplings": "#FIXME",
-            "description": "#FIXME"
+            "couplings": "#FIXME.",
+            "description": "#FIXME."
         }
     }
 
@@ -85,10 +85,10 @@ def development_path():
         ],
         "doc_strings": {
             "consortium_name": "If model/component is developed as part of a consortium, provide consortium name.",
-            "creators": "Those responsible for creating this component",
-            "developed_in_house": "Model or component was mostly developed in house",
+            "creators": "Those responsible for creating this component.",
+            "developed_in_house": "Model or component was mostly developed in house.",
             "funding_sources": "The entities that funded this software component.",
-            "previous_version": "Name of a previous version"
+            "previous_version": "Name of a previous version."
         }
     }
 
@@ -96,7 +96,7 @@ def development_path():
 def entry_point():
     """Describes a function or subroutine of a SoftwareComponent.
     BFG will use these EntryPoints to define a schedule of subroutine calls for a coupled model.
-    Currently, a very basic schedule can be approximated by using the "proceeds" and "follows" attributes,
+    Currently, a very basic schedule can be approximated by using the 'proceeds' and 'follows' attributes,
     however a more complete system is required for full BFG compatibility.
     Every EntryPoint can have a set of arguments associated with it.
     These reference (previously defined) variables.
@@ -110,7 +110,7 @@ def entry_point():
             ("name", "str", "0.1")
         ],
         "doc_strings": {
-            "name": "#FIXME"
+            "name": "#FIXME."
         }
     }
 
@@ -127,7 +127,7 @@ def gridspec():
             ("description", "str", "1.1")
         ],
         "doc_strings": {
-            "description": "Textural description"
+            "description": "Textural description."
         }
     }
 
@@ -152,12 +152,12 @@ def software_component():
             ("sub_components", "software.software_component", "0.N")
         ],
         "doc_strings": {
-            "composition": "#FIXME",
-            "connection_points": "The set of data entities which are available for I/O and/or coupling",
+            "composition": "#FIXME.",
+            "connection_points": "The set of data entities which are available for I/O and/or coupling.",
             "coupling_framework": "The coupling framework that this entire component conforms to.",
-            "dependencies": "#FIXME",
+            "dependencies": "#FIXME.",
             "grid": "A reference to the grid that is used by this component.",
-            "language": "Language the component is written in",
+            "language": "Language the component is written in.",
             "license": "The license held by this piece of software.",
             "sub_components": "Internal software sub-components of this component."
         }
@@ -181,8 +181,8 @@ def variable():
             ("prognostic", "bool", "1.1")
         ],
         "doc_strings": {
-            "description": "Description of how the variable is being used in the s/w",
-            "name": "Short name for the variable",
-            "prognostic": "Whether or not prognostic or diagnostic"
+            "description": "Description of how the variable is being used in the s/w.",
+            "name": "Short name for the variable.",
+            "prognostic": "Whether or not prognostic or diagnostic."
         }
     }

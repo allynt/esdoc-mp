@@ -28,11 +28,11 @@ def component_performance():
             ("speed", "float", "1.1")
         ],
         "doc_strings": {
-            "component": "Link to a CIM software component description",
-            "component_name": "Short name of component",
-            "cores_used": "Number of cores used for this component",
-            "nodes_used": "Number of nodes used for this component",
-            "speed": "Time taken to simulate one real day (s)"
+            "component": "Link to a CIM software component description.",
+            "component_name": "Short name of component.",
+            "cores_used": "Number of cores used for this component.",
+            "nodes_used": "Number of nodes used for this component.",
+            "speed": "Time taken to simulate one real day (s)."
         }
     }
 
@@ -59,17 +59,17 @@ def compute_pool():
             ("operating_system", "str", "0.1")
         ],
         "doc_strings": {
-            "accelerator_type": "Type of accelerator",
-            "accelerators_per_node": "Number of accelerator units on a node",
-            "compute_cores_per_node": "Number of CPU cores per node",
-            "cpu_type": "CPU type",
-            "description": "Textural description of pool",
-            "interconnect": "Interconnect used",
-            "memory_per_node": "Memory per node",
-            "model_number": "Model/Board number/type",
-            "name": "Name of compute pool within a machine",
-            "number_of_nodes": "Number of nodes",
-            "operating_system": "Operating system"
+            "accelerator_type": "Type of accelerator.",
+            "accelerators_per_node": "Number of accelerator units on a node.",
+            "compute_cores_per_node": "Number of CPU cores per node.",
+            "cpu_type": "CPU type.",
+            "description": "Textural description of pool.",
+            "interconnect": "Interconnect used.",
+            "memory_per_node": "Memory per node.",
+            "model_number": "Model/Board number/type.",
+            "name": "Name of compute pool within a machine.",
+            "number_of_nodes": "Number of nodes.",
+            "operating_system": "Operating system."
         }
     }
 
@@ -86,7 +86,7 @@ def machine():
             ("meta", "shared.doc_meta_info", "1.1")
         ],
         "doc_strings": {
-            "meta": "Document description"
+            "meta": "Document description."
         }
     }
 
@@ -114,16 +114,16 @@ def partition():
             ("when_used", "shared.time_period", "0.1")
         ],
         "doc_strings": {
-            "compute_pools": "Layout of compute nodes",
-            "description": "Textural description of machine",
-            "institution": "Institutional location",
-            "model_number": "Vendor's model number/name - if it exists",
-            "name": "Name of partition (or machine)",
-            "online_documentation": "Links to documentation",
-            "partition": "If machine is partitioned, treat subpartitions as machines",
-            "storage_pools": "Storage resource available",
-            "vendor": "The system integrator or vendor",
-            "when_used": "If no longer in use, the time period it was in use"
+            "compute_pools": "Layout of compute nodes.",
+            "description": "Textural description of machine.",
+            "institution": "Institutional location.",
+            "model_number": "Vendor's model number/name - if it exists.",
+            "name": "Name of partition (or machine).",
+            "online_documentation": "Links to documentation.",
+            "partition": "If machine is partitioned, treat subpartitions as machines.",
+            "storage_pools": "Storage resource available.",
+            "vendor": "The system integrator or vendor.",
+            "when_used": "If no longer in use, the time period it was in use."
         }
     }
 
@@ -155,20 +155,20 @@ def performance():
             ("total_nodes_used", "int", "0.1")
         ],
         "doc_strings": {
-            "asypd": "Actual simulated years per wall-clock day, all-in",
-            "chsy": "Core-Hours per simulated year",
-            "compiler": "Compiler used",
-            "coupler_load": "Percentage of time spent in coupler",
-            "io_load": "Percentage of time spent in I/O",
-            "load_imbalance": "Load imbalance",
-            "memory_bloat": "Percentage of extra memory needed",
-            "meta": "Document metadata",
-            "model": "Model for which performance was tested",
-            "name": "Short name for performance (experiment/test/whatever)",
-            "platform": "Platform on which performance was tested",
-            "subcomponent_performance": "Describes the performance of each subcomponent",
-            "sypd": "Simulated years per wall-clock day",
-            "total_nodes_used": "Number of nodes used"
+            "asypd": "Actual simulated years per wall-clock day, all-in.",
+            "chsy": "Core-Hours per simulated year.",
+            "compiler": "Compiler used.",
+            "coupler_load": "Percentage of time spent in coupler.",
+            "io_load": "Percentage of time spent in I/O.",
+            "load_imbalance": "Load imbalance.",
+            "memory_bloat": "Percentage of extra memory needed.",
+            "meta": "Document metadata.",
+            "model": "Model for which performance was tested.",
+            "name": "Short name for performance (experiment/test/whatever).",
+            "platform": "Platform on which performance was tested.",
+            "subcomponent_performance": "Describes the performance of each subcomponent.",
+            "sypd": "Simulated years per wall-clock day.",
+            "total_nodes_used": "Number of nodes used."
         }
     }
 
@@ -190,11 +190,11 @@ def storage_pool():
             ("volume_available", "platform.storage_volume", "1.1")
         ],
         "doc_strings": {
-            "description": "Description of the technology used",
-            "name": "Name of storage pool",
-            "type": "Type of storage",
-            "vendor": "Vendor of the storage unit",
-            "volume_available": "Storage capacity"
+            "description": "Description of the technology used.",
+            "name": "Name of storage pool.",
+            "type": "Type of storage.",
+            "vendor": "Vendor of the storage unit.",
+            "volume_available": "Storage capacity."
         }
     }
 
@@ -235,8 +235,8 @@ def storage_volume():
             ("volume", "int", "1.1")
         ],
         "doc_strings": {
-            "units": "Volume units",
-            "volume": "Numeric value"
+            "units": "Volume units.",
+            "volume": "Numeric value."
         }
     }
 

@@ -50,15 +50,15 @@ def dataset():
             ("responsible_parties_references", "shared.doc_reference", "0.N")
         ],
         "doc_strings": {
-            "availability": "Where the data is located, and how it is accessed",
-            "description": "Textural description of dataset",
-            "drs_datasets": "Data available in the DRS",
+            "availability": "Where the data is located, and how it is accessed.",
+            "description": "Textural description of dataset.",
+            "drs_datasets": "Data available in the DRS.",
             "meta": "Metadata describing the creation of this dataset description document.",
-            "name": "Name of dataset",
-            "produced_by": "Makes a link back to originating activity",
-            "references": "Relevant reference document",
-            "related_to_dataset": "Related dataset",
-            "responsible_parties": "Individuals and organisations reponsible for the data"
+            "name": "Name of dataset.",
+            "produced_by": "Makes a link back to originating activity.",
+            "references": "Relevant reference document.",
+            "related_to_dataset": "Related dataset.",
+            "responsible_parties": "Individuals and organisations reponsible for the data."
         }
     }
 
@@ -76,7 +76,7 @@ def downscaling():
             ("downscaled_from_reference", "shared.doc_reference", "1.1")
         ],
         "doc_strings": {
-            "downscaled_from": "The simulation that was downscaled by this downscaling activity"
+            "downscaled_from": "The simulation that was downscaled by this downscaling activity."
         }
     }
 
@@ -95,8 +95,8 @@ def related_data():
             ("relationship", "data.data_association_types", "1.1")
         ],
         "doc_strings": {
-            "other_dataset": "Remote dataset",
-            "relationship": "Nature of relationship to the remote dataset"
+            "other_dataset": "Remote dataset.",
+            "relationship": "Nature of relationship to the remote dataset."
         }
     }
 
@@ -124,13 +124,13 @@ def simulation():
             ("used_reference", "shared.doc_reference", "1.1")
         ],
         "doc_strings": {
-            "calendar": "The calendar used in the simulation",
-            "ensemble_identifier": "String that can be used to extract ensemble axis membership from the primary ensemble(e.g. cmip6 rip string as in the DRS)",
-            "parent_simulation": "If appropriate, detailed information about how this simulation branched from a previous one",
-            "part_of_project": "Project or projects for which simulation was run",
+            "calendar": "The calendar used in the simulation.",
+            "ensemble_identifier": "String that can be used to extract ensemble axis membership from the primary ensemble(e.g. cmip6 rip string as in the DRS).",
+            "parent_simulation": "If appropriate, detailed information about how this simulation branched from a previous one.",
+            "part_of_project": "Project or projects for which simulation was run.",
             "primary_ensemble": "Primary Ensemble (ensemble for which this simulation was first run).",
-            "ran_for_experiments": "One or more experiments with which the simulation is associated",
-            "used": "The model used to run the simulation"
+            "ran_for_experiments": "One or more experiments with which the simulation is associated.",
+            "used": "The model used to run the simulation."
         }
     }
 
@@ -148,7 +148,7 @@ def variable_collection():
             ("variables", "str", "1.N")
         ],
         "doc_strings": {
-            "collection_name": "Name for this variable collection",
-            "variables": "Set of variable names"
+            "collection_name": "Name for this variable collection.",
+            "variables": "Set of variable names."
         }
     }

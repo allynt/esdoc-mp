@@ -24,7 +24,7 @@ def cim_link():
             ("remote_type", "str", "1.1")
         ],
         "doc_strings": {
-            "remote_type": "CIM type of remote record"
+            "remote_type": "CIM type of remote record."
         }
     }
 
@@ -43,8 +43,8 @@ def cimtext():
             ("content_type", "shared.text_code", "1.1")
         ],
         "doc_strings": {
-            "content": "Raw content (including markup)",
-            "content_type": "Type of content"
+            "content": "Raw content (including markup).",
+            "content_type": "Type of content."
         }
     }
 
@@ -67,13 +67,13 @@ def citation():
             ("url", "shared.online_resource", "0.1")
         ],
         "doc_strings": {
-            "abstract": "Document abstract",
-            "citation_str": "How the citation should be referenced in a bibliography",
-            "context": "Brief text description of why this resource is being cited",
-            "doi": "A digital object identifier",
+            "abstract": "Document abstract.",
+            "citation_str": "How the citation should be referenced in a bibliography.",
+            "context": "Brief text description of why this resource is being cited.",
+            "doi": "A digital object identifier.",
             "short_cite": "How you would refer to this in text (e.g. Meehl et al (2014)).",
             "title": "Full citation title.",
-            "url": "A URL where the artifact can be obtained"
+            "url": "A URL where the artifact can be obtained."
         }
     }
 
@@ -91,8 +91,8 @@ def key_float():
             ("value", "float", "1.1")
         ],
         "doc_strings": {
-            "key": "User defined key",
-            "value": "Value associated with a key (real number)"
+            "key": "User defined key.",
+            "value": "Value associated with a key (real number)."
         }
     }
 
@@ -109,7 +109,7 @@ def number_array():
             ("values", "str", "1.1")
         ],
         "doc_strings": {
-            "values": "A space separated list of numbers"
+            "values": "A space separated list of numbers."
         }
     }
 
@@ -129,10 +129,10 @@ def online_resource():
             ("protocol", "str", "0.1")
         ],
         "doc_strings": {
-            "description": "Detail of how to access the resource",
-            "linkage": "A URL",
-            "name": "Name of online resource",
-            "protocol": "Protocol to use at the linkage"
+            "description": "Detail of how to access the resource.",
+            "linkage": "A URL.",
+            "name": "Name of online resource.",
+            "protocol": "Protocol to use at the linkage."
         }
     }
 
@@ -157,12 +157,12 @@ def party():
             ("url", "shared.online_resource", "0.1")
         ],
         "doc_strings": {
-            "address": "Institutional address",
-            "email": "Email address",
-            "meta": "Provides a unique identifier for the party",
-            "name": "Name of person or organisation",
-            "organisation": "True if an organisation not a person",
-            "url": "URL of person or institution"
+            "address": "Institutional address.",
+            "email": "Email address.",
+            "meta": "Provides a unique identifier for the party.",
+            "name": "Name of person or organisation.",
+            "organisation": "True if an organisation not a person.",
+            "url": "URL of person or institution."
         }
     }
 
@@ -180,8 +180,8 @@ def pid():
             ("resolution_service", "shared.online_resource", "1.1")
         ],
         "doc_strings": {
-            "id": "The identifier",
-            "resolution_service": "The resolution service"
+            "id": "The identifier.",
+            "resolution_service": "The resolution service."
         }
     }
 
@@ -217,9 +217,9 @@ def responsibility():
             ("when", "shared.time_period", "0.1")
         ],
         "doc_strings": {
-            "party": "Parties delivering responsibility",
-            "role": "Role that the party plays or played",
-            "when": "Period when role was active, if no longer"
+            "party": "Parties delivering responsibility.",
+            "role": "Role that the party plays or played.",
+            "when": "Period when role was active, if no longer."
         }
     }
 
@@ -265,11 +265,11 @@ def standalone_document():
             ("responsible_parties", "shared.responsibility", "0.N")
         ],
         "doc_strings": {
-            "long_name": "Longer version of activity name",
-            "meta": "Metadata describing how this document was created",
-            "name": "Short name or abbreviation",
-            "references": "Relevant documentation",
-            "responsible_parties": "People or organisations responsible for activity"
+            "long_name": "Longer version of activity name.",
+            "meta": "Metadata describing how this document was created.",
+            "name": "Short name or abbreviation.",
+            "references": "Relevant documentation.",
+            "responsible_parties": "People or organisations responsible for activity."
         }
     }
 
@@ -302,8 +302,8 @@ def vocab_member():
             ("vocab", "shared.citation", "0.1")
         ],
         "doc_strings": {
-            "uri": "URI of the term in the controlled vocabulary",
-            "value": "Text value of the CV term",
-            "vocab": "Type of content"
+            "uri": "URI of the term in the controlled vocabulary.",
+            "value": "Text value of the CV term.",
+            "vocab": "Type of content."
         }
     }
