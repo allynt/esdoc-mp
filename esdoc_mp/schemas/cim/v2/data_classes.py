@@ -40,14 +40,14 @@ def dataset():
             ("availability", "shared.online_resource", "0.N"),
             ("description", "str", "0.1"),
             ("drs_datasets", "drs.drs_publication_dataset", "0.N"),
+            ("link_to_produced_by", "shared.doc_reference", "0.1"),
+            ("link_to_responsible_parties", "shared.doc_reference", "0.N"),
             ("meta", "shared.doc_meta_info", "1.1"),
             ("name", "str", "1.1"),
             ("produced_by", "data.simulation", "0.1"),
-            ("produced_by_reference", "shared.doc_reference", "0.1"),
             ("references", "shared.citation", "0.N"),
             ("related_to_dataset", "data.related_data", "0.N"),
-            ("responsible_parties", "shared.responsibility", "0.N"),
-            ("responsible_parties_references", "shared.doc_reference", "0.N")
+            ("responsible_parties", "shared.responsibility", "0.N")
         ],
         "doc_strings": {
             "availability": "Where the data is located, and how it is accessed.",
@@ -73,7 +73,7 @@ def downscaling():
         "is_abstract": False,
         "properties": [
             ("downscaled_from", "data.simulation", "1.1"),
-            ("downscaled_from_reference", "shared.doc_reference", "1.1")
+            ("link_to_downscaled_from", "shared.doc_reference", "1.1")
         ],
         "doc_strings": {
             "downscaled_from": "The simulation that was downscaled by this downscaling activity."
@@ -90,8 +90,8 @@ def related_data():
         "base": "shared.cim_link",
         "is_abstract": False,
         "properties": [
+            ("link_to_other_dataset", "shared.doc_reference", "1.1"),
             ("other_dataset", "data.dataset", "1.1"),
-            ("other_dataset_reference", "shared.doc_reference", "1.1"),
             ("relationship", "data.data_association_types", "1.1")
         ],
         "doc_strings": {
@@ -113,15 +113,15 @@ def simulation():
         "properties": [
             ("calendar", "shared.calendar", "0.1"),
             ("ensemble_identifier", "str", "1.1"),
+            ("link_to_part_of_project", "shared.doc_reference", "1.N"),
+            ("link_to_primary_ensemble", "shared.doc_reference", "0.1"),
+            ("link_to_ran_for_experiments", "shared.doc_reference", "1.N"),
+            ("link_to_used", "shared.doc_reference", "1.1"),
             ("parent_simulation", "activity.parent_simulation", "0.1"),
             ("part_of_project", "designing.project", "1.N"),
-            ("part_of_project_references", "shared.doc_reference", "1.N"),
             ("primary_ensemble", "activity.ensemble", "0.1"),
-            ("primary_ensemble_reference", "shared.doc_reference", "0.1"),
             ("ran_for_experiments", "designing.numerical_experiment", "1.N"),
-            ("ran_for_experiments_references", "shared.doc_reference", "1.N"),
-            ("used", "science.model", "1.1"),
-            ("used_reference", "shared.doc_reference", "1.1")
+            ("used", "science.model", "1.1")
         ],
         "doc_strings": {
             "calendar": "The calendar used in the simulation.",

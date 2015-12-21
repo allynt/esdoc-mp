@@ -132,13 +132,13 @@ def model():
         "properties": [
             ("category", "science.model_types", "1.1"),
             ("coupled_software_components", "science.model", "0.N"),
-            ("coupled_software_components_references", "shared.doc_reference", "0.N"),
             ("coupler", "software.coupling_framework", "0.1"),
             ("extra_conservation_properties", "science.conservation_properties", "0.1"),
             ("internal_software_components", "software.software_component", "0.N"),
+            ("link_to_coupled_software_components", "shared.doc_reference", "0.N"),
+            ("link_to_scientific_domain", "shared.doc_reference", "0.N"),
             ("meta", "shared.doc_meta_info", "1.1"),
-            ("scientific_domain", "science.scientific_domain", "0.N"),
-            ("scientific_domain_references", "shared.doc_reference", "0.N")
+            ("scientific_domain", "science.scientific_domain", "0.N")
         ],
         "doc_strings": {
             "category": "Generic type for this model.",

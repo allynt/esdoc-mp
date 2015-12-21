@@ -41,8 +41,8 @@ def ensemble_requirement():
         "is_abstract": False,
         "properties": [
             ("ensemble_member", "designing.numerical_requirement", "0.N"),
-            ("ensemble_member_references", "shared.doc_reference", "0.N"),
             ("ensemble_type", "designing.ensemble_types", "1.1"),
+            ("link_to_ensemble_member", "shared.doc_reference", "0.N"),
             ("minimum_size", "int", "1.1")
         ],
         "doc_strings": {
@@ -127,7 +127,7 @@ def multi_ensemble():
         "is_abstract": False,
         "properties": [
             ("ensemble_axis", "designing.ensemble_requirement", "1.N"),
-            ("ensemble_axis_references", "shared.doc_reference", "1.N")
+            ("link_to_ensemble_axis", "shared.doc_reference", "1.N")
         ],
         "doc_strings": {
             "ensemble_axis": "List of orthogonal ensembles."
@@ -161,10 +161,10 @@ def numerical_experiment():
         "base": "activity.activity",
         "is_abstract": False,
         "properties": [
+            ("link_to_related_experiments", "shared.doc_reference", "0.N"),
+            ("link_to_requirements", "shared.doc_reference", "0.N"),
             ("related_experiments", "designing.numerical_experiment", "0.N"),
-            ("related_experiments_references", "shared.doc_reference", "0.N"),
-            ("requirements", "designing.numerical_requirement", "0.N"),
-            ("requirements_references", "shared.doc_reference", "0.N")
+            ("requirements", "designing.numerical_requirement", "0.N")
         ],
         "doc_strings": {
             "related_experiments": "A related experiment.",
@@ -183,8 +183,8 @@ def numerical_requirement():
         "is_abstract": False,
         "properties": [
             ("additional_requirements", "designing.numerical_requirement", "0.N"),
-            ("additional_requirements_references", "shared.doc_reference", "0.N"),
-            ("conformance_is_requested", "bool", "1.1")
+            ("conformance_is_requested", "bool", "1.1"),
+            ("link_to_additional_requirements", "shared.doc_reference", "0.N")
         ],
         "doc_strings": {
             "additional_requirements": "Additional requirement detail.",
@@ -227,12 +227,12 @@ def project():
         "base": "activity.activity",
         "is_abstract": False,
         "properties": [
+            ("link_to_previous_projects", "shared.doc_reference", "0.N"),
+            ("link_to_requires_experiments", "shared.doc_reference", "0.N"),
+            ("link_to_sub_projects", "shared.doc_reference", "0.N"),
             ("previous_projects", "designing.project", "0.N"),
-            ("previous_projects_references", "shared.doc_reference", "0.N"),
             ("requires_experiments", "designing.numerical_experiment", "0.N"),
-            ("requires_experiments_references", "shared.doc_reference", "0.N"),
-            ("sub_projects", "designing.project", "0.N"),
-            ("sub_projects_references", "shared.doc_reference", "0.N")
+            ("sub_projects", "designing.project", "0.N")
         ],
         "doc_strings": {
             "previous_projects": "Previous projects with similar aims.",
@@ -252,12 +252,12 @@ def simulation_plan():
         "is_abstract": False,
         "properties": [
             ("expected_model", "science.model", "1.1"),
-            ("expected_model_reference", "shared.doc_reference", "1.1"),
             ("expected_performance_sypd", "float", "0.1"),
             ("expected_platform", "platform.machine", "0.1"),
-            ("expected_platform_reference", "shared.doc_reference", "0.1"),
-            ("will_support_experiments", "designing.numerical_experiment", "1.N"),
-            ("will_support_experiments_references", "shared.doc_reference", "1.N")
+            ("link_to_expected_model", "shared.doc_reference", "1.1"),
+            ("link_to_expected_platform", "shared.doc_reference", "0.1"),
+            ("link_to_will_support_experiments", "shared.doc_reference", "1.N"),
+            ("will_support_experiments", "designing.numerical_experiment", "1.N")
         ],
         "doc_strings": {
             "expected_model": "The model used to run the simulation.",

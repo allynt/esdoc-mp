@@ -103,14 +103,14 @@ def partition():
             ("compute_pools", "platform.compute_pool", "1.N"),
             ("description", "str", "0.1"),
             ("institution", "shared.party", "1.1"),
-            ("institution_reference", "shared.doc_reference", "1.1"),
+            ("link_to_institution", "shared.doc_reference", "1.1"),
+            ("link_to_vendor", "shared.doc_reference", "0.1"),
             ("model_number", "str", "0.1"),
             ("name", "str", "1.1"),
             ("online_documentation", "shared.online_resource", "0.N"),
             ("partition", "platform.partition", "0.N"),
             ("storage_pools", "platform.storage_pool", "0.N"),
             ("vendor", "shared.party", "0.1"),
-            ("vendor_reference", "shared.doc_reference", "0.1"),
             ("when_used", "shared.time_period", "0.1")
         ],
         "doc_strings": {
@@ -142,14 +142,14 @@ def performance():
             ("compiler", "str", "0.1"),
             ("coupler_load", "float", "0.1"),
             ("io_load", "float", "0.1"),
+            ("link_to_model", "shared.doc_reference", "1.1"),
+            ("link_to_platform", "shared.doc_reference", "1.1"),
             ("load_imbalance", "float", "0.1"),
             ("memory_bloat", "float", "0.1"),
             ("meta", "shared.doc_meta_info", "1.1"),
             ("model", "science.model", "1.1"),
-            ("model_reference", "shared.doc_reference", "1.1"),
             ("name", "str", "0.1"),
             ("platform", "platform.machine", "1.1"),
-            ("platform_reference", "shared.doc_reference", "1.1"),
             ("subcomponent_performance", "platform.component_performance", "0.1"),
             ("sypd", "float", "0.1"),
             ("total_nodes_used", "int", "0.1")
@@ -183,10 +183,10 @@ def storage_pool():
         "is_abstract": False,
         "properties": [
             ("description", "str", "0.1"),
+            ("link_to_vendor", "shared.doc_reference", "0.1"),
             ("name", "str", "1.1"),
             ("type", "platform.storage_systems", "0.1"),
             ("vendor", "shared.party", "0.1"),
-            ("vendor_reference", "shared.doc_reference", "0.1"),
             ("volume_available", "platform.storage_volume", "1.1")
         ],
         "doc_strings": {

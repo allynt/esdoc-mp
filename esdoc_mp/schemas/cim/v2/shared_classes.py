@@ -211,8 +211,8 @@ def responsibility():
         "base": None,
         "is_abstract": False,
         "properties": [
+            ("link_to_party", "shared.doc_reference", "1.N"),
             ("party", "shared.party", "1.N"),
-            ("party_references", "shared.doc_reference", "1.N"),
             ("role", "shared.role_code", "1.1"),
             ("when", "shared.time_period", "0.1")
         ],
