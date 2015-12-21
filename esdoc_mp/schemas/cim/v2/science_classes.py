@@ -14,9 +14,10 @@
 
 def algorithm():
     """Used to hold information associated with an algorithm which implements some key
-    part of a process, and its properties. In most cases this is quite a high level concept
-    and isn't intended to describe the gory detail of how the code implements the algorithm
-    rather the key scientific aspects of the algorithm.
+    part of a process. In most cases this is quite a high level concept and isn't intended
+    to describe the gory detail of how the code implements the algorithm rather the key
+    scientific aspects of the algorithm. In particular, it provides a method
+    of grouping variables which take part in an algorithm within a process.
 
     """
     return {
@@ -155,7 +156,8 @@ def process():
     """Provides structure for description of a process simulated within a particular
     area (or domain/realm/component) of a model. This will often be subclassed
     within a specific implementation so that constraints can be used to ensure
-    that the vocabulary used is consistent with project requirements.
+    that the process details requested are consistent with project requirements
+    for information.
 
     """
     return {
@@ -188,10 +190,11 @@ def process():
 
 
 def process_detail():
-    """Three possible implementations of process_detail:
-        1) A generic description of some aspect of detail,
-        2) Several specific descriptions selected from a vocabulary, or
-        3) One specfic property selected from a vocabulary.
+    """Provides detail of specific properties of a process, there are two possible specialisations
+    expected: (1) A detail_vocabulary is identified, and a cardinality is assigned to that
+    for possible responses, or (2) Process_Detail is used to provide a collection for a set of
+    properties which are defined in the sub-class. However, those properties must have a type
+    which is selected from the classmap (that is, standard 'non-es-doc' types).
 
     """
     return {
@@ -199,18 +202,18 @@ def process_detail():
         "base": None,
         "is_abstract": False,
         "properties": [
+            ("cardinality_of_selection", "science.selection_cardinality", "0.1"),
             ("content", "str", "0.1"),
             ("detail_selection", "str", "0.N"),
             ("detail_vocabulary", "str", "0.1"),
-            ("heading", "str", "0.1"),
-            ("numeric_properties", "shared.key_float", "0.N")
+            ("heading", "str", "0.1")
         ],
         "doc_strings": {
+            "cardinality_of_selection": "Required cardinality of selection from vocabulary.",
             "content": "Free text description of process detail (if required).",
             "detail_selection": "List of choices from the vocabulary of possible detailed options.",
             "detail_vocabulary": "Name of an enumeration vocabulary of possible detail options.",
-            "heading": "A heading for this detail description.",
-            "numeric_properties": "Any relevant numeric properties."
+            "heading": "A heading for this detail description."
         }
     }
 
@@ -282,12 +285,28 @@ def scientific_domain():
     }
 
 
+def selection_cardinality():
+    """Provides the possible cardinalities for selecting from a controlled vocabulary.
+
+    """
+    return {
+        "type": "enum",
+        "is_open": False,
+        "members": [
+            ("0.1", "Zero or one selections are permitted"),
+            ("0.N", "Zero or many selections are permitted"),
+            ("1.1", "One and only one selection is required"),
+            ("1.N", "At least one, and possibly many, selections are required")
+        ]
+    }
+
+
 def sub_process():
     """Provides structure for description of part of process simulated within a particular
     area (or domain/realm/component) of a model. Typically this will be a part of process
-    which shares common properties. It will normally be subclassed within a specific
-    implementation so that constraints can be used to ensure that the vocabulary used is
-    consistent with project requirements.
+    which shares common properties. It will normally be sub classed within a specific
+    implementation so that constraints can be used to ensure that the process details requested are
+    consistent with projects requirements for information.
 
     """
     return {
