@@ -1,13 +1,8 @@
-
 # -*- coding: utf-8 -*-
 
 """
 .. module:: software_enums.py
-   :license: GPL/CeCIL
-   :platform: Unix, Windows
-   :synopsis: Set of CIM v2 ontology schema definitions.
-
-.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+   :synopsis: Set of CIM v2 ontology type definitions.
 
 """
 
@@ -17,9 +12,9 @@ def coupling_framework():
 
     """
     return {
-        "type": "enum",
-        "is_open": False,
-        "members": [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ("OASIS", "None"),
             ("OASIS3-MCT", "None"),
             ("ESMF", "None"),
@@ -37,9 +32,9 @@ def programming_language():
 
     """
     return {
-        "type": "enum",
-        "is_open": False,
-        "members": [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ("Fortran", "None"),
             ("C", "None"),
             ("C++", "None"),

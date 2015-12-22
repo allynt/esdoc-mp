@@ -32,3 +32,11 @@ class EnumMember(object):
 
         """
         return self.name
+
+
+    @property
+    def key(self):
+        """Returns enum member key.
+
+        """
+        return self.name.strip().lower().replace(" ", "_")

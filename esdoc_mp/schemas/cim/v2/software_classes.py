@@ -1,13 +1,8 @@
-
 # -*- coding: utf-8 -*-
 
 """
 .. module:: software_classes.py
-   :license: GPL/CeCIL
-   :platform: Unix, Windows
-   :synopsis: Set of CIM v2 ontology schema definitions.
-
-.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+   :synopsis: Set of CIM v2 ontology type definitions.
 
 """
 
@@ -20,29 +15,27 @@ def component_base():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": True,
-        "properties": [
-            ("description", "str", "0.1"),
-            ("development_history", "software.development_path", "0.1"),
-            ("documentation", "shared.citation", "0.N"),
-            ("long_name", "str", "0.1"),
-            ("name", "str", "1.1"),
-            ("release_date", "datetime", "0.1"),
-            ("repository", "shared.online_resource", "0.1"),
-            ("version", "str", "0.1")
-        ],
-        "doc_strings": {
-            "description": "Textural description of component.",
-            "development_history": "History of the development of this component.",
-            "documentation": "Descriptions of the component functionality.",
-            "long_name": "Long name for component.",
-            "name": "Short name of component.",
-            "release_date": "The date of publication of the component code (as opposed to the date of publication of the metadata document, or the date of deployment of the model).",
-            "repository": "Location of code for this component.",
-            "version": "Version identifier."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': True,
+        'properties': [
+            ('description', 'str', '0.1',
+                "Textural description of component."),
+            ('development_history', 'software.development_path', '0.1',
+                "History of the development of this component."),
+            ('documentation', 'shared.citation', '0.N',
+                "Descriptions of the component functionality."),
+            ('long_name', 'str', '0.1',
+                "Long name for component."),
+            ('name', 'str', '1.1',
+                "Short name of component."),
+            ('release_date', 'datetime', '0.1',
+                "The date of publication of the component code (as opposed to the date of publication of the metadata document, or the date of deployment of the model)."),
+            ('repository', 'shared.online_resource', '0.1',
+                "Location of code for this component."),
+            ('version', 'str', '0.1',
+                "Version identifier.")
+        ]
     }
 
 
@@ -54,17 +47,15 @@ def composition():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("couplings", "str", "0.N"),
-            ("description", "str", "0.1")
-        ],
-        "doc_strings": {
-            "couplings": "#FIXME.",
-            "description": "#FIXME."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('couplings', 'str', '0.N',
+                "#FIXME."),
+            ('description', 'str', '0.1',
+                "#FIXME.")
+        ]
     }
 
 
@@ -73,23 +64,21 @@ def development_path():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("consortium_name", "str", "0.1"),
-            ("creators", "shared.responsibility", "0.N"),
-            ("developed_in_house", "bool", "1.1"),
-            ("funding_sources", "shared.responsibility", "0.N"),
-            ("previous_version", "str", "0.1")
-        ],
-        "doc_strings": {
-            "consortium_name": "If model/component is developed as part of a consortium, provide consortium name.",
-            "creators": "Those responsible for creating this component.",
-            "developed_in_house": "Model or component was mostly developed in house.",
-            "funding_sources": "The entities that funded this software component.",
-            "previous_version": "Name of a previous version."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('consortium_name', 'str', '0.1',
+                "If model/component is developed as part of a consortium, provide consortium name."),
+            ('creators', 'shared.responsibility', '0.N',
+                "Those responsible for creating this component."),
+            ('developed_in_house', 'bool', '1.1',
+                "Model or component was mostly developed in house."),
+            ('funding_sources', 'shared.responsibility', '0.N',
+                "The entities that funded this software component."),
+            ('previous_version', 'str', '0.1',
+                "Name of a previous version.")
+        ]
     }
 
 
@@ -103,15 +92,13 @@ def entry_point():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("name", "str", "0.1")
-        ],
-        "doc_strings": {
-            "name": "#FIXME."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('name', 'str', '0.1',
+                "#FIXME.")
+        ]
     }
 
 
@@ -120,15 +107,13 @@ def gridspec():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("description", "str", "1.1")
-        ],
-        "doc_strings": {
-            "description": "Textural description."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('description', 'str', '1.1',
+                "Textural description.")
+        ]
     }
 
 
@@ -138,29 +123,27 @@ def software_component():
 
     """
     return {
-        "type": "class",
-        "base": "software.component_base",
-        "is_abstract": False,
-        "properties": [
-            ("composition", "software.composition", "0.1"),
-            ("connection_points", "software.variable", "0.N"),
-            ("coupling_framework", "software.coupling_framework", "0.1"),
-            ("dependencies", "software.entry_point", "0.N"),
-            ("grid", "software.gridspec", "0.1"),
-            ("language", "software.programming_language", "0.1"),
-            ("license", "str", "0.1"),
-            ("sub_components", "software.software_component", "0.N")
-        ],
-        "doc_strings": {
-            "composition": "#FIXME.",
-            "connection_points": "The set of data entities which are available for I/O and/or coupling.",
-            "coupling_framework": "The coupling framework that this entire component conforms to.",
-            "dependencies": "#FIXME.",
-            "grid": "A reference to the grid that is used by this component.",
-            "language": "Language the component is written in.",
-            "license": "The license held by this piece of software.",
-            "sub_components": "Internal software sub-components of this component."
-        }
+        'type': 'class',
+        'base': 'software.component_base',
+        'is_abstract': False,
+        'properties': [
+            ('composition', 'software.composition', '0.1',
+                "#FIXME."),
+            ('connection_points', 'software.variable', '0.N',
+                "The set of data entities which are available for I/O and/or coupling."),
+            ('coupling_framework', 'software.coupling_framework', '0.1',
+                "The coupling framework that this entire component conforms to."),
+            ('dependencies', 'software.entry_point', '0.N',
+                "#FIXME."),
+            ('grid', 'software.gridspec', '0.1',
+                "A reference to the grid that is used by this component."),
+            ('language', 'software.programming_language', '0.1',
+                "Language the component is written in."),
+            ('license', 'str', '0.1',
+                "The license held by this piece of software."),
+            ('sub_components', 'software.software_component', '0.N',
+                "Internal software sub-components of this component.")
+        ]
     }
 
 
@@ -172,17 +155,15 @@ def variable():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("description", "str", "0.1"),
-            ("name", "str", "1.1"),
-            ("prognostic", "bool", "1.1")
-        ],
-        "doc_strings": {
-            "description": "Description of how the variable is being used in the s/w.",
-            "name": "Short name for the variable.",
-            "prognostic": "Whether or not prognostic or diagnostic."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('description', 'str', '0.1',
+                "Description of how the variable is being used in the s/w."),
+            ('name', 'str', '1.1',
+                "Short name for the variable."),
+            ('prognostic', 'bool', '1.1',
+                "Whether or not prognostic or diagnostic.")
+        ]
     }

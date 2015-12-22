@@ -1,13 +1,8 @@
-
 # -*- coding: utf-8 -*-
 
 """
 .. module:: shared_classes.py
-   :license: GPL/CeCIL
-   :platform: Unix, Windows
-   :synopsis: Set of CIM v2 ontology schema definitions.
-
-.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+   :synopsis: Set of CIM v2 ontology type definitions.
 
 """
 
@@ -17,15 +12,13 @@ def cim_link():
 
     """
     return {
-        "type": "class",
-        "base": "shared.online_resource",
-        "is_abstract": False,
-        "properties": [
-            ("remote_type", "str", "1.1")
-        ],
-        "doc_strings": {
-            "remote_type": "CIM type of remote record."
-        }
+        'type': 'class',
+        'base': 'shared.online_resource',
+        'is_abstract': False,
+        'properties': [
+            ('remote_type', 'str', '1.1',
+                "CIM type of remote record.")
+        ]
     }
 
 
@@ -35,17 +28,16 @@ def cimtext():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("content", "str", "1.1"),
-            ("content_type", "shared.text_code", "1.1")
-        ],
-        "doc_strings": {
-            "content": "Raw content (including markup).",
-            "content_type": "Type of content."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'pstr': ('%s', ('content',)),
+        'properties': [
+            ('content', 'str', '1.1',
+                "Raw content (including markup)."),
+            ('content_type', 'shared.text_code', '1.1',
+                "Type of content.")
+        ]
     }
 
 
@@ -54,27 +46,26 @@ def citation():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("abstract", "str", "0.1"),
-            ("citation_str", "str", "1.1"),
-            ("context", "str", "0.1"),
-            ("doi", "str", "0.1"),
-            ("short_cite", "str", "0.1"),
-            ("title", "str", "0.1"),
-            ("url", "shared.online_resource", "0.1")
-        ],
-        "doc_strings": {
-            "abstract": "Document abstract.",
-            "citation_str": "How the citation should be referenced in a bibliography.",
-            "context": "Brief text description of why this resource is being cited.",
-            "doi": "A digital object identifier.",
-            "short_cite": "How you would refer to this in text (e.g. Meehl et al (2014)).",
-            "title": "Full citation title.",
-            "url": "A URL where the artifact can be obtained."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'pstr': ('%s', ('short_cite',)),
+        'properties': [
+            ('abstract', 'str', '0.1',
+                "Document abstract."),
+            ('citation_str', 'str', '1.1',
+                "How the citation should be referenced in a bibliography."),
+            ('context', 'str', '0.1',
+                "Brief text description of why this resource is being cited."),
+            ('doi', 'str', '0.1',
+                "A digital object identifier."),
+            ('short_cite', 'str', '0.1',
+                "How you would refer to this in text (e.g. Meehl et al (2014))."),
+            ('title', 'str', '0.1',
+                "Full citation title."),
+            ('url', 'shared.online_resource', '0.1',
+                "A URL where the artifact can be obtained.")
+        ]
     }
 
 
@@ -83,17 +74,16 @@ def key_float():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("key", "str", "1.1"),
-            ("value", "float", "1.1")
-        ],
-        "doc_strings": {
-            "key": "User defined key.",
-            "value": "Value associated with a key (real number)."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'pstr': ('%s: %s', ('key', 'value')),
+        'properties': [
+            ('key', 'str', '1.1',
+                "User defined key."),
+            ('value', 'float', '1.1',
+                "Value associated with a key (real number).")
+        ]
     }
 
 
@@ -102,15 +92,14 @@ def number_array():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("values", "str", "1.1")
-        ],
-        "doc_strings": {
-            "values": "A space separated list of numbers."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'pstr': ('%s', ('values',)),
+        'properties': [
+            ('values', 'str', '1.1',
+                "A space separated list of numbers.")
+        ]
     }
 
 
@@ -119,21 +108,19 @@ def online_resource():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("description", "str", "0.1"),
-            ("linkage", "str", "1.1"),
-            ("name", "str", "1.1"),
-            ("protocol", "str", "0.1")
-        ],
-        "doc_strings": {
-            "description": "Detail of how to access the resource.",
-            "linkage": "A URL.",
-            "name": "Name of online resource.",
-            "protocol": "Protocol to use at the linkage."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('description', 'str', '0.1',
+                "Detail of how to access the resource."),
+            ('linkage', 'str', '1.1',
+                "A URL."),
+            ('name', 'str', '1.1',
+                "Name of online resource."),
+            ('protocol', 'str', '0.1',
+                "Protocol to use at the linkage.")
+        ]
     }
 
 
@@ -145,25 +132,23 @@ def party():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("address", "str", "0.1"),
-            ("email", "str", "0.1"),
-            ("meta", "shared.doc_meta_info", "1.1"),
-            ("name", "str", "0.1"),
-            ("organisation", "bool", "0.1"),
-            ("url", "shared.online_resource", "0.1")
-        ],
-        "doc_strings": {
-            "address": "Institutional address.",
-            "email": "Email address.",
-            "meta": "Provides a unique identifier for the party.",
-            "name": "Name of person or organisation.",
-            "organisation": "True if an organisation not a person.",
-            "url": "URL of person or institution."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('address', 'str', '0.1',
+                "Institutional address."),
+            ('email', 'str', '0.1',
+                "Email address."),
+            ('meta', 'shared.doc_meta_info', '1.1',
+                "Provides a unique identifier for the party."),
+            ('name', 'str', '0.1',
+                "Name of person or organisation."),
+            ('organisation', 'bool', '0.1',
+                "True if an organisation not a person."),
+            ('url', 'shared.online_resource', '0.1',
+                "URL of person or institution.")
+        ]
     }
 
 
@@ -172,17 +157,15 @@ def pid():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("id", "str", "1.1"),
-            ("resolution_service", "shared.online_resource", "1.1")
-        ],
-        "doc_strings": {
-            "id": "The identifier.",
-            "resolution_service": "The resolution service."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('id', 'str', '1.1',
+                "The identifier."),
+            ('resolution_service', 'shared.online_resource', '1.1',
+                "The resolution service.")
+        ]
     }
 
 
@@ -191,13 +174,12 @@ def reference():
 
     """
     return {
-        "type": "class",
-        "base": "shared.citation",
-        "is_abstract": False,
-        "properties": [
-        ],
-        "doc_strings": {
-        }
+        'type': 'class',
+        'base': 'shared.citation',
+        'is_abstract': False,
+        'pstr': ('%s', ('citation_str',)),
+        'properties': [
+        ]
     }
 
 
@@ -207,20 +189,20 @@ def responsibility():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("link_to_party", "shared.doc_reference", "1.N"),
-            ("party", "shared.party", "1.N"),
-            ("role", "shared.role_code", "1.1"),
-            ("when", "shared.time_period", "0.1")
-        ],
-        "doc_strings": {
-            "party": "Parties delivering responsibility.",
-            "role": "Role that the party plays or played.",
-            "when": "Period when role was active, if no longer."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'pstr': ('%s:%s', ('role', 'party')),
+        'properties': [
+            ('link_to_party', 'shared.doc_reference', '1.N',
+                "Reference to linked document(s)."),
+            ('party', 'shared.party', '1.N',
+                "Parties delivering responsibility."),
+            ('role', 'shared.role_code', '1.1',
+                "Role that the party plays or played."),
+            ('when', 'shared.time_period', '0.1',
+                "Period when role was active, if no longer.")
+        ]
     }
 
 
@@ -229,9 +211,9 @@ def role_code():
 
     """
     return {
-        "type": "enum",
-        "is_open": False,
-        "members": [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ("Principal Investigator", "None"),
             ("originator", "None"),
             ("author", "None"),
@@ -254,23 +236,21 @@ def standalone_document():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": True,
-        "properties": [
-            ("long_name", "str", "0.1"),
-            ("meta", "shared.doc_meta_info", "1.1"),
-            ("name", "str", "1.1"),
-            ("references", "shared.citation", "0.N"),
-            ("responsible_parties", "shared.responsibility", "0.N")
-        ],
-        "doc_strings": {
-            "long_name": "Longer version of activity name.",
-            "meta": "Metadata describing how this document was created.",
-            "name": "Short name or abbreviation.",
-            "references": "Relevant documentation.",
-            "responsible_parties": "People or organisations responsible for activity."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': True,
+        'properties': [
+            ('long_name', 'str', '0.1',
+                "Longer version of activity name."),
+            ('meta', 'shared.doc_meta_info', '1.1',
+                "Metadata describing how this document was created."),
+            ('name', 'str', '1.1',
+                "Short name or abbreviation."),
+            ('references', 'shared.citation', '0.N',
+                "Relevant documentation."),
+            ('responsible_parties', 'shared.responsibility', '0.N',
+                "People or organisations responsible for activity.")
+        ]
     }
 
 
@@ -280,9 +260,9 @@ def text_code():
 
     """
     return {
-        "type": "enum",
-        "is_open": False,
-        "members": [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ("plaintext", "Normal plain text")
         ]
     }
@@ -293,17 +273,16 @@ def vocab_member():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("uri", "str", "0.1"),
-            ("value", "str", "1.1"),
-            ("vocab", "shared.citation", "0.1")
-        ],
-        "doc_strings": {
-            "uri": "URI of the term in the controlled vocabulary.",
-            "value": "Text value of the CV term.",
-            "vocab": "Type of content."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'pstr': ('%s', ('value',)),
+        'properties': [
+            ('uri', 'str', '0.1',
+                "URI of the term in the controlled vocabulary."),
+            ('value', 'str', '1.1',
+                "Text value of the CV term."),
+            ('vocab', 'shared.citation', '0.1',
+                "Type of content.")
+        ]
     }

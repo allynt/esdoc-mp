@@ -116,14 +116,14 @@ def connection():
             ('sources', 'software.connection_endpoint', '0.N'),
             ('target', 'software.connection_endpoint', '0.1'),
             ('description', 'str', '0.1'),
+            ('link_to_priming', 'shared.doc_reference', '0.1'),
+            ('link_to_transformers', 'shared.doc_reference', '0.N'),
             ('priming', 'shared.data_source', '0.1'),
-            ('priming_reference', 'shared.doc_reference', '0.1'),
             ('spatial_regridding', 'software.spatial_regridding', '0.N'),
             ('time_lag', 'str', '0.1'),
             ('time_profile', 'software.timing', '0.1'),
             ('time_transformation', 'software.time_transformation', '0.1'),
             ('transformers', 'software.processor_component', '0.N'),
-            ('transformers_references', 'shared.doc_reference', '0.N'),
             ('type', 'software.connection_type', '0.1'),
         ],
         'doc_strings': {
@@ -142,19 +142,19 @@ def connection():
             ('sources', 'child::cim:connectionSource'),
             ('target', 'child::cim:connectionTarget'),
             ('description', 'child::cim:description'),
+            ('link_to_priming', 'child::cim:priming/cim:reference'),
+            ('link_to_transformers', 'child::cim:transformer/cim:reference'),
             ('priming', 'child::cim:priming/cim:priming/cim:dataObject', 'data.data_object'),
             ('priming', 'child::cim:priming/cim:priming/cim:dataContent', 'data.data_content'),
             ('priming', 'child::cim:priming/cim:priming/cim:componentProperty', 'software.component_property'),
             ('priming', 'child::cim:priming/cim:priming/cim:softwareComponent', 'software.model_component'),
             ('priming', 'child::cim:priming/cim:priming/cim:softwareComponent', 'software.processor_component'),
             ('priming', 'child::cim:priming/cim:priming/cim:softwareComponent', 'software.statistical_model_component'),
-            ('priming_reference', 'child::cim:priming/cim:reference'),
             ('spatial_regridding', 'child::cim:spatialRegridding'),
             ('time_lag', 'child::cim:timeLag'),
             ('time_profile', 'child::cim:timeProfile'),
             ('time_transformation', 'child::cim:timeTransformation'),
             ('transformers', 'child::cim:transformer/cim:processorComponent'),
-            ('transformers_references', 'child::cim:transformer/cim:reference'),
             ('type', 'child::cim:type/@value'),
         ]
     }
@@ -171,7 +171,7 @@ def connection_endpoint():
         'properties' : [
             ('properties', 'software.connection_property', '0.N'),
             ('data_source', 'shared.data_source', '0.1'),
-            ('data_source_reference', 'shared.doc_reference', '0.1'),
+            ('link_to_data_source', 'shared.doc_reference', '0.1'),
             ('instance_id', 'str', '0.1'),
         ],
         'doc_strings': {
@@ -186,8 +186,8 @@ def connection_endpoint():
             ('data_source', 'child::cim:dataSource/cim:dataSource/cim:softwareComponent', 'software.model_component'),
             ('data_source', 'child::cim:dataSource/cim:dataSource/cim:softwareComponent', 'software.processor_component'),
             ('data_source', 'child::cim:dataSource/cim:dataSource/cim:softwareComponent', 'software.statistical_model_component'),
-            ('data_source_reference', 'child::cim:dataSource/cim:reference'),
             ('instance_id', 'child::cim:instanceID'),
+            ('link_to_data_source', 'child::cim:dataSource/cim:reference'),
         ]
     }
 
@@ -218,15 +218,15 @@ def coupling():
             ('target', 'software.coupling_endpoint', '1.1'),
             ('description', 'str', '0.1'),
             ('is_fully_specified', 'bool', '1.1'),
+            ('link_to_priming', 'shared.doc_reference', '0.1'),
+            ('link_to_transformers', 'shared.doc_reference', '0.N'),
             ('purpose', 'shared.data_purpose', '1.1'),
             ('priming', 'shared.data_source', '0.1'),
-            ('priming_reference', 'shared.doc_reference', '0.1'),
             ('spatial_regriddings', 'software.spatial_regridding', '0.N'),
             ('time_profile', 'software.timing', '0.1'),
             ('time_lag', 'software.time_lag', '0.1'),
             ('time_transformation', 'software.time_transformation', '0.1'),
             ('transformers', 'software.processor_component', '0.N'),
-            ('transformers_references', 'shared.doc_reference', '0.N'),
             ('type', 'software.connection_type', '0.1')
         ],
         'doc_strings': {
@@ -249,20 +249,20 @@ def coupling():
             ('target', 'child::cim:couplingTarget'),
             ('description', 'child::cim:description'),
             ('is_fully_specified', '@fullySpecified'),
+            ('link_to_priming', 'child::cim:priming/cim:reference'),
+            ('link_to_transformers', 'child::cim:transformer/cim:reference'),
             ('priming', 'child::cim:priming/cim:priming/cim:dataObject', 'data.data_object'),
             ('priming', 'child::cim:priming/cim:priming/cim:dataContent', 'data.data_content'),
             ('priming', 'child::cim:priming/cim:priming/cim:componentProperty', 'software.component_property'),
             ('priming', 'child::cim:priming/cim:priming/cim:softwareComponent', 'software.model_component'),
             ('priming', 'child::cim:priming/cim:priming/cim:softwareComponent', 'software.processor_component'),
             ('priming', 'child::cim:priming/cim:priming/cim:softwareComponent', 'software.statistical_model_component'),
-            ('priming_reference', 'child::cim:priming/cim:reference'),
             ('purpose', '@purpose'),
             ('spatial_regriddings', 'child::cim:spatialRegridding'),
             ('time_lag', 'child::cim:timeLag'),
             ('time_profile', 'child::cim:timeProfile'),
             ('time_transformation', 'child::cim:timeTransformation'),
             ('transformers', 'child::cim:transformer/cim:processorComponent'),
-            ('transformers_references', 'child::cim:transformer/cim:reference'),
             ('type', 'child::cim:type/@value'),
         ]
     }
@@ -279,8 +279,8 @@ def coupling_endpoint():
         'properties' : [
             ('properties', 'software.coupling_property', '0.N'),
             ('data_source', 'shared.data_source', '0.1'),
-            ('data_source_reference', 'shared.doc_reference', '0.1'),
             ('instance_id', 'str', '0.1'),
+            ('link_to_data_source', 'shared.doc_reference', '0.1'),
         ],
         'doc_strings': {
             'properties': 'A place to describe features specific to the source/target of a coupling',
@@ -294,8 +294,8 @@ def coupling_endpoint():
             ('data_source', 'child::cim:dataSource/cim:dataSource/cim:softwareComponent', 'software.model_component'),
             ('data_source', 'child::cim:dataSource/cim:dataSource/cim:softwareComponent', 'software.processor_component'),
             ('data_source', 'child::cim:dataSource/cim:dataSource/cim:softwareComponent', 'software.statistical_model_component'),
-            ('data_source_reference', 'child::cim:dataSource/cim:reference'),
             ('instance_id', 'child::cim:instanceID'),
+            ('link_to_data_source', 'child::cim:dataSource/cim:reference'),
         ]
     }
 
@@ -322,9 +322,9 @@ def deployment():
         'properties' : [
             ('deployment_date', 'datetime', '0.1'),
             ('description', 'str', '0.1'),
+            ('link_to_platform', 'shared.doc_reference', '0.1'),
             ('parallelisation', 'software.parallelisation', '0.1'),
             ('platform', 'shared.platform', '0.1'),
-            ('platform_reference', 'shared.doc_reference', '0.1'),
             ('executable_name', 'str', '0.1'),
             ('executable_arguments', 'str', '0.N'),
         ],
@@ -334,9 +334,9 @@ def deployment():
         'decodings' : [
             ('deployment_date', 'child::cim:deploymentDate'),
             ('description', 'child::cim:description'),
+            ('link_to_platform', 'child::cim:platform/cim:reference'),
             ('parallelisation', 'child::cim:parallelisation'),
             ('platform', 'child::cim:platform/cim:platform'),
-            ('platform_reference', 'child::cim:platform/cim:reference'),
             ('executable_name', 'child::cim:executableName'),
             ('executable_arguments', 'child::cim:executableArgument'),
         ]
@@ -553,12 +553,12 @@ def spatial_regridding_user_method():
         'is_abstract' : False,
         'properties' : [
             ('file', 'data.data_object', '0.1'),
-            ('file_reference', 'shared.doc_reference', '0.1'),
+            ('link_to_file', 'shared.doc_reference', '0.1'),
             ('name', 'str', '1.1'),
         ],
         'decodings' : [
             ('file', 'child::cim:file/cim:dataObject'),
-            ('file_reference', 'child::cim:file/cim:reference'),
+            ('link_to_file', 'child::cim:file/cim:reference'),
             ('name', 'child::cim:name'),
         ]
     }

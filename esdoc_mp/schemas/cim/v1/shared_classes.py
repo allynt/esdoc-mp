@@ -82,7 +82,6 @@ def citation():
             ('date', 'datetime', '0.1'),
             ('date_type', 'str', '0.1'),
             ('organisation', 'str', '0.1'),
-            ('reference', 'shared.doc_reference', '0.1'),
             ('role', 'str', '0.1'),
             ('title', 'str', '0.1'),
             ('type', 'str', '0.1'),

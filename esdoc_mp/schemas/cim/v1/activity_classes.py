@@ -53,10 +53,10 @@ def conformance():
             ('description', 'str', '0.1'),
             ('frequency', 'activity.frequency_type', '0.1'),
             ('is_conformant', 'bool', '1.1'),
+            ('link_to_requirements', 'shared.doc_reference', '0.N'),
+            ('link_to_sources', 'shared.doc_reference', '0.N'),
             ('requirements', 'activity.numerical_requirement', '0.N'),
-            ('requirements_references', 'shared.doc_reference', '0.N'),
             ('sources', 'shared.data_source', '0.N'),
-            ('sources_references', 'shared.doc_reference', '0.N'),
             ('type', 'activity.conformance_type', '0.1'),
         ],
         'doc_strings': {
@@ -74,14 +74,14 @@ def conformance():
             ('requirements', 'child::cim:requirement/cim:requirement/cim:lateralBoundaryCondition', 'activity.lateral_boundary_condition'),
             ('requirements', 'child::cim:requirement/cim:requirement/cim:spatioTemporalConstraint', 'activity.spatio_temporal_constraint'),
             ('requirements', 'child::cim:requirement/cim:requirement/cim:outputRequirement', 'activity.output_requirement'),
-            ('requirements_references', 'child::cim:requirement/cim:reference'),
+            ('link_to_requirements', 'child::cim:requirement/cim:reference'),
             ('sources', 'child::cim:source/cim:source/cim:dataObject', 'data.data_object'),
             ('sources', 'child::cim:source/cim:source/cim:dataContent', 'data.data_content'),
             ('sources', 'child::cim:source/cim:source/cim:componentProperty', 'software.component_property'),
             ('sources', 'child::cim:source/cim:source/cim:softwareComponent', 'software.model_component'),
             ('sources', 'child::cim:source/cim:source/cim:softwareComponent', 'software.processor_component'),
             ('sources', 'child::cim:source/cim:source/cim:softwareComponent', 'software.statistical_model_component'),
-            ('sources_references', 'child::cim:source/cim:reference'),
+            ('link_to_sources', 'child::cim:source/cim:reference'),
             ('type', '@type'),
         ]
     }
@@ -100,11 +100,11 @@ def downscaling_simulation():
             ('calendar', 'shared.calendar', '1.1'),
             ('inputs', 'software.coupling', '0.N'),
             ('outputs', 'data.data_object', '0.N'),
-            ('output_references', 'shared.doc_reference', '0.N'),
             ('downscaling_id', 'str', '0.1'),
             ('downscaled_from', 'shared.data_source', '1.1'),
-            ('downscaled_from_reference', 'shared.doc_reference', '1.1'),
             ('downscaling_type', 'activity.downscaling_type', '0.1'),
+            ('link_to_downscaled_from', 'shared.doc_reference', '1.1'),
+            ('link_to_outputs', 'shared.doc_reference', '0.N'),
         ],
         'doc_strings': {
             'inputs': 'Implemented as a mapping from a source to target; can be a forcing file, a boundary condition, etc.',
@@ -116,7 +116,6 @@ def downscaling_simulation():
             ('calendar', 'child::cim:calendar/cim:realCalendar', 'shared.real_calendar'),
             ('inputs', 'child::cim:input'),
             ('outputs', 'child::cim:output/cim:dataObject', 'data.data_object'),
-            ('outputs_references', 'child::cim:output/cim:reference'),
             ('downscaling_id', 'child::cim:downscalingID'),
             ('downscaled_from', 'child::cim:downscaledFrom/cim:downscaledFrom/cim:dataObject', 'data.data_object'),
             ('downscaled_from', 'child::cim:downscaledFrom/cim:downscaledFrom/cim:dataContent', 'data.data_content'),
@@ -124,8 +123,9 @@ def downscaling_simulation():
             ('downscaled_from', 'child::cim:downscaledFrom/cim:downscaledFrom/cim:softwareComponent', 'software.model_component'),
             ('downscaled_from', 'child::cim:downscaledFrom/cim:downscaledFrom/cim:softwareComponent', 'software.processor_component'),
             ('downscaled_from', 'child::cim:downscaledFrom/cim:downscaledFrom/cim:softwareComponent', 'software.statistical_model_component'),
-            ('downscaled_from_reference', 'child::cim:downscaledFrom/cim:reference'),
             ('downscaling_type', 'self::cim:downscalingSimulation/@downscalingType'),
+            ('link_to_downscaled_from', 'child::cim:downscaledFrom/cim:reference'),
+            ('link_to_outputs', 'child::cim:output/cim:reference'),
         ]
     }
 
@@ -143,7 +143,7 @@ def ensemble():
             ('members', 'activity.ensemble_member', '1.N'),
             ('types', 'activity.ensemble_type', '1.N'),
             ('outputs', 'shared.data_source', '0.N'),
-            ('outputs_references', 'shared.doc_reference', '0.N'),
+            ('link_to_outputs', 'shared.doc_reference', '0.N'),
         ],
         'doc_strings': {
             'outputs': 'Points to the DataSource used to conform to a particular Requirement.   This may be part of an activity::simulation or a software::component.  It can be either a DataObject or a SoftwareComponent or a ComponentProperty.  It could also be by using particular attributes of, say, a SoftwareComponent, but in that case the recommended practise is to reference the component and add appropriate text in the conformance description attribute.',
@@ -158,7 +158,7 @@ def ensemble():
             ('outputs', 'child::cim:output/cim:output/cim:softwareComponent', 'software.model_component'),
             ('outputs', 'child::cim:output/cim:output/cim:softwareComponent', 'software.processor_component'),
             ('outputs', 'child::cim:output/cim:output/cim:softwareComponent', 'software.statistical_model_component'),
-            ('outputs_references', 'child::cim:output/cim:reference'),
+            ('link_to_outputs', 'child::cim:output/cim:reference'),
         ]
     }
 
@@ -173,17 +173,17 @@ def ensemble_member():
         'is_abstract': False,
         'properties': [
             ('ensemble', 'activity.ensemble', '0.1'),
-            ('ensemble_reference', 'shared.doc_reference', '0.1'),
             ('ensemble_ids', 'shared.standard_name', '0.N'),
             ('simulation', 'activity.simulation', '0.1'),
-            ('simulation_reference', 'shared.doc_reference', '0.1'),
+            ('link_to_ensemble', 'shared.doc_reference', '0.1'),
+            ('link_to_simulation', 'shared.doc_reference', '0.1'),
         ],
         'decodings': [
             ('ensemble', 'child::cim:ensemble/cim:ensemble'),
-            ('ensemble_reference', 'child::cim:ensemble/cim:reference'),
             ('ensemble_ids', 'child::cim:ensembleMemberID'),
             ('simulation', 'child::cim:ensemble/cim:simulation'),
-            ('simulation_reference', 'child::cim:simulation/cim:reference'),
+            ('link_to_ensemble', 'child::cim:ensemble/cim:reference'),
+            ('link_to_simulation', 'child::cim:simulation/cim:reference'),
         ]
     }
 
@@ -199,10 +199,10 @@ def experiment():
         'properties': [
             ('measurement_campaigns', 'activity.measurement_campaign', '0.N'),
             ('requires', 'activity.numerical_activity', '0.N'),
-            ('requires_references', 'shared.doc_reference', '0.N'),
             ('generates', 'str', '0.N'),
+            ('link_to_requires', 'shared.doc_reference', '0.N'),
+            ('link_to_supports', 'shared.doc_reference', '0.N'),
             ('supports', 'str', '0.N'),
-            ('supports_references', 'shared.doc_reference', '0.N'),
         ],
     }
 
@@ -231,7 +231,7 @@ def experiment_relationship_target():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('reference', 'shared.doc_reference', '0.1'),
+            ('link_to_numerical_experiment', 'shared.doc_reference', '0.1'),
             ('numerical_experiment', 'activity.numerical_experiment', '0.1'),
         ],
     }
@@ -275,10 +275,10 @@ def numerical_activity():
         'is_abstract': True,
         'properties': [
             ('description', 'str', '0.1'),
+            ('link_to_supports', 'shared.doc_reference', '0.N'),
             ('long_name', 'str', '0.1'),
             ('short_name', 'str', '1.1'),
             ('supports', 'activity.experiment', '0.N'),
-            ('supports_references', 'shared.doc_reference', '0.N'),
         ],
         'doc_strings': {
             'description': 'A free-text description of the experiment.',
@@ -287,10 +287,10 @@ def numerical_activity():
         },
         'decodings': [
             ('description', 'child::cim:description'),
+            ('link_to_supports', 'child::cim:supports/cim:reference'),
             ('long_name', 'child::cim:longName'),
             ('short_name', 'child::cim:shortName'),
             ('supports', 'child::cim:supports/cim:experiment'),
-            ('supports_references', 'child::cim:supports/cim:reference'),
         ]
     }
 
@@ -351,11 +351,11 @@ def numerical_requirement():
         'properties': [
             ('description', 'str', '0.1'),
             ('id', 'str', '0.1'),
+            ('link_to_source', 'shared.doc_reference', '0.1'),
             ('name', 'str', '1.1'),
             ('options', 'activity.numerical_requirement_option', '0.N'),
             ('requirement_type', 'str', '1.1'),
             ('source', 'shared.data_source', '0.1'),
-            ('source_reference', 'shared.doc_reference', '0.1'),
         ],
         'doc_strings': {
             'requirement_type': 'Type of reqirement to which the experiment must conform.',
@@ -363,6 +363,7 @@ def numerical_requirement():
         'decodings': [
             ('description', 'child::cim:description'),
             ('id', 'child::cim:id'),
+            ('link_to_source', 'child::cim:source/cim:reference'),
             ('name', 'child::cim:name'),
             ('options', 'child::cim:requirementOption'),
             ('source', 'child::cim:source/cim:source/cim:dataObject', 'data.data_object'),
@@ -371,7 +372,6 @@ def numerical_requirement():
             ('source', 'child::cim:source/cim:source/cim:softwareComponent', 'software.model_component'),
             ('source', 'child::cim:source/cim:source/cim:softwareComponent', 'software.processor_component'),
             ('source', 'child::cim:source/cim:source/cim:softwareComponent', 'software.statistical_model_component'),
-            ('source_reference', 'child::cim:source/cim:reference'),
         ]
     }
 
@@ -509,18 +509,18 @@ def simulation():
             ('authors', 'str', '0.1'),
             ('calendar', 'shared.calendar', '1.1'),
             ('control_simulation', 'activity.simulation', '0.1'),
-            ('control_simulation_reference', 'shared.doc_reference', '0.1'),
             ('conformances', 'activity.conformance', '0.N'),
             ('deployments', 'software.deployment', '0.N'),
             ('inputs', 'software.coupling', '0.N'),
+            ('link_to_control_simulation', 'shared.doc_reference', '0.1'),
+            ('link_to_outputs', 'shared.doc_reference', '0.N'),
+            ('link_to_simulations', 'shared.doc_reference', '0.N'),
+            ('link_to_spinup_simulation', 'shared.doc_reference', '0.1'),
             ('outputs', 'data.data_object', '0.N'),
-            ('output_references', 'shared.doc_reference', '0.N'),
             ('restarts', 'data.data_object', '0.N'),
-            ('restart_references', 'shared.doc_reference', '0.N'),
             ('simulation_id', 'str', '0.1'),
             ('spinup_date_range', 'shared.closed_date_range', '0.1'),
             ('spinup_simulation', 'activity.simulation', '0.1'),
-            ('spinup_simulation_reference', 'shared.doc_reference', '0.1'),
         ],
         'doc_strings': {
             'authors': 'List of associated authors.',
@@ -537,9 +537,9 @@ def simulation():
             ('conformances', 'child::cim:conformance/cim:conformance', 'activity.conformance'),
             ('conformances', 'child::cim:conformance/cim:physicalModification', 'activity.physical_modification'),
             ('control_simulation', 'child::cim:controlSimulation/cim:controlSimulation'),
-            ('control_simulation_reference', 'child::cim:controlSimulation/cim:reference'),
             ('deployments', 'child::cim:deployment'),
             ('inputs', 'child::cim:input'),
+            ('link_to_control_simulation', 'child::cim:controlSimulation/cim:reference'),
             ('simulation_id', 'child::cim:simulationID'),
             ('spinup_date_range', 'child::cim:dateRange/cim:closedDateRange'),
         ]
@@ -598,7 +598,7 @@ def simulation_relationship_target():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('reference', 'shared.doc_reference', '0.1'),
+            ('link_to_simulation', 'shared.doc_reference', '0.1'),
             ('target', 'activity.simulation_type', '0.1'),
         ],
     }
@@ -616,13 +616,13 @@ def simulation_run():
             ('meta', 'shared.doc_meta_info', '1.1'),
             ('date_range', 'shared.date_range', '1.1'),
             ('model', 'software.model_component', '0.1'),
-            ('model_reference', 'shared.doc_reference', '0.1'),
+            ('link_to_model', 'shared.doc_reference', '0.1'),
         ],
         'decodings': [
             ('meta', 'self::cim:simulationRun'),
             ('date_range', 'child::cim:dateRange/cim:closedDateRange', 'shared.closed_date_range'),
             ('date_range', 'child::cim:dateRange/cim:openDateRange', 'shared.open_date_range'),
             ('model', 'child::cim:model/cim:modelComponent'),
-            ('model_reference', 'child::cim:model/cim:reference'),
+            ('link_to_model', 'child::cim:model/cim:reference'),
         ]
     }

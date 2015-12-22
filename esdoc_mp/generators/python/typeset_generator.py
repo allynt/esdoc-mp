@@ -277,10 +277,28 @@ def _emit_module_init(o):
 
 
 def _emit_snippet_enum(e):
-    """Emits code corresponding to a python enum."""
+    """Emits code corresponding to a python enum.
+
+    """
+    def emit_members():
+        def get_code(m):
+            code = gu.emit_line_return()
+            code += gu.emit_indent(2)
+            code += '"{}"'.format(m.name)
+
+            return code
+
+        code = gu.emit(e.members, get_code, joiner=",")
+        code += gu.emit_line_return()
+        code += gu.emit_indent(2)
+
+        return code
+
     code = _templates[_TEMPLATE_ENUM]
     code = code.replace('{enum-name}', pgu.get_enum_name(e))
     code = code.replace('{enum-doc-string}', e.doc_string)
+    code = code.replace('{enum-is-open}', str(e.is_open))
+    code = code.replace('{enum-members}', emit_members() if e.members else "")
 
     return code
 

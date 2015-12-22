@@ -1,13 +1,8 @@
-
 # -*- coding: utf-8 -*-
 
 """
 .. module:: science_enums.py
-   :license: GPL/CeCIL
-   :platform: Unix, Windows
-   :synopsis: Set of CIM v2 ontology schema definitions.
-
-.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+   :synopsis: Set of CIM v2 ontology type definitions.
 
 """
 
@@ -17,9 +12,9 @@ def grid_layouts():
 
     """
     return {
-        "type": "enum",
-        "is_open": False,
-        "members": [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ("Arakawa-C", "Arakawa C Grid")
         ]
     }
@@ -30,9 +25,9 @@ def grid_types():
 
     """
     return {
-        "type": "enum",
-        "is_open": False,
-        "members": [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ("LatLon", "Standard lat-lon grid"),
             ("Cubed-Sphere", "Cubed sphere grid"),
             ("Spectral-Gaussian", "Spectral with Gaussian grid")
@@ -45,9 +40,9 @@ def model_types():
 
     """
     return {
-        "type": "enum",
-        "is_open": False,
-        "members": [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ("Atm Only", "Atmosphere Only"),
             ("Ocean Only", "Ocean Only"),
             ("Regional", "Regional Model"),

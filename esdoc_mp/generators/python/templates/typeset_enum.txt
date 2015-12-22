@@ -3,5 +3,5 @@ class {enum-name}(object):
 
     {enum-doc-string}
     """
-
-    pass
+    is_open = {enum-is-open}
+    members = [{enum-members}]

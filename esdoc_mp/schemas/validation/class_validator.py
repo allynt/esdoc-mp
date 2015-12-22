@@ -111,8 +111,8 @@ def validate(ctx, module, factory, cls):
         ctx.set_error(err)
         return
 
-    if [p for p in cls.get('properties', []) if not isinstance(p, tuple) or not len(p) == 3]:
-        err = 'Invalid class: {} --> all properties must be 3 item tuples (name, type, cardinality)'
+    if [p for p in cls.get('properties', []) if not isinstance(p, tuple) or not len(p) in {3, 4}]:
+        err = 'Invalid class: {} --> all properties must be tuples (name, type, cardinality, doc_string)'
         err = err.format(ctx.get_name(factory, module))
         ctx.set_error(err)
         return

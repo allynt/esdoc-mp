@@ -73,8 +73,12 @@ def _get_class_properties(class_):
     """
     result = []
     doc_strings = class_.get('doc_strings', dict())
-    for name, type_name, cardinality in class_.get('properties', []):
-        doc_string = doc_strings.get(name, None)
+    for prop in class_.get('properties', []):
+        if len(prop) == 4:
+            name, type_name, cardinality, doc_string = prop
+        elif len(prop) == 3:
+            name, type_name, cardinality = prop
+            doc_string = doc_strings.get(name, None)
         result.append(Property(name, type_name, cardinality, doc_string))
 
     return result

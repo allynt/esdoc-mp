@@ -1,13 +1,8 @@
-
 # -*- coding: utf-8 -*-
 
 """
 .. module:: science_classes.py
-   :license: GPL/CeCIL
-   :platform: Unix, Windows
-   :synopsis: Set of CIM v2 ontology schema definitions.
-
-.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+   :synopsis: Set of CIM v2 ontology type definitions.
 
 """
 
@@ -21,23 +16,21 @@ def algorithm():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("diagnostic_variables", "data.variable_collection", "0.N"),
-            ("heading", "str", "1.1"),
-            ("implementation_overview", "str", "1.1"),
-            ("prognostic_variables", "data.variable_collection", "0.N"),
-            ("references", "shared.citation", "0.N")
-        ],
-        "doc_strings": {
-            "diagnostic_variables": "Diagnostic variables associated with this algorithm.",
-            "heading": "Title for this collection of algorithm/property information.",
-            "implementation_overview": "Overview of the algorithm implementation.",
-            "prognostic_variables": "Prognostic variables associated with this algorithm.",
-            "references": "Relevant references."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('diagnostic_variables', 'data.variable_collection', '0.N',
+                "Diagnostic variables associated with this algorithm."),
+            ('heading', 'str', '1.1',
+                "Title for this collection of algorithm/property information."),
+            ('implementation_overview', 'str', '1.1',
+                "Overview of the algorithm implementation."),
+            ('prognostic_variables', 'data.variable_collection', '0.N',
+                "Prognostic variables associated with this algorithm."),
+            ('references', 'shared.citation', '0.N',
+                "Relevant references.")
+        ]
     }
 
 
@@ -46,19 +39,17 @@ def conservation_properties():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("corrected_conserved_prognostic_variables", "data.variable_collection", "0.1"),
-            ("correction_methodology", "str", "0.1"),
-            ("flux_correction_was_used", "bool", "1.1")
-        ],
-        "doc_strings": {
-            "corrected_conserved_prognostic_variables": "Set of variables which are conserved by *more* than the numerical scheme alone.",
-            "correction_methodology": "Description of method by which correction was achieved.",
-            "flux_correction_was_used": "Flag to indicate if correction involved flux correction."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('corrected_conserved_prognostic_variables', 'data.variable_collection', '0.1',
+                "Set of variables which are conserved by *more* than the numerical scheme alone."),
+            ('correction_methodology', 'str', '0.1',
+                "Description of method by which correction was achieved."),
+            ('flux_correction_was_used', 'bool', '1.1',
+                "Flag to indicate if correction involved flux correction.")
+        ]
     }
 
 
@@ -70,31 +61,30 @@ def extent():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("eastern_boundary", "float", "0.1"),
-            ("is_global", "bool", "1.1"),
-            ("maximum_vertical_level", "float", "0.1"),
-            ("minimum_vertical_level", "float", "0.1"),
-            ("northern_boundary", "float", "0.1"),
-            ("region_known_as", "str", "0.N"),
-            ("southern_boundary", "float", "0.1"),
-            ("western_boundary", "float", "0.1"),
-            ("z_units", "str", "1.1")
-        ],
-        "doc_strings": {
-            "eastern_boundary": "If not global, eastern boundary in degrees of longitude.",
-            "is_global": "True if horizontal coverage is global.",
-            "maximum_vertical_level": "Maximum vertical level.",
-            "minimum_vertical_level": "Minimum vertical level.",
-            "northern_boundary": "If not global, northern boundary in degrees of latitude.",
-            "region_known_as": "Identifier or identifiers for the region covered by the extent.",
-            "southern_boundary": "If not global, southern boundary in degrees of latitude.",
-            "western_boundary": "If not global, western boundary in degrees of longitude.",
-            "z_units": "Units of vertical measure."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'pstr': ('%s', ('region_known_as',)),
+        'properties': [
+            ('eastern_boundary', 'float', '0.1',
+                "If not global, eastern boundary in degrees of longitude."),
+            ('is_global', 'bool', '1.1',
+                "True if horizontal coverage is global."),
+            ('maximum_vertical_level', 'float', '0.1',
+                "Maximum vertical level."),
+            ('minimum_vertical_level', 'float', '0.1',
+                "Minimum vertical level."),
+            ('northern_boundary', 'float', '0.1',
+                "If not global, northern boundary in degrees of latitude."),
+            ('region_known_as', 'str', '0.N',
+                "Identifier or identifiers for the region covered by the extent."),
+            ('southern_boundary', 'float', '0.1',
+                "If not global, southern boundary in degrees of latitude."),
+            ('western_boundary', 'float', '0.1',
+                "If not global, western boundary in degrees of longitude."),
+            ('z_units', 'str', '1.1',
+                "Units of vertical measure.")
+        ]
     }
 
 
@@ -103,19 +93,17 @@ def grid_summary():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("grid_extent", "science.extent", "1.1"),
-            ("grid_layout", "science.grid_layouts", "1.1"),
-            ("grid_type", "science.grid_types", "1.1")
-        ],
-        "doc_strings": {
-            "grid_extent": "The extent of the computational domain in horizontal and vertical space.",
-            "grid_layout": "Type of horizontal grid-layout (e.g. Arakawa C-Grid.",
-            "grid_type": "Description of basic grid (e.g. 'cubed-sphere')."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('grid_extent', 'science.extent', '1.1',
+                "The extent of the computational domain in horizontal and vertical space."),
+            ('grid_layout', 'science.grid_layouts', '1.1',
+                "Type of horizontal grid-layout (e.g. Arakawa C-Grid."),
+            ('grid_type', 'science.grid_types', '1.1',
+                "Description of basic grid (e.g. 'cubed-sphere').")
+        ]
     }
 
 
@@ -126,29 +114,29 @@ def model():
 
     """
     return {
-        "type": "class",
-        "base": "software.component_base",
-        "is_abstract": False,
-        "properties": [
-            ("category", "science.model_types", "1.1"),
-            ("coupled_software_components", "science.model", "0.N"),
-            ("coupler", "software.coupling_framework", "0.1"),
-            ("extra_conservation_properties", "science.conservation_properties", "0.1"),
-            ("internal_software_components", "software.software_component", "0.N"),
-            ("link_to_coupled_software_components", "shared.doc_reference", "0.N"),
-            ("link_to_scientific_domain", "shared.doc_reference", "0.N"),
-            ("meta", "shared.doc_meta_info", "1.1"),
-            ("scientific_domain", "science.scientific_domain", "0.N")
-        ],
-        "doc_strings": {
-            "category": "Generic type for this model.",
-            "coupled_software_components": "Software components which are linked together using a coupler to deliver this model.",
-            "coupler": "Overarching coupling framework for model.",
-            "extra_conservation_properties": "Details of any extra methodology needed to conserve variables between coupled components.",
-            "internal_software_components": "Software modules which together provide the functionality for this model.",
-            "meta": "Metadata about how the model description was constructed.",
-            "scientific_domain": "The scientific domains which this model simulates."
-        }
+        'type': 'class',
+        'base': 'software.component_base',
+        'is_abstract': False,
+        'properties': [
+            ('category', 'science.model_types', '1.1',
+                "Generic type for this model."),
+            ('coupled_software_components', 'science.model', '0.N',
+                "Software components which are linked together using a coupler to deliver this model."),
+            ('coupler', 'software.coupling_framework', '0.1',
+                "Overarching coupling framework for model."),
+            ('extra_conservation_properties', 'science.conservation_properties', '0.1',
+                "Details of any extra methodology needed to conserve variables between coupled components."),
+            ('internal_software_components', 'software.software_component', '0.N',
+                "Software modules which together provide the functionality for this model."),
+            ('link_to_coupled_software_components', 'shared.doc_reference', '0.N',
+                "Reference to linked document(s)."),
+            ('link_to_scientific_domain', 'shared.doc_reference', '0.N',
+                "Reference to linked document(s)."),
+            ('meta', 'shared.doc_meta_info', '1.1',
+                "Metadata about how the model description was constructed."),
+            ('scientific_domain', 'science.scientific_domain', '0.N',
+                "The scientific domains which this model simulates.")
+        ]
     }
 
 
@@ -161,31 +149,29 @@ def process():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("algorithms", "science.algorithm", "0.N"),
-            ("description", "str", "0.1"),
-            ("implementation_overview", "str", "1.1"),
-            ("keywords", "str", "1.1"),
-            ("name", "str", "1.1"),
-            ("properties", "science.process_detail", "0.N"),
-            ("references", "shared.reference", "0.N"),
-            ("sub_processes", "science.sub_process", "0.N"),
-            ("time_step_in_process", "float", "0.1")
-        ],
-        "doc_strings": {
-            "algorithms": "Descriptions of algorithms and their properties used in the process.",
-            "description": "Short description of the process which is being simulated.",
-            "implementation_overview": "General overview description of the implementation of this process.",
-            "keywords": "keywords to help re-use and discovery of this information.",
-            "name": "Short name for the process of interest.",
-            "properties": "Sets of properties for this process.",
-            "references": "Any relevant references describing this process and/or it's implementation.",
-            "sub_processes": "Discrete portion of a process with common process details.",
-            "time_step_in_process": "Timestep (in seconds). Only needed if differing from parent component."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('algorithms', 'science.algorithm', '0.N',
+                "Descriptions of algorithms and their properties used in the process."),
+            ('description', 'str', '0.1',
+                "Short description of the process which is being simulated."),
+            ('implementation_overview', 'str', '1.1',
+                "General overview description of the implementation of this process."),
+            ('keywords', 'str', '1.1',
+                "keywords to help re-use and discovery of this information."),
+            ('name', 'str', '1.1',
+                "Short name for the process of interest."),
+            ('properties', 'science.process_detail', '0.N',
+                "Sets of properties for this process."),
+            ('references', 'shared.reference', '0.N',
+                "Any relevant references describing this process and/or it's implementation."),
+            ('sub_processes', 'science.sub_process', '0.N',
+                "Discrete portion of a process with common process details."),
+            ('time_step_in_process', 'float', '0.1',
+                "Timestep (in seconds). Only needed if differing from parent component.")
+        ]
     }
 
 
@@ -198,23 +184,21 @@ def process_detail():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("cardinality_of_selection", "science.selection_cardinality", "0.1"),
-            ("content", "str", "0.1"),
-            ("detail_selection", "str", "0.N"),
-            ("detail_vocabulary", "str", "0.1"),
-            ("heading", "str", "0.1")
-        ],
-        "doc_strings": {
-            "cardinality_of_selection": "Required cardinality of selection from vocabulary.",
-            "content": "Free text description of process detail (if required).",
-            "detail_selection": "List of choices from the vocabulary of possible detailed options.",
-            "detail_vocabulary": "Name of an enumeration vocabulary of possible detail options.",
-            "heading": "A heading for this detail description."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('cardinality_of_selection', 'science.selection_cardinality', '0.1',
+                "Required cardinality of selection from vocabulary."),
+            ('content', 'str', '0.1',
+                "Free text description of process detail (if required)."),
+            ('detail_selection', 'str', '0.N',
+                "List of choices from the vocabulary of possible detailed options."),
+            ('detail_vocabulary', 'str', '0.1',
+                "Name of an enumeration vocabulary of possible detail options."),
+            ('heading', 'str', '0.1',
+                "A heading for this detail description.")
+        ]
     }
 
 
@@ -227,23 +211,21 @@ def resolution():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("equivalent_horizontal_resolution", "float", "1.1"),
-            ("is_adaptive_grid", "bool", "0.1"),
-            ("name", "str", "1.1"),
-            ("number_of_levels", "int", "0.N"),
-            ("number_of_xy_gridpoints", "int", "0.N")
-        ],
-        "doc_strings": {
-            "equivalent_horizontal_resolution": "Resolution in metres of 'typical grid cell' (for gross comparisons of resolution), eg. 50000 (50km).",
-            "is_adaptive_grid": "Default is False, set true if grid resolution changes during execution.",
-            "name": "This is a string usually used by the modelling group to describe their model component  or process resolution,  e.g. N512L180 or T512L70 etc.",
-            "number_of_levels": "Number of vertical levels resolved.",
-            "number_of_xy_gridpoints": "Total number of horizontal points on computational grids."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('equivalent_horizontal_resolution', 'float', '1.1',
+                "Resolution in metres of 'typical grid cell' (for gross comparisons of resolution), eg. 50000 (50km)."),
+            ('is_adaptive_grid', 'bool', '0.1',
+                "Default is False, set true if grid resolution changes during execution."),
+            ('name', 'str', '1.1',
+                "This is a string usually used by the modelling group to describe their model component  or process resolution,  e.g. N512L180 or T512L70 etc."),
+            ('number_of_levels', 'int', '0.N',
+                "Number of vertical levels resolved."),
+            ('number_of_xy_gridpoints', 'int', '0.N',
+                "Total number of horizontal points on computational grids.")
+        ]
     }
 
 
@@ -253,35 +235,33 @@ def scientific_domain():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("extra_conservation_properties", "science.conservation_properties", "0.1"),
-            ("grid", "science.grid_summary", "0.1"),
-            ("meta", "shared.doc_meta_info", "1.1"),
-            ("name", "str", "1.1"),
-            ("overview", "str", "0.1"),
-            ("realm", "str", "0.1"),
-            ("references", "shared.reference", "0.N"),
-            ("resolution", "science.resolution", "1.1"),
-            ("simulates", "science.process", "1.N"),
-            ("time_step", "float", "1.1"),
-            ("tuning_applied", "science.tuning", "0.1")
-        ],
-        "doc_strings": {
-            "extra_conservation_properties": "Details of any extra methodology needed to conserve variables between processes.",
-            "grid": "Summary description of the grid upon which computations were carried out.",
-            "meta": "Metadata describing the construction of this domain description.",
-            "name": "Name of the scientific domain (e.g. ocean).",
-            "overview": "Free text overview description of key properties of domain.",
-            "realm": "Canonical name for the domain of this scientific area.",
-            "references": "Any relevant references describing the implementation of this domain in a relevant model.",
-            "resolution": "Default resolution of component.",
-            "simulates": "Processes simulated within the domain.",
-            "time_step": "Timestep (in seconds) of overall component.",
-            "tuning_applied": "Describe any tuning used to optimise the parameters in this model/component."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('extra_conservation_properties', 'science.conservation_properties', '0.1',
+                "Details of any extra methodology needed to conserve variables between processes."),
+            ('grid', 'science.grid_summary', '0.1',
+                "Summary description of the grid upon which computations were carried out."),
+            ('meta', 'shared.doc_meta_info', '1.1',
+                "Metadata describing the construction of this domain description."),
+            ('name', 'str', '1.1',
+                "Name of the scientific domain (e.g. ocean)."),
+            ('overview', 'str', '0.1',
+                "Free text overview description of key properties of domain."),
+            ('realm', 'str', '0.1',
+                "Canonical name for the domain of this scientific area."),
+            ('references', 'shared.reference', '0.N',
+                "Any relevant references describing the implementation of this domain in a relevant model."),
+            ('resolution', 'science.resolution', '1.1',
+                "Default resolution of component."),
+            ('simulates', 'science.process', '1.N',
+                "Processes simulated within the domain."),
+            ('time_step', 'float', '1.1',
+                "Timestep (in seconds) of overall component."),
+            ('tuning_applied', 'science.tuning', '0.1',
+                "Describe any tuning used to optimise the parameters in this model/component.")
+        ]
     }
 
 
@@ -290,9 +270,9 @@ def selection_cardinality():
 
     """
     return {
-        "type": "enum",
-        "is_open": False,
-        "members": [
+        'type': 'enum',
+        'is_open': False,
+        'members': [
             ("0.1", "Zero or one selections are permitted"),
             ("0.N", "Zero or many selections are permitted"),
             ("1.1", "One and only one selection is required"),
@@ -310,25 +290,23 @@ def sub_process():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("description", "str", "0.1"),
-            ("implementation_overview", "str", "0.1"),
-            ("keywords", "str", "0.1"),
-            ("name", "str", "1.1"),
-            ("properties", "science.process_detail", "0.N"),
-            ("references", "shared.reference", "0.N")
-        ],
-        "doc_strings": {
-            "description": "Short description of the sub-process context.",
-            "implementation_overview": "General overview description of the implementation of this part of the process.",
-            "keywords": "keywords to help re-use and discovery of this information.",
-            "name": "Short name for the collection of sub-process properties.",
-            "properties": "Sets of properties for this process.",
-            "references": "Any relevant references describing this part of the process and/or it's implementation."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('description', 'str', '0.1',
+                "Short description of the sub-process context."),
+            ('implementation_overview', 'str', '0.1',
+                "General overview description of the implementation of this part of the process."),
+            ('keywords', 'str', '0.1',
+                "keywords to help re-use and discovery of this information."),
+            ('name', 'str', '1.1',
+                "Short name for the collection of sub-process properties."),
+            ('properties', 'science.process_detail', '0.N',
+                "Sets of properties for this process."),
+            ('references', 'shared.reference', '0.N',
+                "Any relevant references describing this part of the process and/or it's implementation.")
+        ]
     }
 
 
@@ -337,19 +315,17 @@ def tuning():
 
     """
     return {
-        "type": "class",
-        "base": None,
-        "is_abstract": False,
-        "properties": [
-            ("description", "str", "1.1"),
-            ("global_mean_metrics_used", "data.variable_collection", "0.1"),
-            ("regional_metrics_used", "data.variable_collection", "0.1"),
-            ("trend_metrics_used", "data.variable_collection", "0.1")
-        ],
-        "doc_strings": {
-            "description": "Brief description of tuning methodology. Include information about observational period(s) used.",
-            "global_mean_metrics_used": "Set of metrics of the global mean state used in tuning model parameters.",
-            "regional_metrics_used": "Which regional metrics of mean state (e.g Monsoons, tropical means etc) have been used in tuning.",
-            "trend_metrics_used": "Which observed trend metrics have been used in tuning model parameters."
-        }
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('description', 'str', '1.1',
+                "Brief description of tuning methodology. Include information about observational period(s) used."),
+            ('global_mean_metrics_used', 'data.variable_collection', '0.1',
+                "Set of metrics of the global mean state used in tuning model parameters."),
+            ('regional_metrics_used', 'data.variable_collection', '0.1',
+                "Which regional metrics of mean state (e.g Monsoons, tropical means etc) have been used in tuning."),
+            ('trend_metrics_used', 'data.variable_collection', '0.1',
+                "Which observed trend metrics have been used in tuning model parameters.")
+        ]
     }
