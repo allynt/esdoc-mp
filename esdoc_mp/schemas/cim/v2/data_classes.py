@@ -16,9 +16,9 @@ def data_association_types():
         'type': 'enum',
         'is_open': False,
         'members': [
-            ("revisonOf", "None"),
-            ("partOf", "None"),
-            ("isComposedOf", "None")
+            ("revisonOf", None),
+            ("partOf", None),
+            ("isComposedOf", None)
         ]
     }
 
@@ -38,10 +38,6 @@ def dataset():
                 "Textural description of dataset."),
             ('drs_datasets', 'drs.drs_publication_dataset', '0.N',
                 "Data available in the DRS."),
-            ('link_to_produced_by', 'shared.doc_reference', '0.1',
-                "Reference to linked document(s)."),
-            ('link_to_responsible_parties', 'shared.doc_reference', '0.N',
-                "Reference to linked document(s)."),
             ('meta', 'shared.doc_meta_info', '1.1',
                 "Metadata describing the creation of this dataset description document."),
             ('name', 'str', '1.1',
@@ -68,9 +64,7 @@ def downscaling():
         'is_abstract': False,
         'properties': [
             ('downscaled_from', 'data.simulation', '1.1',
-                "The simulation that was downscaled by this downscaling activity."),
-            ('link_to_downscaled_from', 'shared.doc_reference', '1.1',
-                "Reference to linked document(s).")
+                "The simulation that was downscaled by this downscaling activity.")
         ]
     }
 
@@ -84,8 +78,6 @@ def related_data():
         'base': 'shared.cim_link',
         'is_abstract': False,
         'properties': [
-            ('link_to_other_dataset', 'shared.doc_reference', '1.1',
-                "Reference to linked document(s)."),
             ('other_dataset', 'data.dataset', '1.1',
                 "Remote dataset."),
             ('relationship', 'data.data_association_types', '1.1',
@@ -108,14 +100,6 @@ def simulation():
                 "The calendar used in the simulation."),
             ('ensemble_identifier', 'str', '1.1',
                 "String that can be used to extract ensemble axis membership from the primary ensemble(e.g. cmip6 rip string as in the DRS)."),
-            ('link_to_part_of_project', 'shared.doc_reference', '1.N',
-                "Reference to linked document(s)."),
-            ('link_to_primary_ensemble', 'shared.doc_reference', '0.1',
-                "Reference to linked document(s)."),
-            ('link_to_ran_for_experiments', 'shared.doc_reference', '1.N',
-                "Reference to linked document(s)."),
-            ('link_to_used', 'shared.doc_reference', '1.1',
-                "Reference to linked document(s)."),
             ('parent_simulation', 'activity.parent_simulation', '0.1',
                 "If appropriate, detailed information about how this simulation branched from a previous one."),
             ('part_of_project', 'designing.project', '1.N',

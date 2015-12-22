@@ -71,8 +71,6 @@ def conformance():
         'base': 'activity.activity',
         'is_abstract': False,
         'properties': [
-            ('link_to_target_requirement', 'shared.doc_reference', '1.1',
-                "Reference to linked document(s)."),
             ('target_requirement', 'designing.numerical_requirement', '1.1',
                 "URI of the target numerical requirement.")
         ]
@@ -95,10 +93,6 @@ def ensemble():
                 "Conformance documents for requirements common across ensemble."),
             ('has_ensemble_axes', 'activity.ensemble_axis', '0.N',
                 "Set of axes for the ensemble."),
-            ('link_to_common_conformances', 'shared.doc_reference', '0.N',
-                "Reference to linked document(s)."),
-            ('link_to_supported', 'shared.doc_reference', '1.N',
-                "Reference to linked document(s)."),
             ('members', 'activity.ensemble_member', '1.N',
                 "The set of ensemble members."),
             ('part_of', 'activity.uber_ensemble', '0.N',
@@ -121,8 +115,6 @@ def ensemble_axis():
         'properties': [
             ('extra_detail', 'str', '1.1',
                 "Any extra detail required to describe how this ensemble axis was delivered."),
-            ('link_to_target_requirement', 'shared.doc_reference', '1.1',
-                "Reference to linked document(s)."),
             ('member', 'activity.axis_member', '1.N',
                 "Individual member descriptions along axis."),
             ('short_identifier', 'str', '1.1',
@@ -146,12 +138,6 @@ def ensemble_member():
         'properties': [
             ('had_performance', 'platform.performance', '0.1',
                 "Performance of the simulation."),
-            ('link_to_had_performance', 'shared.doc_reference', '0.1',
-                "Reference to linked document(s)."),
-            ('link_to_ran_on', 'shared.doc_reference', '1.1',
-                "Reference to linked document(s)."),
-            ('link_to_simulation', 'shared.doc_reference', '1.1',
-                "Reference to linked document(s)."),
             ('ran_on', 'platform.machine', '1.1',
                 "The machine on which the simulation was run."),
             ('simulation', 'data.simulation', '1.1',
@@ -207,8 +193,6 @@ def parent_simulation():
                 "The time at which the present simulation started in the child calendar."),
             ('branch_time_in_parent', 'shared.date_time', '0.1',
                 "The time in parent simulation calendar at which this simulation was branched."),
-            ('link_to_parent', 'shared.doc_reference', '1.1',
-                "Reference to linked document(s)."),
             ('parent', 'data.simulation', '1.1',
                 "The parent simulation of this child.")
         ]
@@ -227,8 +211,6 @@ def uber_ensemble():
         'is_abstract': False,
         'properties': [
             ('child_ensembles', 'activity.ensemble', '1.N',
-                "Ensemble which are aggregated into this one."),
-            ('link_to_child_ensembles', 'shared.doc_reference', '1.N',
-                "Reference to linked document(s).")
+                "Ensemble which are aggregated into this one.")
         ]
     }

@@ -194,8 +194,6 @@ def responsibility():
         'is_abstract': False,
         'pstr': ('%s:%s', ('role', 'party')),
         'properties': [
-            ('link_to_party', 'shared.doc_reference', '1.N',
-                "Reference to linked document(s)."),
             ('party', 'shared.party', '1.N',
                 "Parties delivering responsibility."),
             ('role', 'shared.role_code', '1.1',
@@ -214,19 +212,19 @@ def role_code():
         'type': 'enum',
         'is_open': False,
         'members': [
-            ("Principal Investigator", "None"),
-            ("originator", "None"),
-            ("author", "None"),
-            ("collaborator", "None"),
-            ("publisher", "None"),
-            ("owner", "None"),
-            ("processor", "None"),
-            ("distributor", "None"),
-            ("sponsor", "None"),
-            ("user", "None"),
-            ("point of contact", "None"),
-            ("resource provider", "None"),
-            ("custodian", "None")
+            ("Principal Investigator", None),
+            ("originator", None),
+            ("author", None),
+            ("collaborator", None),
+            ("publisher", None),
+            ("owner", None),
+            ("processor", None),
+            ("distributor", None),
+            ("sponsor", None),
+            ("user", None),
+            ("point of contact", None),
+            ("resource provider", None),
+            ("custodian", None)
         ]
     }
 

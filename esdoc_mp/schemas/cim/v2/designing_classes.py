@@ -37,8 +37,6 @@ def ensemble_requirement():
                 "Constraint on each ensemble member."),
             ('ensemble_type', 'designing.ensemble_types', '1.1',
                 "Type of ensemble."),
-            ('link_to_ensemble_member', 'shared.doc_reference', '0.N',
-                "Reference to linked document(s)."),
             ('minimum_size', 'int', '1.1',
                 "Minimum number of members.")
         ]
@@ -117,9 +115,7 @@ def multi_ensemble():
         'is_abstract': False,
         'properties': [
             ('ensemble_axis', 'designing.ensemble_requirement', '1.N',
-                "List of orthogonal ensembles."),
-            ('link_to_ensemble_axis', 'shared.doc_reference', '1.N',
-                "Reference to linked document(s).")
+                "List of orthogonal ensembles.")
         ]
     }
 
@@ -148,10 +144,6 @@ def numerical_experiment():
         'base': 'activity.activity',
         'is_abstract': False,
         'properties': [
-            ('link_to_related_experiments', 'shared.doc_reference', '0.N',
-                "Reference to linked document(s)."),
-            ('link_to_requirements', 'shared.doc_reference', '0.N',
-                "Reference to linked document(s)."),
             ('related_experiments', 'designing.numerical_experiment', '0.N',
                 "A related experiment."),
             ('requirements', 'designing.numerical_requirement', '0.N',
@@ -172,9 +164,7 @@ def numerical_requirement():
             ('additional_requirements', 'designing.numerical_requirement', '0.N',
                 "Additional requirement detail."),
             ('conformance_is_requested', 'bool', '1.1',
-                "Indicator as to whether ensemble documentation should include conformance information for this requirement."),
-            ('link_to_additional_requirements', 'shared.doc_reference', '0.N',
-                "Reference to linked document(s).")
+                "Indicator as to whether ensemble documentation should include conformance information for this requirement.")
         ]
     }
 
@@ -211,12 +201,6 @@ def project():
         'base': 'activity.activity',
         'is_abstract': False,
         'properties': [
-            ('link_to_previous_projects', 'shared.doc_reference', '0.N',
-                "Reference to linked document(s)."),
-            ('link_to_requires_experiments', 'shared.doc_reference', '0.N',
-                "Reference to linked document(s)."),
-            ('link_to_sub_projects', 'shared.doc_reference', '0.N',
-                "Reference to linked document(s)."),
             ('previous_projects', 'designing.project', '0.N',
                 "Previous projects with similar aims."),
             ('requires_experiments', 'designing.numerical_experiment', '0.N',
@@ -242,12 +226,6 @@ def simulation_plan():
                 "Expected performance in simulated years per real day."),
             ('expected_platform', 'platform.machine', '0.1',
                 "The machine on which the simulation will be run."),
-            ('link_to_expected_model', 'shared.doc_reference', '1.1',
-                "Reference to linked document(s)."),
-            ('link_to_expected_platform', 'shared.doc_reference', '0.1',
-                "Reference to linked document(s)."),
-            ('link_to_will_support_experiments', 'shared.doc_reference', '1.N',
-                "Reference to linked document(s)."),
             ('will_support_experiments', 'designing.numerical_experiment', '1.N',
                 "An experiment with which the planned simulation will be associated.")
         ]

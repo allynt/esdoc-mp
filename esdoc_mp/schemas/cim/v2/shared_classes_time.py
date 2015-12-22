@@ -148,8 +148,8 @@ def slicetime_units():
         'type': 'enum',
         'is_open': False,
         'members': [
-            ("yearly", "None"),
-            ("monthly", "None")
+            ("yearly", None),
+            ("monthly", None)
         ]
     }
 
@@ -186,10 +186,10 @@ def time_units():
         'type': 'enum',
         'is_open': False,
         'members': [
-            ("years", "None"),
-            ("months", "None"),
-            ("days", "None"),
-            ("seconds", "None")
+            ("years", None),
+            ("months", None),
+            ("days", None),
+            ("seconds", None)
         ]
     }
 
