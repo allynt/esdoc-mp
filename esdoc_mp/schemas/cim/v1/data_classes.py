@@ -191,7 +191,6 @@ def data_object():
             ('geometry_model', 'str', '0.1'),
             ('hierarchy_level', 'data.data_hierarchy_level', '0.1'),
             ('keyword', 'str', '0.1'),
-            ('link_to_parent_object', 'shared.doc_reference', '0.1'),
             ('parent_object', 'data.data_object', '0.1'),
             ('properties', 'data.data_property', '0.N'),
             ('purpose', 'str', '0.1'),

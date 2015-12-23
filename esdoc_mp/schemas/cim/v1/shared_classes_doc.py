@@ -43,11 +43,10 @@ def doc_relationship_target():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('reference', 'shared.doc_reference', '0.1'),
-            ('document', 'shared.doc_type', '0.1'),
+            ('reference', 'shared.doc_reference', '0.1')
         ],
         'decodings': [
-            ('reference', 'child::cim:reference'),
+            ('reference', 'child::cim:reference', 'shared.doc_reference')
         ]
     }
 
