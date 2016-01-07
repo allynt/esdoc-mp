@@ -31,7 +31,7 @@ class Property(object):
 
         self.cls = None
         self.decodings = []
-        self.doc_string = doc_string if doc_string is not None else ''
+        self.doc_string = doc_string if doc_string is not None else u""
         self.cardinality = cardinality
         self.is_required = cardinality.split('.')[0] != '0'
         self.is_iterative = cardinality.split('.')[1] == 'N'

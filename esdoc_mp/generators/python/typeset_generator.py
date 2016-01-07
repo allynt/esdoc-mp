@@ -339,11 +339,12 @@ def _emit_snippet_class_doc_string(c):
 def _emit_snippet_class_properties(c):
     """Emits set of class properties."""
     def get_code(p):
-        return "{0}{1}{2}# {3}{4}".format(
+        return "{0}{1}{2}# {3} ({4}){5}".format(
             gu.emit_indent(2),
             pgu.get_property_ctor(p),
             ''.ljust(50 - len(pgu.get_property_ctor(p))),
             pgu.get_type_doc_name(p.type),
+            p.cardinality,
             gu.emit_line_return()
         )
 
