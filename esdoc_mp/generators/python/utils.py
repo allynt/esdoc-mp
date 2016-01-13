@@ -135,6 +135,7 @@ def get_ontology_directory(ctx, sub=None, include_version=True):
     if sub is not None:
         dir += '/'
         dir += sub
+
     return dir
 
 
