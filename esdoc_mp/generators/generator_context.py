@@ -82,3 +82,13 @@ class GeneratorContext(object):
         self.pkg = enum.package
         self.cls = None
         self.enum = enum
+
+
+    def set_node(self, node):
+        """Sets current node being processed.
+
+        :param lxml.Element node: An XML node
+
+        """
+        # TODO: CONSIDER MOVING THIS FUNCTIONALITY TO THE esdoc_mp.generators.qxml PACKAGE
+        self.node = node
