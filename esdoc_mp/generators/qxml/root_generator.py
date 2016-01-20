@@ -59,7 +59,7 @@ class RootGenerator(Generator):
 
         cls = ctx.cls
 
-        if not cls.is_abstract and not qgu.is_meta_class(cls):
+        if not cls.is_abstract and not qgu.is_meta_class(cls):  # only generate concrete non-meta classes
 
             class_node = et.Element("class")
 
@@ -74,8 +74,7 @@ class RootGenerator(Generator):
             class_attributes_node = et.Element("attributes")
 
             all_attributes = reduce(list.__add__, qgu.recurse_through_base_classes(lambda c: list(c.properties), cls))
-            non_meta_attributes = [a for a in all_attributes if not qgu.is_meta_property(a)]
-
+            non_meta_attributes = [a for a in all_attributes if not qgu.is_meta_property(a)]  # only generate non-meta properties
             for attribute in non_meta_attributes:
                 attribute_node = et.Element("attribute")
                 attribute_node.set("package", attribute.package.name)
@@ -86,10 +85,6 @@ class RootGenerator(Generator):
                 attribute_cardinality_node = et.Element("cardinality")
                 attribute_cardinality_node.set("min", attribute.min_occurs)
                 attribute_cardinality_node.set("max", attribute.max_occurs)
-
-                # TODO: IF THIS ATTRIBUTE IS A MEMBER OF "DOC_META_INFO"
-                # TODO: THEN MARK IT W/ SOMETHING LIKE "stereotype='document'"
-                # TODO: SO THAT I CAN PURPOSEFULLY IGNORE IT WHEN CREATING PROXIES IN THE Q
 
                 attribute_type = qgu.get_property_type(attribute)
                 attribute_type_node = et.Element("type")
