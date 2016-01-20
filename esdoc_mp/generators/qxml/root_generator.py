@@ -51,15 +51,19 @@ class RootGenerator(Generator):
     #     pass
 
     def on_class_parse(self, ctx):
+        """Event handler for the class parse event.
+
+        :param GeneratorContext ctx: Generation context information.
+
+        """
 
         cls = ctx.cls
 
-        if not cls.is_abstract:
+        if not cls.is_abstract and not qgu.is_meta_class(cls):
 
             class_node = et.Element("class")
 
-            is_standalone_class = any(qgu.recurse_through_base_classes(lambda c: c.is_entity, cls))
-            if is_standalone_class:
+            if qgu.is_standalone_class(cls):
                 class_node.set("stereotype", "document")
 
             class_node.set("package", ctx.pkg.name)
@@ -69,8 +73,10 @@ class RootGenerator(Generator):
             class_description_node.text = cls.doc_string
             class_attributes_node = et.Element("attributes")
 
-            attributes = reduce(list.__add__, qgu.recurse_through_base_classes(lambda c: list(c.properties), cls))
-            for attribute in attributes:
+            all_attributes = reduce(list.__add__, qgu.recurse_through_base_classes(lambda c: list(c.properties), cls))
+            non_meta_attributes = [a for a in all_attributes if not qgu.is_meta_property(a)]
+
+            for attribute in non_meta_attributes:
                 attribute_node = et.Element("attribute")
                 attribute_node.set("package", attribute.package.name)
                 attribute_name_node = et.Element("name")
@@ -104,9 +110,7 @@ class RootGenerator(Generator):
                 elif attribute_type == qgu.QXML_ENUMERATION_TYPE:
                     attribute_enumeration_node = et.Element("enumeration")
                     attribute_enumeration_node.set("enumeration_name", attribute.type.name)
-                    # TODO: WORK OUT HOW THESE ARE SET...
-                    # TODO: (these are set on the attribute, not on the enum, right?)
-                    # TODO: (if I'm wrong, update 'on_enum_parse' below)
+                    # TODO: WORK OUT HOW "is_open" & "is_nillable" ARE SET...
                     attribute_is_open = False
                     attribute_is_multi = attribute.cardinality.split('.')[1] != '0'
                     attribute_is_nillable = False
@@ -114,7 +118,7 @@ class RootGenerator(Generator):
                     attribute_enumeration_node.set("is_multi", "true" if attribute_is_multi else "false")
                     attribute_enumeration_node.set("is_nillable", "true" if attribute_is_nillable else "false")
                     attribute_choices_node = et.Element("choices")
-                    # this node is completed (the choices are added) in the 'on_enum_parse' fn below...
+                    # attribute_node is completed (ie: the choices are added) in the 'on_enum_parse' fn below...
                     attribute_enumeration_node.append(attribute_choices_node)
                     attribute_node.append(attribute_enumeration_node)
 
@@ -135,6 +139,11 @@ class RootGenerator(Generator):
             classes_node.append(class_node)
 
     def on_enum_parse(self, ctx):
+        """Event handler for the enum parse event.
+
+        :param GeneratorContext ctx: Generation context information.
+
+        """
 
         enum = ctx.enum
         enum_name = qgu.get_qualified_enum_name(enum)
@@ -160,6 +169,11 @@ class RootGenerator(Generator):
                 enumeration_choices_node.append(enumeration_choice_node)
 
     def on_start(self, ctx):
+        """Event handler for the start parse event.
+
+        :param GeneratorContext ctx: Generation context information.
+
+        """
 
         root_node = et.Element("ontology")
         comment_node = et.Comment(
@@ -172,6 +186,12 @@ class RootGenerator(Generator):
         ctx.set_node(root_node)
 
     def on_end(self, ctx):
+        """Event handler for the end parse event.
+
+        :param GeneratorContext ctx: Generation context information.
+
+        """
+
         output_filepath = qgu.get_ontology_path(ctx)
         if not os.path.exists(os.path.dirname(output_filepath)):
             try:
