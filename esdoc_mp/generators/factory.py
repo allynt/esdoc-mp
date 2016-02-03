@@ -12,6 +12,7 @@
 from esdoc_mp.generators.python.root_generator import RootGenerator
 from esdoc_mp.generators.python.decoder_generator import DecoderGenerator
 from esdoc_mp.generators.python.typeset_generator import TypesetGenerator
+from esdoc_mp.generators.qxml.root_generator import RootGenerator as QRootGenerator
 
 
 
@@ -27,9 +28,20 @@ def _get_generators_for_python():
     }
 
 
+def _get_generators_for_qxml():
+    """Returns set of supported qxml generators.
+
+    """
+
+    return {
+        'root' : QRootGenerator,
+    }
+
+
 # Set of supported generators grouped by programming language.
 _generators = {
-    'python' : _get_generators_for_python
+    'python' : _get_generators_for_python,
+    'qxml' : _get_generators_for_qxml,
 }
 
 

@@ -17,12 +17,16 @@ from esdoc_mp.core.factory import create_ontology
 from esdoc_mp.generators.factory import create_generators
 from esdoc_mp.generators.generator_options import GeneratorOptions
 from esdoc_mp.generators.python.utils import format as format_python
+from esdoc_mp.generators.qxml.utils import format as format_qxml
+
 
 
 
 # Set of formatters keyed by programming language.
 _formatters = {
-    'python' : format_python
+    'python' : format_python,
+    'qxml' : format_qxml,
+
 }
 
 
@@ -33,6 +37,7 @@ _LANGUAGES = {
     'java',
     'javascript',
     'python',
+    'qxml',
 }
 
 
