@@ -50,4 +50,4 @@ def log(msg):
     if msg.startswith('-'):
         print(msg)
     else:
-        print("ES-DOC Meta-Programming Framework :: {}".format(msg))
+        print("ES-DOC-MP :: {}".format(msg))

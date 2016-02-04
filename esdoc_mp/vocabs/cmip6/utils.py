@@ -1,38 +1,149 @@
+import inspect
+
+from esdoc_mp.utils import log
+
+
+
 # Base url for linking back to meta-definitions.
-_URL = "https://github.com/ES-DOC/esdoc-mp/tree/master/esdoc_mp/vocabs/cmip6"
+_URL = "https://github.com/ES-DOC/esdoc-mp/blob/master/esdoc_mp/vocabs/"
 
 
-class Vocab(object):
-    """Wraps the definitions of the CMIP6 vocab.
+class VocabParser(object):
+    """Parses CMIP6 vocab raising events as it does so.
 
     """
-    def __init__(self, module):
+    def __init__(self, domain_filter=None):
+        """Instance constructor.
+
+        """
+        self.domain_filter = domain_filter
+
+    def parse(self):
+        """Parses the CMIP6 vocabulary.
+
+        """
+        vocab = Vocab()
+
+        log("parsing: {}".format(vocab))
+        self.on_vocab_parse(vocab)
+
+        for domain in vocab.domains:
+            if self.domain_filter and self.domain_filter == domain.name:
+                continue
+            log("parsing: {}".format(domain))
+            self.on_domain_parse(domain)
+
+            for process in sorted(domain.processes, key = lambda p: p.name):
+                log("parsing: {}".format(process))
+                self.on_process_parse(domain, process)
+
+                for sub_process in sorted(process.sub_processes, key = lambda sp: sp.name):
+                    log("parsing: {}".format(sub_process))
+                    self.on_subprocess_parse(process, sub_process)
+
+                    for detail in sub_process.details:
+                        log("parsing: {}".format(detail))
+                        self.on_detail_parse(sub_process, detail)
+
+                        for detail_property in detail.properties:
+                            log("parsing: {}".format(detail_property))
+                            self.on_detail_property_parse(detail, detail_property)
+
+
+    def on_vocab_parse(self, vocab):
+        """On vocabulary parse event handler.
+
+        """
+
+        pass
+
+
+    def on_domain_parse(self, domain):
+        """On domain parse event handler.
+
+        """
+        pass
+
+
+    def on_process_parse(self, domain, process):
+        """On process parse event handler.
+
+        """
+        pass
+
+
+    def on_subprocess_parse(self, process, subprocess):
+        """On sub-process parse event handler.
+
+        """
+        pass
+
+
+    def on_detail_parse(self, owner, detail):
+        """On detail parse event handler.
+
+        """
+        pass
+
+
+    def on_detail_property_parse(self, owner, detail):
+        """On process detail parse event handler.
+
+        """
+        pass
+
+
+class _Node(object):
+    """Represents a node in the vocab.
+
+    """
+    def __init__(self, module, depth):
         """Instance constructor.
 
         """
         self._module = module
-        self.domains = [Domain(i) for i in module.domains]
+        self._depth = depth
+
+
+    def __repr__(self):
+        """Instance representation.
+
+        """
+        return "{}".format(self.id)
+
 
     @property
     def help(self):
-        """Vocabulary help text.
+        """Node help text.
 
         """
         return "{}.".format(self._module.__doc__.split(".")[0])
 
-    @property
-    def name(self):
-        """Vocabulary canonical name.
-
-        """
-        return self._module.__name__.split(".")[-1]
 
     @property
     def id(self):
-        """Vocabulary identifier.
+        """Node identifier.
 
         """
-        return ".".join(self._module.__name__.split(".")[-2:])
+        return ".".join(self._module.__name__.split(".")[0 - self._depth:])
+
+
+    @property
+    def name(self):
+        """Node canonical name.
+
+        """
+        return self._module.__name__.split(".")[-1].replace("_", "-")
+
+
+    @property
+    def type(self):
+        """Node type.
+
+        """
+        type_ = self.__class__.__name__.lower().replace("_", "-")
+
+        return type_[1:] if type_.startswith("-") else type_
 
 
     @property
@@ -40,10 +151,26 @@ class Vocab(object):
         """Vocab definition url.
 
         """
-        return _URL
+        url = "{}{}" if self._depth <= 3 else "{}{}.py"
+
+        return url.format(_URL, self.id.replace(".", "/"))
 
 
-class Domain(object):
+class Vocab(_Node):
+    """Wraps the definitions of the CMIP6 vocab.
+
+    """
+    def __init__(self):
+        """Instance constructor.
+
+        """
+        from esdoc_mp.vocabs import cmip6
+        super(Vocab, self).__init__(cmip6, 1)
+
+        self.domains = [_Domain(i) for i in cmip6.domains]
+
+
+class _Domain(_Node):
     """Wraps the definitions of a CMIP6 science domain definition.
 
     """
@@ -51,33 +178,11 @@ class Domain(object):
         """Instance constructor.
 
         """
-        self._module = module
-        self.processes = [Process(i) for i in module.processes]
-        self.fpath = "/Users/macg/dev/esdoc/repos/esdoc-cv/cmip6/mindmaps/ocean-1.mm"
-
-    @property
-    def help(self):
-        """Domain help text.
-
-        """
-        return "{}.".format(self._module.__doc__.split(".")[0])
-
-    @property
-    def name(self):
-        """Domain canonical name.
-
-        """
-        return self._module.__name__.split(".")[-1].replace("_", "-")
-
-    @property
-    def id(self):
-        """Domain identifier.
-
-        """
-        return ".".join(self._module.__name__.split(".")[-2:])
+        super(_Domain, self).__init__(module, 2)
+        self.processes = [_Process(i) for i in module.processes]
 
 
-class Process(object):
+class _Process(_Node):
     """Wraps the definitions of a CMIP6 science process definition.
 
     """
@@ -85,46 +190,11 @@ class Process(object):
         """Instance constructor.
 
         """
-        self._module = module
-        self.sub_processes = [SubProcess(i) for i in module.sub_processes]
-
-    @property
-    def help(self):
-        """Process help text.
-
-        """
-        return "{}.".format(self._module.__doc__.split(".")[0])
-
-    @property
-    def name(self):
-        """Process canonical name.
-
-        """
-        return self._module.__name__.split(".")[-1].replace("_", "-")
-
-    @property
-    def id(self):
-        """Process identifier.
-
-        """
-        return ".".join(self._module.__name__.split(".")[-3:])
-
-    @property
-    def notes(self):
-        """Process notes.
-
-        """
-        return "{}\n\n{}".format(self.id, self.help)
-
-    @property
-    def url(self):
-        """Process definition url.
-
-        """
-        return "{}/{}.py".format(_URL, self._module.__name__.replace(".", "/"))
+        super(_Process, self).__init__(module, 3)
+        self.sub_processes = [_Sub_Process(i) for i in module.sub_processes]
 
 
-class SubProcess(object):
+class _Sub_Process(_Node):
     """Wraps the definitions of a CMIP6 science sub-process definition.
 
     """
@@ -132,72 +202,113 @@ class SubProcess(object):
         """Instance constructor.
 
         """
+        super(_Sub_Process, self).__init__(module, 4)
         self._module = module
-
-    @property
-    def details(self):
-        """Associated process details.
-
-        """
-        return [ProcessDetail(self._module, i) for i in self._defn['values']['details']]
-
-    @property
-    def id(self):
-        """Sub-process identifier.
-
-        """
-        return self._defn['values']['id']
-
-    @property
-    def name(self):
-        """Sub-process canonical name.
-
-        """
-        return self._module.__name__.split(".")[-1].replace("_", "-")
-
-    @property
-    def notes(self):
-        """Sub-process notes.
-
-        """
-        return "{}\n\n{}".format(self.id, self.context)
-
-    @property
-    def url(self):
-        """Sub-process definition url.
-
-        """
-        return "{}/{}.py".format(_URL, self._module.__name__.replace(".", "/"))
+        self.details = [_Detail(self, m[0], m[1]) for m in inspect.getmembers(module) if not m[0].startswith("_")]
 
 
-class ProcessDetail(object):
-    """Wraps the definitions of a CMIP6 process detail definition.
+class _Detail(object):
+    """Wraps the definitions of a CMIP6 detail definition.
 
     """
-    def __init__(self, module, module_var):
+    def __init__(self, owner, name, func):
         """Instance constructor.
 
         """
-        self._module = module
-        self._module_var = module_var
+        self.owner = owner
+        self.name = name
+        self.func = func
+        self.obj = func()
+        self.properties = [_DetailProperty(self, i.replace("_", "-"), v) for i, v in self.obj.items()]
+
+    def __repr__(self):
+        """Instance representation.
+
+        """
+        return "{}".format(self.id)
+
 
     @property
-    def context(self):
-        return self._defn['values']['context']
+    def help(self):
+        """Node help text.
+
+        """
+        return "{}.".format(self.func.__doc__.split(".")[0])
+
 
     @property
     def id(self):
-        return self._defn['values']['id']
+        """Node identifier.
+
+        """
+        return "{}.{}".format(self.owner.id, self.name)
+
 
     @property
-    def name(self):
-        return self._defn['values']['name']
+    def type(self):
+        """Node type.
+
+        """
+        return "detail"
+
+
+class _DetailProperty(object):
+    """Wraps the definitions of a CMIP6 detail property definition.
+
+    """
+    def __init__(self, owner, name, obj):
+        """Instance constructor.
+
+        """
+        self.cardinality = obj['cardinality']
+        self.help = obj.get("help", None)
+        self.id = "{}.{}".format(owner.id, name)
+        self.owner = owner
+        self.name = name
+        self.obj = obj
+        self.type = "detail-property"
+        self.type_ = obj['type']
+
+        self.choices = [_EnumChoice(self, c[0], c[1]) for c in obj.get('choices', [])]
+
+    def __repr__(self):
+        """Instance representation.
+
+        """
+        return "{}".format(self.id)
+
 
     @property
-    def notes(self):
-        return "{}\n\n{}".format(self.id, self.context)
+    def is_enum(self):
+        """Returns flag indicating whether property is an enumeration declaration.
+
+        """
+        return self.type_ == 'enum'
+
+
+class _EnumChoice(object):
+    """Wraps the definitions of a CMIP6 enumeration choice definition.
+
+    """
+    def __init__(self, owner, value, help_text):
+        """Instance constructor.
+
+        """
+        self.owner = owner
+        self.name = value
+        self.value = value
+        self.help = help_text
+        self.id = "{}.{}".format(owner.id, value)
+
+    def __repr__(self):
+        """Instance representation.
+
+        """
+        return self.id
 
     @property
-    def url(self):
-        return "{}/{}.py".format(_URL, self._module.__name__.replace(".", "/"))
+    def type(self):
+        """Node type.
 
+        """
+        return "enum-choice"
