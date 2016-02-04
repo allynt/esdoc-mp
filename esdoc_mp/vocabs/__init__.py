@@ -1,4 +1,4 @@
 
 
-from esdoc_mp.vocabs import cmip6
+from . import cmip6
 

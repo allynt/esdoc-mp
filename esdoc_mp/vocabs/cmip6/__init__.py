@@ -1,4 +1,11 @@
+"""CMIP6 vocabulary.
+
+"""
+from . import ocean
 
 
-from esdoc_mp.vocabs.cmip6 import atmosphere
+# Set of cmip6 domains / realms.
+domains = {
+	ocean
+}
 
