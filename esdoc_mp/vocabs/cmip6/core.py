@@ -44,6 +44,7 @@ class Domain(object):
         """
         self.description = "{}.".format(module.__doc__.split(".")[0])
         self.id = "{}.{}".format(owner.id, module.__name__.split(".")[-1])
+        self.name = module.__name__.split(".")[-1]
         self.style_type = "domain"
         self.url = "{}{}".format(_URL, self.id.replace(".", "/"))
         self.processes = [Process(self, i) for i in module.processes]
@@ -71,6 +72,7 @@ class Process(object):
         """
         self.description = "{}.".format(module.__doc__.split(".")[0])
         self.id = "{}.{}".format(owner.id, module.__name__.split(".")[-1])
+        self.name = module.__name__.split(".")[-1]
         self.style_type = "process"
         self.url = "{}{}".format(_URL, self.id.replace(".", "/"))
 
@@ -99,6 +101,7 @@ class SubProcess(object):
         """
         self.description = "{}.".format(module.__doc__.split(".")[0])
         self.id = "{}.{}".format(owner.id, module.__name__.split(".")[-1])
+        self.name = module.__name__.split(".")[-1]
         self.style_type = "sub-process"
         self.url = "{}{}.py".format(_URL, self.id.replace(".", "/"))
 
@@ -129,6 +132,7 @@ class Detail(object):
         """
         self.description = "{}.".format(func.__doc__.split(".")[0])
         self.id = "{}.{}".format(owner.id, name)
+        self.name = name
         self.style_type = "detail"
         self.url = None
         self.properties = [DetailProperty(self, i.replace("_", "-"), v)
@@ -156,6 +160,7 @@ class DetailProperty(object):
         self.cardinality = obj['cardinality']
         self.description = obj.get("description", None)
         self.id = "{}.{}".format(owner.id, name)
+        self.name = name
         self.style_type = "detail-property"
         self.is_enum = obj['type'] == 'enum'
         self.type = obj['type']

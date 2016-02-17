@@ -18,11 +18,12 @@ class VocabParser(object):
     """An event driven CMIP6 vocab parser.
 
     """
-    def __init__(self, domain_filter=None):
+    def __init__(self, domain_filter=None, verbose=False):
         """Instance constructor.
 
         """
         self.domain_filter = domain_filter
+        self.verbose = verbose
 
 
     def parse(self):
@@ -33,12 +34,14 @@ class VocabParser(object):
         vocab = Vocab()
 
         # Raise vocab parse event.
-        log("parsing vocabulary --> {}".format(vocab))
+        if self.verbose:
+            log("parsing vocabulary --> {}".format(vocab))
         self.on_vocab_parse(vocab)
 
         # Parse child domains.
-        domains = [d for d in vocab.domains \
-                   if self.domain_filter and self.domain_filter == d.name]
+        domains = vocab.domains
+        if self.domain_filter:
+            domains = [d for d in domains if self.domain_filter == d.name]
         for domain in domains:
             self._parse_domain(domain)
 
@@ -91,7 +94,8 @@ class VocabParser(object):
 
         """
         # Raise domain parse event.
-        log("parsing: {}".format(domain))
+        if self.verbose:
+            log("parsing: {}".format(domain))
         self.on_domain_parse(domain)
 
         # Parse child processes.
@@ -105,7 +109,8 @@ class VocabParser(object):
 
         """
         # Raise process parse event.
-        log("parsing: {}".format(process))
+        if self.verbose:
+            log("parsing: {}".format(process))
         self.on_process_parse(domain, process)
 
         # Parse child sub-processes.
@@ -119,17 +124,20 @@ class VocabParser(object):
 
         """
         # Raise sub-process parse event.
-        log("parsing: {}".format(sub_process))
+        if self.verbose:
+            log("parsing: {}".format(sub_process))
         self.on_subprocess_parse(process, sub_process)
 
         # Iterate set of sub-process details.
         for detail in sub_process.details:
             # Raise sub-process detail parse event.
-            log("parsing: {}".format(detail))
+            if self.verbose:
+                log("parsing: {}".format(detail))
             self.on_detail_parse(sub_process, detail)
 
             # Iterate set of detail properties.
             for detail_property in detail.properties:
                 # Raise detail-property parse event.
-                log("parsing: {}".format(detail_property))
+                if self.verbose:
+                    log("parsing: {}".format(detail_property))
                 self.on_detail_property_parse(detail, detail_property)
