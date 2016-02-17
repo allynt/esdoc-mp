@@ -30,6 +30,55 @@ class VocabParser(object):
         self.domain_filter = domain_filter
 
 
+    def _parse_domain(self, domain):
+        """Parses a domain.
+
+        """
+        # Raise domain parse event.
+        log("parsing: {}".format(domain))
+        self.on_domain_parse(domain)
+
+        # Parse child processes.
+        processes = sorted(domain.processes, key = lambda p: p.name)
+        for process in processes:
+            self._parse_process(domain, process)
+
+
+    def _parse_process(self, domain, process):
+        """Parses a domain process.
+
+        """
+        # Raise process parse event.
+        log("parsing: {}".format(process))
+        self.on_process_parse(domain, process)
+
+        # Parse child sub-processes.
+        sub_processes = sorted(process.sub_processes, key = lambda sp: sp.name)
+        for sub_process in sub_processes:
+            self._parse_subprocess(domain, process, sub_process)
+
+
+    def _parse_subprocess(self, domain, process, sub_process):
+        """Parses a domain sub process.
+
+        """
+        # Raise sub-process parse event.
+        log("parsing: {}".format(sub_process))
+        self.on_subprocess_parse(process, sub_process)
+
+        # Iterate set of sub-process details.
+        for detail in sub_process.details:
+            # Raise sub-process detail parse event.
+            log("parsing: {}".format(detail))
+            self.on_detail_parse(sub_process, detail)
+
+            # Iterate set of detail properties.
+            for detail_property in detail.properties:
+                # Raise detail-property parse event.
+                log("parsing: {}".format(detail_property))
+                self.on_detail_property_parse(detail, detail_property)
+
+
     def parse(self):
         """Parses the CMIP6 vocabulary raising events as it does so.
 
@@ -38,40 +87,14 @@ class VocabParser(object):
         vocab = _Vocab()
 
         # Raise vocab parse event.
-        log("parsing: {}".format(vocab))
+        log("parsing vocabulary --> {}".format(vocab))
         self.on_vocab_parse(vocab)
 
-        # Iterate set of domains.
-        for domain in [d for d in vocab.domains \
-                       if self.domain_filter and self.domain_filter == d.name]:
-
-            # Raise domain parse event.
-            log("parsing: {}".format(domain))
-            self.on_domain_parse(domain)
-
-            # Iterate set of processes.
-            for process in sorted(domain.processes, key = lambda p: p.name):
-                # Raise process parse event.
-                log("parsing: {}".format(process))
-                self.on_process_parse(domain, process)
-
-                # Iterate set of sub-processes.
-                for sub_process in sorted(process.sub_processes, key = lambda sp: sp.name):
-                    # Raise sub-process parse event.
-                    log("parsing: {}".format(sub_process))
-                    self.on_subprocess_parse(process, sub_process)
-
-                    # Iterate set of sub-process details.
-                    for detail in sub_process.details:
-                        # Raise sub-process detail parse event.
-                        log("parsing: {}".format(detail))
-                        self.on_detail_parse(sub_process, detail)
-
-                        # Iterate set of detail properties.
-                        for detail_property in detail.properties:
-                            # Raise detail-property parse event.
-                            log("parsing: {}".format(detail_property))
-                            self.on_detail_property_parse(detail, detail_property)
+        # Parse child domains.
+        domains = [d for d in vocab.domains \
+                   if self.domain_filter and self.domain_filter == d.name]
+        for domain in domains:
+            self._parse_domain(domain)
 
 
     def on_vocab_parse(self, vocab):
@@ -127,6 +150,9 @@ class _Node(object):
         """
         self._module = module
         self._depth = depth
+        self.description = "{}.".format(module.__doc__.split(".")[0])
+        self.id = ".".join(module.__name__.split(".")[0 - depth:])
+        self.name = module.__name__.split(".")[-1].replace("_", "-")
 
 
     def __repr__(self):
@@ -137,32 +163,8 @@ class _Node(object):
 
 
     @property
-    def description(self):
-        """Node description.
-
-        """
-        return "{}.".format(self._module.__doc__.split(".")[0])
-
-
-    @property
-    def id(self):
-        """Node identifier.
-
-        """
-        return ".".join(self._module.__name__.split(".")[0 - self._depth:])
-
-
-    @property
-    def name(self):
-        """Node canonical name.
-
-        """
-        return self._module.__name__.split(".")[-1].replace("_", "-")
-
-
-    @property
-    def type(self):
-        """Node type.
+    def style_type(self):
+        """Node style sheet type.
 
         """
         type_ = self.__class__.__name__.lower().replace("_", "-")
@@ -240,7 +242,9 @@ class _Sub_Process(_Node):
         """
         super(_Sub_Process, self).__init__(module, 4)
         self._module = module
-        self.details = [_Detail(self, m[0], m[1]) for m in inspect.getmembers(module) if not m[0].startswith("_")]
+        self.details = [_Detail(self, m[0], m[1])
+                        for m in inspect.getmembers(module)
+                        if not m[0].startswith("_")]
 
 
 class _Detail(object):
@@ -254,38 +258,18 @@ class _Detail(object):
         self.owner = owner
         self.name = name
         self.func = func
+        self.id = "{}.{}".format(owner.id, name)
         self.obj = func()
         self.properties = [_DetailProperty(self, i.replace("_", "-"), v) for i, v in self.obj.items()]
+        self.style_type = "detail"
+        self.description = "{}.".format(func.__doc__.split(".")[0])
+
 
     def __repr__(self):
         """Instance representation.
 
         """
         return "{}".format(self.id)
-
-
-    @property
-    def description(self):
-        """Node description text.
-
-        """
-        return "{}.".format(self.func.__doc__.split(".")[0])
-
-
-    @property
-    def id(self):
-        """Node identifier.
-
-        """
-        return "{}.{}".format(self.owner.id, self.name)
-
-
-    @property
-    def type(self):
-        """Node type.
-
-        """
-        return "detail"
 
 
     @property
@@ -313,24 +297,17 @@ class _DetailProperty(object):
         self.owner = owner
         self.name = name
         self.obj = obj
-        self.type = "detail-property"
+        self.style_type = "detail-property"
         self.type_ = obj['type']
-
+        self.is_enum = obj['type'] == 'enum'
         self.choices = [_EnumChoice(self, c[0], c[1]) for c in obj.get('choices', [])]
+
 
     def __repr__(self):
         """Instance representation.
 
         """
         return "{}".format(self.id)
-
-
-    @property
-    def is_enum(self):
-        """Returns flag indicating whether property is an enumeration declaration.
-
-        """
-        return self.type_ == 'enum'
 
 
     @property
@@ -359,6 +336,7 @@ class _EnumChoice(object):
         self.value = value
         self.description = description
         self.id = "{}.{}".format(owner.id, value)
+        self.style_type = "enum-choice"
 
 
     def __repr__(self):
@@ -366,13 +344,6 @@ class _EnumChoice(object):
 
         """
         return self.id
-
-    @property
-    def type(self):
-        """Node type.
-
-        """
-        return "enum-choice"
 
 
     @property

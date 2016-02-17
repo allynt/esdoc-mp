@@ -100,7 +100,7 @@ class _VocabParser(VocabParser):
         """Sets a mindmap node.
 
         """
-        cfg = self.cfg.get_section(owner.type)
+        cfg = self.cfg.get_section(owner.style_type)
         atts = {
             'FOLDED': str(cfg['is-collapsed']).lower(),
             'COLOR': cfg['font-color'],
@@ -125,7 +125,7 @@ class _VocabParser(VocabParser):
         """Styles a node with font information.
 
         """
-        cfg = self.cfg.get_section(owner.type)
+        cfg = self.cfg.get_section(owner.style_type)
 
         ET.SubElement(self.nodes[owner], 'font', {
             'BOLD': str(cfg['font-bold']),
@@ -190,13 +190,6 @@ class _VocabParser(VocabParser):
         """On detail property parse event handler.
 
         """
-
-        # text = "{}:{} .. {}"
-        # if self.positions[owner] == 'left':
-        #     text = text.format(detail_property.name, detail_property.cardinality, detail_property.type_)
-        # else:
-        #     text = text.format(detail_property.type_, detail_property.cardinality, detail_property.name)
-
         self._set_node(owner, detail_property)
         self._set_notes(detail_property)
         for choice in detail_property.choices:
