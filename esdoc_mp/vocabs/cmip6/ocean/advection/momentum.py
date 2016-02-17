@@ -25,7 +25,17 @@ def scheme():
             "description": "Name of ocean momemtum advection scheme",
             "type": "str",
             "cardinality": "1.1"
-        },
+        }
+    }
+
+
+def props():
+    """Properties of bottom boundary layer in ocean.
+
+    type: science.process_detail
+
+    """
+    return {
         "ALE": {
             "description": "Using ALE for vertical advection ? (if vertical coordinates are sigma)",
             "type": "bool",

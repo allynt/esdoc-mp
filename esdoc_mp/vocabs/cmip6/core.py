@@ -107,8 +107,7 @@ class SubProcess(object):
 
         self.details = [Detail(self, m[1], m[0])
                         for m in inspect.getmembers(module)
-                        if not m[0].startswith("_")]
-
+                        if inspect.isfunction(m[1]) and not m[0].startswith("_")]
 
     @property
     def notes(self):
@@ -176,8 +175,8 @@ class DetailProperty(object):
         return [
             ("Description", self.description),
             ("ID", self.id.lower().replace(" ", "-").replace("_", "-")),
-            ("Cardinality", self.cardinality),
-            ("Type", self.type)
+            ("Type", self.type),
+            ("Cardinality", self.cardinality)
         ]
 
 
