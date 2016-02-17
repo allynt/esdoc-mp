@@ -109,6 +109,13 @@ class _VocabParser(VocabParser):
             'TEXT': text if text else owner.name
         }
 
+        try:
+            owner.url
+        except AttributeError:
+            pass
+        else:
+            atts['LINK'] = owner.url
+
         if position:
             atts['POSITION'] = position
 

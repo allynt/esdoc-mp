@@ -101,10 +101,10 @@ class SubProcess(object):
         """
         self.description = "{}.".format(module.__doc__.split(".")[0])
         self.id = "{}.{}".format(owner.id, module.__name__.split(".")[-1])
+        self.module = module
         self.name = module.__name__.split(".")[-1]
         self.style_type = "sub-process"
         self.url = "{}{}.py".format(_URL, self.id.replace(".", "/"))
-
         self.details = [Detail(self, m[1], m[0])
                         for m in inspect.getmembers(module)
                         if inspect.isfunction(m[1]) and not m[0].startswith("_")]
@@ -132,8 +132,10 @@ class Detail(object):
         self.description = "{}.".format(func.__doc__.split(".")[0])
         self.id = "{}.{}".format(owner.id, name)
         self.name = name
+        self.owner = owner
         self.style_type = "detail"
-        self.url = None
+        self.line_begin, self.line_end = _get_line_numbers(owner.module, name)
+        self.url = "{}#L{}-L{}".format(owner.url, self.line_begin, self.line_end)
         self.properties = [DetailProperty(self, i.replace("_", "-"), v)
                            for i, v in func().items()]
 
@@ -144,7 +146,8 @@ class Detail(object):
         """
         return [
             ("Description", self.description),
-            ("ID", self.id.lower().replace(" ", "-").replace("_", "-"))
+            ("ID", self.id.lower().replace(" ", "-").replace("_", "-")),
+            ("Python Definition", self.url)
         ]
 
 
@@ -203,3 +206,24 @@ class EnumChoice(object):
             ("Description", self.description),
             ("ID", self.id.lower().replace(" ", "-").replace("_", "-"))
         ]
+
+
+def _get_line_numbers(module, func_name=None):
+    """Returns line numbers within which a definition is defined.
+
+    """
+    begin, end = 0, 0
+    with open(inspect.getfile(module).replace(".pyc", ".py"), 'r') as f:
+        if func_name is None:
+            end = len(f.readlines())
+        else:
+            for line_no, line in enumerate(f.readlines()):
+                if begin and line.startswith("def"):
+                    end = line_no - 2
+                    break
+                if not begin and line.startswith("def {}()".format(func_name)):
+                    begin = line_no + 1
+    if func_name and begin and not end:
+        end = line_no + 1
+
+    return begin, end
