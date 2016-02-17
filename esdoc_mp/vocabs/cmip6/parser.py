@@ -1,3 +1,14 @@
+# -*- coding: utf-8 -*-
+
+"""
+.. module:: esdoc_mp.vocabs.cmip6.parser.py
+   :platform: Unix, Windows
+   :synopsis: Provides a generic parser over the vocab definitions.
+
+.. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
+
+
+"""
 import inspect
 
 from esdoc_mp.utils import log
@@ -9,7 +20,7 @@ _URL = "https://github.com/ES-DOC/esdoc-mp/blob/master/esdoc_mp/vocabs/"
 
 
 class VocabParser(object):
-    """Parses CMIP6 vocab raising events as it does so.
+    """An event driven CMIP6 vocab parser.
 
     """
     def __init__(self, domain_filter=None):
@@ -19,10 +30,10 @@ class VocabParser(object):
         self.domain_filter = domain_filter
 
     def parse(self):
-        """Parses the CMIP6 vocabulary.
+        """Parses the CMIP6 vocabulary raising events as it does so.
 
         """
-        vocab = Vocab()
+        vocab = _Vocab()
 
         log("parsing: {}".format(vocab))
         self.on_vocab_parse(vocab)
@@ -168,7 +179,7 @@ class _Node(object):
         ]
 
 
-class Vocab(_Node):
+class _Vocab(_Node):
     """Wraps the definitions of the CMIP6 vocab.
 
     """
@@ -177,7 +188,7 @@ class Vocab(_Node):
 
         """
         from esdoc_mp.vocabs import cmip6
-        super(Vocab, self).__init__(cmip6, 1)
+        super(_Vocab, self).__init__(cmip6, 1)
 
         self.domains = [_Domain(i) for i in cmip6.domains]
 
