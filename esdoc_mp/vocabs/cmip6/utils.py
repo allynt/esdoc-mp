@@ -113,8 +113,8 @@ class _Node(object):
 
 
     @property
-    def help(self):
-        """Node help text.
+    def description(self):
+        """Node description.
 
         """
         return "{}.".format(self._module.__doc__.split(".")[0])
@@ -154,6 +154,18 @@ class _Node(object):
         url = "{}{}" if self._depth <= 3 else "{}{}.py"
 
         return url.format(_URL, self.id.replace(".", "/"))
+
+
+    @property
+    def notes(self):
+        """Returns set of notes associated with a property definiion.
+
+        """
+        return [
+            ("Description", self.description),
+            ("ID", self.id.replace("_", "-")),
+            ("Python Definition", self.url)
+        ]
 
 
 class Vocab(_Node):
@@ -229,8 +241,8 @@ class _Detail(object):
 
 
     @property
-    def help(self):
-        """Node help text.
+    def description(self):
+        """Node description text.
 
         """
         return "{}.".format(self.func.__doc__.split(".")[0])
@@ -252,6 +264,18 @@ class _Detail(object):
         return "detail"
 
 
+    @property
+    def notes(self):
+        """Returns set of notes associated with a property definiion.
+
+        """
+        return [
+            ("Description", self.description),
+            ("ID", self.id.replace("_", "-"))
+        ]
+
+
+
 class _DetailProperty(object):
     """Wraps the definitions of a CMIP6 detail property definition.
 
@@ -261,7 +285,7 @@ class _DetailProperty(object):
 
         """
         self.cardinality = obj['cardinality']
-        self.help = obj.get("help", None)
+        self.description = obj.get("description", None)
         self.id = "{}.{}".format(owner.id, name)
         self.owner = owner
         self.name = name
@@ -286,19 +310,33 @@ class _DetailProperty(object):
         return self.type_ == 'enum'
 
 
+    @property
+    def notes(self):
+        """Returns set of notes associated with a property definiion.
+
+        """
+        return [
+            ("Description", self.description),
+            ("ID", self.id.replace("_", "-")),
+            ("Cardinality", self.cardinality),
+            ("Type", self.type_)
+        ]
+
+
 class _EnumChoice(object):
     """Wraps the definitions of a CMIP6 enumeration choice definition.
 
     """
-    def __init__(self, owner, value, help_text):
+    def __init__(self, owner, value, description):
         """Instance constructor.
 
         """
         self.owner = owner
         self.name = value
         self.value = value
-        self.help = help_text
+        self.description = description
         self.id = "{}.{}".format(owner.id, value)
+
 
     def __repr__(self):
         """Instance representation.
@@ -312,3 +350,13 @@ class _EnumChoice(object):
 
         """
         return "enum-choice"
+
+
+    @property
+    def notes(self):
+        """Returns set of notes associated with a property definiion.
+
+        """
+        return [
+            ("ID", self.id.lower().replace(" ", "-").replace("_", "-"))
+        ]

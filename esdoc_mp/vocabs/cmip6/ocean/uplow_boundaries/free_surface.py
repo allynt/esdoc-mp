@@ -13,7 +13,7 @@ def props():
     """
     return {
         "scheme": {
-            "help": "Type of free surface in ocean",
+            "description": "Type of free surface in ocean",
             "type": "enum",
             "cardinality": "1.1",
             "choices": [
@@ -27,7 +27,7 @@ def props():
             ]
         },
         "embedded_seaice": {
-            "help": "Is the sea-ice embeded in the ocean model (instead of levitating) ?",
+            "description": "Is the sea-ice embeded in the ocean model (instead of levitating) ?",
             "type": "bool",
             "cardinality": "1.1"
         }

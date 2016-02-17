@@ -13,7 +13,7 @@ def props():
     """
     return {
         "scheme": {
-            "help": "Types of convection scheme in ocean",
+            "description": "Types of convection scheme in ocean",
             "type": "enum",
             "cardinality": "1.1",
             "choices": [
@@ -24,12 +24,12 @@ def props():
             ]
         },
         "tide_induced_mixing": {
-            "help": "Describe how tide induced mixing is modelled (barotropic, baroclinic, none)",
+            "description": "Describe how tide induced mixing is modelled (barotropic, baroclinic, none)",
             "type": "str",
             "cardinality": "1.1"
         },
         "langmuir_cells_mixing": {
-            "help": "Is there Langmuir cells mixing in upper ocean ?",
+            "description": "Is there Langmuir cells mixing in upper ocean ?",
             "type": "str",
             "cardinality": "1.1"
         }

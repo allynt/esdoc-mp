@@ -13,7 +13,7 @@ def props():
     """
     return {
         "scheme": {
-            "help": "Type of bottom boundary layer in ocean",
+            "description": "Type of bottom boundary layer in ocean",
             "type": "enum",
             "cardinality": "1.1",
             "choices": [
@@ -23,12 +23,12 @@ def props():
             ]
         },
         "lateral_mixing_coef": {
-            "help": "If bottom BL is diffusive, specify value of lateral mixing coefficient (in m2/s)",
+            "description": "If bottom BL is diffusive, specify value of lateral mixing coefficient (in m2/s)",
             "type": "int",
             "cardinality": "0.1"
         },
         "sill_overflow": {
-            "help": "Describe any specific treatment of sill overflows",
+            "description": "Describe any specific treatment of sill overflows",
             "type": "str",
             "cardinality": "1.1"
         }

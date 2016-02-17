@@ -13,23 +13,23 @@ def tracers():
     """
     return {
         "background": {
-            "help": "Background BL mixing of tracers coefficient, (schema and value in m2/s - may by none)",
+            "description": "Background BL mixing of tracers coefficient, (schema and value in m2/s - may by none)",
             "type": "str",
             "cardinality": "1.1"
         },
         "constant": {
-            "help": "'If constant BL mixing of tracers, specific coefficient (m2/s)",
+            "description": "'If constant BL mixing of tracers, specific coefficient (m2/s)",
             "type": "int",
             "cardinality": "0.1"
         },
         "scheme": {
-            "help": "Types of boundary layer mixing in ocean",
+            "description": "Types of boundary layer mixing in ocean",
             "type": "enum",
             "cardinality": "1.1",
             "choices": _enum_boundary_layer_mixing_types
         },
         "turbulent_closure_order": {
-            "help": "If turbulent BL mixing of tracers, specific order of closure (0, 1, 2.5, 3)",
+            "description": "If turbulent BL mixing of tracers, specific order of closure (0, 1, 2.5, 3)",
             "type": "float",
             "cardinality": "0.1"
         }
@@ -44,23 +44,23 @@ def momentum():
     """
     return {
         "background": {
-            "help": "Background BL mixing of momentum coefficient, (schema and value in m2/s - may by none)",
+            "description": "Background BL mixing of momentum coefficient, (schema and value in m2/s - may by none)",
             "type": "str",
             "cardinality": "1.1"
         },
         "constant": {
-            "help": "If constant BL mixing of momentum, specific coefficient (m2/s)",
+            "description": "If constant BL mixing of momentum, specific coefficient (m2/s)",
             "type": "int",
             "cardinality": "0.1"
         },
         "scheme": {
-            "help": "Types of boundary layer mixing in ocean",
+            "description": "Types of boundary layer mixing in ocean",
             "type": "enum",
             "cardinality": "1.1",
             "choices": _enum_boundary_layer_mixing_types
         },
         "turbulent_closure_order": {
-            "help": "If turbulent BL mixing of momentum, specific order of closure (0, 1, 2.5, 3)",
+            "description": "If turbulent BL mixing of momentum, specific order of closure (0, 1, 2.5, 3)",
             "type": "float",
             "cardinality": "0.1"
         }
