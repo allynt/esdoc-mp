@@ -29,34 +29,47 @@ class VocabParser(object):
         """
         self.domain_filter = domain_filter
 
+
     def parse(self):
         """Parses the CMIP6 vocabulary raising events as it does so.
 
         """
+        # Instantiate vocab wrapper.
         vocab = _Vocab()
 
+        # Raise vocab parse event.
         log("parsing: {}".format(vocab))
         self.on_vocab_parse(vocab)
 
-        for domain in vocab.domains:
-            if self.domain_filter and self.domain_filter == domain.name:
-                continue
+        # Iterate set of domains.
+        for domain in [d for d in vocab.domains \
+                       if self.domain_filter and self.domain_filter == d.name]:
+
+            # Raise domain parse event.
             log("parsing: {}".format(domain))
             self.on_domain_parse(domain)
 
+            # Iterate set of processes.
             for process in sorted(domain.processes, key = lambda p: p.name):
+                # Raise process parse event.
                 log("parsing: {}".format(process))
                 self.on_process_parse(domain, process)
 
+                # Iterate set of sub-processes.
                 for sub_process in sorted(process.sub_processes, key = lambda sp: sp.name):
+                    # Raise sub-process parse event.
                     log("parsing: {}".format(sub_process))
                     self.on_subprocess_parse(process, sub_process)
 
+                    # Iterate set of sub-process details.
                     for detail in sub_process.details:
+                        # Raise sub-process detail parse event.
                         log("parsing: {}".format(detail))
                         self.on_detail_parse(sub_process, detail)
 
+                        # Iterate set of detail properties.
                         for detail_property in detail.properties:
+                            # Raise detail-property parse event.
                             log("parsing: {}".format(detail_property))
                             self.on_detail_property_parse(detail, detail_property)
 
