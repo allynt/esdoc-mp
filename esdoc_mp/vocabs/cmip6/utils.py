@@ -275,7 +275,6 @@ class _Detail(object):
         ]
 
 
-
 class _DetailProperty(object):
     """Wraps the definitions of a CMIP6 detail property definition.
 
@@ -358,5 +357,6 @@ class _EnumChoice(object):
 
         """
         return [
+            ("Description", self.description),
             ("ID", self.id.lower().replace(" ", "-").replace("_", "-"))
         ]
