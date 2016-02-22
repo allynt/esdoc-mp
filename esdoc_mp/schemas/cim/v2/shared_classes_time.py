@@ -96,7 +96,7 @@ def irregular_dateset():
     """
     return {
         'type': 'class',
-        'base': 'shared.datetime_set',
+        'base': 'shared_time.datetime_set',
         'is_abstract': False,
         'properties': [
             ('date_set', 'str', '1.1',
@@ -126,7 +126,7 @@ def regular_timeset():
     """
     return {
         'type': 'class',
-        'base': 'shared.datetime_set',
+        'base': 'shared_time.datetime_set',
         'is_abstract': False,
         'pstr': ('%s times from %s at %s intervals', ('length', 'start_date', 'increment')),
         'properties': [

@@ -44,9 +44,9 @@ def dataset():
                 "Name of dataset."),
             ('produced_by', 'data.simulation', '0.1',
                 "Makes a link back to originating activity."),
-            ('references', 'shared.citation', '0.N',
+            ('references', 'shared.reference', '0.N',
                 "Relevant reference document."),
-            ('related_to_dataset', 'data.related_data', '0.N',
+            ('related_to_dataset', 'shared.online_resource', '0.N',
                 "Related dataset."),
             ('responsible_parties', 'shared.responsibility', '0.N',
                 "Individuals and organisations reponsible for the data.")
@@ -65,23 +65,6 @@ def downscaling():
         'properties': [
             ('downscaled_from', 'data.simulation', '1.1',
                 "The simulation that was downscaled by this downscaling activity.")
-        ]
-    }
-
-
-def related_data():
-    """A related dataset and a controlled relationship.
-
-    """
-    return {
-        'type': 'class',
-        'base': 'shared.cim_link',
-        'is_abstract': False,
-        'properties': [
-            ('other_dataset', 'data.dataset', '1.1',
-                "Remote dataset."),
-            ('relationship', 'data.data_association_types', '1.1',
-                "Nature of relationship to the remote dataset.")
         ]
     }
 

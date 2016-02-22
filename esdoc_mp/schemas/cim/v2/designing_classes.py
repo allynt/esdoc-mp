@@ -61,6 +61,22 @@ def ensemble_types():
     }
 
 
+def experimental_relationships():
+    """Defines the canonical set of experimental relationships.
+
+    """
+    return {
+        'type': 'enum',
+        'is_open': True,
+        'members': [
+            ("control_for", "This experiment provides a control for the target experiment"),
+            ("initialisation_for", "This experiment provides initialisation for the target experiment"),
+            ("provides_constraints", "This experiment provides constraint(s) for the target experiment (e.g SST forcing)"),
+            ("is_sibling", "Part of a family (e.g. experiments where solar forcing is either increased or reduced)")
+        ]
+    }
+
+
 def forcing_constraint():
     """Identifies a model forcing constraint.
 
@@ -72,17 +88,17 @@ def forcing_constraint():
         'properties': [
             ('additional_constraint', 'str', '0.1',
                 "Additional information, e.g. hold constant from 2100-01-01."),
-            ('category', 'shared.vocab_member', '1.1',
+            ('category', 'str', '0.1',
                 "Category to which this belongs (from a CV, e.g. GASES)."),
-            ('code', 'shared.vocab_member', '1.1',
+            ('code', 'str', '0.1',
                 "Programme wide code from a controlled vocabulary (e.g. N2O)."),
             ('data_link', 'shared.online_resource', '0.1',
                 "Link to actual data record if possible."),
             ('forcing_type', 'designing.forcing_types', '1.1',
                 "Type of integration."),
-            ('group', 'shared.vocab_member', '0.1',
+            ('group', 'str', '0.1',
                 "Sub-Category (e.g. GHG)."),
-            ('origin', 'shared.citation', '0.1',
+            ('origin', 'shared.reference', '0.1',
                 "Pointer to origin, e.g. CMIP6 RCP database.")
         ]
     }
@@ -146,7 +162,7 @@ def numerical_experiment():
         'properties': [
             ('related_experiments', 'designing.numerical_experiment', '0.N',
                 "A related experiment."),
-            ('requirements', 'designing.numerical_requirement', '0.N',
+            ('requirements', 'designing.numerical_requirement, designing.experimental_relationships', '0.N',
                 "Requirements that conformant simulations need to satisfy.")
         ]
     }
@@ -162,7 +178,7 @@ def numerical_requirement():
         'is_abstract': False,
         'properties': [
             ('additional_requirements', 'designing.numerical_requirement', '0.N',
-                "Additional requirement detail."),
+                "Additional detail for this requirement."),
             ('conformance_is_requested', 'bool', '1.1',
                 "Indicator as to whether ensemble documentation should include conformance information for this requirement.")
         ]

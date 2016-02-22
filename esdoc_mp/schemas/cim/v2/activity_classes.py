@@ -32,7 +32,7 @@ def activity():
                 "Short name or abbreviation."),
             ('rationale', 'str', '0.1',
                 "Explanation of why this activity was carried out and/or what it was intended to achieve."),
-            ('references', 'shared.citation', '0.N',
+            ('references', 'shared.reference', '0.N',
                 "Relevant documentation."),
             ('responsible_parties', 'shared.responsibility', '0.N',
                 "People or organisations responsible for activity.")
