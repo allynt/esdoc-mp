@@ -100,7 +100,10 @@ class _VocabParser(VocabParser):
         """Sets a mindmap node.
 
         """
+        # Get section style config.
         cfg = self.cfg.get_section(owner.style_type)
+
+        # Initialise mindmap node attributes.
         atts = {
             'FOLDED': str(cfg['is-collapsed']).lower(),
             'COLOR': cfg['font-color'],
@@ -109,6 +112,7 @@ class _VocabParser(VocabParser):
             'TEXT': text if text else owner.name
         }
 
+        # Set node url.
         try:
             owner.url
         except AttributeError:
@@ -116,15 +120,19 @@ class _VocabParser(VocabParser):
         else:
             atts['LINK'] = owner.url
 
+        # Set node position (right | left).
         if position:
             atts['POSITION'] = position
 
+        # Get node parent.
         if not isinstance(parent, ET.Element):
             parent = self.nodes[parent]
 
+        # Create new node & cache.
         self.nodes[owner] = ET.SubElement(parent, 'node', atts)
-        self._set_font(owner)
 
+        # Set node font / notes.
+        self._set_font(owner)
         self._set_notes(owner)
 
 
