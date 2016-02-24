@@ -4,14 +4,20 @@ type: science.scientific_domain
 
 """
 from . import advection
-from . import vertical_physics
+from . import boundary_forcing
+from . import lateral_physics
+from . import timestepping_framework
 from . import uplow_boundaries
+from . import vertical_physics
 
 
 
 # Set of domain processes.
 processes = {
 	advection,
-	vertical_physics,
-	uplow_boundaries
+	boundary_forcing,
+	lateral_physics,
+	timestepping_framework,
+	uplow_boundaries,
+	vertical_physics
 }

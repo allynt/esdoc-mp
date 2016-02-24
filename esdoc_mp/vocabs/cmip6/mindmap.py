@@ -189,7 +189,6 @@ class _VocabParser(VocabParser):
         """On sub-process parse event handler.
 
         """
-        self.positions[subprocess] = self.positions[process]
         self._set_node(process, subprocess)
 
 
@@ -197,7 +196,6 @@ class _VocabParser(VocabParser):
         """On process detail parse event handler.
 
         """
-        self.positions[detail] = self.positions[owner]
         self._set_node(owner, detail)
 
 

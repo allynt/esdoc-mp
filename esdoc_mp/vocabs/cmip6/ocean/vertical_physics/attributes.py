@@ -30,7 +30,7 @@ def props():
         },
         "langmuir_cells_mixing": {
             "description": "Is there Langmuir cells mixing in upper ocean ?",
-            "type": "str",
+            "type": "bool",
             "cardinality": "1.1"
         }
     }
