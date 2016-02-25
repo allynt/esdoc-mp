@@ -11,6 +11,7 @@
 """
 from esdoc_mp.core.class_ import Class
 from esdoc_mp.core.enum import Enum
+from esdoc_mp.schemas import utils
 
 
 
@@ -27,14 +28,22 @@ class Type(object):
         :param str name: Name of type.
 
         """
-        self._complex_type = None
-        self._is_enum = False
         self.is_class = False
         self.is_complex = len(name.split('.')) > 1
         self.is_simple = not self.is_complex
-        self.name = name
-        self.name_of_package = '' if self.is_simple else name.split('.')[0]
-        self.name_of_type = name if self.is_simple else name.split('.')[1]
+
+        if name.startswith("linked_to"):
+            self.name, qualifier = utils.parse_type(name)
+        else:
+            self.name, qualifier = name, None
+        self.qualifier_type = Type(qualifier) if qualifier else None
+
+        if self.is_simple:
+            self.name_of_package = None
+            self.name_of_type = self.name
+        else:
+            self.name_of_package = self.name.split('.')[0]
+            self.name_of_type = self.name.split('.')[1]
 
 
     def __repr__(self):
@@ -45,32 +54,8 @@ class Type(object):
 
 
     @property
-    def complex_type(self):
-        """Gets complex type.
-
-        """
-        return self._complex_type
-
-
-    @complex_type.setter
-    def complex_type(self, value):
-        """Sets complex type.
-
-        :param Class|Enum value: Name of type.
-
-        """
-        if self.is_complex == False:
-            raise TypeError("Type is not complex.")
-        if isinstance(value, Class) == False and isinstance(value, Enum) == False:
-            raise TypeError("Value is of incorrect type.")
-        self._complex_type = value
-        self._is_enum = isinstance(value, Enum)
-
-
-    @property
     def is_enum(self):
         """Gets flag indicating whether type represents an enumerated type.
 
         """
         return self.is_complex and not self.is_class
-

@@ -11,6 +11,8 @@
 """
 import re
 
+from esdoc_mp.schemas import utils
+
 
 
 # Regular expressions.
@@ -36,9 +38,8 @@ _SIMPLE_CLASS_PROPERTY_TYPES = {
 }
 
 
-
-def _validate_class_property(ctx, module, factory, cls, name, typeof, cardinality):
-    """Validates a class property.
+def _validate_class_property_name(ctx, module, factory, name):
+    """Validates a class property name.
 
     """
     if not re.match(_RE_CLASS_PROPERTY_NAME, name):
@@ -46,22 +47,53 @@ def _validate_class_property(ctx, module, factory, cls, name, typeof, cardinalit
         err = err.format(ctx.get_name(factory, module), name)
         ctx.set_error(err)
 
+
+def _validate_class_property_type(ctx, module, factory, name, typeof):
+    """Validates a class property type.
+
+    """
+    typeof, qualifier = utils.parse_type(typeof)
+
+    if typeof in _SIMPLE_CLASS_PROPERTY_TYPES:
+        return
+
     if not re.match(_RE_CLASS_PROPERTY_TYPE, typeof):
-        err = 'Invalid property: {0}.[{1}] --> type format must be lower_case_underscore '
+        err = 'Invalid property: {0}.[{1}] --> '
+        err += 'type format must be lower_case_underscore '
         err += '(for class references a "." is expected)'
         err = err.format(ctx.get_name(factory, module), name)
         ctx.set_error(err)
 
-    if len(typeof.split('.')) == 1 and \
-       typeof not in _SIMPLE_CLASS_PROPERTY_TYPES:
+    if qualifier and not re.match(_RE_CLASS_PROPERTY_TYPE, qualifier):
+        err = 'Invalid property qualifier: {0}.[{1}] --> '
+        err += 'type format must be lower_case_underscore '
+        err += '(for class references a "." is expected)'
+        err = err.format(ctx.get_name(factory, module), name)
+        ctx.set_error(err)
+
+    if len(typeof.split('.')) == 1:
         err = 'Invalid property: {0}.[{1}] --> simple type must be in {2}'
         err = err.format(ctx.get_name(factory, module), name, _SIMPLE_CLASS_PROPERTY_TYPES)
         ctx.set_error(err)
 
+
+def _validate_class_property_cardinality(ctx, module, factory, name, cardinality):
+    """Validates a class property cardinality.
+
+    """
     if cardinality not in _CLASS_PROPERTY_CARDINALITIES:
         err = 'Invalid property: {0}.[{1}] --> cardinality must be in {2}'
         err = err.format(ctx.get_name(factory, module), name, _CLASS_PROPERTY_CARDINALITIES)
         ctx.set_error(err)
+
+
+def _validate_class_property(ctx, module, factory, name, typeof, cardinality):
+    """Validates a class property.
+
+    """
+    _validate_class_property_name(ctx, module, factory, name)
+    _validate_class_property_type(ctx, module, factory, name, typeof)
+    _validate_class_property_cardinality(ctx, module, factory, name, cardinality)
 
 
 def validate(ctx, module, factory, cls):
@@ -118,5 +150,4 @@ def validate(ctx, module, factory, cls):
         return
 
     for p in cls.get('properties', []):
-        _validate_class_property(ctx, module, factory, cls, p[0], p[1], p[2])
-
+        _validate_class_property(ctx, module, factory, p[0], p[1], p[2])

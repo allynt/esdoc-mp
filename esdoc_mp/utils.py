@@ -51,3 +51,5 @@ def log(msg):
         print(msg)
     else:
         print("ES-DOC-MP :: {}".format(msg))
+
+

@@ -156,6 +156,14 @@ class ValidationContext(object):
         return module.__name__.split('.')[-1].split('_')[0]
 
 
+    def get_class_property_types(self, cls):
+        """Returns class property type definitions.
+
+        """
+        return [p[0:-2] for p in cls.get('properties', []) 
+                if len(p[1].split(".")) > 1]
+
+
     def get_type_name(self, factory, module):
         """Gets a type name.
 
@@ -170,3 +178,10 @@ class ValidationContext(object):
 
         """
         return sorted({ m[1] for m in inspect.getmembers(module) if inspect.isfunction(m[1]) })
+
+
+    def get_valid_types(self):
+        """Return set of valid types.
+
+        """
+        return [self.get_type_name(defn[1], defn[0]) for defn in self.types]

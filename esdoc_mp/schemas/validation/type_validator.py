@@ -9,8 +9,10 @@
 
 
 """
-from esdoc_mp.schemas.validation import class_validator
-from esdoc_mp.schemas.validation import enum_validator
+from . import class_validator
+from . import enum_validator
+from esdoc_mp.schemas import utils
+
 
 
 # Whitelist of valid types.
@@ -35,15 +37,20 @@ def _validate_class_property_type_references(ctx):
     """Validates base class references.
 
     """
-    valid_types = [ctx.get_type_name(factory, module)
-                   for module, factory, type_ in ctx.types]
-
+    valid_types = ctx.get_valid_types()
     for module, factory, cls in ctx.classes:
-        for name, typeof in [(p[0], p[1]) for p in cls.get('properties', [])
-                             if len(p[1].split(".")) == 2 and p[1] not in valid_types]:
-            err = 'Invalid class property: {0}.[{1}] --> type reference "{2}" is unrecognized'
-            err = err.format(ctx.get_name(factory, module), name, typeof)
-            ctx.set_error(err)
+        for name, typeof in ctx.get_class_property_types(cls):
+            typeof, qualifier = utils.parse_type(typeof)
+            if typeof not in valid_types:
+                err = 'Invalid class property: {0}.[{1}] --> '
+                err += 'type reference "{2}" is unrecognized'
+                err = err.format(ctx.get_name(factory, module), name, typeof)
+                ctx.set_error(err)
+            if qualifier and qualifier not in valid_types:
+                err = 'Invalid class linked_to property qualifier: {0}.[{1}] --> '
+                err += 'type reference "{2}" is unrecognized'
+                err = err.format(ctx.get_name(factory, module), name, typeof)
+                ctx.set_error(err)
 
 
 def _validate_type(ctx, module, factory, type_):

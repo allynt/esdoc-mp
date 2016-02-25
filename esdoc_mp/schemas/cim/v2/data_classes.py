@@ -42,13 +42,13 @@ def dataset():
                 "Metadata describing the creation of this dataset description document."),
             ('name', 'str', '1.1',
                 "Name of dataset."),
-            ('produced_by', 'data.simulation', '0.1',
+            ('produced_by', 'linked_to(data.simulation)', '0.1',
                 "Makes a link back to originating activity."),
             ('references', 'shared.reference', '0.N',
                 "Relevant reference document."),
             ('related_to_dataset', 'shared.online_resource', '0.N',
                 "Related dataset."),
-            ('responsible_parties', 'shared.responsibility', '0.N',
+            ('responsible_parties', 'linked_to(shared.responsibility)', '0.N',
                 "Individuals and organisations reponsible for the data.")
         ]
     }
@@ -63,7 +63,7 @@ def downscaling():
         'base': 'data.simulation',
         'is_abstract': False,
         'properties': [
-            ('downscaled_from', 'data.simulation', '1.1',
+            ('downscaled_from', 'linked_to(data.simulation)', '1.1',
                 "The simulation that was downscaled by this downscaling activity.")
         ]
     }
@@ -85,13 +85,13 @@ def simulation():
                 "String that can be used to extract ensemble axis membership from the primary ensemble(e.g. cmip6 rip string as in the DRS)."),
             ('parent_simulation', 'activity.parent_simulation', '0.1',
                 "If appropriate, detailed information about how this simulation branched from a previous one."),
-            ('part_of_project', 'designing.project', '1.N',
+            ('part_of_project', 'linked_to(designing.project)', '1.N',
                 "Project or projects for which simulation was run."),
-            ('primary_ensemble', 'activity.ensemble', '0.1',
+            ('primary_ensemble', 'linked_to(activity.ensemble)', '0.1',
                 "Primary Ensemble (ensemble for which this simulation was first run)."),
-            ('ran_for_experiments', 'designing.numerical_experiment', '1.N',
+            ('ran_for_experiments', 'linked_to(designing.numerical_experiment)', '1.N',
                 "One or more experiments with which the simulation is associated."),
-            ('used', 'science.model', '1.1',
+            ('used', 'linked_to(science.model)', '1.1',
                 "The model used to run the simulation.")
         ]
     }

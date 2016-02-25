@@ -33,7 +33,7 @@ def ensemble_requirement():
         'base': 'designing.numerical_requirement',
         'is_abstract': False,
         'properties': [
-            ('ensemble_member', 'designing.numerical_requirement', '0.N',
+            ('ensemble_member', 'linked_to(designing.numerical_requirement)', '0.N',
                 "Constraint on each ensemble member."),
             ('ensemble_type', 'designing.ensemble_types', '1.1',
                 "Type of ensemble."),
@@ -130,7 +130,7 @@ def multi_ensemble():
         'base': 'designing.numerical_requirement',
         'is_abstract': False,
         'properties': [
-            ('ensemble_axis', 'designing.ensemble_requirement', '1.N',
+            ('ensemble_axis', 'linked_to(designing.ensemble_requirement)', '1.N',
                 "List of orthogonal ensembles.")
         ]
     }
@@ -160,9 +160,9 @@ def numerical_experiment():
         'base': 'activity.activity',
         'is_abstract': False,
         'properties': [
-            ('related_experiments', 'designing.numerical_experiment', '0.N',
+            ('related_experiments', 'linked_to(designing.numerical_experiment)', '0.N',
                 "A related experiment."),
-            ('requirements', 'designing.numerical_requirement, designing.experimental_relationships', '0.N',
+            ('requirements', 'linked_to(designing.numerical_requirement, designing.experimental_relationships)', '0.N',
                 "Requirements that conformant simulations need to satisfy.")
         ]
     }
@@ -177,7 +177,7 @@ def numerical_requirement():
         'base': 'activity.activity',
         'is_abstract': False,
         'properties': [
-            ('additional_requirements', 'designing.numerical_requirement', '0.N',
+            ('additional_requirements', 'linked_to(designing.numerical_requirement)', '0.N',
                 "Additional detail for this requirement."),
             ('conformance_is_requested', 'bool', '1.1',
                 "Indicator as to whether ensemble documentation should include conformance information for this requirement.")
@@ -217,11 +217,11 @@ def project():
         'base': 'activity.activity',
         'is_abstract': False,
         'properties': [
-            ('previous_projects', 'designing.project', '0.N',
+            ('previous_projects', 'linked_to(designing.project)', '0.N',
                 "Previous projects with similar aims."),
-            ('requires_experiments', 'designing.numerical_experiment', '0.N',
+            ('requires_experiments', 'linked_to(designing.numerical_experiment)', '0.N',
                 "Experiments required to deliver project."),
-            ('sub_projects', 'designing.project', '0.N',
+            ('sub_projects', 'linked_to(designing.project)', '0.N',
                 "Activities within the project with their own name and aim(s).")
         ]
     }
@@ -236,13 +236,13 @@ def simulation_plan():
         'base': 'activity.activity',
         'is_abstract': False,
         'properties': [
-            ('expected_model', 'science.model', '1.1',
+            ('expected_model', 'linked_to(science.model)', '1.1',
                 "The model used to run the simulation."),
             ('expected_performance_sypd', 'float', '0.1',
                 "Expected performance in simulated years per real day."),
-            ('expected_platform', 'platform.machine', '0.1',
+            ('expected_platform', 'linked_to(platform.machine)', '0.1',
                 "The machine on which the simulation will be run."),
-            ('will_support_experiments', 'designing.numerical_experiment', '1.N',
+            ('will_support_experiments', 'linked_to(designing.numerical_experiment)', '1.N',
                 "An experiment with which the planned simulation will be associated.")
         ]
     }

@@ -71,7 +71,7 @@ def conformance():
         'base': 'activity.activity',
         'is_abstract': False,
         'properties': [
-            ('target_requirement', 'designing.numerical_requirement', '1.1',
+            ('target_requirement', 'linked_to(designing.numerical_requirement)', '1.1',
                 "URI of the target numerical requirement.")
         ]
     }
@@ -89,7 +89,7 @@ def ensemble():
         'base': 'activity.activity',
         'is_abstract': False,
         'properties': [
-            ('common_conformances', 'activity.conformance', '0.N',
+            ('common_conformances', 'linked_to(activity.conformance)', '0.N',
                 "Conformance documents for requirements common across ensemble."),
             ('has_ensemble_axes', 'activity.ensemble_axis', '0.N',
                 "Set of axes for the ensemble."),
@@ -97,7 +97,7 @@ def ensemble():
                 "The set of ensemble members."),
             ('part_of', 'activity.uber_ensemble', '0.N',
                 "Link to one or more over-arching ensembles that might includes this one."),
-            ('supported', 'designing.numerical_experiment', '1.N',
+            ('supported', 'linked_to(designing.numerical_experiment)', '1.N',
                 "Experiments with which the ensemble is associated (may differ from constituent simulations).")
         ]
     }
@@ -119,7 +119,7 @@ def ensemble_axis():
                 "Individual member descriptions along axis."),
             ('short_identifier', 'str', '1.1',
                 "e.g. 'r' or 'i' or 'p' to conform with simulation ensemble identifier."),
-            ('target_requirement', 'designing.numerical_requirement', '1.1',
+            ('target_requirement', 'linked_to(designing.numerical_requirement)', '1.1',
                 "URI of the target numerical requirement.")
         ]
     }
@@ -136,11 +136,11 @@ def ensemble_member():
         'base': None,
         'is_abstract': False,
         'properties': [
-            ('had_performance', 'platform.performance', '0.1',
+            ('had_performance', 'linked_to(platform.performance)', '0.1',
                 "Performance of the simulation."),
-            ('ran_on', 'platform.machine', '1.1',
+            ('ran_on', 'linked_to(platform.machine)', '1.1',
                 "The machine on which the simulation was run."),
-            ('simulation', 'data.simulation', '1.1',
+            ('simulation', 'linked_to(data.simulation)', '1.1',
                 "Actual simulation description for an ensemble member.")
         ]
     }
@@ -193,7 +193,7 @@ def parent_simulation():
                 "The time at which the present simulation started in the child calendar."),
             ('branch_time_in_parent', 'shared.date_time', '0.1',
                 "The time in parent simulation calendar at which this simulation was branched."),
-            ('parent', 'data.simulation', '1.1',
+            ('parent', 'linked_to(data.simulation)', '1.1',
                 "The parent simulation of this child.")
         ]
     }
@@ -210,7 +210,7 @@ def uber_ensemble():
         'base': 'activity.ensemble',
         'is_abstract': False,
         'properties': [
-            ('child_ensembles', 'activity.ensemble', '1.N',
+            ('child_ensembles', 'linked_to(activity.ensemble)', '1.N',
                 "Ensemble which are aggregated into this one.")
         ]
     }

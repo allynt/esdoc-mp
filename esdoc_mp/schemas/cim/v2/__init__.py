@@ -16,7 +16,6 @@ from esdoc_mp.schemas.cim.v2 import platform_classes
 from esdoc_mp.schemas.cim.v2 import science_classes
 from esdoc_mp.schemas.cim.v2 import science_enums
 from esdoc_mp.schemas.cim.v2 import shared_classes
-from esdoc_mp.schemas.cim.v2 import shared_classes_doc
 from esdoc_mp.schemas.cim.v2 import shared_classes_time
 from esdoc_mp.schemas.cim.v2 import software_classes
 from esdoc_mp.schemas.cim.v2 import software_enums
@@ -94,7 +93,6 @@ def shared():
     """
     return {
         shared_classes,
-        shared_classes_doc,
         shared_classes_time
     }
 
