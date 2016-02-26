@@ -7,34 +7,6 @@
 """
 
 
-def grid_layouts():
-    """Defines the set of grid layouts (e.g. Arakawa C-Grid) which are understood.
-
-    """
-    return {
-        'type': 'enum',
-        'is_open': False,
-        'members': [
-            ("Arakawa-C", "Arakawa C Grid")
-        ]
-    }
-
-
-def grid_types():
-    """Defines the set of grid types (e.g Cubed Sphere) which are understood.
-
-    """
-    return {
-        'type': 'enum',
-        'is_open': False,
-        'members': [
-            ("LatLon", "Standard lat-lon grid"),
-            ("Cubed-Sphere", "Cubed sphere grid"),
-            ("Spectral-Gaussian", "Spectral with Gaussian grid")
-        ]
-    }
-
-
 def model_types():
     """Defines a set of gross model classes.
 
