@@ -62,6 +62,10 @@ def compute_pool():
                 "Number of nodes."),
             ('operating_system', 'str', '0.1',
                 "Operating system.")
+        ],
+        'derived': [
+            ('total_cores', 'compute_cores_per_node * number_of_nodes'),
+            ('total_memory', 'memory_per_node * number_of_nodes')
         ]
     }
 
