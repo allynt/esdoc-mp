@@ -88,10 +88,7 @@ def _set_relations(ontology):
         pkg.ontology = ontology
         for cls in pkg.classes:
             cls.package = pkg
-            for prp in cls.properties:
-                prp.package = pkg
-                prp.cls = cls
-            for prp in cls.computed_properties:
+            for prp in cls.properties.union(cls.computed_properties).union(cls.constraints):
                 prp.package = pkg
                 prp.cls = cls
         for enum in pkg.enums:

@@ -9,6 +9,7 @@
 
 """
 from esdoc_mp.core.class_ import Class
+from esdoc_mp.core.class_constraint import ClassConstraint
 from esdoc_mp.core.computed_property import ComputedProperty
 from esdoc_mp.core.decoding import Decoding
 from esdoc_mp.core.enum import Enum

@@ -20,6 +20,7 @@ from esdoc_mp.core import EnumMember
 from esdoc_mp.core import Ontology
 from esdoc_mp.core import Package
 from esdoc_mp.core import Property
+from esdoc_mp.core import ClassConstraint
 
 
 
@@ -105,6 +106,21 @@ def _get_class_computed_properties(class_):
             class_.get('derived', []) + class_.get('computed', [])]
 
 
+def _get_class_constraints(class_):
+    """Returns class constraint definitions.
+
+    """
+    def get_constraint(defn):
+        """Returns parsed computation statement.
+
+        """
+        property_name, typeof, value = defn
+
+        return ClassConstraint(property_name, typeof, value)
+
+    return [get_constraint(defn) for defn in class_.get('constraints', [])]
+
+
 def _get_class_decodings(class_):
     """Returns class decoding definitions.
 
@@ -130,6 +146,7 @@ def _get_package_classes(schema, package, types):
                   cls.get('doc', None),
                   _get_class_properties(cls),
                   _get_class_computed_properties(cls),
+                  _get_class_constraints(cls),
                   cls.get('constants', []),
                   _get_class_decodings(cls))
         )

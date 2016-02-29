@@ -21,6 +21,7 @@ class Class(object):
                  doc_string,
                  properties,
                  computed_properties,
+                 constraints,
                  constants,
                  decodings
                  ):
@@ -32,6 +33,7 @@ class Class(object):
         :param str doc_string: Class documentation string.
         :param set properties: Set of associated properties.
         :param set computed_properties: Set of associated computed properties.
+        :param set constraints: Set of associated constraints.
         :param set constants: Set of associated property constants.
         :param set decodings: Set of associated property decodings.
 
@@ -41,6 +43,7 @@ class Class(object):
         self.cls = None
         self.computed_properties = set(sorted(computed_properties, key=lambda p: p.name))
         self.constants = constants
+        self.constraints = set(sorted(constraints, key=lambda ct: ct.property_name))
         self.decodings = set(sorted(decodings, key=lambda dc: dc.property_name))
         self.doc_string = doc_string if doc_string is not None else ''
         self.imports = set()

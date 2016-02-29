@@ -137,9 +137,42 @@ def _emit_module_meta(o):
 
     def emit_type_info():
         def get_code(c):
-            code = "{0}.type_info = ({1})".format(
+            code = "# Set class type info (property-name, property-type, property-is-required, property-is-iterable)."
+            code += gu.emit_line_return()
+            code += "{0}.type_info = ({1})".format(
                 c.op_full_name,
                 gu.emit_line_return() + emit_type_attribute_info(c))
+            code += gu.emit_line_return(2)
+
+            return code
+
+        return gu.emit(o.classes, get_code)
+
+
+    def emit_constraint_info(c):
+        def get_code(ct):
+            code = gu.emit_indent()
+            code += "('{}', '{}', '{}'),".format(
+                ct.property_name,
+                ct.typeof,
+                ct.value)
+            code += gu.emit_line_return()
+
+            return code
+
+        return gu.emit(c.constraints, get_code)
+
+
+    def emit_class_constraint_info():
+        def get_code(c):
+            if not c.constraints:
+                return None
+
+            code = "# Set constraint info (property-name, constraint-type, constraint-value)."
+            code += gu.emit_line_return()
+            code += "{0}.type_constraint_info = ({1})".format(
+                c.op_full_name,
+                gu.emit_line_return() + emit_constraint_info(c))
             code += gu.emit_line_return(2)
 
             return code
@@ -151,6 +184,7 @@ def _emit_module_meta(o):
     code = code.replace('{module-imports}', emit_imports())
     code = code.replace('{type-keys}', emit_type_keys())
     code = code.replace('{type-info}', emit_type_info())
+    code = code.replace('{constraint-info}', emit_class_constraint_info())
 
     return code
 
