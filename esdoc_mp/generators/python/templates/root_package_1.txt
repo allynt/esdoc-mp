@@ -8,7 +8,7 @@
    :synopsis: The {ontology-name} package initialisor.
 
 .. moduleauthor:: Earth System Documentation (ES-DOC) <dev@es-doc.org>
-.. note:: Code generated using esdoc_mp.
+.. note:: Code generated using the esdoc-mp framework.
 
 """
 from v{ontology-version} import *

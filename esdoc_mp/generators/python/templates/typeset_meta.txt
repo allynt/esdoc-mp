@@ -8,7 +8,7 @@
    :synopsis: Encpasulates meta-information pertaining to the {ontology-name}.v{ontology-version-packagename} typeset.
 
 .. moduleauthor:: Earth System Documentation (ES-DOC) <dev@es-doc.org>
-.. note:: Code generated using esdoc_mp.
+.. note:: Code generated using the esdoc-mp framework.
 
 """
 import datetime
@@ -22,5 +22,3 @@ import uuid
 {type-keys}
 
 {type-info}
-
-{constraint-info}

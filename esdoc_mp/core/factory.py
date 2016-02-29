@@ -13,6 +13,7 @@ import inspect
 import re
 
 from esdoc_mp.core import Class
+from esdoc_mp.core import ClassConstraint
 from esdoc_mp.core import ComputedProperty
 from esdoc_mp.core import Decoding
 from esdoc_mp.core import Enum
@@ -20,7 +21,6 @@ from esdoc_mp.core import EnumMember
 from esdoc_mp.core import Ontology
 from esdoc_mp.core import Package
 from esdoc_mp.core import Property
-from esdoc_mp.core import ClassConstraint
 
 
 

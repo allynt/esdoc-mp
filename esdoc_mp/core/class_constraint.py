@@ -37,3 +37,11 @@ class ClassConstraint(object):
 
         """
         return "class constraint; {}::{}::{}".format(self.property_name, self.typeof, self.value)
+
+
+    @property
+    def key(self):
+        """Returns a key for disambiguating amongst a set of constraints.
+
+        """
+        return "{}-{}".format(self.property_name, self.typeof)

@@ -137,36 +137,7 @@ def document_types():
     }
 
 
-def external_document():
-    """A real world document, could be a book, a journal article, a manual, a web page ... it might or might
-    not be online, although preferably it would be. We expect a typical citation to be built up
-    as in the following 'authorship, date: title, publication_detail (doi if present)'.
 
-    """
-    return {
-        'type': 'class',
-        'base': None,
-        'is_abstract': False,
-        'pstr': ('%s', ('name',)),
-        'properties': [
-            ('authorship', 'str', '0.1',
-                "List of authors expressed using an appropriate syntax."),
-            ('date', 'str', '0.1',
-                "Date of publication, or of access in the case of a URL."),
-            ('doi', 'str', '0.1',
-                "Digital Object Identifier, if it exists."),
-            ('meta', 'shared.doc_meta_info', '1.1',
-                "Metadata about the creation of this document description."),
-            ('name', 'str', '1.1',
-                "A name for the citation: short hand description, e.g. Meehl et al (2014)."),
-            ('online_at', 'shared.online_resource', '0.1',
-                "Location of electronic version."),
-            ('publication_detail', 'str', '0.1',
-                "Journal/publisher, page and volume information as appropriate."),
-            ('title', 'str', '1.1',
-                "Title or name of the document.")
-        ]
-    }
 
 
 def key_float():
@@ -323,6 +294,38 @@ def quality_status():
             ("finalised", "Author has completed document, prior to review"),
             ("under_review", "Document is being reviewed"),
             ("reviewed", "Document has been formally reviewed and assessed as complete and accurate")
+        ]
+    }
+
+
+def external_document():
+    """A real world document, could be a book, a journal article, a manual, a web page ... it might or might
+    not be online, although preferably it would be. We expect a typical citation to be built up
+    as in the following 'authorship, date: title, publication_detail (doi if present)'.
+
+    """
+    return {
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'pstr': ('%s', ('name',)),
+        'properties': [
+            ('authorship', 'str', '0.1',
+                "List of authors expressed using an appropriate syntax."),
+            ('date', 'str', '0.1',
+                "Date of publication, or of access in the case of a URL."),
+            ('doi', 'str', '0.1',
+                "Digital Object Identifier, if it exists."),
+            ('meta', 'shared.doc_meta_info', '1.1',
+                "Metadata about the creation of this document description."),
+            ('name', 'str', '1.1',
+                "A name for the citation: short hand description, e.g. Meehl et al (2014)."),
+            ('online_at', 'shared.online_resource', '0.1',
+                "Location of electronic version."),
+            ('publication_detail', 'str', '0.1',
+                "Journal/publisher, page and volume information as appropriate."),
+            ('title', 'str', '1.1',
+                "Title or name of the document.")
         ]
     }
 

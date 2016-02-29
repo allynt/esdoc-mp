@@ -1,5 +1,8 @@
 # set of files to ignore by git
 
+# local developer's todo file
+esdoc_mp/TODO.txt
+
 # IDE configuration files...
 .idea/
 

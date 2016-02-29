@@ -9,6 +9,10 @@
 
 
 """
+import itertools
+from collections import defaultdict
+
+
 
 class Class(object):
     """Represents an ontological class definition.
@@ -83,6 +87,34 @@ class Class(object):
         if self.base:
             return set(self.constants).union(self.base.all_constants)
         return set(self.constants)
+
+
+    @property
+    def all_constraints(self):
+        """Gets all associated constraints including those of base class (sorted by name).
+
+        """
+        result = defaultdict(lambda: defaultdict(list))
+
+        # Own constraints.
+        for ct in self.constraints:
+            if ct.property_name not in result[ct.typeof]:
+                result[ct.typeof][ct.property_name] = (ct.property_name, ct.typeof, ct.value)
+
+        # Base class(es) constraints.
+        if self.base:
+            for ct in self.base.constraints:
+                if ct.property_name not in result[ct.typeof]:
+                    result[ct.typeof][ct.property_name] = (ct.property_name, ct.typeof, ct.value)
+
+        # Own properties converted to constraints.
+        for p in self.all_properties:
+            if p.name not in result['cardinality']:
+                result['cardinality'][p.name] = (p.name, "cardinality", p.cardinality)
+            if p.name not in result['type']:
+                result['type'][p.name] = (p.name, "type", p.type)
+
+        return list(itertools.chain.from_iterable([v.values() for v in result.values()]))
 
 
     @property

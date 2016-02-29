@@ -128,6 +128,13 @@ def emit_indent(count=1):
     return reduce(lambda x, y: x + _INDENT, range(count), '')
 
 
+def emit_tab():
+    """Emits code corresponding to a code tab.
+
+    """
+    return emit_indent(4)
+
+
 def emit_line_return(count=1):
     """Emits code corresponding to a code line return.
 

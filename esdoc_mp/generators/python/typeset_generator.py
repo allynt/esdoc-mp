@@ -41,6 +41,10 @@ _TEMPLATE_ENUM = "typeset_enum.txt"
 # Template for a concrete class.
 _TEMPLATE_CLASS_COMPUTED_PROPERTY = "typeset_class_computed_property.txt"
 
+# Template for the constraints module.
+_TEMPLATE_CONSTRAINTS = 'constraints.txt'
+
+
 # Set of template files.
 _template_files = (
     _TEMPLATE_MAIN,
@@ -49,7 +53,8 @@ _template_files = (
     _TEMPLATE_CLASS_CONCRETE,
     _TEMPLATE_CLASS_ABSTRACT,
     _TEMPLATE_ENUM,
-    _TEMPLATE_CLASS_COMPUTED_PROPERTY
+    _TEMPLATE_CLASS_COMPUTED_PROPERTY,
+    _TEMPLATE_CONSTRAINTS
 )
 
 # Loaded templates.
@@ -76,6 +81,11 @@ class TypesetGenerator(Generator):
                 _emit_module_meta(ctx.ontology),
                 pgu.get_ontology_directory(ctx),
                 pgu.get_module_file_name('typeset_meta')
+            ),
+            (
+                _emit_module_constraints(ctx.ontology),
+                pgu.get_ontology_directory(ctx),
+                pgu.get_module_file_name('constraints')
             )
         ]
 
@@ -86,11 +96,13 @@ class TypesetGenerator(Generator):
         :param GeneratorContext ctx: Generation context information.
 
         """
-        return (
-            _emit_module_typeset_for_pkg(ctx.ontology, ctx.pkg),
-            pgu.get_ontology_directory(ctx),
-            pgu.get_package_module_file_name(ctx.pkg, 'typeset')
-        )
+        return [
+            (
+                _emit_module_typeset_for_pkg(ctx.ontology, ctx.pkg),
+                pgu.get_ontology_directory(ctx),
+                pgu.get_package_module_file_name(ctx.pkg, 'typeset')
+            )
+        ]
 
 
 def _emit_module_meta(o):
@@ -148,43 +160,59 @@ def _emit_module_meta(o):
 
         return gu.emit(o.classes, get_code)
 
-
-    def emit_constraint_info(c):
-        def get_code(ct):
-            code = gu.emit_indent()
-            code += "('{}', '{}', '{}'),".format(
-                ct.property_name,
-                ct.typeof,
-                ct.value)
-            code += gu.emit_line_return()
-
-            return code
-
-        return gu.emit(c.constraints, get_code)
-
-
-    def emit_class_constraint_info():
-        def get_code(c):
-            if not c.constraints:
-                return None
-
-            code = "# Set constraint info (property-name, constraint-type, constraint-value)."
-            code += gu.emit_line_return()
-            code += "{0}.type_constraint_info = ({1})".format(
-                c.op_full_name,
-                gu.emit_line_return() + emit_constraint_info(c))
-            code += gu.emit_line_return(2)
-
-            return code
-
-        return gu.emit(o.classes, get_code)
-
-
     code = _templates[_TEMPLATE_META_MODULE]
     code = code.replace('{module-imports}', emit_imports())
     code = code.replace('{type-keys}', emit_type_keys())
     code = code.replace('{type-info}', emit_type_info())
-    code = code.replace('{constraint-info}', emit_class_constraint_info())
+
+    return code
+
+
+def _emit_module_constraints(o):
+    """Emits constraints module."""
+    def emit_package_imports():
+        def get_code(p):
+            code = "import {0} as {1}".format(
+                pgu.get_package_module_name(p, 'typeset'),
+                p.op_name)
+            code += gu.emit_line_return()
+
+            return code
+
+        return gu.emit(o.packages, get_code)
+
+
+    def emit_constraint_set(c):
+        def get_code(ct):
+            name, typeof, value = ct
+            if typeof == 'type':
+                value = pgu.get_type_functional_name(value, True)
+            else:
+                value = "'{}'".format(value)
+            code = gu.emit_indent(2)
+            code += "('{}', '{}', {}),".format(name, typeof, value)
+            code += gu.emit_line_return()
+
+            return code
+
+        return gu.emit(c.all_constraints, get_code)
+
+
+    def emit_class_constraints():
+        def get_code(c):
+            return "{}{}: ({}{}),{}".format(
+                gu.emit_indent(),
+                c.op_full_name,
+                gu.emit_line_return() + emit_constraint_set(c),
+                gu.emit_indent(),
+                gu.emit_line_return(2))
+
+        return gu.emit(o.classes, get_code)
+
+
+    code = _templates[_TEMPLATE_CONSTRAINTS]
+    code = code.replace('{module-imports-packages}', emit_package_imports())
+    code = code.replace('{constraints}', emit_class_constraints())
 
     return code
 
