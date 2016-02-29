@@ -10,8 +10,10 @@
 
 """
 import inspect
+import re
 
 from esdoc_mp.core import Class
+from esdoc_mp.core import ComputedProperty
 from esdoc_mp.core import Decoding
 from esdoc_mp.core import Enum
 from esdoc_mp.core import EnumMember
@@ -19,6 +21,10 @@ from esdoc_mp.core import Ontology
 from esdoc_mp.core import Package
 from esdoc_mp.core import Property
 
+
+
+# Comutation element reg-ex.
+_RE_COMPUTED_ELEMENT = '^[a-z]+$'
 
 
 def _get_functions(modules):
@@ -84,6 +90,21 @@ def _get_class_properties(class_):
     return result
 
 
+def _get_class_computed_properties(class_):
+    """Returns class computed property definitions.
+
+    """
+    def get_computation(computation):
+        """Returns parsed computation statement.
+
+        """
+        return " ".join(["self.{}".format(e) if re.match(_RE_COMPUTED_ELEMENT, e[0]) else e 
+                        for e in computation.split(" ")])
+
+    return [ComputedProperty(name, get_computation(computation)) for name, computation in
+            class_.get('derived', []) + class_.get('computed', [])]
+
+
 def _get_class_decodings(class_):
     """Returns class decoding definitions.
 
@@ -108,6 +129,7 @@ def _get_package_classes(schema, package, types):
                   cls.get('is_abstract', False),
                   cls.get('doc', None),
                   _get_class_properties(cls),
+                  _get_class_computed_properties(cls),
                   cls.get('constants', []),
                   _get_class_decodings(cls))
         )

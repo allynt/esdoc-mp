@@ -38,6 +38,9 @@ _TEMPLATE_CLASS_ABSTRACT = "typeset_class_abstract.txt"
 # Template for an enumeration.
 _TEMPLATE_ENUM = "typeset_enum.txt"
 
+# Template for a concrete class.
+_TEMPLATE_CLASS_COMPUTED_PROPERTY = "typeset_class_computed_property.txt"
+
 # Set of template files.
 _template_files = (
     _TEMPLATE_MAIN,
@@ -45,7 +48,8 @@ _template_files = (
     _TEMPLATE_META_MODULE,
     _TEMPLATE_CLASS_CONCRETE,
     _TEMPLATE_CLASS_ABSTRACT,
-    _TEMPLATE_ENUM
+    _TEMPLATE_ENUM,
+    _TEMPLATE_CLASS_COMPUTED_PROPERTY
 )
 
 # Loaded templates.
@@ -317,6 +321,7 @@ def _emit_snippet_class(c):
     code = code.replace('{class-doc-string}', _emit_snippet_class_doc_string(c))
     code = code.replace('{class_constants}', _emit_snippet_class_property_constants(c))
     code = code.replace('{class-properties}', _emit_snippet_class_properties(c))
+    code = code.replace('{class-computed-properties}', _emit_snippet_class_computed_properties(c))
 
     return code
 
@@ -349,6 +354,21 @@ def _emit_snippet_class_properties(c):
         )
 
     return gu.emit(c.properties, get_code)
+
+
+def _emit_snippet_class_computed_properties(c):
+    """Emits set of class computed properties."""
+    def get_code(cp):
+        # Open template.
+        code = _templates[_TEMPLATE_CLASS_COMPUTED_PROPERTY]
+
+        # Generate code.
+        code = code.replace('{computed-property-name}', cp.name)
+        code = code.replace('{computed-property-computation}', cp.computation)
+
+        return code
+
+    return gu.emit(c.computed_properties, get_code)
 
 
 def _emit_snippet_class_property_constants(c):

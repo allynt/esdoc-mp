@@ -14,7 +14,7 @@ class Class(object):
     """Represents an ontological class definition.
 
     """
-    def __init__(self, name, base, is_abstract, doc_string, properties, constants, decodings):
+    def __init__(self, name, base, is_abstract, doc_string, properties, computed_properties, constants, decodings):
         """Instance constructor.
 
         :param str name: Class name.
@@ -22,12 +22,14 @@ class Class(object):
         :param bool is_abstract: Flag indicating whether this is an abstract class or not.
         :param str doc_string: Class documentation string.
         :param set properties: Set of associated properties.
+        :param set computed_properties: Set of associated computed properties.
         :param set constants: Set of associated property constants.
         :param set decodings: Set of associated property decodings.
 
         """
         self.base = base
         self.circular_imports = set()
+        self.computed_properties = set(sorted(computed_properties, key=lambda p: p.name))
         self.constants = constants
         self.decodings = set(sorted(decodings, key=lambda dc: dc.property_name))
         self.doc_string = doc_string if doc_string is not None else ''
@@ -65,11 +67,9 @@ class Class(object):
         """Gets all associated constants including those of base class (sorted by name).
 
         """
-        result = set(self.constants)
         if self.base:
-            result = result.union(self.base.all_constants)
-
-        return result
+            return set(self.constants).union(self.base.all_constants)
+        return set(self.constants)
 
 
     @property
@@ -77,11 +77,19 @@ class Class(object):
         """Gets all associated properties including those of base class (sorted by name).
 
         """
-        result = set(self.properties)
         if self.base:
-            result = result.union(self.base.all_properties)
+            return set(self.properties).union(self.base.all_properties)
+        return set(self.properties)
 
-        return result
+
+    @property
+    def all_computed_properties(self):
+        """Gets all associated computed properties including those of base class (sorted by name).
+
+        """
+        if self.base:
+            return set(self.computed_properties).union(self.base.all_computed_properties)
+        return set(self.computed_properties)
 
 
     @property
@@ -89,11 +97,9 @@ class Class(object):
         """Gets class plus base class decodings.
 
         """
-        result = set(self.decodings)
         if self.base:
-            result = result.union(self.base.all_decodings)
-
-        return result
+            return set(self.decodings).union(self.base.all_decodings)
+        return set(self.decodings)
 
 
     def get_property_decodings(self, prp):
@@ -116,3 +122,4 @@ class Class(object):
                 return prp
         if self.base:
             return self.base.get_property(name)
+
