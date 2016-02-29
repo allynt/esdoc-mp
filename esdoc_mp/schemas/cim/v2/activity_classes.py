@@ -53,6 +53,8 @@ def axis_member():
         'properties': [
             ('description', 'str', '1.1',
                 "Description of the member (or name of parameter varied)."),
+            ('extra_detail', 'str', '0.1',
+                "If necessary: further information about ensemble member conformance."),
             ('index', 'int', '1.1',
                 "The ensemble member index."),
             ('value', 'float', '0.1',
@@ -98,6 +100,8 @@ def ensemble():
         'properties': [
             ('common_conformances', 'linked_to(activity.conformance)', '0.N',
                 "Conformance documents for requirements common across ensemble."),
+            ('documentation', 'linked_to(shared.online_resource)', '0.N',
+                "Links to web-pages and other ensemble specific documentation (including workflow descriptions)."),
             ('has_ensemble_axes', 'activity.ensemble_axis', '0.N',
                 "Set of axes for the ensemble."),
             ('members', 'activity.ensemble_member', '1.N',
@@ -131,7 +135,7 @@ def ensemble_axis():
             ('member', 'activity.axis_member', '1.N',
                 "Individual member descriptions along axis."),
             ('short_identifier', 'str', '1.1',
-                "e.g. 'r' or 'i' or 'p' to conform with simulation ensemble identifier."),
+                "e.g. 'r' or 'i' or 'p' to conform with simulation ensemble variant identifiers."),
             ('target_requirement', 'linked_to(designing.numerical_requirement)', '1.1',
                 "URI of the target numerical requirement.")
         ]
@@ -149,12 +153,16 @@ def ensemble_member():
         'base': None,
         'is_abstract': False,
         'properties': [
+            ('errata', 'linked_to(shared.online_resource)', '0.1',
+                "Link to errata associated with this simulation."),
             ('had_performance', 'linked_to(platform.performance)', '0.1',
                 "Performance of the simulation."),
-            ('ran_on', 'linked_to(platform.machine)', '1.1',
+            ('ran_on', 'linked_to(platform.machine)', '0.1',
                 "The machine on which the simulation was run."),
             ('simulation', 'linked_to(data.simulation)', '1.1',
-                "Actual simulation description for an ensemble member.")
+                "Actual simulation description for an ensemble member."),
+            ('variant_id', 'str', '1.1',
+                "A string which concatenates axis member short identiers (e.g r1i1p1f1).")
         ]
     }
 

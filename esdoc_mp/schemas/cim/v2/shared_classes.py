@@ -7,32 +7,6 @@
 """
 
 
-def association_class():
-    """Provides a class for establishing relationships between entities which
-    exist in an extensible vocabulary, as opposed to an explict relationship defined
-    using a CIM property.
-    It is expected that when this class appears as a property, a controlled vocabulary
-    is used for the relationship and/or a target CIM class type is provided. In
-    the former case, the vocabulary will appear as a constraint as in the
-    NumericalExperiment.
-
-    """
-    return {
-        'type': 'class',
-        'base': None,
-        'is_abstract': True,
-        'pstr': ('%s', ('relationship',)),
-        'properties': [
-            ('from_vocab', 'str', '0.1',
-                "Name of an enumeration vocabulary of possible relationships."),
-            ('relatonship', 'str', '0.1',
-                "Relationship to entity."),
-            ('target_type', 'shared.document_types', '0.1',
-                "Type of target.")
-        ]
-    }
-
-
 def cimtext():
     """Provides a text class which supports plaintext, html, and
     friends (or will do).
@@ -166,7 +140,7 @@ def document_types():
 def external_document():
     """A real world document, could be a book, a journal article, a manual, a web page ... it might or might
     not be online, although preferably it would be. We expect a typical citation to be built up
-    as in the following <authorship>, <date>: <title>, <publication_detail> (<doi> if present).
+    as in the following 'authorship, date: title, publication_detail (doi if present)'.
 
     """
     return {
