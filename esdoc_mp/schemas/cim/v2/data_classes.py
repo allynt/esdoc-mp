@@ -65,6 +65,9 @@ def downscaling():
         'properties': [
             ('downscaled_from', 'linked_to(data.simulation)', '1.1',
                 "The simulation that was downscaled by this downscaling activity.")
+        ],
+        'constraints': [
+            ('parent_simulation', 'cardinality', '0.0')
         ]
     }
 
@@ -93,6 +96,9 @@ def simulation():
                 "One or more experiments with which the simulation is associated."),
             ('used', 'linked_to(science.model)', '1.1',
                 "The model used to run the simulation.")
+        ],
+        'constraints': [
+            ('rationale', 'cardinality', '0.0')
         ]
     }
 

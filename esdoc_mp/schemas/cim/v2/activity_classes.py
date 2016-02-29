@@ -73,6 +73,13 @@ def conformance():
         'properties': [
             ('target_requirement', 'linked_to(designing.numerical_requirement)', '1.1',
                 "URI of the target numerical requirement.")
+        ],
+        'constraints': [
+            ('canonical_name', 'cardinality', '0.0'),
+            ('description', 'cardinality', '1.1'),
+            ('duration', 'cardinality', '0.0'),
+            ('keywords', 'cardinality', '0.0'),
+            ('rationale', 'cardinality', '0.0')
         ]
     }
 
@@ -99,6 +106,12 @@ def ensemble():
                 "Link to one or more over-arching ensembles that might includes this one."),
             ('supported', 'linked_to(designing.numerical_experiment)', '1.N',
                 "Experiments with which the ensemble is associated (may differ from constituent simulations).")
+        ],
+        'constraints': [
+            ('canonical_name', 'cardinality', '0.0'),
+            ('duration', 'cardinality', '0.0'),
+            ('keywords', 'cardinality', '0.0'),
+            ('rationale', 'cardinality', '0.0')
         ]
     }
 
@@ -212,5 +225,10 @@ def uber_ensemble():
         'properties': [
             ('child_ensembles', 'linked_to(activity.ensemble)', '1.N',
                 "Ensemble which are aggregated into this one.")
+        ],
+        'constraints': [
+            ('common_conformances', 'cardinality', '0.0'),
+            ('has_ensemble_axes', 'cardinality', '1.N'),
+            ('members', 'cardinality', '0.0')
         ]
     }

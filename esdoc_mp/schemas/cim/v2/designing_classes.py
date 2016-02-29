@@ -20,6 +20,9 @@ def domain_properties():
                 "Constraint on extent of domain to be simulated."),
             ('required_resolution', 'science.resolution', '0.1',
                 "Constraint on resolution required in simulated domain.")
+        ],
+        'constraints': [
+            ('additional_requirements', 'cardinality', '0.0')
         ]
     }
 
@@ -39,6 +42,9 @@ def ensemble_requirement():
                 "Type of ensemble."),
             ('minimum_size', 'int', '1.1',
                 "Minimum number of members.")
+        ],
+        'constraints': [
+            ('additional_requirements', 'cardinality', '0.0')
         ]
     }
 
@@ -100,6 +106,9 @@ def forcing_constraint():
                 "Sub-Category (e.g. GHG)."),
             ('origin', 'shared.reference', '0.1',
                 "Pointer to origin, e.g. CMIP6 RCP database.")
+        ],
+        'constraints': [
+            ('additional_requirements', 'cardinality', '0.0')
         ]
     }
 
@@ -132,6 +141,9 @@ def multi_ensemble():
         'properties': [
             ('ensemble_axis', 'linked_to(designing.ensemble_requirement)', '1.N',
                 "List of orthogonal ensembles.")
+        ],
+        'constraints': [
+            ('additional_requirements', 'cardinality', '0.0')
         ]
     }
 
@@ -147,6 +159,9 @@ def multi_time_ensemble():
         'properties': [
             ('ensemble_members', 'shared.datetime_set', '1.1',
                 "Description of date or time set of start dates.")
+        ],
+        'constraints': [
+            ('additional_requirements', 'cardinality', '0.0')
         ]
     }
 
@@ -164,6 +179,10 @@ def numerical_experiment():
                 "A related experiment."),
             ('requirements', 'linked_to(designing.numerical_requirement, designing.experimental_relationships)', '0.N',
                 "Requirements that conformant simulations need to satisfy.")
+        ],
+        'constraints': [
+            ('duration', 'cardinality', '0.0'),
+            ('rationale', 'cardinality', '1.1')
         ]
     }
 
@@ -181,6 +200,9 @@ def numerical_requirement():
                 "Additional detail for this requirement."),
             ('conformance_is_requested', 'bool', '1.1',
                 "Indicator as to whether ensemble documentation should include conformance information for this requirement.")
+        ],
+        'constraints': [
+            ('duration', 'cardinality', '0.0')
         ]
     }
 
@@ -204,6 +226,9 @@ def output_temporal_requirement():
                 "Description of how slices are laid out."),
             ('throughout', 'bool', '1.1',
                 "Whether or not output is required throughout simulation.")
+        ],
+        'constraints': [
+            ('additional_requirements', 'cardinality', '0.0')
         ]
     }
 
@@ -223,6 +248,9 @@ def project():
                 "Experiments required to deliver project."),
             ('sub_projects', 'linked_to(designing.project)', '0.N',
                 "Activities within the project with their own name and aim(s).")
+        ],
+        'constraints': [
+            ('description', 'cardinality', '1.1')
         ]
     }
 
@@ -244,6 +272,9 @@ def simulation_plan():
                 "The machine on which the simulation will be run."),
             ('will_support_experiments', 'linked_to(designing.numerical_experiment)', '1.N',
                 "An experiment with which the planned simulation will be associated.")
+        ],
+        'constraints': [
+            ('duration', 'cardinality', '1.1')
         ]
     }
 
@@ -265,5 +296,8 @@ def temporal_constraint():
                 "Required start date."),
             ('start_flexibility', 'shared.time_period', '0.1',
                 "Amount of time before required start date that it is permissible to begin integration.")
+        ],
+        'constraints': [
+            ('additional_requirements', 'cardinality', '0.0')
         ]
     }

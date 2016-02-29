@@ -26,6 +26,11 @@ def drs_atomic_dataset():
                 "Identifies temporal subsets or means."),
             ('variable_name', 'str', '1.1',
                 "Identifies the physical quantity (when used in conjunction with the MIP table).")
+        ],
+        'constraints': [
+            ('frequency', 'cardinality', '1.1'),
+            ('realm', 'cardinality', '1.1'),
+            ('version_number', 'cardinality', '1.1')
         ]
     }
 
