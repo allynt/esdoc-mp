@@ -27,6 +27,7 @@ class ComputedProperty(object):
         self.cls = None
         self.name = name
         self.computation = computation
+        self.package = None
 
 
     def __repr__(self):

@@ -14,7 +14,16 @@ class Class(object):
     """Represents an ontological class definition.
 
     """
-    def __init__(self, name, base, is_abstract, doc_string, properties, computed_properties, constants, decodings):
+    def __init__(self,
+                 name,
+                 base,
+                 is_abstract,
+                 doc_string,
+                 properties,
+                 computed_properties,
+                 constants,
+                 decodings
+                 ):
         """Instance constructor.
 
         :param str name: Class name.
@@ -29,6 +38,7 @@ class Class(object):
         """
         self.base = base
         self.circular_imports = set()
+        self.cls = None
         self.computed_properties = set(sorted(computed_properties, key=lambda p: p.name))
         self.constants = constants
         self.decodings = set(sorted(decodings, key=lambda dc: dc.property_name))
