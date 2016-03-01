@@ -109,35 +109,64 @@ def document_types():
         'type': 'enum',
         'is_open': False,
         'members': [
-            ("Conformance", None),
-            ("Dataset", None),
-            ("DomainProperties", None),
-            ("Downscaling", None),
-            ("Ensemble", None),
-            ("EnsembleRequirement", None),
-            ("ExternalDocument", None),
-            ("ForcingConstraint", None),
-            ("Grid", None),
-            ("Machine", None),
-            ("Model", None),
-            ("MultiEnsemble", None),
-            ("MultiTimeEnsemble", None),
-            ("NumericalExperiment", None),
-            ("NumericalRequirement", None),
-            ("OutputTemporalRequirement", None),
-            ("Party", None),
-            ("Performance", None),
-            ("Project", None),
-            ("ScientificDomain", None),
-            ("Simulation", None),
-            ("SimulationPlan", None),
-            ("TemporalConstraint", None),
-            ("UberEnsemble", None)
+            ("Conformance", "Used to hold information about how simulations and ensemble met experimental requirements"),
+            ("Dataset", "An Atomic Dataset description, that is the minimal set of files with common publication characteristics."),
+            ("DomainProperties", "SpatioTemporal domain requirements for a numerical experiment."),
+            ("Downscaling", "Description of the techniques and software used to downscale data."),
+            ("Ensemble", "Parent  description for set of runs conforming to a numerical experiment."),
+            ("EnsembleRequirement", "Description of the ensemble requirements of a numerical experiment."),
+            ("ExternalDocument", "A document held outside of es-doc."),
+            ("ForcingConstraint", "A constraint on how a model must be forced to meet the requirements of a numerical experiment."),
+            ("Grid", "The sampling discretisation used by a model or dataset."),
+            ("Machine", "A computer used for numerical experimentation (and/or post-processing)."),
+            ("Model", "A piece of software used to carry out simulations."),
+            ("MultiEnsemble", "An ensemble requirement describing multiple ensemble axes."),
+            ("MultiTimeEnsemble", "An ensemble requirement with multple time axes."),
+            ("NumericalExperiment", "The scientific description of a numerical experiment"),
+            ("NumericalRequirement", "A numerical requirement of a numerical experiment."),
+            ("OutputTemporalRequirement", "The output requirements for one or more numerical experiments"),
+            ("Party", "A person or organisation which has a role in the documentation of the simulation workflow"),
+            ("Performance", "A formal set of criteria describing how a model performed on a given machine."),
+            ("Project", "An umbrella for a set of numerical experiments (e.g. a MIP)"),
+            ("ScientificDomain", "A scientifically coherent realm of a numerical model (typically modelled independently)."),
+            ("Simulation", "A simulation carried out as part of an ensemble for a numerical experiment."),
+            ("SimulationPlan", "A plan to carry out a simulations for a numerical experiment."),
+            ("TemporalConstraint", "A constraint on the real time simulations need to represent for a numerical experiment."),
+            ("UberEnsemble", "An ensemble description that crosses multiple modelling groups.")
         ]
     }
 
 
+def external_document():
+    """A real world document, could be a book, a journal article, a manual, a web page ... it might or might
+    not be online, although preferably it would be. We expect a typical citation to be built up
+    as in the following 'authorship, date: title, publication_detail (doi if present)'.
 
+    """
+    return {
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'pstr': ('%s', ('name',)),
+        'properties': [
+            ('authorship', 'str', '0.1',
+                "List of authors expressed using an appropriate syntax."),
+            ('date', 'str', '0.1',
+                "Date of publication, or of access in the case of a URL."),
+            ('doi', 'str', '0.1',
+                "Digital Object Identifier, if it exists."),
+            ('meta', 'shared.doc_meta_info', '1.1',
+                "Metadata about the creation of this document description."),
+            ('name', 'str', '1.1',
+                "A name for the citation: short hand description, e.g. Meehl et al (2014)."),
+            ('online_at', 'shared.online_resource', '0.1',
+                "Location of electronic version."),
+            ('publication_detail', 'str', '0.1',
+                "Journal/publisher, page and volume information as appropriate."),
+            ('title', 'str', '1.1',
+                "Title or name of the document.")
+        ]
+    }
 
 
 def key_float():
@@ -283,7 +312,7 @@ def quality_review():
 
 
 def quality_status():
-    """None
+    """Assertion as to the review status of document.
 
     """
     return {
@@ -294,38 +323,6 @@ def quality_status():
             ("finalised", "Author has completed document, prior to review"),
             ("under_review", "Document is being reviewed"),
             ("reviewed", "Document has been formally reviewed and assessed as complete and accurate")
-        ]
-    }
-
-
-def external_document():
-    """A real world document, could be a book, a journal article, a manual, a web page ... it might or might
-    not be online, although preferably it would be. We expect a typical citation to be built up
-    as in the following 'authorship, date: title, publication_detail (doi if present)'.
-
-    """
-    return {
-        'type': 'class',
-        'base': None,
-        'is_abstract': False,
-        'pstr': ('%s', ('name',)),
-        'properties': [
-            ('authorship', 'str', '0.1',
-                "List of authors expressed using an appropriate syntax."),
-            ('date', 'str', '0.1',
-                "Date of publication, or of access in the case of a URL."),
-            ('doi', 'str', '0.1',
-                "Digital Object Identifier, if it exists."),
-            ('meta', 'shared.doc_meta_info', '1.1',
-                "Metadata about the creation of this document description."),
-            ('name', 'str', '1.1',
-                "A name for the citation: short hand description, e.g. Meehl et al (2014)."),
-            ('online_at', 'shared.online_resource', '0.1',
-                "Location of electronic version."),
-            ('publication_detail', 'str', '0.1',
-                "Journal/publisher, page and volume information as appropriate."),
-            ('title', 'str', '1.1',
-                "Title or name of the document.")
         ]
     }
 
