@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: esdoc_mp.schemas.validation.__init__.py
+.. module:: esdoc_mp.validation.__init__.py
    :platform: Unix, Windows
    :synopsis: Validates an ontology schema definition.
 
@@ -12,12 +12,12 @@
 import inspect
 import re
 
-from esdoc_mp.schemas.validation.context import ValidationContext
-from esdoc_mp.schemas.validation import class_validator
-from esdoc_mp.schemas.validation import enum_validator
-from esdoc_mp.schemas.validation import package_validator
-from esdoc_mp.schemas.validation import schema_validator
-from esdoc_mp.schemas.validation import type_validator
+from esdoc_mp.validation.context import ValidationContext
+from esdoc_mp.validation import class_validator
+from esdoc_mp.validation import enum_validator
+from esdoc_mp.validation import package_validator
+from esdoc_mp.validation import schema_validator
+from esdoc_mp.validation import type_validator
 
 
 
@@ -41,3 +41,15 @@ def validate(schema):
             break
 
     return ctx.report
+
+
+def is_valid(schema):
+    """Returns flag indicating whether the passed schema is deemed to be valid or not.
+
+    :param module schema: An ontology schema definition.
+
+    :returns: True if valid false otherwise.
+    :rtype: bool
+
+    """
+    return len(validate(schema)) == 0

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: esdoc_mp.schemas.validation.schema_validator
+.. module:: esdoc_mp.validation.schema_validator
    :platform: Unix, Windows
    :synopsis: Validates ontology schema definition.
 
@@ -46,7 +46,7 @@ def _validate_package_factory(ctx, module, factory, expected_type, type_descript
 def validate(ctx):
     """Validates schema level attributes.
 
-    :param esdoc_mp.schemas.validation.ValidationContext: Contextutal information passed between validators.
+    :param esdoc_mp.validation.ValidationContext: Contextutal information passed between validators.
 
     """
     if not inspect.ismodule(ctx.schema):

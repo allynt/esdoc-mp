@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: esdoc_mp.schemas.validation.package_validator
+.. module:: esdoc_mp.validation.package_validator
    :platform: Unix, Windows
    :synopsis: Validates ontology package definition.
 

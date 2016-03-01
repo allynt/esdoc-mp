@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: esdoc_mp.schemas.validation.type_validator
+.. module:: esdoc_mp.validation.type_validator
    :platform: Unix, Windows
    :synopsis: Validates ontology type definitions.
 

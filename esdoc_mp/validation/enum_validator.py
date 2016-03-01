@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: esdoc_mp.schemas.validation.enum_validator
+.. module:: esdoc_mp.validation.enum_validator
    :platform: Unix, Windows
    :synopsis: Validates ontology enum definition.
 

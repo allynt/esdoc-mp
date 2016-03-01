@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: esdoc_mp.schemas.validation.context
+.. module:: esdoc_mp.validation.context
    :platform: Unix, Windows
    :synopsis: Contextual information passed to a validator.
 

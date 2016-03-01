@@ -1,14 +1,36 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: esdoc_mp.schemas.validation.utils
+.. module:: esdoc_mp.schema.utils
    :platform: Unix, Windows
-   :synopsis: Ontology schema validation utility functions.
+   :synopsis: Ontology schema utility functions.
 
 .. moduleauthor:: Mark Conway-Greenslade <momipsl@ipsl.jussieu.fr>
 
 
 """
+from esdoc_mp.schemas import cim
+
+
+
+def get_schema(name, version):
+    """Returns a supported ontology schema module.
+
+    :param str name: Schema name.
+    :param str version: Schema version.
+
+    :returns: An ontology schema.
+    :rtype: module
+
+    """
+    if name == 'cim':
+        if version == '1':
+            return cim.v1
+        if version == '2':
+            return cim.v2
+
+    raise KeyError("ONtology schema not found: {} :: v{}".format(name, version))
+
 
 def parse_type(typeof):
     """Parses a type declaration.
