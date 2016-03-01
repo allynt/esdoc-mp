@@ -160,7 +160,7 @@ class ValidationContext(object):
         """Returns class property type definitions.
 
         """
-        return [p[0:-2] for p in cls.get('properties', []) 
+        return [(p[0], p[1]) for p in cls.get('properties', [])
                 if len(p[1].split(".")) > 1]
 
 
