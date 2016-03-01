@@ -11,7 +11,7 @@
 """
 import re
 
-from esdoc_mp.schemas import utils
+from esdoc_mp.ontologies.schemas import utils
 
 
 

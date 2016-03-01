@@ -11,7 +11,7 @@
 """
 from . import class_validator
 from . import enum_validator
-from esdoc_mp.schemas import utils
+from esdoc_mp.ontologies.schemas import utils
 
 
 

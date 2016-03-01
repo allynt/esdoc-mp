@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: esdoc_mp.schemas.cim.v1.__init__.py
+.. module:: esdoc_mp.ontologies.schemas.cim.v1.__init__.py
    :license: GPL/CeCIL
    :platform: Unix, Windows
    :synopsis: Sub-package initializer.
@@ -11,22 +11,22 @@
 
 """
 
-from esdoc_mp.schemas.cim.v1 import activity_classes
-from esdoc_mp.schemas.cim.v1 import activity_enums
-from esdoc_mp.schemas.cim.v1 import data_classes
-from esdoc_mp.schemas.cim.v1 import data_enums
-from esdoc_mp.schemas.cim.v1 import grids_classes
-from esdoc_mp.schemas.cim.v1 import grids_enums
-from esdoc_mp.schemas.cim.v1 import misc_classes
-from esdoc_mp.schemas.cim.v1 import quality_classes
-from esdoc_mp.schemas.cim.v1 import quality_enums
-from esdoc_mp.schemas.cim.v1 import shared_classes
-from esdoc_mp.schemas.cim.v1 import shared_classes_doc
-from esdoc_mp.schemas.cim.v1 import shared_classes_time
-from esdoc_mp.schemas.cim.v1 import shared_enums
-from esdoc_mp.schemas.cim.v1 import shared_enums_doc
-from esdoc_mp.schemas.cim.v1 import software_classes
-from esdoc_mp.schemas.cim.v1 import software_enums
+from esdoc_mp.ontologies.schemas.cim.v1 import activity_classes
+from esdoc_mp.ontologies.schemas.cim.v1 import activity_enums
+from esdoc_mp.ontologies.schemas.cim.v1 import data_classes
+from esdoc_mp.ontologies.schemas.cim.v1 import data_enums
+from esdoc_mp.ontologies.schemas.cim.v1 import grids_classes
+from esdoc_mp.ontologies.schemas.cim.v1 import grids_enums
+from esdoc_mp.ontologies.schemas.cim.v1 import misc_classes
+from esdoc_mp.ontologies.schemas.cim.v1 import quality_classes
+from esdoc_mp.ontologies.schemas.cim.v1 import quality_enums
+from esdoc_mp.ontologies.schemas.cim.v1 import shared_classes
+from esdoc_mp.ontologies.schemas.cim.v1 import shared_classes_doc
+from esdoc_mp.ontologies.schemas.cim.v1 import shared_classes_time
+from esdoc_mp.ontologies.schemas.cim.v1 import shared_enums
+from esdoc_mp.ontologies.schemas.cim.v1 import shared_enums_doc
+from esdoc_mp.ontologies.schemas.cim.v1 import software_classes
+from esdoc_mp.ontologies.schemas.cim.v1 import software_enums
 
 
 # Ontology name.

@@ -1,5 +1,5 @@
 """
-.. module:: esdoc_mp.schemas.cim.__init__.py
+.. module:: esdoc_mp.ontologies.schemas.cim.__init__.py
    :license: GPL/CeCIL
    :platform: Unix, Windows
    :synopsis: Sub-package initializer.
@@ -8,5 +8,5 @@
 
 
 """
-from esdoc_mp.schemas.cim import v1
-from esdoc_mp.schemas.cim import v2
+from esdoc_mp.ontologies.schemas.cim import v1
+from esdoc_mp.ontologies.schemas.cim import v2

@@ -9,7 +9,7 @@
 
 
 """
-from esdoc_mp.schemas import cim
+from esdoc_mp.ontologies.schemas import cim
 
 
 

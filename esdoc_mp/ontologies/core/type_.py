@@ -11,7 +11,7 @@
 """
 from esdoc_mp.ontologies.core.class_ import Class
 from esdoc_mp.ontologies.core.enum import Enum
-from esdoc_mp.schemas import utils
+from esdoc_mp.ontologies.schemas import utils
 
 
 

@@ -11,7 +11,7 @@
 import os
 
 from esdoc_mp import utils
-from esdoc_mp import schemas
+from esdoc_mp.ontologies import schemas
 
 from esdoc_mp.ontologies.core.factory import create_ontology
 from esdoc_mp.ontologies.generators.factory import create_generators
