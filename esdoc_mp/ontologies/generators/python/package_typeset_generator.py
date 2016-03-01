@@ -70,10 +70,10 @@ def _emit_module_typeset_for_pkg(o, p):
     """
     def emit_imports():
         def get_code(ap):
-            code = "import {0} as {1}".format(
+            return "import {} as {}{}".format(
                 pgu.get_package_module_name(ap, 'typeset'),
-                ap.op_name)
-            code += gu.emit_line_return()
+                ap.op_name,
+                gu.emit_line_return())
 
             return code
 

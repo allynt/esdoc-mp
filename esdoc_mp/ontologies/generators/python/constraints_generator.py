@@ -52,21 +52,6 @@ def _emit_module_constraints(o):
     """Emits constraints module.
 
     """
-    def emit_package_imports():
-        """Emit set of package imports.
-
-        """
-        def get_code(p):
-            code = "import {0} as {1}".format(
-                pgu.get_package_module_name(p, 'typeset'),
-                p.op_name)
-            code += gu.emit_line_return()
-
-            return code
-
-        return gu.emit(o.packages, get_code)
-
-
     def emit_constraint_set(c):
         """Emit a constraint set.
 
@@ -102,7 +87,7 @@ def _emit_module_constraints(o):
 
 
     code = _TEMPLATES[_TEMPLATE_CONSTRAINTS]
-    code = code.replace('{module-imports-packages}', emit_package_imports())
+    code = code.replace('{module-imports-packages}', pgu.emit_package_imports(o))
     code = code.replace('{constraints}', emit_class_constraints())
 
     return code

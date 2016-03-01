@@ -21,7 +21,7 @@ from esdoc_mp import utils
 _LANG = 'python'
 
 # Template for the constraints module.
-_TEMPLATE_KEYS = 'typekey.txt'
+_TEMPLATE_KEYS = 'typekeys.txt'
 
 # Loaded templates.
 _TEMPLATES = gu.load_templates(_LANG, (
@@ -29,7 +29,7 @@ _TEMPLATES = gu.load_templates(_LANG, (
 ))
 
 
-class TypeKeyGenerator(Generator):
+class TypeKeysGenerator(Generator):
     """Generates code that maps an ontology type to it's key.
 
     """
@@ -43,7 +43,7 @@ class TypeKeyGenerator(Generator):
             (
                 _emit_typekeys(ctx.ontology),
                 pgu.get_ontology_directory(ctx),
-                pgu.get_module_file_name('typekey')
+                pgu.get_module_file_name('typekeys')
             )
         ]
 

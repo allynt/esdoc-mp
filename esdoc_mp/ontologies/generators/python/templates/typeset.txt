@@ -13,7 +13,6 @@
 """
 {module-imports-types}
 {module-imports-packages}
-import typeset_meta         # Assigns type info.
 
 
 
@@ -25,6 +24,16 @@ __all__ = [
 {module-exports-types}]
 
 
+# Supported packages.
+PACKAGES = (
+{supported-package-list})
+
+
 # Supported types.
 TYPES = (
 {supported-type-list})
+
+# Set type keys.
+{type-keys}
+
+{type-info}
