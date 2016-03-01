@@ -3,6 +3,7 @@
 """Encapsualtes a set of python specific name conversion operations.
 
 """
+from esdoc_mp.ontologies.generators import generator_utils as gu
 from esdoc_mp.ontologies.generators.generator_utils import *
 
 
@@ -417,3 +418,16 @@ def format(o):
         c.op_import_name = get_class_import_name(c)
         c.op_name = get_class_name(c)
         c.op_full_name = get_full_class_name(c)
+
+
+def emit_package_imports(o):
+    """Emit set of package imports.
+
+    """
+    def emit_import(p):
+        return "import {} as {}{}".format(
+            get_package_module_name(p, 'typeset'),
+            p.op_name,
+            gu.emit_line_return())
+
+    return gu.emit(o.packages, emit_import)

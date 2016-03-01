@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+
+"""
+.. module:: {ontology-name}.v{ontology-version-packagename}.{file-name}
+
+   :license: GPL / CeCILL
+   :platform: Unix, Windows
+   :synopsis: The set of constraints over the {ontology-name}.v{ontology-version-packagename}.
+
+.. moduleauthor:: Earth System Documentation (ES-DOC) <dev@es-doc.org>
+.. note:: Code generated using the esdoc-mp framework.
+
+"""
+{module-imports-packages}
+
+
+# Map of ontology types to type keys.
+TYPE_KEYS = {
+{typekeys}
+}

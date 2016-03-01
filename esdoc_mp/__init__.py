@@ -17,5 +17,5 @@ from esdoc_mp.ontologies.generators import generate
 
 
 # Package version identifier.
-__version__ = '0.5.2.0'
+__version__ = '0.6.0.0'
 

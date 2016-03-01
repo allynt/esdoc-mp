@@ -44,9 +44,8 @@ _TEMPLATE_CLASS_COMPUTED_PROPERTY = "typeset_class_computed_property.txt"
 # Template for the constraints module.
 _TEMPLATE_CONSTRAINTS = 'constraints.txt'
 
-
-# Set of template files.
-_template_files = (
+# Loaded templates.
+_TEMPLATES = gu.load_templates(_LANG, (
     _TEMPLATE_MAIN,
     _TEMPLATE_TYPESET_MODULE,
     _TEMPLATE_META_MODULE,
@@ -55,13 +54,10 @@ _template_files = (
     _TEMPLATE_ENUM,
     _TEMPLATE_CLASS_COMPUTED_PROPERTY,
     _TEMPLATE_CONSTRAINTS
-)
-
-# Loaded templates.
-_templates = gu.load_templates(_LANG, _template_files)
+))
 
 
-class TypesetGenerator(Generator):
+class TypeSetGenerator(Generator):
     """Generates code to represent an ontology as a set of types.
 
     """
@@ -81,11 +77,6 @@ class TypesetGenerator(Generator):
                 _emit_module_meta(ctx.ontology),
                 pgu.get_ontology_directory(ctx),
                 pgu.get_module_file_name('typeset_meta')
-            ),
-            (
-                _emit_module_constraints(ctx.ontology),
-                pgu.get_ontology_directory(ctx),
-                pgu.get_module_file_name('constraints')
             )
         ]
 
@@ -160,7 +151,7 @@ def _emit_module_meta(o):
 
         return gu.emit(o.classes, get_code)
 
-    code = _templates[_TEMPLATE_META_MODULE]
+    code = _TEMPLATES[_TEMPLATE_META_MODULE]
     code = code.replace('{module-imports}', emit_imports())
     code = code.replace('{type-keys}', emit_type_keys())
     code = code.replace('{type-info}', emit_type_info())
@@ -210,7 +201,7 @@ def _emit_module_constraints(o):
         return gu.emit(o.classes, get_code)
 
 
-    code = _templates[_TEMPLATE_CONSTRAINTS]
+    code = _TEMPLATES[_TEMPLATE_CONSTRAINTS]
     code = code.replace('{module-imports-packages}', emit_package_imports())
     code = code.replace('{constraints}', emit_class_constraints())
 
@@ -267,7 +258,7 @@ def _emit_module_typeset_for_pkg(o, p):
                gu.emit(p.enums, get_code)
 
 
-    code = _templates[_TEMPLATE_TYPESET_MODULE]
+    code = _TEMPLATES[_TEMPLATE_TYPESET_MODULE]
     code = code.replace('{imports}', emit_imports())
     code = code.replace('{types}', emit_types())
     code = code.replace('{package-name}', p.op_name)
@@ -332,7 +323,7 @@ def _emit_module_init(o):
         return gu.emit(o.classes, get_code)
 
 
-    code = _templates[_TEMPLATE_MAIN]
+    code = _TEMPLATES[_TEMPLATE_MAIN]
     code = code.replace('{module-imports-packages}', emit_package_imports())
     code = code.replace('{module-imports-types}', emit_type_imports())
     code = code.replace('{module-exports-packages}', emit_package_exports())
@@ -360,7 +351,7 @@ def _emit_snippet_enum(e):
 
         return code
 
-    code = _templates[_TEMPLATE_ENUM]
+    code = _TEMPLATES[_TEMPLATE_ENUM]
     code = code.replace('{enum-name}', pgu.get_enum_name(e))
     code = code.replace('{enum-doc-string}', e.doc_string)
     code = code.replace('{enum-is-open}', str(e.is_open))
@@ -373,9 +364,9 @@ def _emit_snippet_class(c):
     """Emits code corresponding to a python class."""
     # Open template.
     if c.is_abstract:
-        code = _templates[_TEMPLATE_CLASS_ABSTRACT]
+        code = _TEMPLATES[_TEMPLATE_CLASS_ABSTRACT]
     else:
-        code = _templates[_TEMPLATE_CLASS_CONCRETE]
+        code = _TEMPLATES[_TEMPLATE_CLASS_CONCRETE]
 
     # Generate code.
     code = code.replace('{class-name}', c.op_name)
@@ -422,7 +413,7 @@ def _emit_snippet_class_computed_properties(c):
     """Emits set of class computed properties."""
     def get_code(cp):
         # Open template.
-        code = _templates[_TEMPLATE_CLASS_COMPUTED_PROPERTY]
+        code = _TEMPLATES[_TEMPLATE_CLASS_COMPUTED_PROPERTY]
 
         # Generate code.
         code = code.replace('{computed-property-name}', cp.name)

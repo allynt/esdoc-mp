@@ -32,16 +32,13 @@ _TEMPLATE_DECODER_FUNCTION = "decoder_function.txt"
 # Template for a decoding xml utilities.
 _TEMPLATE_DECODER_XML_UTILS = "decoder_xml_utils.txt"
 
-# Set of template files.
-_template_files = (
+# Loaded templates.
+_TEMPLATES = gu.load_templates(_LANG, (
     _TEMPLATE_MAIN,
     _TEMPLATE_DECODER_MODULE,
     _TEMPLATE_DECODER_FUNCTION,
     _TEMPLATE_DECODER_XML_UTILS,
-)
-
-# Loaded templates.
-_templates = gu.load_templates(_LANG, _template_files)
+))
 
 
 
@@ -71,7 +68,7 @@ class DecoderGenerator(Generator):
                 pgu.get_module_file_name('decoder')
             ),
             (
-                _templates[_TEMPLATE_DECODER_XML_UTILS],
+                _TEMPLATES[_TEMPLATE_DECODER_XML_UTILS],
                 pgu.get_ontology_directory(ctx),
                 pgu.get_module_file_name('decoder_xml_utils')
             )
@@ -92,7 +89,7 @@ class DecoderGenerator(Generator):
 
 def _emit_module_decoder_for_pkg(o, p):
     """Emits package decoder module."""
-    code = _templates[_TEMPLATE_DECODER_MODULE]
+    code = _TEMPLATES[_TEMPLATE_DECODER_MODULE]
     code = code.replace('{module-imports}', _emit_snippet_decoder_imports(o, p))
     code = code.replace('{decoding-functions}', _emit_snippet_decoding_fns(p))
 
@@ -123,7 +120,7 @@ def _emit_snippet_decoding_fns(p):
     """Emits set of package class decodings."""
     code = ''
     for cls in sorted(p.classes, key=lambda c: pgu.get_class_functional_name(c)):
-        fn = _templates[_TEMPLATE_DECODER_FUNCTION]
+        fn = _TEMPLATES[_TEMPLATE_DECODER_FUNCTION]
         fn = fn.replace('{class-name}', cls.op_name)
         fn = fn.replace('{class-function-name}', pgu.get_class_functional_name(cls))
         fn = fn.replace('{package-name}', cls.package.op_name)
@@ -179,7 +176,7 @@ def _emit_module_init(o):
 
         return gu.emit(o.entities, get_code)
 
-    code = _templates[_TEMPLATE_MAIN]
+    code = _TEMPLATES[_TEMPLATE_MAIN]
     code = code.replace('{module-imports}', get_imports())
 
     return code

@@ -9,10 +9,12 @@
 
 
 """
-from esdoc_mp.ontologies.generators.python.root_generator import RootGenerator
-from esdoc_mp.ontologies.generators.python.decoder_generator import DecoderGenerator
-from esdoc_mp.ontologies.generators.python.typeset_generator import TypesetGenerator
-from esdoc_mp.ontologies.generators.qxml.root_generator import RootGenerator as QRootGenerator
+from esdoc_mp.ontologies.generators.python import ConstraintsGenerator
+from esdoc_mp.ontologies.generators.python import RootGenerator
+from esdoc_mp.ontologies.generators.python import DecoderGenerator
+from esdoc_mp.ontologies.generators.python import TypeKeyGenerator
+from esdoc_mp.ontologies.generators.python import TypeSetGenerator
+from esdoc_mp.ontologies.generators.qxml import QRootGenerator
 
 
 
@@ -22,8 +24,10 @@ def _get_generators_for_python():
     """
 
     return {
+        'constraints' : ConstraintsGenerator,
         'root' : RootGenerator,
-        'typeset' : TypesetGenerator,
+        'typekey' : TypeKeyGenerator,
+        'typeset' : TypeSetGenerator,
         'decoder' : DecoderGenerator
     }
 
