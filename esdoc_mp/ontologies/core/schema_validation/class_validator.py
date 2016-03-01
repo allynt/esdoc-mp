@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: esdoc_mp.ontologies.validation.class_validator
+.. module:: esdoc_mp.ontologies.core.schema_validation.class_validator
    :platform: Unix, Windows
    :synopsis: Validates ontology class definition.
 

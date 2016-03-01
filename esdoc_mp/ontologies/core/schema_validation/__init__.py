@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. module:: esdoc_mp.ontologies.validation.__init__.py
+.. module:: esdoc_mp.ontologies.core.schema_validation.__init__.py
    :platform: Unix, Windows
    :synopsis: Validates an ontology schema definition.
 
@@ -12,12 +12,12 @@
 import inspect
 import re
 
-from esdoc_mp.ontologies.validation.context import ValidationContext
-from esdoc_mp.ontologies.validation import class_validator
-from esdoc_mp.ontologies.validation import enum_validator
-from esdoc_mp.ontologies.validation import package_validator
-from esdoc_mp.ontologies.validation import schema_validator
-from esdoc_mp.ontologies.validation import type_validator
+from esdoc_mp.ontologies.core.schema_validation.context import ValidationContext
+from esdoc_mp.ontologies.core.schema_validation import class_validator
+from esdoc_mp.ontologies.core.schema_validation import enum_validator
+from esdoc_mp.ontologies.core.schema_validation import package_validator
+from esdoc_mp.ontologies.core.schema_validation import schema_validator
+from esdoc_mp.ontologies.core.schema_validation import type_validator
 
 
 
