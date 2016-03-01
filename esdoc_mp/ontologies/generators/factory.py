@@ -13,7 +13,7 @@ from esdoc_mp.ontologies.generators.python import ConstraintsGenerator
 from esdoc_mp.ontologies.generators.python import RootGenerator
 from esdoc_mp.ontologies.generators.python import DecoderGenerator
 from esdoc_mp.ontologies.generators.python import TypeKeysGenerator
-from esdoc_mp.ontologies.generators.python import MainTypeSetGenerator
+from esdoc_mp.ontologies.generators.python import TypeSetGenerator
 from esdoc_mp.ontologies.generators.python import PackageTypeSetGenerator
 from esdoc_mp.ontologies.generators.qxml import QRootGenerator
 
@@ -28,7 +28,7 @@ def _get_generators_for_python():
         'constraints' : ConstraintsGenerator,
         'root' : RootGenerator,
         'typekeys' : TypeKeysGenerator,
-        'mian_typeset' : MainTypeSetGenerator,
+        'typeset' : TypeSetGenerator,
         'package_typeset': PackageTypeSetGenerator,
         'decoder' : DecoderGenerator
     }

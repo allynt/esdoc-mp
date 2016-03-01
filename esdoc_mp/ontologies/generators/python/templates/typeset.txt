@@ -11,6 +11,9 @@
 .. note:: Code generated using the esdoc-mp framework.
 
 """
+import datetime
+import uuid
+
 {module-imports-types}
 {module-imports-packages}
 

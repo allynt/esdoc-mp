@@ -21,7 +21,7 @@ from esdoc_mp import utils
 _LANG = 'python'
 
 # Template for a typeset module.
-_TEMPLATE_TYPESET_MODULE = 'typeset_module.txt'
+_TEMPLATE_TYPESET = 'typeset_for_package.txt'
 
 # Template for a concrete class.
 _TEMPLATE_CLASS_CONCRETE = "typeset_class_concrete.txt"
@@ -37,7 +37,7 @@ _TEMPLATE_CLASS_COMPUTED_PROPERTY = "typeset_class_computed_property.txt"
 
 # Loaded templates.
 _TEMPLATES = gu.load_templates(_LANG, (
-    _TEMPLATE_TYPESET_MODULE,
+    _TEMPLATE_TYPESET,
     _TEMPLATE_CLASS_CONCRETE,
     _TEMPLATE_CLASS_ABSTRACT,
     _TEMPLATE_ENUM,
@@ -114,7 +114,7 @@ def _emit_module_typeset_for_pkg(o, p):
                gu.emit(p.enums, get_code)
 
 
-    code = _TEMPLATES[_TEMPLATE_TYPESET_MODULE]
+    code = _TEMPLATES[_TEMPLATE_TYPESET]
     code = code.replace('{imports}', emit_imports())
     code = code.replace('{types}', emit_types())
     code = code.replace('{package-name}', p.op_name)
