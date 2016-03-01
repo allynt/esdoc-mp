@@ -1,5 +1,5 @@
 """
-.. module:: esdoc_mp.generators.python.__init__.py
+.. module:: esdoc_mp.ontologies.generators.python.__init__.py
    :license: GPL/CeCIL
    :platform: Unix, Windows
    :synopsis: Package initializer.
@@ -10,5 +10,5 @@
 """
 from esdoc_mp.schemas import cim
 from esdoc_mp.schemas.utils import get_schema
-from esdoc_mp.validation import is_valid
-from esdoc_mp.validation import validate
+from esdoc_mp.ontologies.validation import is_valid
+from esdoc_mp.ontologies.validation import validate
