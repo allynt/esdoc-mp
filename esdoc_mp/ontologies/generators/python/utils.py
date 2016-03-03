@@ -3,6 +3,8 @@
 """Encapsualtes a set of python specific name conversion operations.
 
 """
+import tornado.template as template
+
 from esdoc_mp.ontologies.generators import generator_utils as gu
 from esdoc_mp.ontologies.generators.generator_utils import *
 
@@ -55,11 +57,10 @@ def _strip(name):
     return name
 
 
-def _strip_class_name(name):
-    """Returns stripped class name.
+def _strip_type_name(name):
+    """Returns stripped type name.
 
-    Keyword Arguments:
-    name - name being converted.
+    :param str name: Name being converted.
 
     """
     name = _strip(name)
@@ -149,60 +150,49 @@ def get_package_name(name):
     return _strip_package_name(name)
 
 
-def get_full_class_name(c):
-    """Converts name to a python class name.
+def get_full_type_name(c):
+    """Converts name to a python type name.
 
     :param str name: Class name being converted.
 
     """
-    return get_package_name(c.package) + "." + get_class_name(c)
+    return get_package_name(c.package) + "." + get_type_name(c)
 
 
-def get_class_name(name):
-    """Converts name to a python class name.
-
-    :param str name: Class name being converted.
-
-    """
-    return convert_to_camel_case(_strip_class_name(name))
-
-
-def get_class_import_name(name):
-    """Converts name to a python class import name.
+def get_type_name(name):
+    """Converts name to a python type name.
 
     :param str name: Class name being converted.
 
     """
-    return _strip_class_name(name)
+    return convert_to_camel_case(_strip_type_name(name))
 
 
-def get_class_functional_name(name):
+def get_type_import_name(name):
+    """Converts name to a python type import name.
+
+    :param str name: Class name being converted.
+
+    """
+    return _strip_type_name(name)
+
+
+def get_type_func_name(name):
     """Converts name to one suitable for use in a python function definition.
 
     :param str name: Class name being converted.
 
     """
-    return _strip_class_name(name)
+    return _strip_type_name(name)
 
 
-def get_class_doc_string_name(name):
+def get_type_doc_string_name(name):
     """Converts name to one suitable for use in python documentation.
 
-    :param str name: Class name being converted.
+    :param str name: Type name being converted.
 
     """
-    name = _strip_class_name(name)
-    return name.replace('_', ' ')
-
-
-def _get_class_file_name(name):
-    """Converts name to a python class file name.
-
-    :param str name: Class name being converted.
-
-    """
-    name = _strip_class_name(name)
-    return name + FILE_EXTENSION
+    return _strip_type_name(name).replace('_', ' ')
 
 
 def _get_class_base_name(c):
@@ -212,9 +202,9 @@ def _get_class_base_name(c):
     if c.base is None:
         return 'object'
     elif c.base.package == c.package:
-        return get_class_name(c.base)
+        return get_type_name(c.base)
     else:
-        return get_full_class_name(c.base)
+        return get_full_type_name(c.base)
 
 
 def get_property_ctor(p):
@@ -280,7 +270,7 @@ def get_type_name(type):
     elif type.is_enum:
         return _get_simple_type_mapping('unicode')
     elif type.is_complex:
-        return get_class_name(name)
+        return get_type_name(name)
 
 
 def get_type_functional_name(t, get_full_name=False):
@@ -296,9 +286,9 @@ def get_type_functional_name(t, get_full_name=False):
         return 'unicode'
     elif t.is_complex:
         if get_full_name:
-            return get_package_name(name) + "." + get_class_name(name)
+            return get_package_name(name) + "." + get_type_name(name)
         else:
-            return get_class_name(name)
+            return get_type_name(name)
 
 
 def get_type_doc_name(t):
@@ -310,38 +300,26 @@ def get_type_doc_name(t):
     name = t.name
     if t.is_simple:
         return _get_simple_type_mapping(name)
-    elif t.is_enum:
-        return '{0}.{1}'.format(get_package_name(name), get_enum_name(name))
-    elif t.is_complex:
-        return '{0}.{1}'.format(get_package_name(name), get_class_name(name))
+    elif t.is_enum or t.is_complex:
+        return '{0}.{1}'.format(get_package_name(name), get_type_name(name))
 
 
-def _strip_enum_name(name):
-    """Returns stripped enum name.
+def get_type_name(name):
+    """Converts name to a python type name.
 
-    """
-    name = _strip(name)
-    if name.find('.') != -1:
-        name = name.split('.')[len(name.split('.')) - 1]
-    return name
-
-
-def get_enum_name(name):
-    """Converts name to a python enum name.
-
-    :param str name: Enum name being converted.
+    :param str name: Type name being converted.
 
     """
-    return convert_to_camel_case(_strip_enum_name(name))
+    return convert_to_camel_case(_strip_type_name(name))
 
 
-def get_enum_file_name(name):
-    """Converts name to a python enum file name.
+def _get_type_file_name(name):
+    """Converts name to a python class file name.
 
-    :param str name: Enum name being converted.
+    :param str name: Class name being converted.
 
     """
-    return _strip_enum_name(name) + FILE_EXTENSION
+    return "{}{}".format(_strip_type_name(name), FILE_EXTENSION)
 
 
 def _get_simple_type_mapping(simple):
@@ -412,12 +390,20 @@ def format(o):
 
     for c in o.classes:
         c.op_base_name = _get_class_base_name(c)
-        c.op_doc_string_name = get_class_doc_string_name(c)
-        c.op_file_name = _get_class_file_name(c)
-        c.op_functional_name = get_class_functional_name(c)
-        c.op_import_name = get_class_import_name(c)
-        c.op_name = get_class_name(c)
-        c.op_full_name = get_full_class_name(c)
+        c.op_doc_string_name = get_type_doc_string_name(c)
+        c.op_file_name = _get_type_file_name(c)
+        c.op_full_name = get_full_type_name(c)
+        c.op_func_name = get_type_func_name(c)
+        c.op_import_name = get_type_import_name(c)
+        c.op_name = get_type_name(c)
+
+    for e in o.enums:
+        e.op_doc_string_name = get_type_doc_string_name(e)
+        e.op_file_name = _get_type_file_name(e)
+        e.op_full_name = get_full_type_name(e)
+        e.op_func_name = get_type_func_name(e)
+        e.op_import_name = get_type_import_name(e)
+        e.op_name = get_type_name(e)
 
 
 def emit_package_imports(o):
@@ -431,3 +417,5 @@ def emit_package_imports(o):
             gu.emit_line_return())
 
     return gu.emit(o.packages, emit_import)
+
+

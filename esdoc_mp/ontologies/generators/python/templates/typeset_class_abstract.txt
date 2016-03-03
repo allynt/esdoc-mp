@@ -3,7 +3,7 @@ class {class-name}({base-class-name}):
     __metaclass__ = abc.ABCMeta
 
     def __init__(self):
-        """Constructor.
+        """Instance constructor.
 
         """
         super({class-name}, self).__init__()

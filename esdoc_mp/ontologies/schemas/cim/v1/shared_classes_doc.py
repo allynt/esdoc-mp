@@ -80,8 +80,8 @@ def doc_meta_info():
             ('update_date', 'datetime', '1.1'),
             ('version', 'int', '1.1')
         ],
-        'constants': [
-            ('source', 'scripts'),
+        'constraints': [
+            ('source', 'constant', 'scripts'),
         ],
         'doc_strings': {
             'author': 'Associated document author.',

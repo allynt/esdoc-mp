@@ -29,6 +29,13 @@ class Enum(object):
         self.members = set(sorted(members, key=lambda m: m.name))
         self.package = None
 
+        self.op_doc_string_name = None
+        self.op_file_name = None
+        self.op_full_name = None
+        self.op_func_name = None
+        self.op_import_name = None
+        self.op_name = None
+
 
     def __repr__(self):
         """Instance string representation.

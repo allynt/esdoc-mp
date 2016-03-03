@@ -127,8 +127,9 @@ def _get_class_decodings(class_):
     """
     result = []
     for decoding in class_.get('decodings', []):
-        property_type = None if len(decoding) == 2 else decoding[2]
-        result.append(Decoding(decoding[0], decoding[1], property_type))
+        result.append(Decoding(decoding[0],
+                               decoding[1],
+                               None if len(decoding) == 2 else decoding[2]))
 
     return result
 
@@ -147,7 +148,6 @@ def _get_package_classes(schema, package, types):
                   _get_class_properties(cls),
                   _get_class_computed_properties(cls),
                   _get_class_constraints(cls),
-                  cls.get('constants', []),
                   _get_class_decodings(cls))
         )
 

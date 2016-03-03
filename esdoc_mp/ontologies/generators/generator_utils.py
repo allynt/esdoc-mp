@@ -13,6 +13,8 @@ import datetime
 import os
 import pwd
 
+import tornado
+
 
 
 # Templates folder.
@@ -26,6 +28,9 @@ _LINE_RETURN = '\n'
 
 # Set of loaded templates.
 _loaded_templates = dict()
+
+# Set of loaded tornado templates.
+_loaded_tornado_templates = dict()
 
 
 def convert_to_camel_case(name, separator='_'):
@@ -107,6 +112,32 @@ def load_templates(language, filenames):
         templates[filename] = _load_template(language, filename)
 
     return templates
+
+
+def load_tornado_template(language, fname):
+    """Returns tornado code template.
+
+    :param str language: Generator language.
+    :param str fname: Name of template file.
+
+    """
+    dir_ = _TEMPLATE_FOLDER + "/{0}/templates".format(language)
+    fpath = os.path.join(dir_, fname)
+    if fpath not in _loaded_tornado_templates:
+        loader = tornado.template.Loader(dir_)
+        _loaded_tornado_templates[fpath] = loader.load(fpath)
+
+    return _loaded_tornado_templates[fpath]
+
+
+def load_tornado_templates(language, fnames):
+    """Returns a dictionary of loaded tornado code templates.
+
+    :param str language: Generator language.
+    :param str fnames: Set of template file names.
+
+    """
+    return {fname: load_tornado_template(language, fname) for fname in fnames}
 
 
 def get_username():

@@ -11,95 +11,36 @@
 import os
 
 from esdoc_mp import utils
-from esdoc_mp.ontologies import schemas
-
 from esdoc_mp.ontologies.core.factory import create_ontology
-from esdoc_mp.ontologies.generators.factory import create_generators
-from esdoc_mp.ontologies.generators.generator_options import GeneratorOptions
-from esdoc_mp.ontologies.generators.python.utils import format as format_python
-from esdoc_mp.ontologies.generators.qxml.utils import format as format_qxml
+from esdoc_mp.ontologies.core.schema_validation import validate as validate_schema
+from esdoc_mp.ontologies.generators import generator_utils as gu
+from esdoc_mp.ontologies.generators import python
+from esdoc_mp.ontologies.generators import qxml
+from esdoc_mp.ontologies.generators.generator_context import GeneratorContext
 
 
+# Map of generator handlers.
+_HANDLERS = { h.__name__.split('.')[-1]: h for h in (python, qxml) }
 
 
-# Set of formatters keyed by programming language.
-_formatters = {
-    'python' : format_python,
-    'qxml' : format_qxml,
-
-}
-
-
-# Set of supported programming languages.
-_LANGUAGES = {
-    'c++',
-    'fortran',
-    'java',
-    'javascript',
-    'python',
-    'qxml',
-}
-
-
-def _validate_language(language):
-    """Returns list of target programming language validation errors.
+def _log_start(schema, language, io_dir):
+    """Informs user that generation is about to begin.
 
     """
-    if not language in _LANGUAGES:
-        return ['Programming language is unsupported [{0}].  Supported languages are {1}.'.format(language, _LANGUAGES)]
-
-    return []
-
-
-def _validate_output_dir(output_dir):
-    """Returns list of target output directory validation errors.
-
-    """
-    if not os.path.exists(output_dir):
-        return ['Output directory does not exist [{0}].'.format(output_dir)]
-
-    return []
-
-
-def generate(schema, language, io_dir):
-    """Generates code.
-
-    :param module schema: Ontology schema definition.
-    :param str language: Target programming language.
-    :param str io_dir: Target I/O directory.
-
-    """
-    if not can_generate(schema, language, io_dir):
-        return
-
     utils.log("Welcome to the ES-DOC meta-programming code generator !")
     utils.log("GENERATION OPTION : ontology schema = {0} v{1}".format(schema.NAME, schema.VERSION))
     utils.log("GENERATION OPTION : programming language = {0}".format(language))
     utils.log("GENERATION OPTION : output directory = {0}".format(io_dir))
 
-    # Initialise ontology.
-    ontology = create_ontology(schema)
-    utils.log("ONTOLOGY :: {0} (packages={1}, classes={2}, enums={3})".format(
-        ontology, len(ontology.packages), len(ontology.classes), len(ontology.enums)))
 
-    # Apply language specific pre-generator formatter.
-    if language in _formatters:
-        _formatters[language](ontology)
-        utils.log("ONTOLOGY :: formatted for {0}".format(language))
+def _log_end():
+    """Informs user that generation is complete.
 
-    # Invoke language specific generators.
-    generators = create_generators(language)
-    for key, factory in generators.items():
-        utils.log("GENERATOR = {0} :: generation begins".format(key))
-        options = GeneratorOptions(key, language, io_dir)
-        generator = factory()
-        generator.execute(ontology, options)
-        utils.log("GENERATOR = {0} :: generation complete".format(key))
-
+    """
     utils.log("Thank you for using the ES-DOC code generator")
 
 
-def can_generate(schema, language, output_dir):
+def _can_generate(schema, language, output_dir):
     """Verifies whether the generation options are in a state such that generation can occur.
 
     :param module schema: Ontology schema definition.
@@ -110,12 +51,83 @@ def can_generate(schema, language, output_dir):
     :rtype: bool
 
     """
-    errors = _validate_language(language)
-    errors += schemas.validate(schema)
-    errors += _validate_output_dir(output_dir)
+    if not language in _HANDLERS:
+        err = "Programming language is unsupported [{}].  Supported languages are {}."
+        err = err.format(language, _HANDLERS.keys())
+        raise ValueError(err)
+    if not os.path.exists(output_dir):
+        raise IOError("Output directory does not exist [{0}].".format(output_dir))
+
+    errors = validate_schema(schema)
     if errors:
         utils.log("-------------------------------------------------------------------")
         for error in errors:
             utils.log("VALIDATION ERROR :: {0}".format(error))
+        return False
 
-    return len(errors) == 0
+    return True
+
+
+def _generate_from_template(ctx, template):
+    """Generates code from a tornado template.
+
+    """
+    lu = _HANDLERS[ctx.language].UTILS
+    utils.log("GENERATOR = {0} :: generation begins".format(ctx.key))
+    code = ctx.get_code(template, lu)
+    if code:
+        gu.write_file(gu.format_code(ctx, code),
+                      lu.get_ontology_directory(ctx),
+                      lu.get_module_file_name(template.split('.')[0]))
+    utils.log("GENERATOR = {0} :: generation complete".format(ctx.key))
+
+
+def _generate_from_parser(ctx, parser_type):
+    """Generates code from an ontology parser.
+
+    """
+    parser = parser_type()
+    if not parser.is_required(ctx):
+        utils.log("GENERATOR = {0} :: generation skipped".format(ctx.key))
+    else:
+        utils.log("GENERATOR = {0} :: generation begins".format(ctx.key))
+        parser.execute(ctx)
+        for code, dir_, fpath in ctx.code:
+            gu.write_file(gu.format_code(ctx, code), dir_, fpath)
+        utils.log("GENERATOR = {0} :: generation complete".format(ctx.key))
+
+
+def generate(schema, language, io_dir):
+    """Generates code.
+
+    :param module schema: Ontology schema definition.
+    :param str language: Target programming language.
+    :param str io_dir: Target I/O directory.
+
+    """
+    if not _can_generate(schema, language, io_dir):
+        return
+
+    _log_start(schema, language, io_dir)
+
+    # Initialise ontology.
+    ontology = create_ontology(schema)
+    utils.log("ONTOLOGY :: {0} (packages={1}, classes={2}, enums={3})".format(
+        ontology, len(ontology.packages), len(ontology.classes), len(ontology.enums)))
+
+    # Apply language specific pre-generator formatter.
+    try:
+        formatter = _HANDLERS[language].UTILS.format
+    except AttributeError:
+        pass
+    else:
+        formatter(ontology)
+        utils.log("ONTOLOGY :: formatted for {0}".format(language))
+
+    # Invoke language specific generators.
+    for generator in _HANDLERS[language].GENERATORS:
+        func = _generate_from_template if isinstance(generator, str) else _generate_from_parser
+        func(GeneratorContext(generator, ontology, language, io_dir), generator)
+
+    _log_end()
+

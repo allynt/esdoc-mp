@@ -61,18 +61,21 @@ class DecoderGenerator(Generator):
         :param GeneratorContext ctx: Generation context information.
 
         """
-        return [
+        ctx.code.append(
             (
                 _emit_module_init(ctx.ontology),
                 pgu.get_ontology_directory(ctx),
                 pgu.get_module_file_name('decoder')
-            ),
+            )
+        )
+        ctx.code.append(
             (
                 _TEMPLATES[_TEMPLATE_DECODER_XML_UTILS],
                 pgu.get_ontology_directory(ctx),
                 pgu.get_module_file_name('decoder_xml_utils')
             )
-        ]
+        )
+
 
     def on_package_parse(self, ctx):
         """Event handler for the package parse event.
@@ -80,10 +83,12 @@ class DecoderGenerator(Generator):
         :param GeneratorContext ctx: Generation context information.
 
         """
-        return (
-            _emit_module_decoder_for_pkg(ctx.ontology, ctx.pkg),
-            pgu.get_ontology_directory(ctx),
-            pgu.get_package_module_file_name(ctx.pkg, 'decoder')
+        ctx.code.append(
+            (
+                _emit_module_decoder_for_pkg(ctx.ontology, ctx.pkg),
+                pgu.get_ontology_directory(ctx),
+                pgu.get_package_module_file_name(ctx.pkg, 'decoder')
+            )
         )
 
 
@@ -119,13 +124,13 @@ def _emit_snippet_decoder_imports(o, p):
 def _emit_snippet_decoding_fns(p):
     """Emits set of package class decodings."""
     code = ''
-    for cls in sorted(p.classes, key=lambda c: pgu.get_class_functional_name(c)):
+    for c in sorted(p.classes, key=lambda c: c.op_func_name):
         fn = _TEMPLATES[_TEMPLATE_DECODER_FUNCTION]
-        fn = fn.replace('{class-name}', cls.op_name)
-        fn = fn.replace('{class-function-name}', pgu.get_class_functional_name(cls))
-        fn = fn.replace('{package-name}', cls.package.op_name)
-        fn = fn.replace('{class-doc-name}', pgu.get_class_doc_string_name(cls))
-        fn = fn.replace('{class-decodings}', _emit_snippet_decodings(cls))
+        fn = fn.replace('{class-name}', c.op_name)
+        fn = fn.replace('{class-function-name}', c.op_func_name)
+        fn = fn.replace('{package-name}', c.package.op_name)
+        fn = fn.replace('{class-doc-name}', c.op_doc_string_name)
+        fn = fn.replace('{class-decodings}', _emit_snippet_decodings(c))
         fn += gu.emit_line_return(3)
         code += fn
 
@@ -183,5 +188,7 @@ def _emit_module_init(o):
 
 
 def _get_decoder_function_name(name):
-    """Converts class name to a decoder function name."""
-    return 'decode_{0}'.format(pgu.get_class_functional_name(name))
+    """Converts class name to a decoder function name.
+
+    """
+    return 'decode_{0}'.format(pgu.get_type_func_name(name))

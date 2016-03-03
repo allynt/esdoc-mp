@@ -1,3 +1,4 @@
+{% autoescape None %}
 # -*- coding: utf-8 -*-
 
 """
@@ -11,19 +12,37 @@
 .. note:: Code generated using the esdoc-mp framework.
 
 """
-# Set of types.
-from typeset import *
+{% for p in o.packages %}from typeset_for_{{ p.name }}_package import *
+{% end %}
+
+{% for p in o.packages %}import typeset_for_{{ p.name }}_package as {{ p.name }}
+{% end %}
+
+
 
 # Set of supported packages.
 from typeset import PACKAGES
 
+# Set of supported document types.
+from typeset import DOCUMENT_TYPES
+
+# Set of supported packages.
+from typeset import CLASSES
+
+# Set of supported packages.
+from typeset import ENUMS
+
 # Set of supported types.
-from typeset import TYPES
+TYPES = CLASSES + ENUMS
+
+# Help text.
+from helptext import HELP
 
 # Set of type keys.
-from typekeys import TYPE_KEYS
+from keys import KEYS
 
 # Set of type constraints.
+# TODO class & property constraints
 from constraints import CONSTRAINTS
 
 try:
@@ -32,5 +51,8 @@ except ImportError:
 	pass
 import typeset
 
+# Ontology name.
+NAME = '{ontology-name}'
+
 # Version identifier.
-ID = '{ontology-version}'
+VERSION = '{ontology-version}'

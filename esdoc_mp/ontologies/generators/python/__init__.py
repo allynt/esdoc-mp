@@ -1,7 +1,19 @@
-from esdoc_mp.ontologies.generators.python.constraints_generator import ConstraintsGenerator
-from esdoc_mp.ontologies.generators.python.root_generator import RootGenerator
+from esdoc_mp.ontologies.generators.python import utils
 from esdoc_mp.ontologies.generators.python.decoder_generator import DecoderGenerator
-from esdoc_mp.ontologies.generators.python.typekeys_generator import TypeKeysGenerator
-from esdoc_mp.ontologies.generators.python.typeset_generator import TypeSetGenerator
 from esdoc_mp.ontologies.generators.python.package_typeset_generator import PackageTypeSetGenerator
 
+
+
+# Expose utility functions.
+UTILS = utils
+
+# Set of supported custom generators or tornado templates.
+GENERATORS = {
+    'constraints.tornado',
+    'helptext.tornado',
+    '__init__.tornado',
+    'keys.tornado',
+    'typeset.tornado',
+    PackageTypeSetGenerator,
+    DecoderGenerator
+}

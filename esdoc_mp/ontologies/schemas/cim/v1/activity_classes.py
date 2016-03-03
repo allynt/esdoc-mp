@@ -235,9 +235,9 @@ def lateral_boundary_condition():
         'type': 'class',
         'base': 'activity.numerical_requirement',
         'is_abstract': False,
-        'constants': [
-            ('requirement_type', 'lateralBoundaryCondition'),
-        ],
+        'constraints': [
+            ('requirement_type', 'constant', 'lateralBoundaryCondition'),
+        ]
     }
 
 
@@ -417,9 +417,9 @@ def boundary_condition():
         'type': 'class',
         'base': 'activity.numerical_requirement',
         'is_abstract': False,
-        'constants': [
-            ('requirement_type', 'boundaryCondition'),
-        ],
+        'constraints': [
+            ('requirement_type', 'constant', 'boundaryCondition'),
+        ]
     }
 
 
@@ -431,9 +431,9 @@ def initial_condition():
         'type': 'class',
         'base': 'activity.numerical_requirement',
         'is_abstract': False,
-        'constants': [
-            ('requirement_type', 'initialCondition'),
-        ],
+        'constraints': [
+            ('requirement_type', 'constant', 'initialCondition'),
+        ]
     }
 
 
@@ -445,12 +445,12 @@ def spatio_temporal_constraint():
         'type': 'class',
         'base': 'activity.numerical_requirement',
         'is_abstract': False,
-        'constants': [
-            ('requirement_type', 'spatioTemporalConstraint'),
-        ],
         'properties': [
             ('date_range', 'shared.date_range', '0.1'),
             ('spatial_resolution', 'activity.resolution_type', '0.1'),
+        ],
+        'constraints': [
+            ('requirement_type', 'constant', 'spatioTemporalConstraint'),
         ],
         'decodings': [
             ('date_range', 'child::cim:requiredDuration/cim:closedDateRange', 'shared.closed_date_range'),
@@ -468,9 +468,9 @@ def output_requirement():
         'type': 'class',
         'base': 'activity.numerical_requirement',
         'is_abstract': False,
-        'constants': [
-            ('requirement_type', 'outputRequirement'),
-        ],
+        'constraints': [
+            ('requirement_type', 'constant', 'outputRequirement'),
+        ]
     }
 
 

@@ -50,6 +50,7 @@ class RootGenerator(Generator):
     # def on_package_parse(self, ctx):
     #     pass
 
+
     def on_class_parse(self, ctx):
         """Event handler for the class parse event.
 
@@ -133,6 +134,7 @@ class RootGenerator(Generator):
             classes_node = ctx.node.xpath("//classes")[0]
             classes_node.append(class_node)
 
+
     def on_enum_parse(self, ctx):
         """Event handler for the enum parse event.
 
@@ -163,6 +165,7 @@ class RootGenerator(Generator):
                 enumeration_choice_node.append(enumeration_choice_description_node)
                 enumeration_choices_node.append(enumeration_choice_node)
 
+
     def on_start(self, ctx):
         """Event handler for the start parse event.
 
@@ -179,6 +182,7 @@ class RootGenerator(Generator):
 
         root_node.append(comment_node)
         ctx.set_node(root_node)
+
 
     def on_end(self, ctx):
         """Event handler for the end parse event.

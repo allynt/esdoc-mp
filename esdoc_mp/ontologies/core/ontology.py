@@ -34,7 +34,7 @@ class Ontology(object):
         self.classes = reduce(or_, [p.classes for p in packages])
         self.decodings = reduce(or_, [p.decodings for p in packages])
         self.doc_string = doc_string
-        self.entities = reduce(or_, [p.entities for p in packages])
+        self.entities = []
         self.enums = reduce(or_, [p.enums for p in packages])
         self.enum_members = reduce(or_, [e.members for e in self.enums])
         self.name = name
@@ -50,6 +50,7 @@ class Ontology(object):
         for setter in [
             _set_relations,
             _set_base_classes,
+            _set_entities,
             _set_property_type_info,
             _set_class_imports,
             _set_circular_imports,
@@ -109,6 +110,15 @@ def _set_base_classes(ontology):
             msg = "Base class not found :: class = {0}.{1} :: base = {2}"
             msg = msg.format(cls.package, cls, cls.base)
             utils.log(msg)
+
+
+def _set_entities(ontology):
+    """Sets package entities (i..e classes with a meta attribute).
+
+    """
+    for pkg in ontology.packages:
+        pkg.entities = sorted([c for c in pkg.classes if c.is_entity])
+        ontology.entities += pkg.entities
 
 
 def _set_property_type_info(ontology):

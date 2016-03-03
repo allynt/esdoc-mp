@@ -12,6 +12,7 @@
 import itertools
 from collections import defaultdict
 
+import constants
 
 
 class Class(object):
@@ -26,7 +27,6 @@ class Class(object):
                  properties,
                  computed_properties,
                  constraints,
-                 constants,
                  decodings
                  ):
         """Instance constructor.
@@ -38,7 +38,6 @@ class Class(object):
         :param set properties: Set of associated properties.
         :param set computed_properties: Set of associated computed properties.
         :param set constraints: Set of associated constraints.
-        :param set constants: Set of associated property constants.
         :param set decodings: Set of associated property decodings.
 
         """
@@ -46,20 +45,21 @@ class Class(object):
         self.circular_imports = set()
         self.cls = None
         self.computed_properties = set(sorted(computed_properties, key=lambda p: p.name))
-        self.constants = constants
         self.constraints = set(sorted(constraints, key=lambda ct: ct.property_name))
         self.decodings = set(sorted(decodings, key=lambda dc: dc.property_name))
         self.doc_string = doc_string if doc_string is not None else ''
         self.imports = set()
         self.is_abstract = is_abstract
         self.name = name
+
         self.op_base_name = None
         self.op_doc_string_name = None
         self.op_file_name = None
         self.op_full_name = None
-        self.op_functional_name = None
+        self.op_func_name = None
         self.op_import_name = None
         self.op_name = None
+        
         self.properties = set(sorted(properties, key=lambda p: p.name))
         self.package = None
 
@@ -76,22 +76,27 @@ class Class(object):
         """Gets a flag indicating whether this class is considered an entity.
 
         """
-        return 'meta' in [p.name for p in self.properties]
+        if 'meta' in [p.name for p in self.properties]:
+            return True
+        if self.base:
+            return self.base.is_entity
+        return False
 
 
     @property
-    def all_constants(self):
-        """Gets all associated constants including those of base class (sorted by name).
+    def constants(self):
+        """Gets collection of constant constraints.
 
         """
-        if self.base:
-            return set(self.constants).union(self.base.all_constants)
-        return set(self.constants)
+        return [(ct.property_name, ct.value) for ct in self.constraints
+                if ct.typeof == constants.CONSTRAINT_TYPE_CONSTANT]
 
 
     @property
     def all_constraints(self):
         """Gets all associated constraints including those of base class (sorted by name).
+
+        Note that child constraints overrides parent constraints.
 
         """
         result = defaultdict(lambda: defaultdict(list))

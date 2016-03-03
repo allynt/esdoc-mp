@@ -55,13 +55,13 @@ class PackageTypeSetGenerator(Generator):
         :param GeneratorContext ctx: Generation context information.
 
         """
-        return [
+        ctx.code.append(
             (
                 _emit_module_typeset_for_pkg(ctx.ontology, ctx.pkg),
                 pgu.get_ontology_directory(ctx),
                 pgu.get_package_module_file_name(ctx.pkg, 'typeset')
             )
-        ]
+        )
 
 
 def _emit_module_typeset_for_pkg(o, p):
@@ -141,7 +141,7 @@ def _emit_snippet_enum(e):
         return code
 
     code = _TEMPLATES[_TEMPLATE_ENUM]
-    code = code.replace('{enum-name}', pgu.get_enum_name(e))
+    code = code.replace('{enum-name}', e.op_name)
     code = code.replace('{enum-doc-string}', e.doc_string)
     code = code.replace('{enum-is-open}', str(e.is_open))
     code = code.replace('{enum-members}', emit_members() if e.members else "")
