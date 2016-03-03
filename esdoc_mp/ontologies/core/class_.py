@@ -51,7 +51,8 @@ class Class(object):
         self.imports = set()
         self.is_abstract = is_abstract
         self.name = name
-
+        self.sub_class_hierachy = tuple()
+        self.sub_classes = tuple()
         self.op_base_name = None
         self.op_doc_string_name = None
         self.op_file_name = None
@@ -59,7 +60,7 @@ class Class(object):
         self.op_func_name = None
         self.op_import_name = None
         self.op_name = None
-        
+
         self.properties = set(sorted(properties, key=lambda p: p.name))
         self.package = None
 
@@ -84,12 +85,30 @@ class Class(object):
 
 
     @property
+    def sub_class_hierachy_depth(self):
+        """Gets depth of sub-class hierachy.
+
+        """
+        return len(self.sub_class_hierachy)
+
+
+    @property
     def constants(self):
         """Gets collection of constant constraints.
 
         """
         return [(ct.property_name, ct.value) for ct in self.constraints
                 if ct.typeof == constants.CONSTRAINT_TYPE_CONSTANT]
+
+
+    @property
+    def bases(self):
+        """Gets collection of constant constraints.
+
+        """
+        if self.base:
+            return (self.base, ) + self.base.bases
+        return tuple()
 
 
     @property
@@ -108,9 +127,9 @@ class Class(object):
 
         # Base class(es) constraints.
         if self.base:
-            for ct in self.base.constraints:
-                if ct.property_name not in result[ct.typeof]:
-                    result[ct.typeof][ct.property_name] = (ct.property_name, ct.typeof, ct.value)
+            for n, t, v in self.base.all_constraints:
+                if n not in result[t]:
+                    result[t][n] = (n, t, v)
 
         # Own properties converted to constraints.
         for p in self.all_properties:

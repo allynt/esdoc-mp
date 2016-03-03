@@ -12,6 +12,7 @@
 .. note:: Code generated using the esdoc-mp framework.
 
 """
+from collections import defaultdict
 import datetime
 import uuid
 
@@ -27,39 +28,73 @@ __all__ = [
     'PACKAGES',
     'DOCUMENT_TYPES',
     'CLASSES',
+    'CLASS_PROPERTIES',
+    'CLASS_OWN_PROPERTIES',
+    'BASE_CLASSES',
+    'BASE_CLASSED',
+    'SUB_CLASSED',
+    'SUB_CLASSES',
     'ENUMS',
-
     # Packages
 {% for p in o.packages %}    {{ p.op_name }},
-{% end %}
-    # Classes
+{% end %}    # Classes
 {% for c in o.classes %}    {{ c.op_name }},
-{% end %}
-    # Enums
+{% end %}    # Enums
 {% for e in o.enums %}    {{ e.op_name }},
-{% end %}    ]
-
-
+{% end %}]
 
 # Supported packages.
 PACKAGES = (
 {% for p in o.packages %}    {{ p.op_name }},
-{% end %}	)
+{% end %})
 
 # Supported classes.
 CLASSES = (
 {% for c in o.classes %}    {{ c.op_full_name }},
-{% end %}	)
+{% end %})
 
 # Supported enums.
 ENUMS = (
 {% for e in o.enums %}    {{ e.op_full_name }},
-{% end %}	)
+{% end %})
 
 # Supported document types.
 DOCUMENT_TYPES = (
 {% for et in o.entities %}    {{ et.op_full_name }},
-{% end %}	)
+{% end %})
+
+# Supported class properties.
+CLASS_PROPERTIES = { {% for c in o.classes %}
+    {{ c.op_full_name }}: ({% for cp in c.all_properties %}
+        '{{ cp.name }}',{% end %}
+    ),{% end %}
+}
+
+# Supported class own properties.
+CLASS_OWN_PROPERTIES = { {% for c in o.classes %}
+    {{ c.op_full_name }}: ({% for cp in c.properties %}
+        '{{ cp.name }}',{% end %}
+    ),{% end %}
+}
+
+# Base classes.
+BASE_CLASSES = defaultdict(tuple){% for c in [c for c in o.classes if c.base] %}
+BASE_CLASSES[{{ c.op_full_name }}] = ({% for bc in c.bases %}{{ bc.op_full_name }}, {% end %}){% end %}
+
+# Classes with base classes.
+BASE_CLASSED = tuple(BASE_CLASSES.keys())
+
+# Sub classes.
+SUB_CLASSES = defaultdict(tuple){% for c in [c for c in o.sub_classed] %}
+SUB_CLASSES[{{ c.op_full_name }}] = ({% for sc in c.sub_classes %}
+    {{ sc.op_full_name }},{% end %}
+    ){% end %}
+
+# Classes that have been sub classed.
+SUB_CLASSED = tuple(SUB_CLASSES.keys())
+
+# Maximum class depth in hierarchy.
+CLASS_HIERACHY_DEPTH = max(len(v) for v in BASE_CLASSES.values())
 
 # Set type keys.
 # TODO deprecate

@@ -45,6 +45,7 @@ class Package(object):
         self.name = name
         self.op_name = None
         self.properties = reduce(or_, [c.properties for c in classes])
+        self.sub_classed = tuple()
         self.types = _get_sorted(classes + enums)
 
 

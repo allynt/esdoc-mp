@@ -43,6 +43,7 @@ class Ontology(object):
         self.packages = set(sorted(packages, key=lambda p: p.name))
         self.properties = reduce(or_, [c.properties for c in self.classes])
         self.property_types = set(p.type for p in self.properties)
+        self.sub_classed = tuple()
         self.types = sorted(self.classes.union(self.enums))
         self.version = version
 
@@ -50,6 +51,7 @@ class Ontology(object):
         for setter in [
             _set_relations,
             _set_base_classes,
+            _set_sub_classes,
             _set_entities,
             _set_property_type_info,
             _set_class_imports,
@@ -110,6 +112,32 @@ def _set_base_classes(ontology):
             msg = "Base class not found :: class = {0}.{1} :: base = {2}"
             msg = msg.format(cls.package, cls, cls.base)
             utils.log(msg)
+
+
+def _set_sub_classes(ontology):
+    """Sets sub classes.
+
+    """
+    # Identify classes with a base class as these are potential targets.
+    with_base = [c for c in ontology.classes if c.base]
+
+    # Set sub-classed classes.
+    sub_classed = {}
+    for i in ontology.classes:
+        sub_classed[i] = [(c.bases.index(i), c) for c in with_base if i in c.bases]
+    sub_classed = {k: v for k, v in sub_classed.items() if v}
+
+    # Set ontology & package sub-class sets.
+    ontology.sub_classed = tuple(sub_classed.keys())
+    for pkg in ontology.packages:
+        pkg.sub_classed = tuple(c for c in ontology.sub_classed if c.package == pkg)
+
+    # Set sub-class hierachies.
+    for i in sub_classed:
+        depth = max([sc[0] for sc in sub_classed[i]]) + 1
+        hierachy = {k: tuple(sorted(sc[1] for sc in sub_classed[i] if sc[0] == k)) for k in range(depth)}
+        i.sub_class_hierachy = tuple([(level, hierachy[level]) for level in hierachy])
+        i.sub_classes = tuple(sc[1] for sc in sorted(sub_classed[i]))
 
 
 def _set_entities(ontology):

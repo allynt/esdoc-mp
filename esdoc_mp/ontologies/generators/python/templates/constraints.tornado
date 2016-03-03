@@ -25,8 +25,7 @@ CONSTRAINTS = {
     # ------------------------------------------------
     # Classes.
     # ------------------------------------------------
-{% for p in o.packages %}
-{% for c in p.classes %}
+{% for c in o.classes %}
     {{ c.op_full_name }}: (
 {% for n, t, v in [ct for ct in c.all_constraints if ct[1] == 'type'] %}
         ('{{ n }}', '{{ t }}', {{ lu.get_type_functional_name(v, True) }}),
@@ -42,13 +41,11 @@ CONSTRAINTS = {
 {% end %}
     ),
 {% end %}
-{% end %}
     # ------------------------------------------------
     # Class properties.
     # ------------------------------------------------
-{% for p in o.packages %}
-{% for c in p.classes %}
-{% for cp in c.properties %}
+{% for c in o.classes %}
+{% for cp in c.all_properties %}
     ({{ c.op_full_name }}, '{{ cp.name }}'): (
 {% for n, t, v in [ct for ct in c.all_constraints if (ct[1] == 'type' and ct[0] == cp.name)] %}
         ('{{ t }}', {{ lu.get_type_functional_name(v, True) }}),
@@ -63,7 +60,6 @@ CONSTRAINTS = {
         ('{{ t }}', "{{ v }}"),
 {% end %}
     ),
-{% end %}
 {% end %}
 {% end %}
 }
