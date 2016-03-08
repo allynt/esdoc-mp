@@ -1,0 +1,17 @@
+{% autoescape None %}
+# -*- coding: utf-8 -*-
+
+"""
+.. module:: {ontology-name}.v{ontology-version-packagename}.{file-name}
+
+   :license: GPL / CeCILL
+   :platform: Unix, Windows
+   :synopsis: The set of types used to represent the vocabulary.
+
+.. moduleauthor:: Earth System Documentation (ES-DOC) <dev@es-doc.org>
+.. note:: Code generated using the esdoc-mp framework.
+
+"""
+{% for d in v.domains %}
+{{ d.id }}
+{% end %}

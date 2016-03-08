@@ -15,7 +15,7 @@ import os
 
 import xml.etree.ElementTree as ET
 
-from esdoc_mp.vocabs.cmip6.parser import VocabParser
+from esdoc_mp.vocabs.cmip6.core import VocabParser
 
 
 

@@ -11,7 +11,7 @@
 """
 import inspect
 
-from esdoc_mp.vocabs import cmip6
+from esdoc_mp.vocabs.cmip6 import schema
 
 
 
@@ -27,11 +27,11 @@ class Vocab(object):
         """Instance constructor.
 
         """
-        self.description = "{}.".format(cmip6.__doc__.split(".")[0])
-        self.id = ".".join(cmip6.__name__.split(".")[-1:])
+        self.description = "{}.".format(schema.__doc__.split(".")[0])
+        self.id = "cmip6"
         self.style_type = "vocab"
         self.url = "{}{}".format(_URL, self.id.replace(".", "/"))
-        self.domains = [Domain(self, i) for i in cmip6.domains]
+        self.domains = [Domain(self, i) for i in schema.domains]
 
 
 class Domain(object):

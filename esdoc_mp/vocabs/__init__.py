@@ -1,4 +1,1 @@
-
-
-from . import cmip6
-
+import cmip6
