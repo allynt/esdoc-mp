@@ -34,9 +34,9 @@ _ARGS.add_argument(
     type=str
     )
 _ARGS.add_argument(
-    "--domain",
-    help="Domain for whise mindmap file will be written.",
-    dest="domain",
+    "--realm",
+    help="Realm for whise mindmap file will be written.",
+    dest="realm",
     type=str,
     default=None
     )
@@ -77,11 +77,11 @@ class _VocabParserConfiguration(object):
 
 
 class _VocabParser(VocabParser):
-    def __init__(self, domain_filter, stylesheet):
+    def __init__(self, realm_filter, stylesheet):
         """Instance constructor.
 
         """
-        super(_VocabParser, self).__init__(domain_filter)
+        super(_VocabParser, self).__init__(realm_filter)
         self.cfg = _VocabParserConfiguration(stylesheet)
         self.maps = {}
         self.nodes = {}
@@ -90,7 +90,7 @@ class _VocabParser(VocabParser):
 
     @property
     def mindmaps(self):
-        """Returns set of mindmaps and associated domains.
+        """Returns set of mindmaps.
 
         """
         return self.maps.values()
@@ -168,20 +168,20 @@ class _VocabParser(VocabParser):
         content.append(ET.fromstring(notes))
 
 
-    def on_domain_parse(self, domain):
-        """On domain parse event handler.
+    def on_realm_parse(self, realm):
+        """On realm parse event handler.
 
         """
-        self.maps[domain] = ET.Element('map', {})
-        self._set_node(self.maps[domain], domain, style="fork")
+        self.maps[realm] = ET.Element('map', {})
+        self._set_node(self.maps[realm], realm, style="fork")
 
 
-    def on_process_parse(self, domain, process):
+    def on_process_parse(self, realm, process):
         """On process parse event handler.
 
         """
         self.positions[process] = 'left' if len(self.positions) % 2 == 0 else 'right'
-        self._set_node(domain, process, position=self.positions[process])
+        self._set_node(realm, process, position=self.positions[process])
         self._set_notes(process)
 
 
@@ -214,16 +214,16 @@ def _main(args):
 
     """
     # Extract input args.
-    domain = args.domain if args.domain not in {"*", "all"} else None
+    realm = args.realm if args.realm not in {"*", "all"} else None
     stylesheet = args.stylesheet
 
     # Perform a vocab parse in order to create mindmaps.
-    parser = _VocabParser(domain, stylesheet)
+    parser = _VocabParser(realm, stylesheet)
     parser.parse()
 
     # Write mindmaps to file system.
-    for domain, mindmap in parser.maps.items():
-        fpath = os.path.join(args.dest, "{}.mm".format(domain.id))
+    for realm, mindmap in parser.maps.items():
+        fpath = os.path.join(args.dest, "{}.mm".format(realm.id))
         with open(fpath, 'w') as f:
             f.write(ET.tostring(mindmap))
 

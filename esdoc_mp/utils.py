@@ -53,3 +53,36 @@ def log(msg):
         print("ES-DOC-MP :: {}".format(msg))
 
 
+def str_to_camel_case(target, separator='_'):
+    """Converts passed name to camel case.
+
+    :param target: A string to be converted.
+    :type target: str
+
+    :param separator: A separator used to split target string into constituent parts.
+    :type separator: str
+
+    :returns: The target string converted to camel case.
+    :rtype: str
+
+    """
+    r = ''
+    if target is not None and len(target):
+        # Convert to pascal case.
+        s = str_to_pascal_case(target, separator)
+
+        # Preserve initial separator
+        if s[0:len(separator)] == separator:
+            r += separator
+            s = s[len(separator):]
+
+        # Lower case abbreviations.
+        if s.lower() in _ABBREVIATIONS:
+            r += s.lower()
+
+        # Lower case initial character.
+        elif len(s):
+            r += s[0].lower()
+            r += s[1:]
+
+    return r

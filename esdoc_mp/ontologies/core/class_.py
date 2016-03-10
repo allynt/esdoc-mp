@@ -69,7 +69,10 @@ class Class(object):
         """Instance string representation.
 
         """
-        return self.name
+        try:
+            return "{}.{}".format(self.package, self.name)
+        except:
+            return self.name
 
 
     @property

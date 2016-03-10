@@ -4,7 +4,7 @@
 from . import ocean
 
 
-# Set of cmip6 domains / realms.
-domains = {
+# Set of cmip6 realms.
+realms = {
 	ocean
 }

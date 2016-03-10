@@ -18,11 +18,11 @@ class VocabParser(object):
     """An event driven CMIP6 vocab parser.
 
     """
-    def __init__(self, domain_filter=None, verbose=False):
+    def __init__(self, realm_filter=None, verbose=False):
         """Instance constructor.
 
         """
-        self.domain_filter = domain_filter
+        self.realm_filter = realm_filter
         self.verbose = verbose
 
 
@@ -38,12 +38,12 @@ class VocabParser(object):
             log("parsing vocabulary --> {}".format(vocab))
         self.on_vocab_parse(vocab)
 
-        # Parse child domains.
-        domains = vocab.domains
-        if self.domain_filter:
-            domains = [d for d in domains if self.domain_filter == d.name]
-        for domain in domains:
-            self._parse_domain(domain)
+        # Parse child realms.
+        realms = vocab.realms
+        if self.realm_filter:
+            realms = [d for d in realms if self.realm_filter == d.name]
+        for realm in realms:
+            self._parse_realm(realm)
 
 
     def on_vocab_parse(self, vocab):
@@ -54,14 +54,14 @@ class VocabParser(object):
         pass
 
 
-    def on_domain_parse(self, domain):
-        """On domain parse event handler.
+    def on_realm_parse(self, realm):
+        """On realm parse event handler.
 
         """
         pass
 
 
-    def on_process_parse(self, domain, process):
+    def on_process_parse(self, realm, process):
         """On process parse event handler.
 
         """
@@ -89,38 +89,38 @@ class VocabParser(object):
         pass
 
 
-    def _parse_domain(self, domain):
-        """Parses a domain.
+    def _parse_realm(self, realm):
+        """Parses a realm.
 
         """
-        # Raise domain parse event.
+        # Raise realm parse event.
         if self.verbose:
-            log("parsing: {}".format(domain))
-        self.on_domain_parse(domain)
+            log("parsing: {}".format(realm))
+        self.on_realm_parse(realm)
 
         # Parse child processes.
-        processes = sorted(domain.processes, key = lambda p: p.name)
+        processes = sorted(realm.processes, key = lambda p: p.name)
         for process in processes:
-            self._parse_process(domain, process)
+            self._parse_process(realm, process)
 
 
-    def _parse_process(self, domain, process):
-        """Parses a domain process.
+    def _parse_process(self, realm, process):
+        """Parses a realm process.
 
         """
         # Raise process parse event.
         if self.verbose:
             log("parsing: {}".format(process))
-        self.on_process_parse(domain, process)
+        self.on_process_parse(realm, process)
 
         # Parse child sub-processes.
         sub_processes = sorted(process.sub_processes, key = lambda sp: sp.name)
         for sub_process in sub_processes:
-            self._parse_subprocess(domain, process, sub_process)
+            self._parse_subprocess(realm, process, sub_process)
 
 
-    def _parse_subprocess(self, domain, process, sub_process):
-        """Parses a domain sub process.
+    def _parse_subprocess(self, realm, process, sub_process):
+        """Parses a realm sub process.
 
         """
         # Raise sub-process parse event.

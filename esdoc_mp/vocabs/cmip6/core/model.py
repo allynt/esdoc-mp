@@ -31,11 +31,11 @@ class Vocab(object):
         self.id = "cmip6"
         self.style_type = "vocab"
         self.url = "{}{}".format(_URL, self.id.replace(".", "/"))
-        self.domains = [Domain(self, i) for i in schema.domains]
+        self.realms = [Realm(self, i) for i in schema.realms]
 
 
-class Domain(object):
-    """Wraps the definitions of a CMIP6 science domain definition.
+class Realm(object):
+    """Wraps the definitions of a CMIP6 science realm definition.
 
     """
     def __init__(self, owner, module):
@@ -45,7 +45,7 @@ class Domain(object):
         self.description = "{}.".format(module.__doc__.split(".")[0])
         self.id = "{}.{}".format(owner.id, module.__name__.split(".")[-1])
         self.name = module.__name__.split(".")[-1]
-        self.style_type = "domain"
+        self.style_type = "realm"
         self.url = "{}{}".format(_URL, self.id.replace(".", "/"))
         self.processes = [Process(self, i) for i in module.processes]
 

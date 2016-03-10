@@ -10,6 +10,7 @@
 """
 from . import exceptions
 from . import vocabs
+from esdoc_mp.ontologies.core import create_ontology as get_ontology
 from esdoc_mp.ontologies.schemas import get_schema
 from esdoc_mp.ontologies.schemas import validate
 from esdoc_mp.ontologies.generators import generate

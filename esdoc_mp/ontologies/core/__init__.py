@@ -18,3 +18,4 @@ from esdoc_mp.ontologies.core.ontology import Ontology
 from esdoc_mp.ontologies.core.package import Package
 from esdoc_mp.ontologies.core.property import Property
 from esdoc_mp.ontologies.core.type_ import Type
+from esdoc_mp.ontologies.core.factory import create_ontology

@@ -14,8 +14,8 @@ import os
 
 import tornado
 
+from esdoc_mp.ontologies.generators.python import utils
 from esdoc_mp.vocabs.cmip6.core import VocabParser
-
 
 
 # Define command line options.
@@ -28,13 +28,15 @@ _ARGS.add_argument(
     )
 
 
-_TEMPLATE = __file__.replace('.py', '.tornado').split('/')[-1]
 
-_TEMPLATE_LOADER = tornado.template.Loader(os.path.dirname(__file__))
+def _get_template():
+    """Returns template to be generated.
 
-print _TEMPLATE_LOADER.load(_TEMPLATE)
+    """
+    loader = tornado.template.Loader(os.path.dirname(__file__))
+    fname = __file__.split('/')[-1].replace('.py', '.tornado')
 
-
+    return loader.load(fname)
 
 
 
@@ -44,17 +46,23 @@ class _VocabParser(VocabParser):
 
         """
         super(_VocabParser, self).__init__()
-        self.code = None
+        self.code = {}
+        self.vocab = None
+        self.template = _get_template()
 
 
     def on_vocab_parse(self, vocab):
         """On vocabulary parse event handler.
 
         """
-        template = _TEMPLATE_LOADER.load(_TEMPLATE)
-        self.code = template.generate(v=vocab)
+        self.vocab = vocab
 
-        print self.code
+
+    def on_realm_parse(self, realm):
+        """On realm parse event handler.
+
+        """
+        self.code[realm] = self.template.generate(r=realm, u=utils)
 
 
 def _main(args):
@@ -65,11 +73,11 @@ def _main(args):
     parser = _VocabParser()
     parser.parse()
 
-    # Write mindmaps to file system.
-    # for domain, code in parser.code.items():
-    #     fpath = os.path.join(args.dest, "{}.py".format(domain.id))
-    #     with open(fpath, 'w') as f:
-    #         f.write(code)
+    # Write typsets to file system.
+    for realm, code in parser.code.items():
+        fpath = os.path.join(args.dest, "{}.py".format(realm.id))
+        with open(fpath, 'w') as f:
+            f.write(code)
 
 
 # Entry point.
