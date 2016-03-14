@@ -23,42 +23,30 @@ KEYS = {
     # Packages.
     # ------------------------------------------------
 {% for p in o.packages %}
-    {{ p.name }}: "{{ o.op_name }}.{{ o.op_version }}.{{ p.op_name }}",
-{% end %}
+    {{ p.name }}: "{{ o.op_name }}.{{ o.op_version }}.{{ p.op_name }}",{% end %}
+
     # ------------------------------------------------
     # Classes.
     # ------------------------------------------------
-{% for p in o.packages %}
-{% for c in p.classes %}
+{% for p in o.packages %}{% for c in p.classes %}
     {{ c.op_full_name }}: "{{ o.op_name }}.{{ o.op_version }}.{{ c.op_full_name }}",
-{% end %}
-{% end %}
+{% end %}{% end %}
     # ------------------------------------------------
     # Class properties.
     # ------------------------------------------------
-{% for p in o.packages %}
-{% for c in p.classes %}
-{% for cp in c.properties %}
+{% for p in o.packages %}{% for c in p.classes %}{% for cp in c.properties %}
     ({{ c.op_full_name }}, '{{ cp.name }}'): "{{ o.op_name }}.{{ o.op_version }}.{{ c.op_full_name }}.{{ cp.name }}",
-{% end %}
-{% end %}
-{% end %}
+{% end %}{% end %}{% end %}
     # ------------------------------------------------
     # Enums.
     # ------------------------------------------------
-{% for p in o.packages %}
-{% for e in p.enums %}
+{% for p in o.packages %}{% for e in p.enums %}
     {{ e.op_full_name }}: "{{ o.op_name }}.{{ o.op_version }}.{{ e.op_full_name }}",
-{% end %}
-{% end %}
+{% end %}{% end %}
     # ------------------------------------------------
     # Enum members.
     # ------------------------------------------------
-{% for p in o.packages %}
-{% for e in p.enums %}
-{% for em in e.members %}
+{% for p in o.packages %}{% for e in p.enums %}{% for em in e.members %}
     ({{ e.op_full_name }}, '{{ em.name }}'): "{{ o.op_name }}.{{ o.op_version }}.{{ e.op_full_name }}.{{ em.name.replace(' ', '-') }}",
-{% end %}
-{% end %}
-{% end %}
+{% end %}{% end %}{% end %}
 }

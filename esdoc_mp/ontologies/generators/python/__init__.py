@@ -9,10 +9,10 @@ UTILS = utils
 
 # Set of supported custom generators or tornado templates.
 GENERATORS = {
-    'constraints.tornado',
     'helptext.tornado',
     '__init__.tornado',
     'keys.tornado',
+    'typeinfo.tornado',
     'typeset.tornado',
     PackageTypeSetGenerator,
     DecoderGenerator
