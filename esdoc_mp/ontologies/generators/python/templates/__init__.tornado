@@ -12,48 +12,24 @@
 .. note:: Code generated using the esdoc-mp framework.
 
 """
-{% for p in o.packages %}from typeset_for_{{ p.name }}_package import *
-{% end %}
-
-{% for p in o.packages %}import typeset_for_{{ p.name }}_package as {{ p.name }}
-{% end %}
-
-
-
-try:
-	import decoder
-except ImportError:
-	pass
-import typeset
-import type_info as TYPE_INFO
-from type_help import HELP
-from type_keys import KEYS
-
-# Typeinfo constants - to be removed.
-from type_info import PACKAGES
-from type_info import DOCUMENT_TYPES
-from type_info import CLASSES
-from type_info import CLASS_PROPERTIES
-from type_info import CLASS_OWN_PROPERTIES
-from type_info import SUB_CLASSES
-from type_info import SUB_CLASSED
-from type_info import BASE_CLASSES
-from type_info import BASE_CLASSED
-from type_info import CLASS_HIERACHY_DEPTH
-from type_info import ENUMS
-from type_info import TOTAL_CLASS_PROPERTIES
-from type_info import TOTAL_ENUM_MEMBERS
-from type_info import CONSTRAINTS
-from type_info import TOTAL_CONSTRAINTS
-from type_info import TYPES
-
-
-
 # Ontology name.
 NAME = '{ontology-name}'
 
 # Version identifier.
 VERSION = '{ontology-version}'
 
-# Full ontology name.
-FULL_NAME = '{ontology-name}.{ontology-version}'
+# Packages.{% for p in o.packages %}
+import typeset_for_{{ p.name }}_package as {{ p.name }}{% end %}
+
+# Classes.{% for p in o.packages %}{% for c in p.classes %}
+from typeset_for_{{ p.name }}_package import {{ c.op_name }}{% end %}{% end %}
+
+# Enums.{% for p in o.packages %}{% for e in p.enums %}
+from typeset_for_{{ p.name }}_package import {{ e.op_name }}{% end %}{% end %}
+
+import type_info
+import typeset
+try:
+	import decoder
+except ImportError:
+	pass
