@@ -11,7 +11,6 @@ UTILS = utils
 GENERATORS = {
     '__init__.tornado',
     'type_info.tornado',
-    'type_summary.tornado',
     'typeset.tornado',
     PackageTypeSetGenerator,
     DecoderGenerator

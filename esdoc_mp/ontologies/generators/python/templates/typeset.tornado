@@ -29,7 +29,3 @@ __all__ = [
 {% for e in o.enums %}    {{ e.op_name }},
 {% end %}]
 
-# Set type keys.
-# TODO deprecate
-{% for t in o.types %}{{ t.op_full_name }}.type_key = u"{{ o.op_name }}.{{ o.op_version }}.{{ t.op_full_name }}"
-{% end %}

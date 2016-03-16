@@ -81,7 +81,6 @@ ENUMS = (
 # Total enum members across all enums.
 TOTAL_ENUM_MEMBERS = sum(len(e.members) for e in ENUMS)
 
-
 # ------------------------------------------------
 # Type hierarchies.
 # ------------------------------------------------
@@ -230,3 +229,15 @@ KEYS = {
 {% for p in o.packages %}{% for e in p.enums %}{% for em in e.members %}
     ({{ e.op_full_name }}, '{{ em.name }}'): "{{ o.op_name }}.{{ o.op_version }}.{{ e.op_full_name }}.{{ em.name.replace(' ', '-') }}",{% end %}{% end %}{% end %}
 }
+
+# Set inline type keys.
+{% for t in o.types %}{{ t.op_full_name }}.type_key = KEYS[{{ t.op_full_name }}]
+{% end %}
+
+
+# Remove import dross.
+del defaultdict
+del datetime
+del uuid
+{% for p in o.packages %}del {{ p.name }}
+{% end %}

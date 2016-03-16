@@ -15,16 +15,19 @@
 # Ontology name.
 NAME = '{ontology-name}'
 
-# Version identifier.
+# Ontology Version.
 VERSION = '{ontology-version}'
 
-# Packages.{% for p in o.packages %}
+# Ontology full name.
+FULL_NAME = '{}.{}'.format(NAME, VERSION)
+
+# Ontology packag set.{% for p in o.packages %}
 import typeset_for_{{ p.name }}_package as {{ p.name }}{% end %}
 
-# Classes.{% for p in o.packages %}{% for c in p.classes %}
+# Ontology class set.{% for p in o.packages %}{% for c in p.classes %}
 from typeset_for_{{ p.name }}_package import {{ c.op_name }}{% end %}{% end %}
 
-# Enums.{% for p in o.packages %}{% for e in p.enums %}
+# Ontology enum set.{% for p in o.packages %}{% for e in p.enums %}
 from typeset_for_{{ p.name }}_package import {{ e.op_name }}{% end %}{% end %}
 
 import type_info
