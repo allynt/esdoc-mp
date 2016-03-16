@@ -8,7 +8,7 @@
 
 
 def domain_properties():
-    """Properties of the domain which needs to be simulated, extend and/or resolution.
+    """Properties of the domain which needs to be simulated, extent and/or resolution.
 
     """
     return {
@@ -50,19 +50,22 @@ def ensemble_requirement():
 
 
 def ensemble_types():
-    """Defines the various axes along which one can set up an ensemble.
+    """Defines the various axes along which one can set up an ensemble, whether
+     as an experiment designer, or in designing a 'response' ensemble around an
+     experiment.
 
     """
     return {
         'type': 'enum',
         'is_open': False,
         'members': [
-            ("Perturbed Physics", "Members differ in some aspects of their physics"),
-            ("Initialisation Method", "Members differ in how they are initialised"),
-            ("Initialisation", "Members are initialised to sample possible starting states"),
-            ("Staggered Start", "Members are initialised at different starting dates"),
-            ("Forced", "Members used differing forcing data"),
-            ("Resolution", "Members are run at different resolutions")
+            ("Perturbed Physics", "Members differ in some aspects of their physics."),
+            ("Initialisation Method", "Members differ in how they are initialised."),
+            ("Realization", "Members initialised to sample possible initial conditions."),
+            ("Start Date", "Members initialised at different starting dates."),
+            ("Forced", "Members have differing forcing data."),
+            ("Resolution", "Members are/should-be run at different resolutions."),
+            ("Driven", "Members are/should-be driven by different models.")
         ]
     }
 
@@ -124,7 +127,7 @@ def forcing_types():
             ("historical", "Best estimates of actual state (included synthesized)"),
             ("idealised", "Simplified and/or exemplar, e.g. 1%C02"),
             ("scenario", "Intended to represent a possible future, e.g. RCP4.5"),
-            ("another simulation", "From another simulation")
+            ("driven", "Driven from another simulation")
         ]
     }
 
@@ -141,24 +144,6 @@ def multi_ensemble():
         'properties': [
             ('ensemble_axis', 'linked_to(designing.ensemble_requirement)', '1.N',
                 "List of orthogonal ensembles.")
-        ],
-        'constraints': [
-            ('additional_requirements', 'cardinality', '0.0')
-        ]
-    }
-
-
-def multi_time_ensemble():
-    """Defines an experiment ensemble with multiple start dates.
-
-    """
-    return {
-        'type': 'class',
-        'base': 'designing.numerical_requirement',
-        'is_abstract': False,
-        'properties': [
-            ('ensemble_members', 'shared.datetime_set', '1.1',
-                "Description of date or time set of start dates.")
         ],
         'constraints': [
             ('additional_requirements', 'cardinality', '0.0')
@@ -275,6 +260,24 @@ def simulation_plan():
         ],
         'constraints': [
             ('duration', 'cardinality', '1.1')
+        ]
+    }
+
+
+def start_date_ensemble():
+    """Defines an experiment ensemble with multiple start dates.
+
+    """
+    return {
+        'type': 'class',
+        'base': 'designing.numerical_requirement',
+        'is_abstract': False,
+        'properties': [
+            ('ensemble_members', 'shared.datetime_set', '1.1',
+                "Description of date or time set of start dates.")
+        ],
+        'constraints': [
+            ('additional_requirements', 'cardinality', '0.0')
         ]
     }
 

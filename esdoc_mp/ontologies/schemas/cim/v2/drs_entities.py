@@ -16,27 +16,26 @@ def drs_atomic_dataset():
         'base': 'drs.drs_publication_dataset',
         'is_abstract': False,
         'properties': [
-            ('ensemble_member', 'drs.drs_ensemble_identifier', '1.1',
-                "Unambiguously identifiers ensemble realisation information."),
+            ('frequency', 'drs.frequency_types', '1.1',
+                "Frequency at which data is stored."),
             ('geographical_constraint', 'drs.drs_geographical_indicator', '0.1',
                 "Identifies geographical subsets and spatial means."),
             ('mip_table', 'str', '1.1',
                 "The MIP table, together with the variable defines the physical quantity."),
+            ('realm', 'drs.drs_realms', '0.1',
+                "Modelling realm."),
             ('temporal_constraint', 'drs.drs_temporal_identifier', '0.1',
                 "Identifies temporal subsets or means."),
             ('variable_name', 'str', '1.1',
-                "Identifies the physical quantity (when used in conjunction with the MIP table).")
-        ],
-        'constraints': [
-            ('frequency', 'cardinality', '1.1'),
-            ('realm', 'cardinality', '1.1'),
-            ('version_number', 'cardinality', '1.1')
+                "Identifies the physical quantity (when used in conjunction with the MIP table)."),
+            ('version_number', 'int', '0.1',
+                "Uniquely identifies a particular version of a publication level dataset.")
         ]
     }
 
 
 def drs_ensemble_identifier():
-    """Identifies an ensemble realisation.
+    """Identifies a 'response ensemble' realisation using the semantic content ofa 'run_variant_id'.
 
     """
     return {
@@ -44,12 +43,33 @@ def drs_ensemble_identifier():
         'base': None,
         'is_abstract': False,
         'properties': [
+            ('forcing_number', 'int', '0.1',
+                "Identifies possible perturbatinos in forcing."),
             ('initialisation_method_number', 'int', '1.1',
                 "Identifies which method of initialisation was used, if multiple methods used."),
             ('perturbation_number', 'int', '1.1',
                 "Identifies different members of a perturbed physics ensemble."),
             ('realisation_number', 'int', '1.1',
                 "Standard ensemble axis realisation number (usually an initial condition ensemble).")
+        ]
+    }
+
+
+def drs_experiment():
+    """An encoding of a drs experiment_id.
+
+    """
+    return {
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('axis_identifer', 'designing.axis_member', '0.1',
+                "None"),
+            ('axis_type', 'designing.ensemble_types', '0.1',
+                "Type of experimental family ensemble required."),
+            ('family', 'str', '1.1',
+                "Main experimental family.")
         ]
     }
 
@@ -112,35 +132,6 @@ def drs_geographical_operators():
     }
 
 
-def drs_publication_dataset():
-    """A collection of atomic datasets which share a single combination of DRS component values.
-
-    """
-    return {
-        'type': 'class',
-        'base': None,
-        'is_abstract': False,
-        'properties': [
-            ('activity', 'str', '1.1',
-                "A model intercomparison activity or other project which aggregates or collects data."),
-            ('experiment', 'str', '1.1',
-                "An experiment (or experiment family and type, e.g. rcp45)."),
-            ('frequency', 'drs.drs_frequency_types', '0.1',
-                "Frequency of data stored in this entity."),
-            ('institute', 'str', '1.1',
-                "The institute responsible for this data entity."),
-            ('model', 'str', '1.1',
-                "A model identifier (sans blanks/periods and parenthesis)."),
-            ('product', 'str', '1.1',
-                "Used to provide categories of data products within the activity."),
-            ('realm', 'drs.drs_realms', '0.1',
-                "Modelling realm."),
-            ('version_number', 'int', '0.1',
-                "Uniquely identifies a particular version of a publication level dataset.")
-        ]
-    }
-
-
 def drs_realms():
     """Set of allowed DRS modelling realms.
 
@@ -157,6 +148,25 @@ def drs_realms():
             ("aerosol", "Aerosol"),
             ("atmosChem", "Atmospheric Chemistry"),
             ("ocnBgchem", "Ocean Biogeochemistry")
+        ]
+    }
+
+
+def drs_simulation_identifier():
+    """That part of the DRS which identifies the response to the experiment: the simulation.
+
+    """
+    return {
+        'type': 'class',
+        'base': None,
+        'is_abstract': False,
+        'properties': [
+            ('institute', 'str', '1.1',
+                "The institute responsible for this data entity."),
+            ('model', 'str', '1.1',
+                "A model identifier (sans blanks/periods and parenthesis)."),
+            ('run_variant_id', 'drs.drs_ensemble_identifier', '1.1',
+                "Also known as ensemble_identifier, unambiguously identifiers ensemble realisation information.")
         ]
     }
 

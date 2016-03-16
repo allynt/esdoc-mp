@@ -128,6 +128,7 @@ def document_types():
             ("Party", "A person or organisation which has a role in the documentation of the simulation workflow"),
             ("Performance", "A formal set of criteria describing how a model performed on a given machine."),
             ("Project", "An umbrella for a set of numerical experiments (e.g. a MIP)"),
+            ("QualityReview", "A quality control assessment for another CIM artifact"),
             ("ScientificDomain", "A scientifically coherent realm of a numerical model (typically modelled independently)."),
             ("Simulation", "A simulation carried out as part of an ensemble for a numerical experiment."),
             ("SimulationPlan", "A plan to carry out a simulations for a numerical experiment."),
@@ -301,12 +302,16 @@ def quality_review():
         'properties': [
             ('date', 'str', '1.1',
                 "Date upon which review was made."),
+            ('meta', 'shared.doc_meta_info', '1.1',
+                "Metadata about the creation of this document description."),
             ('metadata_reviewer', 'linked_to(shared.party)', '1.1',
                 "Party who made the metadata quality assessment."),
             ('quality_description', 'str', '1.1',
-                "Assessment of quality of this document."),
+                "Assessment of quality of target document."),
             ('quality_status', 'shared.quality_status', '0.1',
-                "Status from a controlled vocabulary.")
+                "Status from a controlled vocabulary."),
+            ('target_document', 'linked_to(shared.)', '1.1',
+                "This is the document about which quality is asserted.")
         ]
     }
 

@@ -167,40 +167,6 @@ def ensemble_member():
     }
 
 
-def ensemble_types():
-    """Defines the various axes along which one can set up an ensemble.
-
-    """
-    return {
-        'type': 'enum',
-        'is_open': False,
-        'members': [
-            ("Perturbed Physics", "Members differ in some aspects of their physics"),
-            ("Initialisation Method", "Members differ in how they are initialised"),
-            ("Initialisation", "Members are initialised to sample possible starting states"),
-            ("Staggered Start", "Members are initialised at different starting dates"),
-            ("Forced", "Members used differing forcing data"),
-            ("Resolution", "Members are run at different resolutions")
-        ]
-    }
-
-
-def forcing_types():
-    """Defines the possible set of forcing types for a forcing constraint.
-
-    """
-    return {
-        'type': 'enum',
-        'is_open': False,
-        'members': [
-            ("historical", "Best estimates of actual state (included synthesized)"),
-            ("idealised", "Simplified and/or exemplar, e.g. 1%C02"),
-            ("scenario", "Intended to represent a possible future, e.g. RCP4.5"),
-            ("another simulation", "From another simulation")
-        ]
-    }
-
-
 def parent_simulation():
     """Defines the relationship between a simulation and its parent.
 

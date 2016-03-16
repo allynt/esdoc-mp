@@ -15,10 +15,10 @@ def coupling_framework():
         'type': 'enum',
         'is_open': False,
         'members': [
-            ("OASIS", None),
-            ("OASIS3-MCT", None),
-            ("ESMF", None),
-            ("NUOPC", None),
+            ("OASIS", "The OASIS coupler - prior to OASIS-MCT"),
+            ("OASIS3-MCT", "The MCT variant of the OASIS coupler"),
+            ("ESMF", "Vanilla Earth System Modelling Framework"),
+            ("NUOPC", "National Unified Operational Prediction Capability variant of ESMF"),
             ("Bespoke", "Customised coupler developed for this model"),
             ("Unknown", "It is not known what/if-a coupler is used"),
             ("None", "No coupler is used")
@@ -35,9 +35,9 @@ def programming_language():
         'type': 'enum',
         'is_open': False,
         'members': [
-            ("Fortran", None),
-            ("C", None),
-            ("C++", None),
-            ("Python", None)
+            ("Fortran", "Fortran Programming Language"),
+            ("C", "C Programmming Language"),
+            ("C++", "C++ Programming Language"),
+            ("Python", "Python Programming Language")
         ]
     }
