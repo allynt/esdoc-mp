@@ -35,7 +35,7 @@ __all__ = [
     'ENUMS',
     'CONSTRAINTS',
     'KEYS',
-    'HELP'
+    'DOC_STRINGS'
     ]
 
 # Supported packages.
@@ -151,9 +151,9 @@ CONSTRAINTS = {
 TOTAL_CONSTRAINTS = sum(len(CONSTRAINTS[c]) for c in CLASSES)
 
 # ------------------------------------------------
-# Type help text.
+# Type documentation strings.
 # ------------------------------------------------
-HELP = {
+DOC_STRINGS = {
     # ------------------------------------------------
     # Packages.
     # ------------------------------------------------
