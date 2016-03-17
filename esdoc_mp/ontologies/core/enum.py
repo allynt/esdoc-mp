@@ -26,7 +26,7 @@ class Enum(object):
         self.name = name
         self.is_open = is_open
         self.doc_string = doc_string if doc_string is not None else ''
-        self.members = set(sorted(members, key=lambda m: m.name))
+        self.members = sorted(members, key=lambda m: m.name)
         self.package = None
 
         self.op_doc_string_name = None

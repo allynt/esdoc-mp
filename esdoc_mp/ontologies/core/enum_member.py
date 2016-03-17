@@ -21,7 +21,6 @@ class EnumMember(object):
         :param str doc_string: Enumeration member documentation string.
 
         """
-        # Set attributes.
         self.enum = None
         self.name = name
         self.doc_string = doc_string

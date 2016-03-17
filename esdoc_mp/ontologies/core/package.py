@@ -9,7 +9,7 @@
 
 
 """
-from operator import or_
+from operator import add
 
 
 
@@ -33,18 +33,18 @@ class Package(object):
 
         """
         self.abstract_classes = _get_sorted(classes, lambda c: c.is_abstract)
-        self.associated = set()
-        self.associated_for_import = set()
+        self.associated = []
+        self.associated_for_import = []
         self.concrete_classes = _get_sorted(classes, lambda c: not c.is_abstract)
         self.classes = _get_sorted(classes)
-        self.decodings = reduce(or_, [c.decodings for c in classes])
+        self.decodings = reduce(add, [c.decodings for c in classes])
         self.doc_string = doc_string
         self.entities = []
         self.enums = _get_sorted(enums)
-        self.external_types = set()
+        self.external_types = []
         self.name = name
         self.op_name = None
-        self.properties = reduce(or_, [c.properties for c in classes])
+        self.properties = reduce(add, [c.properties for c in classes])
         self.sub_classed = tuple()
         self.types = _get_sorted(classes + enums)
 
@@ -65,4 +65,4 @@ def _get_sorted(collection, predicate=None, sort_key=None):
     if sort_key is None:
         sort_key = lambda i: i.name
 
-    return set(sorted(collection, key=sort_key))
+    return sorted(collection, key=sort_key)

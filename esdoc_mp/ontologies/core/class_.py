@@ -35,20 +35,20 @@ class Class(object):
         :param str base: Base class used in object hierarchies.
         :param bool is_abstract: Flag indicating whether this is an abstract class or not.
         :param str doc_string: Class documentation string.
-        :param set properties: Set of associated properties.
-        :param set computed_properties: Set of associated computed properties.
-        :param set constraints: Set of associated constraints.
-        :param set decodings: Set of associated property decodings.
+        :param list properties: Set of associated properties.
+        :param list computed_properties: Set of associated computed properties.
+        :param list constraints: Set of associated constraints.
+        :param list decodings: Set of associated property decodings.
 
         """
         self.base = base
-        self.circular_imports = set()
+        self.circular_imports = []
         self.cls = None
-        self.computed_properties = set(sorted(computed_properties, key=lambda p: p.name))
-        self.constraints = set(sorted(constraints, key=lambda ct: ct.property_name))
-        self.decodings = set(sorted(decodings, key=lambda dc: dc.property_name))
+        self.computed_properties = sorted(computed_properties, key=lambda p: p.name)
+        self.constraints = sorted(constraints, key=lambda ct: ct.property_name)
+        self.decodings = sorted(decodings, key=lambda dc: dc.property_name)
         self.doc_string = doc_string if doc_string is not None else ''
-        self.imports = set()
+        self.imports = []
         self.is_abstract = is_abstract
         self.name = name
         self.sub_class_hierachy = tuple()
@@ -61,7 +61,7 @@ class Class(object):
         self.op_import_name = None
         self.op_name = None
 
-        self.properties = set(sorted(properties, key=lambda p: p.name))
+        self.properties = sorted(properties, key=lambda p: p.name)
         self.package = None
 
 
@@ -73,6 +73,7 @@ class Class(object):
             return "{}.{}".format(self.package, self.name)
         except:
             return self.name
+
 
 
     @property
@@ -150,8 +151,8 @@ class Class(object):
 
         """
         if self.base:
-            return set(self.properties).union(self.base.all_properties)
-        return set(self.properties)
+            return self.properties + self.base.all_properties
+        return self.properties
 
 
     @property
@@ -160,8 +161,8 @@ class Class(object):
 
         """
         if self.base:
-            return set(self.computed_properties).union(self.base.all_computed_properties)
-        return set(self.computed_properties)
+            return self.computed_properties + self.base.all_computed_properties
+        return self.computed_properties
 
 
     @property
@@ -170,8 +171,8 @@ class Class(object):
 
         """
         if self.base:
-            return set(self.decodings).union(self.base.all_decodings)
-        return set(self.decodings)
+            return self.decodings + self.base.all_decodings
+        return self.decodings
 
 
     def get_property_decodings(self, prp):
@@ -180,7 +181,7 @@ class Class(object):
         :param esdoc_mp.ontologies.core.Property prp: A property being processed.
 
         """
-        return set(dc for dc in self.all_decodings if dc.property_name == prp.name)
+        return [dc for dc in self.all_decodings if dc.property_name == prp.name]
 
 
     def get_property(self, name):
