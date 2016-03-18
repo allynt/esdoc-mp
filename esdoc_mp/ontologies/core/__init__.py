@@ -10,6 +10,7 @@
 """
 from esdoc_mp.ontologies.core.class_ import Class
 from esdoc_mp.ontologies.core.class_constraint import ClassConstraint
+from esdoc_mp.ontologies.core.class_pstr import ClassPrintString
 from esdoc_mp.ontologies.core.computed_property import ComputedProperty
 from esdoc_mp.ontologies.core.decoding import Decoding
 from esdoc_mp.ontologies.core.enum import Enum

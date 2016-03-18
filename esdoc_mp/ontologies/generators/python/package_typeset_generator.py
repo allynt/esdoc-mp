@@ -29,6 +29,9 @@ _TEMPLATE_CLASS_CONCRETE = "typeset_class_concrete.txt"
 # Template for an abstract class.
 _TEMPLATE_CLASS_ABSTRACT = "typeset_class_abstract.txt"
 
+# Template for a class print string.
+_TEMPLATE_CLASS_PSTR = "typeset_class_pstr.txt"
+
 # Template for an enumeration.
 _TEMPLATE_ENUM = "typeset_enum.txt"
 
@@ -40,6 +43,7 @@ _TEMPLATES = gu.load_templates(_LANG, (
     _TEMPLATE_TYPESET,
     _TEMPLATE_CLASS_CONCRETE,
     _TEMPLATE_CLASS_ABSTRACT,
+    _TEMPLATE_CLASS_PSTR,
     _TEMPLATE_ENUM,
     _TEMPLATE_CLASS_COMPUTED_PROPERTY
 ))
@@ -164,6 +168,20 @@ def _emit_snippet_class(c):
     code = code.replace('{class_constants}', _emit_snippet_class_property_constants(c))
     code = code.replace('{class-properties}', _emit_snippet_class_properties(c))
     code = code.replace('{class-computed-properties}', _emit_snippet_class_computed_properties(c))
+    code = code.replace('{class-pstr}', _emit_snippet_class_pstr(c))
+
+    return code
+
+
+def _emit_snippet_class_pstr(c):
+    """Emits class print string.
+
+    """
+    code = ""
+    if c.pstr:
+        code = _TEMPLATES[_TEMPLATE_CLASS_PSTR]
+        code = code.replace('{text}', c.pstr.text)
+        code = code.replace('{fields}', ", ".join(["self.{}".format(f) for f in c.pstr.fields]))
 
     return code
 

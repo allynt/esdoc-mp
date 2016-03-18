@@ -14,6 +14,7 @@ import re
 
 from esdoc_mp.ontologies.core import Class
 from esdoc_mp.ontologies.core import ClassConstraint
+from esdoc_mp.ontologies.core import ClassPrintString
 from esdoc_mp.ontologies.core import ComputedProperty
 from esdoc_mp.ontologies.core import Decoding
 from esdoc_mp.ontologies.core import Enum
@@ -134,6 +135,15 @@ def _get_class_decodings(class_):
     return result
 
 
+def _get_class_pstr(class_):
+    """Returns class decoding definitions.
+
+    """
+    pstr = class_.get('pstr')
+    if pstr:
+        return ClassPrintString(pstr[0], pstr[1])
+
+
 def _get_package_classes(schema, package, types):
     """Returns package class definitions.
 
@@ -148,7 +158,9 @@ def _get_package_classes(schema, package, types):
                   _get_class_properties(cls),
                   _get_class_computed_properties(cls),
                   _get_class_constraints(cls),
-                  _get_class_decodings(cls))
+                  _get_class_decodings(cls),
+                  _get_class_pstr(cls)
+                  )
         )
 
     return result

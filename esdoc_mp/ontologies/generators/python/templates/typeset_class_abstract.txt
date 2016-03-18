@@ -8,4 +8,4 @@ class {class-name}({base-class-name}):
         """
         super({class-name}, self).__init__()
 
-{class-properties}{class_constants}{class-computed-properties}
+{class-properties}{class_constants}{class-pstr}{class-computed-properties}

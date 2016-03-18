@@ -27,7 +27,8 @@ class Class(object):
                  properties,
                  computed_properties,
                  constraints,
-                 decodings
+                 decodings,
+                 pstr = None
                  ):
         """Instance constructor.
 
@@ -39,6 +40,7 @@ class Class(object):
         :param list computed_properties: Set of associated computed properties.
         :param list constraints: Set of associated constraints.
         :param list decodings: Set of associated property decodings.
+        :param ClassPrintString pstr: Class print string information.
 
         """
         self.base = base
@@ -53,6 +55,7 @@ class Class(object):
         self.name = name
         self.sub_class_hierachy = tuple()
         self.sub_classes = tuple()
+        self.pstr = pstr
         self.op_base_name = None
         self.op_doc_string_name = None
         self.op_file_name = None
