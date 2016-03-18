@@ -230,12 +230,9 @@ def _set_collection_sort_orders(ontology):
     """Sets sort order of various collections.
 
     """
-    def _get_sorted(collection):
-        return sorted(collection, key=lambda i: str(i))
-
-    ontology.classes = _get_sorted(ontology.classes)
-    ontology.enums = _get_sorted(ontology.enums)
-    ontology.types = _get_sorted(ontology.types)
-    ontology.enum_members = _get_sorted(ontology.enum_members)
-    ontology.entities = _get_sorted(ontology.entities)
-    ontology.properties = _get_sorted(ontology.properties)
+    ontology.classes = sorted(ontology.classes, key=str)
+    ontology.enums = sorted(ontology.enums, key=str)
+    ontology.types = sorted(ontology.types, key=str)
+    ontology.enum_members = sorted(ontology.enum_members, key=str)
+    ontology.entities = sorted(ontology.entities, key=str)
+    ontology.properties = sorted(ontology.properties, key=str)
