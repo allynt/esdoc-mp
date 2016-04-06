@@ -50,9 +50,9 @@ def _validate_class_property_type_references(ctx):
                 print name, typeof, qualifier
                 # for t in valid_types:
                 #     print t
-                err = 'Invalid class linked_to property qualifier: {0}.[{1}] --> '
+                err = 'Invalid linked_to qualifier: {0}.[{1}] --> '
                 err += 'type reference "{2}" is unrecognized'
-                err = err.format(ctx.get_name(factory, module), name, typeof)
+                err = err.format(ctx.get_name(factory, module), name, qualifier)
                 ctx.set_error(err)
 
 
