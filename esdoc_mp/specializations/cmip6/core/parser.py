@@ -114,7 +114,6 @@ class SpecializationParser(object):
         if self.verbose:
             log("parsing: {}".format(process))
         self.on_process_parse(realm, process)
-        return
 
         # Parse child sub-processes.
         sub_processes = sorted(process.sub_processes, key = lambda sp: sp.name)
@@ -130,6 +129,8 @@ class SpecializationParser(object):
         if self.verbose:
             log("parsing: {}".format(sub_process))
         self.on_subprocess_parse(process, sub_process)
+
+        return
 
         # Iterate set of sub-process details.
         for detail in sub_process.details:

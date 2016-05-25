@@ -82,6 +82,7 @@ class _SpecializationParser(SpecializationParser):
 
         """
         super(_SpecializationParser, self).__init__(realm_filter)
+
         self.cfg = _SpecializationParserConfiguration(stylesheet)
         self.maps = {}
         self.nodes = {}
