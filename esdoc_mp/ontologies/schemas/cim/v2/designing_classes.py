@@ -318,7 +318,7 @@ def start_date_ensemble():
 
 
 def temporal_constraint():
-    """A temporal constraint on a numerical experiment.
+    """A spatio-temporal constraint on a numerical experiment.
 
     """
     return {
