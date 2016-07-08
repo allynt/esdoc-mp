@@ -219,6 +219,16 @@ def numerical_requirement():
         'type': 'class',
         'base': 'activity.activity',
         'is_abstract': False,
+        'alternatives': [
+            'designing.temporal_constraint',
+            'designing.forcing_constraint',
+            'designing.ensemble_requirement',
+            'designing.multi_ensemble',
+            'designing.start_date_ensemble',
+            'designing.output_requirement',
+            'designing.domain_requirements',
+            'designing.initialisation_requirement'
+        ],
         'properties': [
             ('additional_requirements', 'linked_to(designing.numerical_requirement)', '0.N',
                 "Additional detail for this requirement."),
