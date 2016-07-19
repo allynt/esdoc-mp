@@ -220,7 +220,7 @@ def format_code(ctx, code):
     code = code.replace('{ontology-version-packagename}', ctx.ontology.op_version.replace('.', '_'))
 
     # Misceallaneous params.
-    code = code.replace('{datetime-year}', unicode(datetime.datetime.now().year))
+    code = code.replace('{datetime-year}', str(datetime.datetime.now().year))
     code = code.replace('{user-name}', get_username())
 
     return code
