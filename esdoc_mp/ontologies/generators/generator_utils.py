@@ -122,6 +122,7 @@ def load_tornado_template(language, fname):
 
     """
     dir_ = _TEMPLATE_FOLDER + "/{0}/templates".format(language)
+
     fpath = os.path.join(dir_, fname)
     if fpath not in _loaded_tornado_templates:
         loader = tornado.template.Loader(dir_)
