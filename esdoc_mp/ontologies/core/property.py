@@ -34,7 +34,7 @@ class Property(object):
         self.doc_string = doc_string if doc_string is not None else u""
         self.cardinality = cardinality
         self.is_required = cardinality.split('.')[0] != '0'
-        self.is_iterative = cardinality.split('.')[1] == 'N'
+        self.is_collection = cardinality.split('.')[1] == 'N'
         self.max_occurs = cardinality.split('.')[1]
         self.min_occurs = cardinality.split('.')[0]
         self.name = name

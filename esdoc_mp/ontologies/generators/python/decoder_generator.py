@@ -166,7 +166,7 @@ def _emit_snippet_decoding(prp, decoding, type_):
     return tmpl.format(
         gu.emit_line_return() + gu.emit_indent(2),
         prp.name,
-        prp.is_iterative,
+        prp.is_collection,
         _get_decoding_function(prp, type_),
         '' if decoding is None else decoding)
 

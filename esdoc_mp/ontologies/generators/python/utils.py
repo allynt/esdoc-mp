@@ -42,7 +42,7 @@ _SIMPLE_TYPE_MAPPINGS = {
 _NULL_VALUE = 'None'
 
 # Iterable null value.
-_NULL_VALUE_ITERABLE = '[]'
+_NULL_VALUE_COLLECTION = '[]'
 
 
 def _strip(name):
@@ -249,9 +249,9 @@ def get_property_default_value(p):
             return "{0}.{1}()".format(get_package_name(p.type.package),
                                       get_type_name(p.type))
 
-    # ... iterative types;
-    elif p.is_iterative:
-        return _NULL_VALUE_ITERABLE
+    # ... collection types;
+    elif p.is_collection:
+        return _NULL_VALUE_COLLECTION
 
     # ... enum / complex / simple types.
     else:
