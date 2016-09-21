@@ -19,15 +19,15 @@ _SIMPLE_TYPE_MAPPINGS = {
     # TODO: THE Q ALSO INCLUDES 'EMAIL' & 'TIME'
     # TODO: CIM2 IS SUPPOSED TO INCLUDE 'email'
     # TODO: CHECK THE STATUS OF THIS
-    'bool' : 'BOOLEAN',
-    'date' : 'DATE',
-    'datetime' : 'DATETIME',
-    'float' : 'DECIMAL',
-    'int' : 'INTEGER',
-    'str' : 'STRING',
-    'unicode' : 'STRING',
-    'uri' : 'URL',
-    'uuid' : 'STRING',
+    'bool': 'BOOLEAN',
+    'date': 'DATE',
+    'datetime': 'DATETIME',
+    'float': 'DECIMAL',
+    'int': 'INTEGER',
+    'str': 'STRING',
+    'unicode': 'STRING',
+    'uri': 'URL',
+    'uuid': 'STRING',
 }
 
 # Standard null value.
@@ -56,6 +56,7 @@ def recurse_through_parent_classes(fn, cls, **kwargs):
     if base_cls is None:
         return ret
     return recurse_through_parent_classes(fn, base_cls, ret=ret)
+
 
 def is_recursive_property(prop, **kwargs):
     """
@@ -86,6 +87,7 @@ def is_recursive_property(prop, **kwargs):
                     if property_target_class_property_target_class not in child_classes:
                         return is_recursive_property(property_target_class_property, parent_class=parent_class, child_classes=child_classes)
 
+
 def is_standalone_class(cls):
     """
     Determines if this cls is standalone
@@ -113,6 +115,16 @@ def is_meta_property(property):
     :return: bool
     """
     return property.type.name == _DOC_META_TYPE_NAME
+
+
+def clean_xml_text(text):
+    """
+    escapes any non-xml-compatible text prior to adding it to an lxml element node
+    (as per: http://stackoverflow.com/a/4181222)
+    :param text: input text to clean
+    :return: cleaned text to return
+    """
+    return text.decode('utf-8')
 
 
 def _strip(name):
@@ -162,6 +174,19 @@ def get_ontology_version(name):
     """
     if isinstance(name, str) == False:
         name = name.version
+
+    return name
+
+
+def get_ontology_description(name):
+    """Converts description identifier to a description suitable for QXML.
+
+    Keyword Arguments:
+    name - name of description identifier being converted.
+
+    """
+    if isinstance(name, str) == False:
+        name = name.doc_string
 
     return name
 
@@ -283,6 +308,7 @@ def get_qualified_enum_name(enum):
         return "{0}.{1}".format(enum.package, enum.name)
     else:
         return enum.name
+
 
 def get_atomic_property_type(property):
     """

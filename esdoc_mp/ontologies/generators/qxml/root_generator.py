@@ -34,22 +34,23 @@ class RootGenerator(Generator):
 
         """
         ontology = ctx.ontology
-
         name_node = et.Element("name")
         name_node.text = qgu.get_ontology_name(ontology)
         version_node = et.Element("version")
         version_node.text = qgu.get_ontology_version(ontology)
+        description_node = et.Element("description")
+        description_node.text = qgu.get_ontology_description(ontology)
         classes_node = et.Element("classes")
 
         root_node = ctx.node
         root_node.append(name_node)
         root_node.append(version_node)
+        root_node.append(description_node)
         root_node.append(classes_node)
 
     # QXML is a single construct; it is not separated into packages
     # def on_package_parse(self, ctx):
     #     pass
-
 
     def on_class_parse(self, ctx):
         """Event handler for the class parse event.
@@ -64,37 +65,42 @@ class RootGenerator(Generator):
 
             class_node = et.Element("class")
 
+            # class package...
+            class_node.set("package", ctx.pkg.name)
+            # class stereotype...
             if qgu.is_standalone_class(cls):
                 class_node.set("stereotype", "document")
-
-            class_node.set("package", ctx.pkg.name)
+            # class name...
             class_name_node = et.Element("name")
             class_name_node.text = cls.name
+            # class description...
             class_description_node = et.Element("description")
-            class_description_node.text = cls.doc_string
+            class_description_node.text = qgu.clean_xml_text(cls.doc_string)
+
             class_attributes_node = et.Element("attributes")
-
-            # TODO: IF ANY OF THE ATTRIBUTES OF THIS CLASS - OR ATTRIBUTES OF CLASSES POINTED AT BY ATTRIBUTES (AND SO ON, RECURSIVELY) -- ARE OF THE SAME TYPE AS THIS CLASS
-            # TODO: THEN IT IS "RECURSIVE" AND OUGHT TO BE HANDLED SPECIALLY
-
-            # foobar = qgu.recurse_through_child_properties(lambda c: cls in [p.type.cls for p in c.properties], cls)
-            # foobar = qgu.is_recursive_class(cls)
-            # print "{0} returned {1}".format(cls, foobar)
-
-
             all_attributes = reduce(list.__add__, qgu.recurse_through_parent_classes(lambda c: list(c.properties), cls))
             non_meta_attributes = [a for a in all_attributes if not qgu.is_meta_property(a)]  # only generate non-meta properties
             for attribute in non_meta_attributes:
                 attribute_node = et.Element("attribute")
+
+                # attribute package...
                 attribute_node.set("package", attribute.package.name)
+                # attribute stereotype...
+                # attribute is_nillable...
+                # TODO: WORK OUT HOW "is_nillable" OUGHT TO BE SET
+                attribute_is_nillable = False
+                attribute_node.set("is_nillable", "true" if attribute_is_nillable else "false")
+                # attribute name...
                 attribute_name_node = et.Element("name")
                 attribute_name_node.text = attribute.name
+                # attribute description...
                 attribute_description_node = et.Element("description")
-                attribute_description_node.text = attribute.doc_string
+                attribute_description_node.text = qgu.clean_xml_text(attribute.doc_string)
+                # attribute cardinality...
                 attribute_cardinality_node = et.Element("cardinality")
                 attribute_cardinality_node.set("min", attribute.min_occurs)
                 attribute_cardinality_node.set("max", attribute.max_occurs)
-
+                # attribute type..
                 attribute_type = qgu.get_property_type(attribute)
                 attribute_type_node = et.Element("type")
                 attribute_type_node.text = attribute_type
@@ -103,6 +109,8 @@ class RootGenerator(Generator):
                 attribute_node.append(attribute_description_node)
                 attribute_node.append(attribute_cardinality_node)
                 attribute_node.append(attribute_type_node)
+
+                # type-specific content...
 
                 if attribute_type == qgu.QXML_ATOMIC_TYPE:
                     attribute_atomic_node = et.Element("atomic")
@@ -114,30 +122,27 @@ class RootGenerator(Generator):
                 elif attribute_type == qgu.QXML_ENUMERATION_TYPE:
                     attribute_enumeration_node = et.Element("enumeration")
                     attribute_enumeration_node.set("enumeration_name", attribute.type.name)
-                    # TODO: WORK OUT HOW "is_open" & "is_nillable" ARE SET...
+                    # TODO: WORK OUT HOW "is_open" OUGHT TO BE SET
                     attribute_is_open = False
                     attribute_is_multi = attribute.cardinality.split('.')[1] != '0'
-                    attribute_is_nillable = False
                     attribute_enumeration_node.set("is_open", "true" if attribute_is_open else "false")
                     attribute_enumeration_node.set("is_multi", "true" if attribute_is_multi else "false")
-                    attribute_enumeration_node.set("is_nillable", "true" if attribute_is_nillable else "false")
                     attribute_choices_node = et.Element("choices")
-                    # attribute_node is completed (ie: the choices are added) in the 'on_enum_parse' fn below...
+                    # attribute_node is completed (ie: the choices are added) in the 'on_enum_parse' fn below
+                    # (that is why I record the fully-qualified "@enumeration_name" XML attribute above)
                     attribute_enumeration_node.append(attribute_choices_node)
                     attribute_node.append(attribute_enumeration_node)
 
                 elif attribute_type == qgu.QXML_RELATIONSHIP_TYPE:
                     attribute_relationship_node = et.Element("relationship")
                     attribute_is_recursive = qgu.is_recursive_property(attribute)
-                    if attribute_is_recursive:
-                        attribute_relationship_node.set("is_recursive", "true")
+                    attribute_relationship_node.set("is_recursive", "true" if attribute_is_recursive else "false")
                     attribute_relationship_targets_node = et.Element("targets")
                     attribute_relationship_targets = qgu.get_relationship_property_target_classes(attribute)
                     for attribute_relationship_target in attribute_relationship_targets:
                         attribute_relationship_target_node = et.Element("target")
                         attribute_relationship_target_node.text = "{0}.{1}".format(attribute_relationship_target.package.name, attribute_relationship_target.name)
                         attribute_relationship_targets_node.append(attribute_relationship_target_node)
-
                     attribute_relationship_node.append(attribute_relationship_targets_node)
                     attribute_node.append(attribute_relationship_node)
 
@@ -149,7 +154,6 @@ class RootGenerator(Generator):
 
             classes_node = ctx.node.xpath("//classes")[0]
             classes_node.append(class_node)
-
 
     def on_enum_parse(self, ctx):
         """Event handler for the enum parse event.
@@ -168,19 +172,17 @@ class RootGenerator(Generator):
             enumeration_choices_node = attribute_node.xpath("enumeration/choices")[0]
 
             for choice in enum_choices:
-                # TODO: DOUBLE-CHECK THAT THIS LIST IS ORDERED CORRECTLY
                 enumeration_choice_node = et.Element("choice")
                 choice_value = choice.name
-                choice_description = choice.doc_string
+                choice_description = qgu.clean_xml_text(choice.doc_string)
                 enumeration_choice_value_node = et.Element("value")
                 enumeration_choice_value_node.text = choice_value
+                enumeration_choice_node.append(enumeration_choice_value_node)
                 enumeration_choice_description_node = et.Element("description")
                 if choice_description:
                     enumeration_choice_description_node.text = choice_description
-                enumeration_choice_node.append(enumeration_choice_value_node)
-                enumeration_choice_node.append(enumeration_choice_description_node)
+                    enumeration_choice_node.append(enumeration_choice_description_node)
                 enumeration_choices_node.append(enumeration_choice_node)
-
 
     def on_start(self, ctx):
         """Event handler for the start parse event.
@@ -198,7 +200,6 @@ class RootGenerator(Generator):
 
         root_node.append(comment_node)
         ctx.set_node(root_node)
-
 
     def on_end(self, ctx):
         """Event handler for the end parse event.
