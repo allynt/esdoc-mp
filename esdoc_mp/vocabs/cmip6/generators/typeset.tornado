@@ -1,0 +1,55 @@
+{% autoescape None %}
+# -*- coding: utf-8 -*-
+
+"""
+.. module:: {{ r.id }}.py
+
+   :license: GPL / CeCILL
+   :platform: Unix, Windows
+   :synopsis: {{ r.description }}
+
+.. moduleauthor:: Earth System Documentation (ES-DOC) <dev@es-doc.org>
+.. note:: Code generated using the esdoc-mp framework.
+
+"""
+
+class {{ u.get_type_name(r.name) }}(object):
+    """Realm: {{ r.description }}
+
+    """
+{% for p in r.processes %}
+    class _{{ u.get_type_name(p.name) }}(object):
+        """Process: {{ p.description }}
+
+        """
+{% for sp in p.sub_processes %}
+        class _{{ u.get_type_name(sp.name) }}(object):
+            """Sub-process: {{ sp.description }}
+
+            """
+            def __init__(self):
+                """Sub-process: Instance constructor.
+
+                """
+                {% for d in sp.details %}self.{{ d.name }} = XXXX
+                {% end %}
+
+{% end %}
+        def __init__(self):
+            """Process: Instance constructor.
+
+            """
+            {% for sp in p.sub_processes %}self.{{ sp.name }} = _{{ u.get_type_name(sp.name) }}()
+            {% end %}
+
+{% end %}
+    def __init__(self):
+        """Realm: instance constructor.
+
+        """
+        self.name = '{{ r.name }}'
+        self.id = '{{ r.id }}'
+
+        {% for p in r.processes %}self.{{ p.name }} = _{{ u.get_type_name(p.name) }}()
+        {% end %}
+

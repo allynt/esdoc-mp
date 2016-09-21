@@ -1,14 +1,7 @@
-# set of files to ignore by git
-
-# IDE configuration files...
+esdoc_mp/TODO.txt
 .idea/
-
-# files being edited...
 *~
 *.swp
-
-# compiled files...
 *.pyc
-
-# in-progress schemas...
 src/esdoc_mp/schemas/cim/v2_bl
+tmp
