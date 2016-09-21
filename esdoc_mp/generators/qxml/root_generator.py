@@ -73,7 +73,15 @@ class RootGenerator(Generator):
             class_description_node.text = cls.doc_string
             class_attributes_node = et.Element("attributes")
 
-            all_attributes = reduce(list.__add__, qgu.recurse_through_base_classes(lambda c: list(c.properties), cls))
+            # TODO: IF ANY OF THE ATTRIBUTES OF THIS CLASS - OR ATTRIBUTES OF CLASSES POINTED AT BY ATTRIBUTES (AND SO ON, RECURSIVELY) -- ARE OF THE SAME TYPE AS THIS CLASS
+            # TODO: THEN IT IS "RECURSIVE" AND OUGHT TO BE HANDLED SPECIALLY
+
+            # foobar = qgu.recurse_through_child_properties(lambda c: cls in [p.type.cls for p in c.properties], cls)
+            # foobar = qgu.is_recursive_class(cls)
+            # print "{0} returned {1}".format(cls, foobar)
+
+
+            all_attributes = reduce(list.__add__, qgu.recurse_through_parent_classes(lambda c: list(c.properties), cls))
             non_meta_attributes = [a for a in all_attributes if not qgu.is_meta_property(a)]  # only generate non-meta properties
             for attribute in non_meta_attributes:
                 attribute_node = et.Element("attribute")
@@ -119,9 +127,17 @@ class RootGenerator(Generator):
 
                 elif attribute_type == qgu.QXML_RELATIONSHIP_TYPE:
                     attribute_relationship_node = et.Element("relationship")
-                    attribute_relationship_target_node = et.Element("target")
-                    attribute_relationship_target_node.text = qgu.get_relationship_property_target(attribute)
-                    attribute_relationship_node.append(attribute_relationship_target_node)
+                    attribute_is_recursive = qgu.is_recursive_property(attribute)
+                    if attribute_is_recursive:
+                        attribute_relationship_node.set("is_recursive", "true")
+                    attribute_relationship_targets_node = et.Element("targets")
+                    attribute_relationship_targets = qgu.get_relationship_property_target_classes(attribute)
+                    for attribute_relationship_target in attribute_relationship_targets:
+                        attribute_relationship_target_node = et.Element("target")
+                        attribute_relationship_target_node.text = "{0}.{1}".format(attribute_relationship_target.package.name, attribute_relationship_target.name)
+                        attribute_relationship_targets_node.append(attribute_relationship_target_node)
+
+                    attribute_relationship_node.append(attribute_relationship_targets_node)
                     attribute_node.append(attribute_relationship_node)
 
                 class_attributes_node.append(attribute_node)

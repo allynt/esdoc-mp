@@ -44,7 +44,7 @@ _DOC_META_TYPE_NAME = "shared.doc_meta_info"
 _DOC_META_CLASS_NAME = "shared.DocMetaInfo"
 
 
-def recurse_through_base_classes(fn, cls, **kwargs):
+def recurse_through_parent_classes(fn, cls, **kwargs):
     """
     Apply fn to all elements in hierarchy of base classes, starting w/ cls
     :param cls: class to start recursion from
@@ -55,8 +55,36 @@ def recurse_through_base_classes(fn, cls, **kwargs):
     base_cls = cls.base
     if base_cls is None:
         return ret
-    return recurse_through_base_classes(fn, base_cls, ret=ret)
+    return recurse_through_parent_classes(fn, base_cls, ret=ret)
 
+def is_recursive_property(prop, **kwargs):
+    """
+    determines if this property (or any of the child properties)
+    points to a class equal to it's parent class
+    if so, the Q needs to deal w/ it specially to avoid infinite recursion
+    :param prop: property to start at
+    :return: True or None
+    """
+
+    assert get_property_type(prop) == QXML_RELATIONSHIP_TYPE
+
+    parent_class = kwargs.pop("parent_class", prop.cls)
+    child_classes = kwargs.pop("child_classes", [])
+
+    property_target_classes = get_relationship_property_target_classes(prop)
+    child_classes += property_target_classes
+
+    if parent_class in child_classes:
+        return True
+
+    for property_target_class in property_target_classes:
+        for property_target_class_property in property_target_class.properties:
+            if get_property_type(property_target_class_property) == QXML_RELATIONSHIP_TYPE:
+                # TODO: THIS IS INEFFICIENT; REFACTOR!
+                property_target_class_property_target_classes = get_relationship_property_target_classes(property_target_class_property)
+                for property_target_class_property_target_class in property_target_class_property_target_classes:
+                    if property_target_class_property_target_class not in child_classes:
+                        return is_recursive_property(property_target_class_property, parent_class=parent_class, child_classes=child_classes)
 
 def is_standalone_class(cls):
     """
@@ -64,7 +92,7 @@ def is_standalone_class(cls):
     :param cls:
     :return: bool
     """
-    return any(recurse_through_base_classes(lambda c: c.is_entity, cls))
+    return any(recurse_through_parent_classes(lambda c: c.is_entity, cls))
 
 
 def is_meta_class(cls):
@@ -279,6 +307,39 @@ def get_relationship_property_target(property):
     property_type = property.type
     property_type_name = property_type.name_of_type
     return property_type_name
+
+
+def get_relationship_property_target_classes(property):
+    """
+    Returns a list of all classes that this property can point to
+    (It is a list instead of a single instance b/c of the possibility of pointing to classes which have children)
+    :param property:
+    :return:
+    """
+    property_type = property.type
+    property_target_class = property_type.cls
+    assert property_target_class is not None
+
+    property_target_classes = []
+    if not property_target_class.is_abstract:
+        property_target_classes.append(property_target_class)
+
+    concrete_classes = [cls for cls in property_type.ontology.classes if not cls.is_abstract]
+    property_target_classes += [
+        cls for cls in concrete_classes
+        if any(recurse_through_parent_classes(lambda c: c.base == property_target_class, cls))
+    ]
+
+    # if not property_target_class.is_abstract:
+    #     property_target_classes = [property_target_class]
+    # else:
+    #     concrete_classes = [cls for cls in property_type.ontology.classes if not cls.is_abstract]
+    #     property_target_classes = [
+    #         cls for cls in concrete_classes
+    #         if any(recurse_through_parent_classes(lambda c: c.base == property_target_class, cls))
+    #     ]
+
+    return property_target_classes
 
 
 def get_property_type(property):
