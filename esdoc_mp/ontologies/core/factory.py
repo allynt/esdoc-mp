@@ -22,6 +22,7 @@ from esdoc_mp.ontologies.core import EnumMember
 from esdoc_mp.ontologies.core import Ontology
 from esdoc_mp.ontologies.core import Package
 from esdoc_mp.ontologies.core import Property
+from esdoc_mp.ontologies.core import injected_types
 
 
 
@@ -65,12 +66,20 @@ def _get_package_definitions(modules):
 
     """
     def _get_definition(func):
-        """Returns a package definition."""
-        return {
+        """Returns a package definition.
+
+        """
+        defn = {
             'name': func.__name__,
             'doc': func.__doc__.strip(),
             'types': func()
         }
+
+        # Inject standard types.
+        if defn['name'] == 'shared':
+            defn['types'].add(injected_types)
+
+        return defn
 
     return [_get_definition(f) for f in _get_functions(modules)]
 
@@ -88,6 +97,8 @@ def _get_class_properties(class_):
             name, type_name, cardinality = prop
             doc_string = doc_strings.get(name, None)
         result.append(Property(name, type_name, cardinality, doc_string))
+    if class_.get('is_document', False):
+        result.append(Property('meta', 'shared.doc_meta_info', '1.1', "Injected document metadata."))
 
     return result
 
@@ -154,6 +165,7 @@ def _get_package_classes(schema, package, types):
             Class(cls['name'],
                   cls.get('base', None),
                   cls.get('is_abstract', False),
+                  cls.get('is_document', False),
                   cls.get('doc', None),
                   _get_class_properties(cls),
                   _get_class_computed_properties(cls),

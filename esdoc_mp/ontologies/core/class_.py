@@ -23,6 +23,7 @@ class Class(object):
                  name,
                  base,
                  is_abstract,
+                 is_document,
                  doc_string,
                  properties,
                  computed_properties,
@@ -35,6 +36,7 @@ class Class(object):
         :param str name: Class name.
         :param str base: Base class used in object hierarchies.
         :param bool is_abstract: Flag indicating whether this is an abstract class or not.
+        :param bool is_document: Flag indicating whether this is a document or not.
         :param str doc_string: Class documentation string.
         :param list properties: Set of associated properties.
         :param list computed_properties: Set of associated computed properties.
@@ -52,6 +54,7 @@ class Class(object):
         self.doc_string = doc_string if doc_string is not None else ''
         self.imports = []
         self.is_abstract = is_abstract
+        self.is_document = is_document
         self.name = name
         self.sub_class_hierachy = tuple()
         self.sub_classes = tuple()
@@ -78,13 +81,12 @@ class Class(object):
             return self.name
 
 
-
     @property
     def is_entity(self):
         """Gets a flag indicating whether this class is considered an entity.
 
         """
-        if 'meta' in [p.name for p in self.properties]:
+        if self.is_document == True:
             return True
         if self.base:
             return self.base.is_entity
