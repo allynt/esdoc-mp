@@ -18,6 +18,9 @@ from esdoc_mp.ontologies.schemas import utils
 # Whitelist of valid types.
 _TYPE_WHITELIST = {'class', 'enum'}
 
+# Whitelist of injected types.
+_INJECTED_TYPES_WHITELIST = {'shared.doc_reference',}
+
 
 def _validate_base_class_references(ctx):
     """Validates base class references.
@@ -41,6 +44,8 @@ def _validate_class_property_type_references(ctx):
     for module, factory, cls in ctx.classes:
         for name, typeof in ctx.get_class_property_types(cls):
             typeof, qualifier = utils.parse_type(typeof)
+            if typeof in _INJECTED_TYPES_WHITELIST:
+                continue
             if typeof not in valid_types:
                 err = 'Invalid class property: {0}.[{1}] --> '
                 err += 'type reference "{2}" is unrecognized'
