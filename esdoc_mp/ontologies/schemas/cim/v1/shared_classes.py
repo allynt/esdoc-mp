@@ -240,8 +240,8 @@ def platform():
         'name': 'platform',
         'base': None,
         'is_abstract': False,
+        'is_document': True,
         'properties': [
-            ('meta', 'shared.doc_meta_info', '1.1'),
             ('contacts', 'shared.responsible_party', '0.N'),
             ('description', 'str', '0.1'),
             ('long_name', 'str', '0.1'),
@@ -274,6 +274,20 @@ def property():
         'decodings': [
             ('name', 'child::cim:name'),
             ('value', 'child::cim:value'),
+        ]
+    }
+
+
+def relationship():
+    """A record of a relationship between one document and another. This class is abstract; specific document types must specialise this class for their relationshipTypes to be included in a document\'s genealogy.
+
+    """
+    return {
+        'type': 'class',
+        'base': None,
+        'is_abstract': True,
+        'properties': [
+            ('description', 'str', '0.1')
         ]
     }
 
