@@ -55,6 +55,7 @@ class Class(object):
         self.imports = []
         self.is_abstract = is_abstract
         self.is_document = is_document
+        self.is_document_meta = name.endswith("doc_meta_info")
         self.name = name
         self.sub_class_hierachy = tuple()
         self.sub_classes = tuple()
@@ -66,7 +67,6 @@ class Class(object):
         self.op_func_name = None
         self.op_import_name = None
         self.op_name = None
-
         self.properties = sorted(properties, key=lambda p: p.name)
         self.package = None
 

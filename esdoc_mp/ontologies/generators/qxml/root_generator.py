@@ -57,25 +57,23 @@ class RootGenerator(Generator):
         :param GeneratorContext ctx: Generation context information.
 
         """
-
-        cls = ctx.cls
-
-        if not cls.is_abstract and not qgu.is_meta_class(cls):  # only generate concrete non-meta classes
+        kls = ctx.cls
+        if not kls.is_abstract and not kls.is_document_meta:  # only generate concrete non-meta classes
 
             class_node = et.Element("class")
 
-            if qgu.is_standalone_class(cls):
+            if kls.is_entity:
                 class_node.set("stereotype", "document")
 
             class_node.set("package", ctx.pkg.name)
             class_name_node = et.Element("name")
-            class_name_node.text = cls.name
+            class_name_node.text = kls.name
             class_description_node = et.Element("description")
-            class_description_node.text = cls.doc_string
+            class_description_node.text = kls.doc_string
             class_attributes_node = et.Element("attributes")
 
-            all_attributes = reduce(list.__add__, qgu.recurse_through_base_classes(lambda c: list(c.properties), cls))
-            non_meta_attributes = [a for a in all_attributes if not qgu.is_meta_property(a)]  # only generate non-meta properties
+            all_attributes = kls.all_properties
+            non_meta_attributes = [a for a in all_attributes if not a.is_linked_document]  # only generate non-meta properties
             for attribute in non_meta_attributes:
                 attribute_node = et.Element("attribute")
                 attribute_node.set("package", attribute.package.name)
@@ -141,6 +139,7 @@ class RootGenerator(Generator):
         :param GeneratorContext ctx: Generation context information.
 
         """
+        return
 
         enum = ctx.enum
         enum_name = qgu.get_qualified_enum_name(enum)

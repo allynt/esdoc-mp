@@ -20,7 +20,7 @@ from esdoc_mp.ontologies.generators.generator_context import GeneratorContext
 
 
 # Map of generator handlers.
-_HANDLERS = { h.__name__.split('.')[-1]: h for h in (python, qxml) }
+_HANDLERS = { i.__name__.split('.')[-1]: i for i in (python, qxml) }
 
 
 def _log_start(schema, language, io_dir):

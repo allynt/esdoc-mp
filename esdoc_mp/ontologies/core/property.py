@@ -33,8 +33,9 @@ class Property(object):
         self.decodings = []
         self.doc_string = doc_string if doc_string is not None else u""
         self.cardinality = cardinality
-        self.is_required = cardinality.split('.')[0] != '0'
         self.is_collection = cardinality.split('.')[1] == 'N'
+        self.is_linked_document = (name == 'meta')
+        self.is_required = cardinality.split('.')[0] != '0'
         self.max_occurs = cardinality.split('.')[1]
         self.min_occurs = cardinality.split('.')[0]
         self.name = name

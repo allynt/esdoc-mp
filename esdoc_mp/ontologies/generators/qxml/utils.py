@@ -3,9 +3,10 @@
 """Encapsualtes a set of qxml specific name conversion operations.
 
 """
+import os
 
 from esdoc_mp.ontologies.generators.generator_utils import *
-import os
+
 
 
 # Language name constant.
@@ -30,61 +31,9 @@ _SIMPLE_TYPE_MAPPINGS = {
     'uuid' : 'STRING',
 }
 
-# Standard null value.
-_NULL_VALUE = 'None'
-
-# Iterable null value.
-_NULL_VALUE_ITERABLE = '[]'
-
 QXML_ATOMIC_TYPE = "ATOMIC"
 QXML_ENUMERATION_TYPE = "ENUMERATION"
 QXML_RELATIONSHIP_TYPE = "RELATIONSHIP"
-
-_DOC_META_TYPE_NAME = "shared.doc_meta_info"
-_DOC_META_CLASS_NAME = "shared.DocMetaInfo"
-
-
-def recurse_through_base_classes(fn, cls, **kwargs):
-    """
-    Apply fn to all elements in hierarchy of base classes, starting w/ cls
-    :param cls: class to start recursion from
-    :return: list of fn values for all base classes
-    """
-    ret = kwargs.pop("ret", [])
-    ret.insert(0, fn(cls))
-    base_cls = cls.base
-    if base_cls is None:
-        return ret
-    return recurse_through_base_classes(fn, base_cls, ret=ret)
-
-
-def is_standalone_class(cls):
-    """
-    Determines if this cls is standalone
-    :param cls:
-    :return: bool
-    """
-    return any(recurse_through_base_classes(lambda c: c.is_entity, cls))
-
-
-def is_meta_class(cls):
-    """
-    Determines if this is the "meta" class;
-    Does it just contain properties associated w/ standalone documents?
-    :param cls:
-    :return: bool
-    """
-    return cls.op_full_name == _DOC_META_CLASS_NAME
-
-
-def is_meta_property(property):
-    """
-    Determines if this is a property belonging to the "meta" class;
-    QXML doesn't include these properties (b/c the Questionnaire adds them explicitly during publication)
-    :param property:
-    :return: bool
-    """
-    return property.type.name == _DOC_META_TYPE_NAME
 
 
 def _strip(name):
