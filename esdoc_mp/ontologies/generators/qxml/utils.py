@@ -116,7 +116,6 @@ def is_meta_property(property):
     """
     return property.type.name == _DOC_META_TYPE_NAME
 
-
 def clean_xml_text(text):
     """
     escapes any non-xml-compatible text prior to adding it to an lxml element node

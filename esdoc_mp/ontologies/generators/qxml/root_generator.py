@@ -61,7 +61,13 @@ class RootGenerator(Generator):
 
         cls = ctx.cls
 
-        if not cls.is_abstract and not qgu.is_meta_class(cls):  # only generate concrete non-meta classes
+
+        if cls.is_entity:
+            import ipdb;
+            ipdb.set_trace()
+            pass
+
+        if not cls.is_abstract:  # and not qgu.is_meta_class(cls):  # only generate concrete non-meta classes
 
             class_node = et.Element("class")
 
@@ -80,6 +86,10 @@ class RootGenerator(Generator):
             class_attributes_node = et.Element("attributes")
             all_attributes = reduce(list.__add__, qgu.recurse_through_parent_classes(lambda c: list(c.properties), cls))
             non_meta_attributes = [a for a in all_attributes if not qgu.is_meta_property(a)]  # only generate non-meta properties
+            meta_attributes = [a for a in all_attributes if qgu.is_meta_property(a)]
+            # if len(meta_attributes):
+            #     import ipdb; ipdb.set_trace()
+            #     pass
             for attribute in non_meta_attributes:
                 attribute_node = et.Element("attribute")
 
@@ -150,6 +160,21 @@ class RootGenerator(Generator):
 
             class_node.append(class_name_node)
             class_node.append(class_description_node)
+
+            label = cls.pstr
+            if label:
+                label_node = et.Element("label")
+                label_text_node = et.Element("text")
+                label_text_node.text = label.text
+                label_fields_node = et.Element("fields")
+                for label_field in label.fields:
+                    label_field_node = et.Element("field")
+                    label_field_node.text = label_field
+                    label_fields_node.append(label_field_node)
+                label_node.append(label_text_node)
+                label_node.append(label_fields_node)
+                class_node.append(label_node)
+
             class_node.append(class_attributes_node)
 
             classes_node = ctx.node.xpath("//classes")[0]
