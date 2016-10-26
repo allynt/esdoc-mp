@@ -19,18 +19,19 @@ class Class(object):
     """Represents an ontological class definition.
 
     """
-    def __init__(self,
-                 name,
-                 base,
-                 is_abstract,
-                 is_document,
-                 doc_string,
-                 properties,
-                 computed_properties,
-                 constraints,
-                 decodings,
-                 pstr = None
-                 ):
+    def __init__(
+        self,
+        name,
+        base,
+        is_abstract,
+        is_document,
+        doc_string,
+        properties,
+        computed_properties,
+        constraints,
+        decodings,
+        pstr = None
+        ):
         """Instance constructor.
 
         :param str name: Class name.

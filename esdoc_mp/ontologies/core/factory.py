@@ -22,7 +22,6 @@ from esdoc_mp.ontologies.core import EnumMember
 from esdoc_mp.ontologies.core import Ontology
 from esdoc_mp.ontologies.core import Package
 from esdoc_mp.ontologies.core import Property
-from esdoc_mp.ontologies.core import injected_types
 
 
 
@@ -61,8 +60,8 @@ def _get_type_definitions(modules):
     return [_get_definition(i) for i in _get_functions(modules)]
 
 
-def _get_package_definitions(modules):
-    """Returns set of package definitions instantiated from a set of modules.
+def _get_package_definitions(schema):
+    """Returns set of package definitions.
 
     """
     def _get_definition(func):
@@ -75,13 +74,9 @@ def _get_package_definitions(modules):
             'types': func()
         }
 
-        # Inject standard types.
-        if defn['name'] == 'shared':
-            defn['types'].add(injected_types)
-
         return defn
 
-    return [_get_definition(f) for f in _get_functions(modules)]
+    return [_get_definition(f) for f in _get_functions(schema)]
 
 
 def _get_class_properties(class_):
