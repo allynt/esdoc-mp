@@ -38,7 +38,7 @@ def {{ c.name }}():
             '{{ p.name }}',{% end %}
             ],
         'properties-inherited': [{% for p in sorted(c.inherited_properties, key=lambda i: i.name) %}
-            '{{ p.name }} :: {% if p not in c.properties %}{{ p.cls }}{% else %}self{% end %}',{% end %}
+            '{{ p.name }} :: {{ p.cls }}',{% end %}
             ]{% end %}
     }
 {% end %}
