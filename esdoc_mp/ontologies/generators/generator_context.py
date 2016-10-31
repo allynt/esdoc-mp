@@ -111,4 +111,5 @@ class GeneratorContext(object):
             cls=self.cls,
             enum=self.enum,
             escape=lambda s: s.strip().replace('"', "'"),
-            lu=lu)
+            lu=lu
+            )

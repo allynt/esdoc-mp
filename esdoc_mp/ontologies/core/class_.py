@@ -162,6 +162,16 @@ class Class(object):
 
 
     @property
+    def inherited_properties(self):
+        """Gets properties inherited from base classes.
+
+        """
+        if self.base:
+            return self.base.all_properties
+        return []
+
+
+    @property
     def all_computed_properties(self):
         """Gets all associated computed properties including those of base class (sorted by name).
 

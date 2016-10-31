@@ -1,5 +1,6 @@
 from esdoc_mp.ontologies.generators.python import utils
 from esdoc_mp.ontologies.generators.python.decoder_generator import DecoderGenerator
+from esdoc_mp.ontologies.generators.python.package_extended_schema_generator import PackageExtendedSchemaGenerator
 from esdoc_mp.ontologies.generators.python.package_typeset_generator import PackageTypeSetGenerator
 
 
@@ -12,6 +13,7 @@ GENERATORS = {
     '__init__.tornado',
     'type_info.tornado',
     'typeset.tornado',
+    PackageExtendedSchemaGenerator,
     PackageTypeSetGenerator,
     DecoderGenerator
 }
