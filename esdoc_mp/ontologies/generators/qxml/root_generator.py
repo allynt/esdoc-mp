@@ -50,7 +50,6 @@ class RootGenerator(Generator):
     # def on_package_parse(self, ctx):
     #     pass
 
-
     def on_class_parse(self, ctx):
         """Event handler for the class parse event.
 
@@ -58,9 +57,13 @@ class RootGenerator(Generator):
 
         """
         kls = ctx.cls
-        if not kls.is_abstract and not kls.is_document_meta:  # only generate concrete non-meta classes
+
+        if not kls.is_abstract:  # and not kls.is_document_meta:
 
             class_node = et.Element("class")
+
+            is_meta_class = kls.is_document_meta
+            class_node.set("is_meta", "true" if is_meta_class else "false")
 
             if kls.is_entity:
                 class_node.set("stereotype", "document")
@@ -68,19 +71,38 @@ class RootGenerator(Generator):
             class_node.set("package", ctx.pkg.name)
             class_name_node = et.Element("name")
             class_name_node.text = kls.name
+            class_node.append(class_name_node)
             class_description_node = et.Element("description")
-            class_description_node.text = kls.doc_string
-            class_attributes_node = et.Element("attributes")
+            class_description_node.text = qgu.clean_xml_text(kls.doc_string)
+            class_node.append(class_description_node)
 
+            class_label = kls.pstr
+            if class_label is not None:
+                class_label_node = et.Element("label")
+                class_label_text_node = et.Element("text")
+                class_label_text_node.text = class_label.text
+                class_label_node.append(class_label_text_node)
+                class_label_fields_node = et.Element("fields")
+                for class_label_field in class_label.fields:
+                    class_label_field_node = et.Element("field")
+                    class_label_field_node.text = class_label_field
+                    class_label_fields_node.append(class_label_field_node)
+                class_label_node.append(class_label_fields_node)
+                class_node.append(class_label_node)
+
+            class_attributes_node = et.Element("attributes")
             all_attributes = kls.all_properties
-            non_meta_attributes = [a for a in all_attributes if not a.is_linked_document]  # only generate non-meta properties
-            for attribute in non_meta_attributes:
+            # non_meta_attributes = [a for a in all_attributes if not a.is_linked_document]
+            for attribute in all_attributes:
                 attribute_node = et.Element("attribute")
+                is_meta_property = attribute.is_linked_document
+                attribute_node.set("is_meta", "true" if is_meta_property else "false")
                 attribute_node.set("package", attribute.package.name)
+                attribute_node.set("is_nillable", "true" if attribute.min_occurs == '0' else "false")
                 attribute_name_node = et.Element("name")
                 attribute_name_node.text = attribute.name
                 attribute_description_node = et.Element("description")
-                attribute_description_node.text = attribute.doc_string
+                attribute_description_node.text = qgu.clean_xml_text(attribute.doc_string)
                 attribute_cardinality_node = et.Element("cardinality")
                 attribute_cardinality_node.set("min", attribute.min_occurs)
                 attribute_cardinality_node.set("max", attribute.max_occurs)
@@ -104,34 +126,34 @@ class RootGenerator(Generator):
                 elif attribute_type == qgu.QXML_ENUMERATION_TYPE:
                     attribute_enumeration_node = et.Element("enumeration")
                     attribute_enumeration_node.set("enumeration_name", attribute.type.name)
-                    # TODO: WORK OUT HOW "is_open" & "is_nillable" ARE SET...
+                    # TODO: WORK OUT HOW "is_open" IS SET...
                     attribute_is_open = False
-                    attribute_is_multi = attribute.cardinality.split('.')[1] != '0'
-                    attribute_is_nillable = False
+                    attribute_is_multi = attribute.max_occurs != '0'
                     attribute_enumeration_node.set("is_open", "true" if attribute_is_open else "false")
                     attribute_enumeration_node.set("is_multi", "true" if attribute_is_multi else "false")
-                    attribute_enumeration_node.set("is_nillable", "true" if attribute_is_nillable else "false")
                     attribute_choices_node = et.Element("choices")
                     # attribute_node is completed (ie: the choices are added) in the 'on_enum_parse' fn below...
+                    # (that is why I record the fully-qualified "enumeration_name" XML attribute above)
                     attribute_enumeration_node.append(attribute_choices_node)
                     attribute_node.append(attribute_enumeration_node)
 
                 elif attribute_type == qgu.QXML_RELATIONSHIP_TYPE:
                     attribute_relationship_node = et.Element("relationship")
-                    attribute_relationship_target_node = et.Element("target")
-                    attribute_relationship_target_node.text = qgu.get_relationship_property_target(attribute)
-                    attribute_relationship_node.append(attribute_relationship_target_node)
+                    attribute_relationship_targets_node = et.Element("targets")
+                    attribute_relationship_targets = qgu.get_relationship_property_target_classes(attribute)
+                    for attribute_relationship_target in attribute_relationship_targets:
+                        attribute_relationship_target_node = et.Element("target")
+                        attribute_relationship_target_node.text = "{0}.{1}".format(attribute_relationship_target.package, attribute_relationship_target.name)
+                        attribute_relationship_targets_node.append(attribute_relationship_target_node)
+                    attribute_relationship_node.append(attribute_relationship_targets_node)
                     attribute_node.append(attribute_relationship_node)
 
                 class_attributes_node.append(attribute_node)
 
-            class_node.append(class_name_node)
-            class_node.append(class_description_node)
             class_node.append(class_attributes_node)
 
             classes_node = ctx.node.xpath("//classes")[0]
             classes_node.append(class_node)
-
 
     def on_enum_parse(self, ctx):
         """Event handler for the enum parse event.
@@ -151,10 +173,9 @@ class RootGenerator(Generator):
             enumeration_choices_node = attribute_node.xpath("enumeration/choices")[0]
 
             for choice in enum_choices:
-                # TODO: DOUBLE-CHECK THAT THIS LIST IS ORDERED CORRECTLY
                 enumeration_choice_node = et.Element("choice")
                 choice_value = choice.name
-                choice_description = choice.doc_string
+                choice_description = qgu.clean_xml_text(choice.doc_string)
                 enumeration_choice_value_node = et.Element("value")
                 enumeration_choice_value_node.text = choice_value
                 enumeration_choice_description_node = et.Element("description")
@@ -163,7 +184,6 @@ class RootGenerator(Generator):
                 enumeration_choice_node.append(enumeration_choice_value_node)
                 enumeration_choice_node.append(enumeration_choice_description_node)
                 enumeration_choices_node.append(enumeration_choice_node)
-
 
     def on_start(self, ctx):
         """Event handler for the start parse event.
@@ -181,7 +201,6 @@ class RootGenerator(Generator):
 
         root_node.append(comment_node)
         ctx.set_node(root_node)
-
 
     def on_end(self, ctx):
         """Event handler for the end parse event.

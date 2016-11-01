@@ -230,6 +230,30 @@ def get_relationship_property_target(property):
     return property_type_name
 
 
+def get_relationship_property_target_classes(property):
+    """
+    Returns a list of all classes this property can point to
+    (It is a list instead of a single instance b/c of the possibility of pointing to classes which have children)
+    :param property:
+    :return:
+    """
+    property_type = property.type
+    property_target_class = property_type.cls
+    assert property_target_class is not None
+
+    property_target_classes = []
+    if not property_target_class.is_abstract:
+        property_target_classes.append(property_target_class)
+
+    concrete_classes = [cls for cls in property_type.ontology.classes if not cls.is_abstract]
+    property_target_classes += [
+        cls for cls in concrete_classes
+        if property_target_class in cls.bases
+    ]
+
+    return property_target_classes
+
+
 def get_property_type(property):
     """
     Returns the corresponding QXML property type
@@ -243,6 +267,16 @@ def get_property_type(property):
         return QXML_ENUMERATION_TYPE
     else:
         return QXML_ATOMIC_TYPE
+
+
+def clean_xml_text(text):
+    """
+    escapes any non-xml-compatible text prior to adding it to an lxml element node
+    (as per: http://stackoverflow.com/a/4181222)
+    :param text: input text to clean
+    :return: cleaned text to return
+    """
+    return text.decode('utf-8')
 
 
 def format(o):
